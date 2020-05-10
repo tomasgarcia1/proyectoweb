@@ -8,11 +8,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class ControladorHome {
+	
 	// Escucha la URL /home por GET, y redirige a una vista.
 	@RequestMapping(path = "/home", method = RequestMethod.GET)
 	public ModelAndView irAHome() {
 		ModelMap modelo = new ModelMap();
-		return new ModelAndView ("home", modelo);
+		return new ModelAndView("home", modelo);
 	}
 }
-
