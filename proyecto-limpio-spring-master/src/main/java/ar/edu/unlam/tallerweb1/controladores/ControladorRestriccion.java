@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class ControladorLimitantes {
+public class ControladorRestriccion {
 	@RequestMapping("/limitantes")
 	public ModelAndView irRegistro() {
 		ModelMap model = new ModelMap();
