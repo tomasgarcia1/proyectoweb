@@ -7,10 +7,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class ControladorRestriccion {
-	@RequestMapping("/limitantes")
+	@RequestMapping("/restricciones")
 	public ModelAndView irRegistro() {
 		ModelMap model = new ModelMap();
-		return new ModelAndView("limitantes", model);
+		return new ModelAndView("restricciones", model);
 	}
 }
 
