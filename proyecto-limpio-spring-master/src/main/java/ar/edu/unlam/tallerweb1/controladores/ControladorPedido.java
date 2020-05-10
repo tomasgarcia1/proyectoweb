@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class ControladorLimitantes {
-	@RequestMapping("/limitantes")
-	public ModelAndView irRegistro() {
+public class ControladorPedido {
+	
+	@RequestMapping("/crearPedido")
+	public ModelAndView crearPedido() {
 		ModelMap model = new ModelMap();
-		return new ModelAndView("limitantes", model);
+		return new ModelAndView("crearpedido", model);
 	}
 }
-
