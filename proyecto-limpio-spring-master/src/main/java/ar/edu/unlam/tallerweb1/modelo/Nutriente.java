@@ -26,4 +26,3 @@ public class Nutriente {
 		this.nombre = nombre;
 	}
 }
-
