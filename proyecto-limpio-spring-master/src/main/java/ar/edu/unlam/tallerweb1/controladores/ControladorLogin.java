@@ -82,12 +82,15 @@ public class ControladorLogin {
 	{
 		ModelMap modeloRegistro=new ModelMap();
 		Usuario nuevoUsuario=new Usuario();
-		
-		nuevoUsuario.setEmail(email);
-		nuevoUsuario.setPassword(password);
-		nuevoUsuario.setRol(rol);
-		Long idGenerado=servicioUsuario.registrarUsuario(nuevoUsuario);
-		modeloRegistro.put("user", nuevoUsuario);
-		return new ModelAndView("registroCorrecto", modeloRegistro);
+		if(!servicioUsuario.validarExistenciaEmail(email)) {
+			nuevoUsuario.setEmail(email);
+			nuevoUsuario.setPassword(password);
+			nuevoUsuario.setRol(rol);
+			Long idGenerado=servicioUsuario.registrarUsuario(nuevoUsuario);
+			modeloRegistro.put("user", nuevoUsuario);
+			return new ModelAndView("registroCorrecto", modeloRegistro);
+		}
+		modeloRegistro.put("email", email);
+		return new ModelAndView("errorRegistro",modeloRegistro);
 	}
 }

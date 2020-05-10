@@ -17,4 +17,8 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 	public Long registrarUsuario(Usuario usuario) {
 		return usuarioDao.registrarUsuario(usuario);
 	}
+	@Override
+	public Boolean validarExistenciaEmail(String email) {
+		return usuarioDao.validarExistenciaEmail(email);
+	}
 }

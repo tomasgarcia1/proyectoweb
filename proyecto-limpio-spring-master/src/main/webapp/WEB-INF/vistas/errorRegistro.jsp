@@ -8,6 +8,6 @@
 </head>
 <body>
 <h1>No se ha registrado el usuario</h1> <br>
-<h3>El e-mail ${usuarioRegistrado.email} ya ha sido usado anteriormente.</h3>
+<h3>El e-mail ${email} ya ha sido usado anteriormente.</h3>
 </body>
 </html>
