@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ControladorMenuSugerido {
 
-	@RequestMapping(path = "/menuSugerido", method = RequestMethod.GET)
+	@RequestMapping("/menuSugerido")
 	public ModelAndView irAMenuSugerido() {
 		ModelMap modelo = new ModelMap();
 		return new ModelAndView("menuSugerido", modelo);
