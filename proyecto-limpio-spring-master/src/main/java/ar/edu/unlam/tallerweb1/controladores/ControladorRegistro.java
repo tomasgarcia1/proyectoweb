@@ -38,7 +38,7 @@ public class ControladorRegistro {
 		Usuario nuevoUsuario = new Usuario();
 		if ((!servicioUsuario.validarExistenciaEmail(email)) && servicioUsuario.validarFormatoEmail(email)) {
 			nuevoUsuario.setEmail(email);
-			nuevoUsuario.setPassword(password);
+			nuevoUsuario.setPassword(servicioUsuario.encriptarPassword(password));
 			nuevoUsuario.setRol(rol);
 			Long idGenerado = servicioUsuario.registrarUsuario(nuevoUsuario);
 			modeloRegistro.put("user", nuevoUsuario);
