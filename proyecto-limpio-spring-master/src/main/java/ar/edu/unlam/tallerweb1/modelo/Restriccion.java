@@ -25,6 +25,4 @@ public class Restriccion {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
 }
-
