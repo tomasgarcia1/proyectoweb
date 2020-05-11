@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import java.util.regex.Pattern;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -20,5 +22,11 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 	@Override
 	public Boolean validarExistenciaEmail(String email) {
 		return usuarioDao.validarExistenciaEmail(email);
+	}
+	@Override
+	public Boolean validarFormatoEmail(String email) {
+		String regex="[^@]+@[^@]+\\.[a-zA-Z]{2,}";
+		
+		return Pattern.matches(regex, email);
 	}
 }
