@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
+import java.sql.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,7 +21,11 @@ public class Usuario {
 	// el atributo, la misma admite nulos, y el tipo de dato se deduce del tipo de dato de java.
 	private String email;
 	private String password;
-	private String rol;
+	private Date fechaDeNacimiento;
+	//no se si lo de date esta bien
+	private Integer altura;
+	private Double peso;
+	private Actividad actividad;
 	
 	public Long getId() {
 		return id;
@@ -40,11 +46,28 @@ public class Usuario {
 		this.password = password;
 	}
 
-	public String getRol() {
-		return rol;
+	public Integer getAltura() {
+		return altura;
 	}
-
-	public void setRol(String rol) {
-		this.rol = rol;
+	public void setAltura(Integer altura) {
+		this.altura = altura;
+	}
+	public Actividad getActividad() {
+		return actividad;
+	}
+	public void setActividad(Actividad actividad) {
+		this.actividad = actividad;
+	}
+	public Date getFechaDeNacimiento() {
+		return fechaDeNacimiento;
+	}
+	public void setFechaDeNacimiento(Date fechaDeNacimiento) {
+		this.fechaDeNacimiento = fechaDeNacimiento;
+	}
+	public Double getPeso() {
+		return peso;
+	}
+	public void setPeso(Double peso) {
+		this.peso = peso;
 	}
 }
