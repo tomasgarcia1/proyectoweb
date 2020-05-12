@@ -21,10 +21,10 @@ public class Usuario {
 	// el atributo, la misma admite nulos, y el tipo de dato se deduce del tipo de dato de java.
 	private String email;
 	private String password;
-	private String rol;
 	private Date fechaDeNacimiento;
 	//no se si lo de date esta bien
 	private Integer altura;
+	private Double peso;
 	private Actividad actividad;
 	
 	public Long getId() {
@@ -46,13 +46,6 @@ public class Usuario {
 		this.password = password;
 	}
 
-	public String getRol() {
-		return rol;
-	}
-
-	public void setRol(String rol) {
-		this.rol = rol;
-	}
 	public Integer getAltura() {
 		return altura;
 	}
@@ -70,5 +63,11 @@ public class Usuario {
 	}
 	public void setFechaDeNacimiento(Date fechaDeNacimiento) {
 		this.fechaDeNacimiento = fechaDeNacimiento;
+	}
+	public Double getPeso() {
+		return peso;
+	}
+	public void setPeso(Double peso) {
+		this.peso = peso;
 	}
 }

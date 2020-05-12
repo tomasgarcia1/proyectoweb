@@ -6,14 +6,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Pedido {
-
+public class Tipo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	//private Datetime fecha;
-	private Estado estado;
-	private Integer usuarioId;
+	private String nombre;
 	
 	public Long getId() {
 		return id;
@@ -21,16 +18,10 @@ public class Pedido {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Estado getEstado() {
-		return estado;
+	public String getNombre() {
+		return nombre;
 	}
-	public void setEstado(Estado estado) {
-		this.estado = estado;
-	}
-	public Integer getUsuarioId() {
-		return usuarioId;
-	}
-	public void setUsuarioId(Integer usuarioId) {
-		this.usuarioId = usuarioId;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 }
