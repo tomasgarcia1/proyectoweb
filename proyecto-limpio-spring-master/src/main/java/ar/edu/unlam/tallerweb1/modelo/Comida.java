@@ -12,6 +12,7 @@ public class Comida {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nombre, descripcion;
+	private Double calorias;
 	private TipoComida tipo;
 	
 	
@@ -38,6 +39,12 @@ public class Comida {
 	}
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+	public Double getCalorias() {
+		return calorias;
+	}
+	public void setCalorias(Double calorias) {
+		this.calorias = calorias;
 	}
 	
 	
