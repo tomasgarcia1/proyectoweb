@@ -39,7 +39,7 @@ public class ControladorRegistro {
 		if ((!servicioUsuario.validarExistenciaEmail(email)) && servicioUsuario.validarFormatoEmail(email)) {
 			nuevoUsuario.setEmail(email);
 			nuevoUsuario.setPassword(servicioUsuario.encriptarPassword(password));
-			nuevoUsuario.setRol(rol);
+			//nuevoUsuario.setRol(rol);
 			Long idGenerado = servicioUsuario.registrarUsuario(nuevoUsuario);
 			modeloRegistro.put("user", nuevoUsuario);
 			return new ModelAndView("registroCorrecto", modeloRegistro);
