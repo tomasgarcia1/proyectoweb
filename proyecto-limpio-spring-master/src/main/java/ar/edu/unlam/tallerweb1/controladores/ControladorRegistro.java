@@ -38,6 +38,9 @@ public class ControladorRegistro {
 		Usuario nuevoUsuario = new Usuario();
 		if ((!servicioUsuario.validarExistenciaEmail(email)) && servicioUsuario.validarFormatoEmail(email)) {
 			nuevoUsuario.setEmail(email);
+			/* se llama al metodo encriptarPassword para guardar en la BD la clave ya encriptada,
+			 * esto es para no tener almacenada la clave original.
+			 */
 			nuevoUsuario.setPassword(servicioUsuario.encriptarPassword(password));
 			nuevoUsuario.setRol(rol);
 			Long idGenerado = servicioUsuario.registrarUsuario(nuevoUsuario);

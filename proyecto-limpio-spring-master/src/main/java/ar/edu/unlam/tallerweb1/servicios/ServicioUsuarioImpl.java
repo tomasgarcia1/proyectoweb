@@ -29,6 +29,10 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 		
 		return Pattern.matches(regex, email);
 	}
+	/*
+	 * Se recibe la password por parametro y se la convierte en una cadena de caracteres
+	 * generada bajo el algoritmo SHA-256, el cual genera un hash de 64 dígitos hexadecimales.
+	 */
 	@Override
 	public String encriptarPassword(String password) {
 		return org.apache.commons.codec.digest.DigestUtils.sha256Hex(password);
