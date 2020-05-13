@@ -42,7 +42,7 @@ public class ControladorRegistro {
 			 * esto es para no tener almacenada la clave original.
 			 */
 			nuevoUsuario.setPassword(servicioUsuario.encriptarPassword(password));
-			nuevoUsuario.setRol(rol);
+			//nuevoUsuario.setRol(rol);
 			Long idGenerado = servicioUsuario.registrarUsuario(nuevoUsuario);
 			modeloRegistro.put("user", nuevoUsuario);
 			return new ModelAndView("registroCorrecto", modeloRegistro);
