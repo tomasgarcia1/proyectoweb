@@ -2,7 +2,6 @@ package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
-import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
@@ -25,9 +23,7 @@ public class ControladorLogin {
 	// dicha clase debe estar anotada como @Service o @Repository y debe estar en un paquete de los indicados en
 	// applicationContext.xml
 	private ServicioLogin servicioLogin;
-	@Inject
-	private ServicioUsuario servicioUsuario;
-
+	
 	@Autowired
 	public ControladorLogin(ServicioLogin servicioLogin){
 		this.servicioLogin = servicioLogin;
@@ -58,7 +54,7 @@ public class ControladorLogin {
 		// hace una llamada a otro action a través de la URL correspondiente a ésta
 		Usuario usuarioBuscado = servicioLogin.consultarUsuario(usuario);
 		if (usuarioBuscado != null) {
-			request.getSession().setAttribute("ROL", usuarioBuscado.getRol());
+			//request.getSession().setAttribute("ROL", usuarioBuscado.getRol());
 			return new ModelAndView("redirect:/home");
 		} else {
 			// si el usuario no existe agrega un mensaje de error en el modelo.
@@ -70,27 +66,6 @@ public class ControladorLogin {
 	// Escucha la url /, y redirige a la URL /login, es lo mismo que si se invoca la url /login directamente.
 	@RequestMapping(path = "/", method = RequestMethod.GET)
 	public ModelAndView inicio() {
-		return new ModelAndView("redirect:/login");
-	}
-	
-	/* Controlador para registro de usuario, se reciben por parametro e-mail, password y rol (momentaneamente).
-	 * 
-	 * Se crearon interfaces y clases de registro y guardado de usuarios en servicios y repositorios.
-	 */
-	@RequestMapping(path = "/registrar", method = RequestMethod.GET)
-	public ModelAndView registrarUsuario(@RequestParam(value="email", required=true) String email, @RequestParam(value="password", required=true) String password, @RequestParam(value="rol") String rol)
-	{
-		ModelMap modeloRegistro=new ModelMap();
-		Usuario nuevoUsuario=new Usuario();
-		if(!servicioUsuario.validarExistenciaEmail(email)) {
-			nuevoUsuario.setEmail(email);
-			nuevoUsuario.setPassword(password);
-			nuevoUsuario.setRol(rol);
-			Long idGenerado=servicioUsuario.registrarUsuario(nuevoUsuario);
-			modeloRegistro.put("user", nuevoUsuario);
-			return new ModelAndView("registroCorrecto", modeloRegistro);
-		}
-		modeloRegistro.put("email", email);
-		return new ModelAndView("errorRegistro",modeloRegistro);
+		return new ModelAndView("redirect:/home");
 	}
 }

@@ -1,7 +1,5 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,8 +11,9 @@ public class Pedido {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private Date fecha;
+	//private Datetime fecha;
 	private Estado estado;
+	private Integer usuarioId;
 	
 	public Long getId() {
 		return id;
@@ -28,10 +27,10 @@ public class Pedido {
 	public void setEstado(Estado estado) {
 		this.estado = estado;
 	}
-	public Date getFecha() {
-		return fecha;
+	public Integer getUsuarioId() {
+		return usuarioId;
 	}
-	public void setFecha(Date fecha) {
-		this.fecha = fecha;
+	public void setUsuarioId(Integer usuarioId) {
+		this.usuarioId = usuarioId;
 	}
 }

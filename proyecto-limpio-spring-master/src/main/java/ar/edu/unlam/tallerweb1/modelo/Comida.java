@@ -12,16 +12,8 @@ public class Comida {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nombre, descripcion;
-	private Double calorias;
-	private TipoComida tipo;
+	private Double calorias;	
 	
-	
-	public TipoComida getTipo() {
-		return tipo;
-	}
-	public void setTipo(TipoComida tipo) {
-		this.tipo = tipo;
-	}
 	public Long getId() {
 		return id;
 	}
