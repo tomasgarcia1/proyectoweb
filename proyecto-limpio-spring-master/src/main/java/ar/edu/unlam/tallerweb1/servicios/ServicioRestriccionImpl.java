@@ -11,18 +11,18 @@ import ar.edu.unlam.tallerweb1.repositorios.RestriccionDao;
 @Service
 @Transactional
 public class ServicioRestriccionImpl implements ServicioRestriccion {
-	
+
 	@Inject
 	private RestriccionDao restriccionDao;
-	
+
 	@Override
 	public Long crearRestriccion(Restriccion restriccion) {
-		 
+
 		return restriccionDao.crearRestriccion(restriccion);
 	}
 
 	@Override
-	public Restriccion obtenerRestriccionPorId(Long id) {		
+	public Restriccion obtenerRestriccionPorId(Long id) {
 		return restriccionDao.obtenerRestriccionPorId(id);
 	}
 
@@ -31,8 +31,4 @@ public class ServicioRestriccionImpl implements ServicioRestriccion {
 		restriccionDao.borrarRestriccion(restriccion);
 	}
 
-
 }
-
-}
-
