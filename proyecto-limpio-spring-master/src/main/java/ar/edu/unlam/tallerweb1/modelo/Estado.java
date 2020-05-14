@@ -5,5 +5,3 @@ public enum Estado {
 	ACEPTADO, PROCESO, ENVIO, CANCELADO;
 
 }
-
-}
