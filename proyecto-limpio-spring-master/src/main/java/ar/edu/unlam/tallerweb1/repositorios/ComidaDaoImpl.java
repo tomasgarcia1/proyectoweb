@@ -13,22 +13,20 @@ import ar.edu.unlam.tallerweb1.modelo.Comida;
 public class ComidaDaoImpl implements ComidaDao {
 	@Inject
 	private SessionFactory sesion;
+
 	@Override
 	public Long crearComida(Comida comida) {
-		Long idGenerado=(Long) sesion.getCurrentSession().save(comida);
+		Long idGenerado = (Long) sesion.getCurrentSession().save(comida);
 		return idGenerado;
 	}
-	
+
 	public Comida ObtenerPorId(Long id) {
-		Comida c = (Comida)sesion.getCurrentSession().get(Comida.class, id);
+		Comida c = (Comida) sesion.getCurrentSession().get(Comida.class, id);
 		return c;
 	}
-	
+
 	public void borrar(Comida comida) {
 		sesion.getCurrentSession().delete(comida);
 	}
 
 }
-
-}
-
