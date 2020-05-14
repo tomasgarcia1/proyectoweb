@@ -16,47 +16,39 @@ import ar.edu.unlam.tallerweb1.servicios.ServicioRestriccion;
 public class ControladorRestriccion {
 	@Inject
 	private ServicioRestriccion servicioRestriccion;
-	
+
 	@RequestMapping("/restricciones")
 	public ModelAndView irRegistro() {
 		ModelMap model = new ModelMap();
 		return new ModelAndView("restricciones", model);
 	}
-	
-	@RequestMapping(path="/crearrestriccion", method=RequestMethod.GET) 
-	public ModelAndView restriccionesUsuario(@RequestParam(value="nombre", required=true) String nombre) {	
-		ModelMap model=new ModelMap();
-		Restriccion restriccion=new Restriccion();
+
+	@RequestMapping(path = "/crearrestriccion", method = RequestMethod.GET)
+	public ModelAndView restriccionesUsuario(@RequestParam(value = "nombre", required = true) String nombre) {
+		ModelMap model = new ModelMap();
+		Restriccion restriccion = new Restriccion();
 		restriccion.setNombre(nombre);
-		
-		Long idGenerado=this.servicioRestriccion.crearRestriccion(restriccion);
-		
-		model.put("restriccion",restriccion);		
-		
-		return new ModelAndView("restriccionCreada",model);
+
+		Long idGenerado = this.servicioRestriccion.crearRestriccion(restriccion);
+
+		model.put("restriccion", restriccion);
+
+		return new ModelAndView("restriccionCreada", model);
 	}
-	
-	@RequestMapping(path="/borrarrestriccion")
-	public ModelAndView eliminarRestriccion(@RequestParam(value="id")Long id) {
-		ModelMap model=new ModelMap();
-		
-		Restriccion restriccionEncontrada=this.servicioRestriccion.obtenerRestriccionPorId(id);
-		if(restriccionEncontrada!=null) {
-			this.servicioRestriccion.borrarRestriccion(restriccionEncontrada);	
-			model.put("estado","eliminado");
-		}else {
-			model.put("estado","no se encontro la restriccion");
+
+	@RequestMapping(path = "/borrarrestriccion")
+	public ModelAndView eliminarRestriccion(@RequestParam(value = "id") Long id) {
+		ModelMap model = new ModelMap();
+
+		Restriccion restriccionEncontrada = this.servicioRestriccion.obtenerRestriccionPorId(id);
+		if (restriccionEncontrada != null) {
+			this.servicioRestriccion.borrarRestriccion(restriccionEncontrada);
+			model.put("estado", "eliminado");
+		} else {
+			model.put("estado", "no se encontro la restriccion");
 		}
-		
-		
-		
-		return new ModelAndView("borrarRestriccion",model);
+
+		return new ModelAndView("borrarRestriccion", model);
 	}
-	
-	
 
 }
-
-}
-
-
