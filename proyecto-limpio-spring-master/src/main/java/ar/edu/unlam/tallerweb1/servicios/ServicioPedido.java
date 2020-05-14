@@ -6,6 +6,3 @@ public interface ServicioPedido {
 	Long crearPedido(Pedido pedido);
 
 }
-
-}
-
