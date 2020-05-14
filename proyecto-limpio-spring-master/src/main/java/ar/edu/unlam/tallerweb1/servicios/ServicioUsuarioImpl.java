@@ -15,25 +15,26 @@ import ar.edu.unlam.tallerweb1.repositorios.UsuarioDao;
 public class ServicioUsuarioImpl implements ServicioUsuario {
 	@Inject
 	private UsuarioDao usuarioDao;
+
 	@Override
 	public Long registrarUsuario(Usuario usuario) {
 		return usuarioDao.registrarUsuario(usuario);
 	}
+
 	@Override
 	public Boolean validarExistenciaEmail(String email) {
 		return usuarioDao.validarExistenciaEmail(email);
 	}
+
 	@Override
 	public Boolean validarFormatoEmail(String email) {
-		String regex="[^@]+@[^@]+\\.[a-zA-Z]{2,}";
-		
+		String regex = "[^@]+@[^@]+\\.[a-zA-Z]{2,}";
+
 		return Pattern.matches(regex, email);
 	}
+
 	@Override
 	public String encriptarPassword(String password) {
 		return org.apache.commons.codec.digest.DigestUtils.sha256Hex(password);
 	}
 }
-
-}
-
