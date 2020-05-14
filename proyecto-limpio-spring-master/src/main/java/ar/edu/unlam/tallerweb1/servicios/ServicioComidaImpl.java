@@ -24,4 +24,7 @@ public class ServicioComidaImpl implements ServicioComida{
 	public void borrar(Comida comida) {
 		comidaDao.borrar(comida);
 	}
+
 }
+}
+

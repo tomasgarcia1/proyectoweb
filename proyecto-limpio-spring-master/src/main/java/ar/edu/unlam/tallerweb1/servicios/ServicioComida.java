@@ -8,4 +8,8 @@ public interface ServicioComida {
 	Comida obtenerPorId(Long id);
 	void borrar(Comida comida);
 
+
 }
+
+}
+

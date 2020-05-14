@@ -8,3 +8,6 @@ public interface ServicioUsuario {
 	Boolean validarFormatoEmail(String email);
 	String encriptarPassword(String password);
 }
+
+}
+

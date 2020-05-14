@@ -31,4 +31,8 @@ public class ServicioRestriccionImpl implements ServicioRestriccion {
 		restriccionDao.borrarRestriccion(restriccion);
 	}
 
+
 }
+
+}
+

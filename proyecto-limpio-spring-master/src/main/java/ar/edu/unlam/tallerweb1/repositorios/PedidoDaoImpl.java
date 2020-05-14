@@ -19,4 +19,8 @@ public class PedidoDaoImpl implements PedidoDao {
 		Long idGenerado=(Long) sesion.getCurrentSession().save(pedido);
 		return idGenerado;
 	}
+
 }
+
+}
+

@@ -7,4 +7,8 @@ public interface ComidaDao {
 	Long crearComida(Comida comida);
 	Comida ObtenerPorId(Long id);
 	void borrar(Comida comida);
+
 }
+
+}
+

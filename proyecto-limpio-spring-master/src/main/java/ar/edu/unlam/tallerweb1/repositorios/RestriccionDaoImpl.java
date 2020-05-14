@@ -37,3 +37,7 @@ public class RestriccionDaoImpl implements RestriccionDao {
 	}
 
 }
+
+
+
+

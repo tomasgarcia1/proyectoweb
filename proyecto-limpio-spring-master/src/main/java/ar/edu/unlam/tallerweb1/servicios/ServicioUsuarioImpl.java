@@ -34,3 +34,6 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 		return org.apache.commons.codec.digest.DigestUtils.sha256Hex(password);
 	}
 }
+
+}
+

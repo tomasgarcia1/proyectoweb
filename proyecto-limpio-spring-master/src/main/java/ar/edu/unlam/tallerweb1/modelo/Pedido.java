@@ -33,4 +33,8 @@ public class Pedido {
 	public void setUsuarioId(Integer usuarioId) {
 		this.usuarioId = usuarioId;
 	}
+
 }
+
+}
+

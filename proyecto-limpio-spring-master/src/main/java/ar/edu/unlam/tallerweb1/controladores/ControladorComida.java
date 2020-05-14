@@ -32,9 +32,12 @@ public class ControladorComida {
 		return new ModelAndView("nuevaComida", model);
 	}	
 	@RequestMapping("/eliminarPorId")
-	public ModelAndView eliminarPorId(@RequestParam(value="id", required=true) Long id)
-		 {
+	public ModelAndView eliminarPorId(@RequestParam(value="id", required=true) Long id){
 		servicioComida.borrar(servicioComida.obtenerPorId(id));
 		return new ModelAndView("comidaborrada");
 	}
+
 }
+
+}
+
