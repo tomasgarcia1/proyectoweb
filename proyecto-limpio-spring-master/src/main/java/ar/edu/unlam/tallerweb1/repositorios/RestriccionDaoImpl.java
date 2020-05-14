@@ -13,12 +13,27 @@ import ar.edu.unlam.tallerweb1.modelo.Usuario;
 @Transactional
 public class RestriccionDaoImpl implements RestriccionDao {
 	@Inject
-	SessionFactory sesion;
+	private SessionFactory sesion;
 	
 	@Override
 	public Long crearRestriccion(Restriccion restriccion) {
-		Long idGenerado= (Long)sesion.getCurrentSession().save(restriccion);
-		return idGenerado;
+		
+		return (Long)sesion.getCurrentSession().save(restriccion);
+	
+	}
+
+	@Override
+	public void borrarRestriccion(Restriccion restriccion) {
+	
+		sesion.getCurrentSession().delete(restriccion);		
+	
+	}
+
+	@Override
+	public Restriccion obtenerRestriccionPorId(Long id) {
+		
+		return (Restriccion)sesion.getCurrentSession().get(Restriccion.class, id);
+		
 	}
 
 }
