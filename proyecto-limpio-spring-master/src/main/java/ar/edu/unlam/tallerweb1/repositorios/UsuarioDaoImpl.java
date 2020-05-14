@@ -15,31 +15,31 @@ import ar.edu.unlam.tallerweb1.modelo.Usuario;
 public class UsuarioDaoImpl implements UsuarioDao {
 	@Inject
 	private SessionFactory sesion;
+
 	@Override
 	public Long registrarUsuario(Usuario usuario) {
-		Long idGenerado=(Long) sesion.getCurrentSession().save(usuario);
+		Long idGenerado = (Long) sesion.getCurrentSession().save(usuario);
 		return idGenerado;
 	}
-	
+
 	@Override
 	public Boolean validarExistenciaEmail(String email) {
 
-		// Se obtiene la sesion asociada a la transaccion iniciada en el servicio que invoca a este metodo y se crea un criterio
-		// de busqueda de Usuario donde el email y password sean iguales a los del objeto recibido como parametro
+		// Se obtiene la sesion asociada a la transaccion iniciada en el servicio que
+		// invoca a este metodo y se crea un criterio
+		// de busqueda de Usuario donde el email y password sean iguales a los del
+		// objeto recibido como parametro
 
 		// uniqueResult da error si se encuentran m·s de un resultado en la busqueda.
 
 		// uniqueResult da error si se encuentran m√°s de un resultado en la busqueda.
 
 		final Session session = sesion.getCurrentSession();
-		Usuario usuarioEncontrado = (Usuario) session.createCriteria(Usuario.class)
-				.add(Restrictions.eq("email", email)).uniqueResult();
-		if(usuarioEncontrado!=null)
+		Usuario usuarioEncontrado = (Usuario) session.createCriteria(Usuario.class).add(Restrictions.eq("email", email))
+				.uniqueResult();
+		if (usuarioEncontrado != null)
 			return true;
 		return false;
 	}
 
 }
-
-}
-
