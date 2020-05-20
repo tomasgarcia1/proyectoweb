@@ -13,12 +13,7 @@ public class Pedido {
 	private Long id;
 	// private Datetime fecha;
 	private Estado estado;
-
-	private Integer usuarioId;
-
-
 	private Usuario usuario;
-	
 
 	public Long getId() {
 		return id;
@@ -36,22 +31,12 @@ public class Pedido {
 		this.estado = estado;
 	}
 
-
-	public Integer getUsuarioId() {
-		return usuarioId;
-	}
-
-	public void setUsuarioId(Integer usuarioId) {
-		this.usuarioId = usuarioId;
-	}
-
-
 	public Usuario getUsuario() {
 		return usuario;
 	}
+
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	
 
 }
