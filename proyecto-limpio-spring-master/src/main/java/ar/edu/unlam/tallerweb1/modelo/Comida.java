@@ -41,16 +41,16 @@ public class Comida {
 			inverseJoinColumns = @JoinColumn(name = "fk_tipo")
 			)
 	@ManyToMany(cascade = CascadeType.ALL)
-	private List<Tipo> tipo;
+	private List<Tipo> tipos;
 	
-	@ManyToMany(mappedBy = "comida")
+	@ManyToMany(mappedBy = "comidas")
 	private List<Restriccion> restricciones;
 	
-	public List<Tipo> getTipo() {
-		return tipo;
+	public List<Tipo> getTipos() {
+		return tipos;
 	}
-	public void setTipo(List<Tipo> tipo) {
-		this.tipo = tipo;
+	public void setTipo(List<Tipo> tipos) {
+		this.tipos = tipos;
 	}
 	public Long getId() {
 		return id;

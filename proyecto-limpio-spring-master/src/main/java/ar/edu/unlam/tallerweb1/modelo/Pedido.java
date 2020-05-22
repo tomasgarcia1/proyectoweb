@@ -19,7 +19,9 @@ public class Pedido {
 	private Double precio;
 	
 	//mappedby indica la relacion bidireccional y tambien permitimos que se tome la config de JoinTable de Comida
-	@ManyToMany(mappedBy = "pedido")
+	//hay que escribir mappedBy = <nombre de la lista en la otra entity>
+	//el error que me tiraba era que ponia Pedido en vez de pedidos porque crei que se referia a la clase no a la lista kajsjsajas
+	@ManyToMany(mappedBy = "pedidos")
 	private List<Comida> comidas;
 
 	

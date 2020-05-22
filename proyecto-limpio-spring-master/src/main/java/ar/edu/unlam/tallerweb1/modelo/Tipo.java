@@ -15,7 +15,7 @@ public class Tipo {
 	private Long id;
 	private String nombre;
 	
-	@ManyToMany(mappedBy = "tipo")
+	@ManyToMany(mappedBy = "tipos")
 	private List<Comida> comidas;
 	
 	public List<Comida> getComidas() {

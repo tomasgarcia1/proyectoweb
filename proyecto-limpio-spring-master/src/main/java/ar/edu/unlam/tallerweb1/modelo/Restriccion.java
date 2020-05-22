@@ -19,7 +19,7 @@ public class Restriccion {
 	private Long id;
 	private String nombre;
 	
-	@ManyToMany(mappedBy = "restriccion")
+	@ManyToMany(mappedBy = "restricciones")
 	private List<Usuario> usuarios;
 	
 	@JoinTable(
