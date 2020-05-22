@@ -1,9 +1,15 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Restriccion {
@@ -13,6 +19,23 @@ public class Restriccion {
 	private Long id;
 	private String nombre;
 	
+	@ManyToMany(mappedBy = "restriccion")
+	private List<Usuario> usuarios;
+	
+	@JoinTable(
+			name = "comidas_restricciones",
+			joinColumns = @JoinColumn(name = "fk_restriccion"),
+			inverseJoinColumns = @JoinColumn(name = "fk_comida")
+			)
+	@ManyToMany(cascade = CascadeType.ALL)
+	private List<Comida> comidas;
+	
+	public List<Usuario> getUsuarios() {
+		return usuarios;
+	}
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
+	}
 	public Long getId() {
 		return id;
 	}
