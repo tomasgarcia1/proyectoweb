@@ -34,4 +34,10 @@ public class UsuarioDaoImpl implements UsuarioDao {
 			return true;
 		return false;
 	}
+	
+	@Override
+	public Usuario obtenerUsuarioPorId (Long id) {
+		return sesion.getCurrentSession().get(Usuario.class, id);
+	}
+	
 }

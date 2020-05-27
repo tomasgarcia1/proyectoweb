@@ -33,4 +33,10 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 	public String encriptarPassword(String password) {
 		return org.apache.commons.codec.digest.DigestUtils.sha256Hex(password);
 	}
+	
+	@Override
+	public Double obtenerCaloriasPorId(Long id) {
+		Usuario user = usuarioDao.obtenerUsuarioPorId(id);
+		return user.getCaloriasDiarias();
+	}
 }

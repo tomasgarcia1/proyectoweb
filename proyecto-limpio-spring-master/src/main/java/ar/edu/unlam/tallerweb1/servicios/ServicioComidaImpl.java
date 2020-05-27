@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -23,5 +25,29 @@ public class ServicioComidaImpl implements ServicioComida{
 	}
 	public void borrar(Comida comida) {
 		comidaDao.borrar(comida);
+	}
+	
+	@Override
+	public Comida sugerirDesayunoPorCalorias(Double caloriasDiarias) {
+		Double caloriasDesayuno = caloriasDiarias*0.35;
+		List<Comida> desayuno = comidaDao.obtenerComidasSegunCalorias(caloriasDesayuno);
+		Integer numeroRandom = (int) (Math.random()*desayuno.size()+1);
+		return desayuno.get(numeroRandom);
+	}
+	
+	@Override
+	public Comida sugerirAlmuerzoPorCalorias(Double caloriasDiarias) {
+		Double caloriasAlmuerzo = caloriasDiarias*0.45;
+		List<Comida> desayuno = comidaDao.obtenerComidasSegunCalorias(caloriasAlmuerzo);
+		Integer numeroRandom = (int) (Math.random()*desayuno.size()+1);
+		return desayuno.get(numeroRandom);
+	}
+	
+	@Override
+	public Comida sugerirCenaPorCalorias(Double caloriasDiarias) {
+		Double caloriasCena = caloriasDiarias*0.20;
+		List<Comida> desayuno = comidaDao.obtenerComidasSegunCalorias(caloriasCena);
+		Integer numeroRandom = (int) (Math.random()*desayuno.size()+1);
+		return desayuno.get(numeroRandom);
 	}
 }

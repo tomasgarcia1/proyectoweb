@@ -7,5 +7,8 @@ public interface ServicioComida {
 	Long crearComida(Comida comida);
 	Comida obtenerPorId(Long id);
 	void borrar(Comida comida);
+	Comida sugerirDesayunoPorCalorias(Double caloriasDiarias);
+	Comida sugerirAlmuerzoPorCalorias(Double caloriasDiarias);
+	Comida sugerirCenaPorCalorias(Double caloriasDiarias);
 
 }

@@ -7,4 +7,5 @@ public interface ServicioUsuario {
 	Boolean validarExistenciaEmail(String email);
 	Boolean validarFormatoEmail(String email);
 	String encriptarPassword(String password);
+	Double obtenerCaloriasPorId(Long id);
 }

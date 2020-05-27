@@ -32,6 +32,7 @@ public class Usuario {
 	private Double peso;
 	private Actividad actividad;
 	private Sexo sexo;
+	private Double caloriasDiarias;
 	
 	@JoinTable(
 			name = "usuarios_restricciones",
@@ -95,5 +96,11 @@ public class Usuario {
 	}
 	public void setSexo(Sexo sexo) {
 		this.sexo = sexo;
+	}
+	public Double getCaloriasDiarias() {
+		return caloriasDiarias;
+	}
+	public void setCaloriasDiarias(Double caloriasDiarias) {
+		this.caloriasDiarias = caloriasDiarias;
 	}
 }
