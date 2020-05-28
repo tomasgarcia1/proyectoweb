@@ -36,6 +36,15 @@ public class Usuario {
 	private Sexo sexo;
 
 	@JoinTable(name = "usuarios_restricciones", joinColumns = @JoinColumn(name = "fk_usuario"), inverseJoinColumns = @JoinColumn(name = "fk_restriccion"))
+
+	private Double caloriasDiarias;
+	
+	@JoinTable(
+			name = "usuarios_restricciones",
+			joinColumns = @JoinColumn(name = "fk_usuario"),
+			inverseJoinColumns = @JoinColumn(name = "fk_restriccion")
+			)
+
 	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Restriccion> restricciones;
 
@@ -109,5 +118,11 @@ public class Usuario {
 
 	public void setSexo(Sexo sexo) {
 		this.sexo = sexo;
+	}
+	public Double getCaloriasDiarias() {
+		return caloriasDiarias;
+	}
+	public void setCaloriasDiarias(Double caloriasDiarias) {
+		this.caloriasDiarias = caloriasDiarias;
 	}
 }

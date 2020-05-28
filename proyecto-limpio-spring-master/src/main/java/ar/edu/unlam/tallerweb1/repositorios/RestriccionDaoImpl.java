@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unlam.tallerweb1.modelo.Restriccion;
-import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
 @Repository
 @Transactional
@@ -32,8 +31,9 @@ public class RestriccionDaoImpl implements RestriccionDao {
 	@Override
 	public Restriccion obtenerRestriccionPorId(Long id) {
 
-		return (Restriccion) sesion.getCurrentSession().get(Restriccion.class, id);
 
+		return (Restriccion) sesion.getCurrentSession().get(Restriccion.class, id);
+		
 	}
 
 }

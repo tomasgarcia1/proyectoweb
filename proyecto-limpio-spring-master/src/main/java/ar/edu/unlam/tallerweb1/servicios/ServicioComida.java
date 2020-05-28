@@ -9,5 +9,8 @@ public interface ServicioComida {
 	Comida obtenerPorId(Long id);
 
 	void borrar(Comida comida);
+	Comida sugerirDesayunoPorCalorias(Double caloriasDiarias);
+	Comida sugerirAlmuerzoPorCalorias(Double caloriasDiarias);
+	Comida sugerirCenaPorCalorias(Double caloriasDiarias);
 
 }
