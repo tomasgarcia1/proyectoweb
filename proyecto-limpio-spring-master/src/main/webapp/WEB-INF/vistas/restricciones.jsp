@@ -56,7 +56,7 @@
 
 		<ul>
 		  <li>Menu variado<input type="checkbox" name="variado" />
-		    <!--  <label for="cb1"><img src="variado.jpg" /></label>-->
+		      <label for="cb1"><img src="variado.jpg" /></label>
 		  </li>
 		  <li>Menu vegano<input type="checkbox" name="vegano" />
 		     <!-- <label for="cb2"><img src="vegano.jpg" /></label> -->
