@@ -68,5 +68,6 @@ public class ControladorComida {
 		
 		return new ModelAndView("sugerirComidaPorCalorias", model);
 	}
+	
 
 }
