@@ -14,4 +14,5 @@ public interface ComidaDao {
 	
 	List<Comida> obtenerComidasSegunCalorias(Double calorias);
 
+
 }
