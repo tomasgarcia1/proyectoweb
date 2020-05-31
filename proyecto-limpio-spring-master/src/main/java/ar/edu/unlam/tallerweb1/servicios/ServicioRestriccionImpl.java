@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -29,6 +31,11 @@ public class ServicioRestriccionImpl implements ServicioRestriccion {
 	@Override
 	public void borrarRestriccion(Restriccion restriccion) {
 		restriccionDao.borrarRestriccion(restriccion);
+	}
+
+	@Override
+	public List<Restriccion> obtenerRestricciones() {		
+		return restriccionDao.obtenerRestricciones();
 	}
 
 }
