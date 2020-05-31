@@ -10,6 +10,8 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
@@ -46,18 +48,28 @@
         </div>
     </nav>
 <div class="container p-4 mb-5 mt-5">
-<h3 class="text-center">Intolerancias</h3>
+<h3 class="text-center">Bienvenido, empecemos agregando tus gustos y/o restricciones alimentarias.</h3>
 	<form method="get" action="crearrestriccion">
-		<div class="form-group">
-			<div class="row">
-				<div class="col-md-6">
-					<input path="nombre" name="nombre" type="text" class="form-control" />
-				</div>
-				<div class="col-md-6">						
-					<button class="btn btn-block btn-success" Type="Submit"/>Crear restriccion</button>
-				</div>
-			</div>	
-		</div>
+		 <!--<h3>ID: ${restriccion.id}</h3>-->
+		<h3>Usuario: </h3>
+	   	<p>En base a estos gustos te vamos a sugerir la comida.</p>
+
+		<ul>
+		  <li>Menu variado<input type="checkbox" name="variado" />
+		    <!--  <label for="cb1"><img src="variado.jpg" /></label>-->
+		  </li>
+		  <li>Menu vegano<input type="checkbox" name="vegano" />
+		     <!-- <label for="cb2"><img src="vegano.jpg" /></label> -->
+		  </li>		  
+		  <li>Menu vegetariano<input type="checkbox" name="vegetariano" />
+		    <!-- <label for="cb3"><img src="vegetariano.jpg" /></label> --> 
+		  </li>
+		  <li>Menu celiaco<input type="checkbox" name="celiaco" />
+		     <!-- <label for="cb4"><img src="celiaco.jpg" /></label> --> 
+		  </li>
+		</ul>
+
+		<button class="btn btn-success">Confirmar gustos</button>
 	</form>
 </div>
  <!-- Footer -->
