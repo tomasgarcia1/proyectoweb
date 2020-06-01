@@ -20,7 +20,10 @@ public class UsuarioDaoImpl implements UsuarioDao {
 		Long idGenerado=(Long) sesion.getCurrentSession().save(usuario);
 		return idGenerado;
 	}
-	
+	@Override
+	public void update(Usuario usuario) {
+		sesion.getCurrentSession().update(usuario);
+	}
 	@Override
 	public Boolean validarExistenciaEmail(String email) {
 
