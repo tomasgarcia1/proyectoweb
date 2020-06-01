@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -35,11 +37,18 @@ public class ControladorUsuario {
 		return new ModelAndView("registro", modelo);
 	}
 	@RequestMapping(path = "/registroValidacion", method = RequestMethod.POST)
-	public ModelAndView validarRegistro(@ModelAttribute("usuario") Usuario usuario) {
+	public ModelAndView validarRegistro(@ModelAttribute("usuario") Usuario usuario,
+			HttpServletRequest request) {
 			usuario.setCaloriasDiarias(servicioUsuario.calcularCaloriasDiarias(usuario));
 			servicioUsuario.registrarUsuario(usuario);
-			ModelMap modelo = new ModelMap();
-			modelo.put("usuario", usuario);
-		return new ModelAndView("registroValidado", modelo);//aca deberia redirigir a la seleccion de restricciones
+			
+			HttpSession session = request.getSession(true);//abro la sesion
+			request.getSession().setAttribute("usuario",usuario); //guardo usuario como key y guardo el user
+	       	        			
+			return new ModelAndView("redirect:/seleccionarRestricciones");
+			
+			//ModelMap modelo = new ModelMap();
+			//modelo.put("usuario", usuario);			
+		//return new ModelAndView("seleccionarRestricciones", modelo);//aca deberia redirigir a la seleccion de restricciones
 	}
 }

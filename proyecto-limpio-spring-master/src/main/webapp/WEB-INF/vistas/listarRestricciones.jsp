@@ -9,18 +9,20 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form:form method="post" action="asignarRestricciones" modelAttribute="usuario">
-		<h3>Usuario: ${usuario.email}</h3>
+<form method="get" action="asignarRestricciones">
+		<!--  <h3>Usuario: ${usuario.email}</h3>-->
 	   	<p>En base a estos gustos te vamos a sugerir la comida.</p>
-		<li>
-			<c:forEach items="${restricciones}" var="restriccion">
-				<input type="checkbox" name="${restriccion.nombre}" />
-				<span> ${restriccion.nombre}</span>
-				<span>${restriccion.id}</span>
-				<br>
-			</c:forEach>
-		</li>
+			<li>
+					<c:forEach items="${restricciones}" var="restriccion">
+						<input type="checkbox" name="restriccion" value="${restriccion.id}" />
+						<span> ${restriccion.nombre}</span>
+						<span>${restriccion.id}</span>
+						<br>
+					</c:forEach>
+				</li>
+		
 		<button class="btn btn-success">Confirmar gustos</button>
-	</form:form>	
+	</form>
+	
 </body>
 </html>
