@@ -9,4 +9,5 @@ public interface ServicioUsuario {
 	String encriptarPassword(String password);
 	Double obtenerCaloriasPorId(Long id);
 	Double calcularCaloriasDiarias(Usuario usuario);
+	void update(Usuario usuario);
 }

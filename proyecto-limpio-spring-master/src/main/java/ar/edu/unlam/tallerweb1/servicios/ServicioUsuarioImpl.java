@@ -76,5 +76,9 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 		LocalDate ahora = LocalDate.now();
 		return Period.between(nac, ahora).getYears();
 	}
+	@Override
+	public void update(Usuario usuario) {
+		this.usuarioDao.update(usuario);		
+	}
 }
 
