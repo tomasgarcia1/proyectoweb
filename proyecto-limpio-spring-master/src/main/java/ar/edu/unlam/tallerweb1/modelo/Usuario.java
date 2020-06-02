@@ -32,12 +32,17 @@ public class Usuario {
 	// no se si lo de date esta bien
 	private Integer altura;
 	private Double peso;
+
 	private Actividad actividad;
 	private Sexo sexo;
 
 	@JoinTable(name = "usuarios_restricciones", joinColumns = @JoinColumn(name = "fk_usuario"), inverseJoinColumns = @JoinColumn(name = "fk_restriccion"))
 
+
+
 	private Double caloriasDiarias;
+	private Actividad actividad;
+	private Sexo sexo;	
 	
 	@JoinTable(
 			name = "usuarios_restricciones",

@@ -8,5 +8,7 @@ public interface UsuarioDao {
 	Boolean validarExistenciaEmail(String email);
 
 	Usuario obtenerUsuarioPorId(Long id);
+	
+	void update(Usuario usuario);
 
 }

@@ -23,6 +23,11 @@ public class UsuarioDaoImpl implements UsuarioDao {
 	}
 
 	@Override
+	public void update(Usuario usuario) {
+		sesion.getCurrentSession().update(usuario);
+	}
+
+	@Override
 	public Boolean validarExistenciaEmail(String email) {
 
 		// Se obtiene la sesion asociada a la transaccion iniciada en el servicio que
@@ -41,10 +46,10 @@ public class UsuarioDaoImpl implements UsuarioDao {
 			return true;
 		return false;
 	}
-	
+
 	@Override
-	public Usuario obtenerUsuarioPorId (Long id) {
+	public Usuario obtenerUsuarioPorId(Long id) {
 		return sesion.getCurrentSession().get(Usuario.class, id);
 	}
-	
+
 }

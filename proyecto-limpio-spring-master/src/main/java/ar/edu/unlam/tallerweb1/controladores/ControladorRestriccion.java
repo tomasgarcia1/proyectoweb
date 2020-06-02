@@ -1,9 +1,11 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -16,11 +18,15 @@ import org.springframework.web.servlet.ModelAndView;
 import ar.edu.unlam.tallerweb1.modelo.Restriccion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioRestriccion;
+import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 
 @Controller
 public class ControladorRestriccion {
 	@Inject
 	private ServicioRestriccion servicioRestriccion;
+
+	@Inject
+	private ServicioUsuario servicioUsuario;
 
 	@RequestMapping("/restricciones")
 	public ModelAndView irRegistro() {
@@ -32,6 +38,13 @@ public class ControladorRestriccion {
 	public ModelAndView restriccionesUsuario(@RequestParam(value = "nombre", required = true) String nombre) {
 		ModelMap model = new ModelMap();
 		Restriccion restriccion = new Restriccion();
+	}
+
+	@RequestMapping(path = "/crearrestriccion", method = RequestMethod.GET)
+	public ModelAndView crestriccionesUsuario(@RequestParam(value = "nombre", required = true) String nombre) {
+		ModelMap model = new ModelMap();
+		Restriccion restriccion = new Restriccion();
+
 		restriccion.setNombre(nombre);
 
 		Long idGenerado = this.servicioRestriccion.crearRestriccion(restriccion);
@@ -40,7 +53,6 @@ public class ControladorRestriccion {
 
 		return new ModelAndView("restriccionCreada", model);
 	}
-
 
 	@RequestMapping(path = "/borrarrestriccion")
 	public ModelAndView eliminarRestriccion(@RequestParam(value = "id") Long id) {
@@ -62,22 +74,45 @@ public class ControladorRestriccion {
 		ModelMap model=new ModelMap();
 		Usuario user=new Usuario();
 		user.setEmail("marcos@m.com");
-		
-		List<Restriccion> restricciones=this.servicioRestriccion.obtenerRestricciones();
-		model.put("usuario",user);
-		model.put("restricciones",restricciones);		
-		return new ModelAndView("listarRestricciones",model);
 	}
-	
-	@RequestMapping(path="/asignarRestricciones",method = RequestMethod.POST) 
-	public ModelAndView restriccionesUsuario(@ModelAttribute("usuario") Usuario usuario) {	
-		ModelMap model=new ModelMap();
-		
-		System.out.println(usuario.getEmail());
-		
+
+	@RequestMapping(path = "/seleccionarRestricciones")
+	public ModelAndView select(HttpServletRequest request) {
+		ModelMap model = new ModelMap();
+
+		List<Restriccion> restricciones = this.servicioRestriccion.obtenerRestricciones();
+
+		HttpSession session = request.getSession(false);
+		Usuario user = (Usuario) request.getAttribute("usuario");
+
+		model.put("restricciones", restricciones);
+		return new ModelAndView("listarRestricciones", model);
+	}
+
+	@RequestMapping(path = "/asignarRestricciones", method = RequestMethod.GET)
+	public ModelAndView restriccionesUsuario(@RequestParam(value = "restriccion", required = false) String restriccion1,
+			HttpServletRequest request) {
+		ModelMap model = new ModelMap();
+		List<Restriccion> restricciones = new ArrayList<Restriccion>();
+
+		char[] array = restriccion1.replace(",", "").toCharArray();
+		for (int i = 0; i < array.length; i++) {
+			Restriccion restrict = this.servicioRestriccion
+					.obtenerRestriccionPorId((long) Character.getNumericValue(array[i]));
+			if (restrict != null) {
+				restricciones.add(restrict);
+			}
+		}
+		request.getSession(false);
+		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
+		System.out.println(user.getEmail());
+		user.setRestricciones(restricciones);
+
+		this.servicioUsuario.update(user);
+		/*
+		 * cerrar sesion request.getSession().invalidate();
+		 * request.setAttribute("usuario", null);
+		 */
 		return null;
 	}
 }
-
-
-
