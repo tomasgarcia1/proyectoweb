@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import javax.inject.Inject;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unlam.tallerweb1.modelo.Actividad;
+import ar.edu.unlam.tallerweb1.modelo.Restriccion;
 import ar.edu.unlam.tallerweb1.modelo.Sexo;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.UsuarioDao;
@@ -79,6 +81,13 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 		LocalDate nac = LocalDate.of(fecNac.getYear(), fecNac.getMonth(), fecNac.getDay());
 		LocalDate ahora = LocalDate.now();
 		return Period.between(nac, ahora).getYears();
+	}
+
+	@Override
+	public List<Restriccion> obtenerRestriccionesPorId(Long id) {
+		Usuario user = usuarioDao.obtenerUsuarioPorId(id);
+		List <Restriccion> restriccionuser = user.getRestricciones();
+		return restriccionuser;
 	}
 }
 
