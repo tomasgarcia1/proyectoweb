@@ -35,12 +35,6 @@ public class ControladorRestriccion {
 	}
 
 	@RequestMapping(path = "/crearrestriccion", method = RequestMethod.GET)
-	public ModelAndView restriccionesUsuario(@RequestParam(value = "nombre", required = true) String nombre) {
-		ModelMap model = new ModelMap();
-		Restriccion restriccion = new Restriccion();
-	}
-
-	@RequestMapping(path = "/crearrestriccion", method = RequestMethod.GET)
 	public ModelAndView crestriccionesUsuario(@RequestParam(value = "nombre", required = true) String nombre) {
 		ModelMap model = new ModelMap();
 		Restriccion restriccion = new Restriccion();
@@ -74,6 +68,7 @@ public class ControladorRestriccion {
 		ModelMap model=new ModelMap();
 		Usuario user=new Usuario();
 		user.setEmail("marcos@m.com");
+		return null;
 	}
 
 	@RequestMapping(path = "/seleccionarRestricciones")
