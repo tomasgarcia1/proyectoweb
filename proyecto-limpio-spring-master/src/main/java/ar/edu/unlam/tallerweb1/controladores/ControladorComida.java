@@ -7,23 +7,19 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unlam.tallerweb1.modelo.Comida;
-import ar.edu.unlam.tallerweb1.modelo.Pedido;
 import ar.edu.unlam.tallerweb1.modelo.Restriccion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioComida;
-import ar.edu.unlam.tallerweb1.servicios.ServicioPedido;
-import ar.edu.unlam.tallerweb1.servicios.ServicioRestriccion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 
 @Controller
 public class ControladorComida {
 	@Inject
 	private ServicioComida servicioComida;
-	
+
 	@Inject
 	private ServicioUsuario servicioUsuario;
 
@@ -42,32 +38,46 @@ public class ControladorComida {
 
 	}
 
-
 	@RequestMapping("/eliminarPorId")
 	public ModelAndView eliminarPorId(@RequestParam(value = "id", required = true) Long id) {
 		servicioComida.borrar(servicioComida.obtenerPorId(id));
 		return new ModelAndView("comidaborrada");
 	}
 
-	
-	
 	@RequestMapping("/sugerirComidaPorCalorias")
 	public ModelAndView sugerirComidaPorCalorias(@RequestParam(value = "id") Long id) {
-		
+
 		Double caloriasDiarias = servicioUsuario.obtenerCaloriasPorId(id);
-		
+
 		Comida desayunoSugerido = servicioComida.sugerirDesayunoPorCalorias(caloriasDiarias);
 		Comida almuerzoSugerido = servicioComida.sugerirAlmuerzoPorCalorias(caloriasDiarias);
 		Comida cenaSugerida = servicioComida.sugerirCenaPorCalorias(caloriasDiarias);
-		
+
 		ModelMap model = new ModelMap();
-		
+
 		model.put("desayuno", desayunoSugerido);
 		model.put("almuerzo", almuerzoSugerido);
 		model.put("cena", cenaSugerida);
-		
+
 		return new ModelAndView("sugerirComidaPorCalorias", model);
 	}
-	
+
+	@RequestMapping("/sugerirComidaPorRestricciones")
+	public ModelAndView sugerirComidaPorRestricciones(@RequestParam(value = "id") Long id) {
+
+		List<Restriccion> r = servicioUsuario.obtenerRestriccionesPorId(id);
+
+		Comida desayunoSugerido = servicioComida.sugerirDesayunoPorRestricciones(r);
+		Comida almuerzoSugerido = servicioComida.sugerirAlmuerzoPorRestricciones(r);
+		Comida cenaSugerida = servicioComida.sugerirCenaPorRestricciones(r);
+		
+		ModelMap model = new ModelMap();
+
+		model.put("desayuno", desayunoSugerido);
+		model.put("almuerzo", almuerzoSugerido);
+		model.put("cena", cenaSugerida);
+
+		return new ModelAndView("sugerirComidaPorRestricciones", model);
+	}
 
 }
