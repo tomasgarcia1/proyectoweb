@@ -1,9 +1,12 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.regex.Pattern;
 
 import javax.inject.Inject;
@@ -60,7 +63,7 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 		}else if(usuario.getActividad().equals(Actividad.HIPERACTIVO)) {
 			ca=mb*1.9;
 		}
-		return ca;
+		return (double)Math.round(ca * 100) / 100;
 	}
 	private static Double calcularMB(Usuario usuario) {
 		Double mb=0.0;
@@ -72,9 +75,17 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 		return mb;
 	}
 	private static long calcularEdad(Date fecNac) {
-		LocalDate nac = LocalDate.of(fecNac.getYear(), fecNac.getMonth(), fecNac.getDay());
+		Calendar calendar = new GregorianCalendar();
+		calendar.setTime(fecNac);
+		int year = calendar.get(Calendar.YEAR);
+		//Add one to month {0 - 11}
+		int month = calendar.get(Calendar.MONTH) + 1;
+		int day = calendar.get(Calendar.DAY_OF_MONTH);
+		
+		LocalDate nac = LocalDate.of(year, month, day);
 		LocalDate ahora = LocalDate.now();
-		return Period.between(nac, ahora).getYears();
+		int fecha=Period.between(nac, ahora).getYears();
+		return fecha;
 	}
 	@Override
 	public void update(Usuario usuario) {
