@@ -70,44 +70,5 @@ public class ControladorLogin {
 		return new ModelAndView("redirect:/home");
 	}
 	
-	/*@RequestMapping(path = "/validar-login", method = RequestMethod.POST)
-
-    public ModelAndView validarogin(@ModelAttribute Usuario usuario, HttpServletRequest request) {
-        Usuario usuarioBuscado = servicioLogin.consultarUsuario(usuario);
-        if (usuarioBuscado != null) {
-            
-            switch (usuarioBuscado.getRol()) {
-            case "admin":
-                request.getSession().setAttribute("rol", usuarioBuscado.getRol());
-                request.getSession().setAttribute("nombre", "Admin");
-                
-                
-                return new ModelAndView("redirect:/homeAdmin");
-            case "operador":
-                Long idSucursal = servicioOperador.buscarOperador(usuarioBuscado).getSucursal().getId();
-                request.getSession().setAttribute("rol", usuarioBuscado.getRol());
-                request.getSession().setAttribute("idSucursal", idSucursal);
-                request.getSession().setAttribute("nombre", "Operador"); 
-                return new ModelAndView("redirect:/homeOperador/"+idSucursal);
-            default: //caso socio
-                request.getSession().setAttriute("idSucursal", servicioSocio.buscarSocio(usuarioBuscado).getSucursal().getId());
-                request.getSession().setAttribute("nombre", servicioSocio.buscarSocio(usuarioBuscado).getNombre());
-                request.getSession().setAttribute("idSocio", servicioSocio.buscarSocio(usuarioBuscado).getIdSocio());
-                request.getSession().setAttribute("idPase", servicioSocio.buscarSocio(usuarioBuscado).getPase().getId());
-                request.getSession().setAttribute("estado", servicioSocio.getEstadoDeSocioPorCuota(servicioSocio.buscarSocio(usuarioBuscado).getIdSocio()));
-                return new ModelAndView("redirect:/home");
-            }
-            
-ModelAndView("redirect:/home");
-        
-        } else {
-            ModelMap model = new ModelMap();
-            model.put("error", "Usuario o clave incorrecta");
-            return new ModelAndView("login", model);
-        }
-
- 
-
-    }
-*/	
+	
 }
