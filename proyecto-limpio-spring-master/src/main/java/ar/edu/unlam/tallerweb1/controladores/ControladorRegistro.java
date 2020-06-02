@@ -17,7 +17,7 @@ public class ControladorRegistro {
 	@Inject
 	private ServicioUsuario servicioUsuario;
 
-	@RequestMapping("/registro")
+	/*@RequestMapping("/registro")
 	public ModelAndView irRegistro() {
 		ModelMap model = new ModelMap();
 		return new ModelAndView("registro", model);

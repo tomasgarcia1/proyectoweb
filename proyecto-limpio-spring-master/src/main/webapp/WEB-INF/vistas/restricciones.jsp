@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +12,8 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
@@ -30,11 +34,10 @@
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    NombreUsuario
+                    Mi cuenta
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Informacion personal</a>
-                <div class="dropdown-divider"></div>
+<a class="dropdown-item" href="mostrarRestriccionesDeUsuario">Mis restricciones</a>                <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#">Mis pedidos</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#">Imc</a>
@@ -46,18 +49,21 @@
         </div>
     </nav>
 <div class="container p-4 mb-5 mt-5">
-<h3 class="text-center">Intolerancias</h3>
-	<form method="get" action="crearrestriccion">
-		<div class="form-group">
-			<div class="row">
-				<div class="col-md-6">
-					<input path="nombre" name="nombre" type="text" class="form-control" />
-				</div>
-				<div class="col-md-6">						
-					<button class="btn btn-block btn-success" Type="Submit"/>Crear restriccion</button>
-				</div>
-			</div>	
-		</div>
+<h3 class="text-center">Bienvenido, empecemos agregando tus gustos y/o restricciones alimentarias.</h3>
+
+	 <form method="get" action="asignarRestricciones">
+		<!--  <h3>Usuario: ${usuario.email}</h3>-->
+	   	<p>En base a estos gustos te vamos a sugerir la comida.</p>
+			<li>
+					<c:forEach items="${restricciones}" var="restriccion">
+						<input type="checkbox" name="restriccion" value="${restriccion.id}" />
+						<span> ${restriccion.nombre}</span>
+						<span>${restriccion.id}</span>
+						<br>
+					</c:forEach>
+				</li>
+		
+		<button class="btn btn-success">Confirmar gustos</button>
 	</form>
 </div>
  <!-- Footer -->

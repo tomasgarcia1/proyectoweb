@@ -49,6 +49,7 @@ public class ControladorLogin {
 	@RequestMapping(path = "/validar-login", method = RequestMethod.POST)
 	public ModelAndView validarLogin(@ModelAttribute("usuario") Usuario usuario, HttpServletRequest request) {
 		ModelMap model = new ModelMap();
+		request.setAttribute("usuario", usuario);		
 
 		// invoca el metodo consultarUsuario del servicio y hace un redirect a la URL /home, esto es, en lugar de enviar a una vista
 		// hace una llamada a otro action a través de la URL correspondiente a ésta
@@ -63,9 +64,50 @@ public class ControladorLogin {
 		return new ModelAndView("login", model);
 	}
 
-	// Escucha la url /, y redirige a la URL /login, es lo mismo que si se invoca la url /login directamente.
+	// Escucha la url /, y redirige a la URL  /login, es lo mismo que si se invoca la url /login directamente.
 	@RequestMapping(path = "/", method = RequestMethod.GET)
 	public ModelAndView inicio() {
 		return new ModelAndView("redirect:/home");
 	}
+	/*@RequestMapping(path = "/validar-login", method = RequestMethod.POST)
+
+    public ModelAndView validarogin(@ModelAttribute Usuario usuario, HttpServletRequest request) {
+        Usuario usuarioBuscado = servicioLogin.consultarUsuario(usuario);
+        if (usuarioBuscado != null) {
+            
+            switch (usuarioBuscado.getRol()) {
+            case "admin":
+                request.getSession().setAttribute("rol", usuarioBuscado.getRol());
+                request.getSession().setAttribute("nombre", "Admin");
+                
+                
+                return new ModelAndView("redirect:/homeAdmin");
+            case "operador":
+                Long idSucursal = servicioOperador.buscarOperador(usuarioBuscado).getSucursal().getId();
+                request.getSession().setAttribute("rol", usuarioBuscado.getRol());
+                request.getSession().setAttribute("idSucursal", idSucursal);
+                request.getSession().setAttribute("nombre", "Operador"); 
+                return new ModelAndView("redirect:/homeOperador/"+idSucursal);
+            default: //caso socio
+                request.getSession().setAttriute("idSucursal", servicioSocio.buscarSocio(usuarioBuscado).getSucursal().getId());
+                request.getSession().setAttribute("nombre", servicioSocio.buscarSocio(usuarioBuscado).getNombre());
+                request.getSession().setAttribute("idSocio", servicioSocio.buscarSocio(usuarioBuscado).getIdSocio());
+                request.getSession().setAttribute("idPase", servicioSocio.buscarSocio(usuarioBuscado).getPase().getId());
+                request.getSession().setAttribute("estado", servicioSocio.getEstadoDeSocioPorCuota(servicioSocio.buscarSocio(usuarioBuscado).getIdSocio()));
+                return new ModelAndView("redirect:/home");
+            }
+            
+ModelAndView("redirect:/home");
+        
+        } else {
+            ModelMap model = new ModelMap();
+            model.put("error", "Usuario o clave incorrecta");
+            return new ModelAndView("login", model);
+        }
+
+ 
+
+    }xdxdxd
+*/	
+	
 }
