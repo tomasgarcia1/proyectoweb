@@ -47,8 +47,5 @@ public class ControladorUsuario {
 	       	        			
 			return new ModelAndView("redirect:/seleccionarRestricciones");
 			
-			//ModelMap modelo = new ModelMap();
-			//modelo.put("usuario", usuario);			
-		//return new ModelAndView("seleccionarRestricciones", modelo);//aca deberia redirigir a la seleccion de restricciones
 	}
 }
