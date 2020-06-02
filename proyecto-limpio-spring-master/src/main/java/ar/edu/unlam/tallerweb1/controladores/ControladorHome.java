@@ -14,5 +14,11 @@ public class ControladorHome {
 		ModelMap modelo = new ModelMap();
 		return new ModelAndView ("home", modelo);
 	}
+	
+	@RequestMapping(path = "/interno")
+	public ModelAndView interno() {
+		ModelMap modelo = new ModelMap();
+		return new ModelAndView ("interno", modelo);
+	}
 }
 
