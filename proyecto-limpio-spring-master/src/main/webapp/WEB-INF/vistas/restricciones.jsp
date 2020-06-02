@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,11 +34,10 @@
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    NombreUsuario
+                    Mi cuenta
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Informacion personal</a>
-                <div class="dropdown-divider"></div>
+<a class="dropdown-item" href="mostrarRestriccionesDeUsuario">Mis restricciones</a>                <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#">Mis pedidos</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#">Imc</a>
@@ -49,26 +50,19 @@
     </nav>
 <div class="container p-4 mb-5 mt-5">
 <h3 class="text-center">Bienvenido, empecemos agregando tus gustos y/o restricciones alimentarias.</h3>
-	<form method="get" action="crearrestriccion">
-		 <!--<h3>ID: ${restriccion.id}</h3>-->
-		<h3>Usuario: </h3>
+
+	 <form method="get" action="asignarRestricciones">
+		<!--  <h3>Usuario: ${usuario.email}</h3>-->
 	   	<p>En base a estos gustos te vamos a sugerir la comida.</p>
-
-		<ul>
-		  <li>Menu variado<input type="checkbox" name="variado" />
-		      <label for="cb1"><img src="variado.jpg" /></label>
-		  </li>
-		  <li>Menu vegano<input type="checkbox" name="vegano" />
-		     <!-- <label for="cb2"><img src="vegano.jpg" /></label> -->
-		  </li>		  
-		  <li>Menu vegetariano<input type="checkbox" name="vegetariano" />
-		    <!-- <label for="cb3"><img src="vegetariano.jpg" /></label> --> 
-		  </li>
-		  <li>Menu celiaco<input type="checkbox" name="celiaco" />
-		     <!-- <label for="cb4"><img src="celiaco.jpg" /></label> --> 
-		  </li>
-		</ul>
-
+			<li>
+					<c:forEach items="${restricciones}" var="restriccion">
+						<input type="checkbox" name="restriccion" value="${restriccion.id}" />
+						<span> ${restriccion.nombre}</span>
+						<span>${restriccion.id}</span>
+						<br>
+					</c:forEach>
+				</li>
+		
 		<button class="btn btn-success">Confirmar gustos</button>
 	</form>
 </div>

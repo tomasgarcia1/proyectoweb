@@ -65,37 +65,44 @@ public class ControladorRestriccion {
 		ModelMap model=new ModelMap();		
 		List<Restriccion> restricciones=this.servicioRestriccion.obtenerRestricciones();
 		
-		HttpSession session = request.getSession(false);
-        Usuario user=(Usuario)request.getAttribute("usuario");
-        
 		model.put("restricciones",restricciones);		
 		return new ModelAndView("listarRestricciones",model);
 	}
-	
+	@RequestMapping(path="/mostrarRestriccionesDeUsuario")
+	public ModelAndView x(HttpServletRequest request){
+		Usuario user=(Usuario)request.getSession().getAttribute("usuario");
+		if(user!=null) {
+			return new ModelAndView("usuarioConRestricciones");
+	        }   
+		return new ModelAndView("redirect:/home");
+	}
 	@RequestMapping(path="/asignarRestricciones",method = RequestMethod.GET) 
 	public ModelAndView restriccionesUsuario(@RequestParam(value="restriccion", required=false)
 	String restriccion1,HttpServletRequest request){
 		ModelMap model=new ModelMap();
 		List<Restriccion> restricciones=new ArrayList<Restriccion>();
 		
-		
-        char [] array = restriccion1.replace(",", "").toCharArray();
-        for (int i = 0; i < array.length; i++) {            
-            Restriccion restrict=this.servicioRestriccion.obtenerRestriccionPorId((long)Character.getNumericValue(array[i]));
-			 if(restrict!=null) {
-				 restricciones.add(restrict);
-			 }
-        }
-        request.getSession(false);
-        Usuario user=(Usuario)request.getSession().getAttribute("usuario");
-        System.out.println(user.getEmail());
-        user.setRestricciones(restricciones);
+		Usuario user=(Usuario)request.getSession().getAttribute("usuario");
+		if(user!=null) {
+			char [] array = restriccion1.replace(",", "").toCharArray();
+	        for (int i = 0; i < array.length; i++) {            
+	            Restriccion restrict=this.servicioRestriccion.obtenerRestriccionPorId((long)Character.getNumericValue(array[i]));
+				 if(restrict!=null) {
+					 restricciones.add(restrict);
+				 }
+	        }      
+	        user.setRestricciones(restricciones);
+	        
+	        this.servicioUsuario.update(user);
+	        
+	        model.put("usuario",user);
+	        return new ModelAndView("usuarioConRestricciones",model);
+		}
         
-        this.servicioUsuario.update(user);
         /* cerrar sesion
          * request.getSession().invalidate();
         request.setAttribute("usuario", null);*/            
-		return null;
+		return new ModelAndView("redirect:/home");
 	}
 }
 
