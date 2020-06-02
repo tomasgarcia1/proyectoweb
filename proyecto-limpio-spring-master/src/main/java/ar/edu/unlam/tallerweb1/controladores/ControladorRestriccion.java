@@ -83,7 +83,7 @@ public class ControladorRestriccion {
 		List<Restriccion> restricciones=new ArrayList<Restriccion>();
 		
 		Usuario user=(Usuario)request.getSession().getAttribute("usuario");
-		if(user!=null && restriccion1!=null) {
+		if(user!=null) {
 			char [] array = restriccion1.replace(",", "").toCharArray();
 	        for (int i = 0; i < array.length; i++) {            
 	            Restriccion restrict=this.servicioRestriccion.obtenerRestriccionPorId((long)Character.getNumericValue(array[i]));
