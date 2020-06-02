@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unlam.tallerweb1.modelo.Comida;
+import ar.edu.unlam.tallerweb1.modelo.Restriccion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
 @Repository
@@ -32,13 +33,18 @@ public class ComidaDaoImpl implements ComidaDao {
 	public void borrar(Comida comida) {
 		sesion.getCurrentSession().delete(comida);
 	}
-	
+
 	@Override
-	public List<Comida> obtenerComidasSegunCalorias (Double calorias) {
-		return sesion.getCurrentSession().createCriteria(Comida.class)
-				.add(Restrictions.le("calorias", calorias))
+	public List<Comida> obtenerComidasSegunCalorias(Double calorias) {
+		return sesion.getCurrentSession().createCriteria(Comida.class).add(Restrictions.le("calorias", calorias))
 				.list();
 	}
 
+	public List<Comida> obtenerComidasSegunRestricciones(List<Restriccion> restriccion) {
+		return sesion
+				.getCurrentSession().createCriteria(Comida.class).add(Restrictions
+						.and(Restrictions.eq("restriccion", restriccion), Restrictions.in("restriccion", restriccion)))
+				.list();
+	}
 
 }
