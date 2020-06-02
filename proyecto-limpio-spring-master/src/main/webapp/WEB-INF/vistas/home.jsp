@@ -52,8 +52,7 @@
             <hr class="my-2">
             <p>Aca le metes una pavada tipo dale papa que haces que no te registraste mostro.</p>
             <a class="btn btn-outline-danger btn-lg" href="registro" role="button">Registrarse</a>
-            <a class="btn btn-outline-success btn-lg" href="login" role="button">Iniciar sesion</a>
-             
+            <a class="btn btn-outline-danger btn-lg" href="login" role="button">Iniciar sesion</a>
           </div>
         </div>
     </section>

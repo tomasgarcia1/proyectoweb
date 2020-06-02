@@ -78,13 +78,13 @@ public class ControladorRestriccion {
 	}
 	@RequestMapping(path="/asignarRestricciones",method = RequestMethod.GET) 
 	public ModelAndView restriccionesUsuario(@RequestParam(value="restriccion", required=false)
-	String restriccion1,HttpServletRequest request){
+	String restriccion,HttpServletRequest request){
 		ModelMap model=new ModelMap();
 		List<Restriccion> restricciones=new ArrayList<Restriccion>();
 		
 		Usuario user=(Usuario)request.getSession().getAttribute("usuario");
-		if(user!=null && restriccion1!=null) {
-			char [] array = restriccion1.replace(",", "").toCharArray();
+		if(user!=null && restriccion!=null) {
+			char [] array = restriccion.replace(",", "").toCharArray();
 	        for (int i = 0; i < array.length; i++) {            
 	            Restriccion restrict=this.servicioRestriccion.obtenerRestriccionPorId((long)Character.getNumericValue(array[i]));
 				 if(restrict!=null) {
