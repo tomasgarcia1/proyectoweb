@@ -51,8 +51,7 @@
             <p class="lead">La unica aplicacion argentina que te recomienda comidita, si te gusta comer animales como un animal o si comes pasto tipo vaca</p>
             <hr class="my-2">
             <p>Aca le metes una pavada tipo dale papa que haces que no te registraste mostro.</p>
-            <a class="btn btn-outline-danger btn-lg" href="registro" role="button">Registrarse</a>
-            <a class="btn btn-outline-danger btn-lg" href="login" role="button">Iniciar sesion</a>
+            <a class="btn btn-outline-danger btn-lg" href="#" role="button">Iniciar sesion</a>
           </div>
         </div>
     </section>
