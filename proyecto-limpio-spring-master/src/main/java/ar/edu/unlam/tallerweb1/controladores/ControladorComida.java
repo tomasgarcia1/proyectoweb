@@ -1,8 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
-import java.util.List;
-
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unlam.tallerweb1.modelo.Comida;
-import ar.edu.unlam.tallerweb1.modelo.Restriccion;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioComida;
 import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 
@@ -45,7 +44,12 @@ public class ControladorComida {
 	}
 
 	@RequestMapping("/sugerirComidaPorCalorias")
-	public ModelAndView sugerirComidaPorCalorias(@RequestParam(value = "id") Long id) {
+	public ModelAndView sugerirComidaPorCalorias(HttpServletRequest request) {
+		
+		Usuario user=(Usuario)request.getSession().getAttribute("usuario");
+		
+		if(user!=null) {
+		Long id = user.getId();
 
 		Double caloriasDiarias = servicioUsuario.obtenerCaloriasPorId(id);
 
@@ -60,6 +64,10 @@ public class ControladorComida {
 		model.put("cena", cenaSugerida);
 
 		return new ModelAndView("sugerirComidaPorCalorias", model);
+		
+		}else{
+		return new ModelAndView("redirect:/home");
+		}
 	}
 	
 	@RequestMapping("/sugerirComidaPorRestricciones")
