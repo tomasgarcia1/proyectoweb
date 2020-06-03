@@ -21,6 +21,7 @@ public class Comida {
 	private String descripcion;
 	private Double calorias;	
 	private Double precio;
+	
 
 	
 	//esta anotation es opcional pero sirve para manejar mejor la tabla n:n
@@ -104,6 +105,5 @@ public class Comida {
 	public void setRestricciones(List<Restriccion> restricciones) {
 		this.restricciones = restricciones;
 	}
-	
 	
 }
