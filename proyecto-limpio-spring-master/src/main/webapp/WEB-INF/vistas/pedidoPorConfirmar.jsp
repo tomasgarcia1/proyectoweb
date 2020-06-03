@@ -52,14 +52,18 @@
 		<h3>Pedido</h3>
    </div>
 <div class="container">
-<form:form action="registroValidacion" method="POST" modelAttribute="usuario">
-
-  
-  <button type="button" class="btn btn-primary">Cancelar</button>
-  <button type="button" class="btn btn-primary">Pagar en efectivo</button>
-  <button type="button" class="btn btn-primary">Pagar ahora</button>
-  
-  
+					<li style="list-style: none">
+						
+						<span>ID del pedido: ${id}</span> <br>
+						<span>Precio total: ${precio}</span>
+					</li>
+<form:form action="cancelarpedido" method="POST" modelAttribute="pedido">
+	<form:hidden path="id"/>
+ 	<button type="submit" class="btn btn-primary">Cancelar</button>
+</form:form>
+<form:form action="pagarpedido" method="POST" modelAttribute="pedido">
+	<form:hidden path="id"/>
+ 	<button type="submit" class="btn btn-primary">Pagar ahora</button>
 </form:form>
 </div>
 

@@ -35,4 +35,10 @@ public class PedidoDaoImpl implements PedidoDao {
 	public Pedido buscarPedidoPorId(Long id) {
 		return sesion.getCurrentSession().get(Pedido.class, id);
 	}
+	@Override
+	public void actualizarPedido(Pedido pedido) {
+		Pedido pedidoPorActualizar=sesion.getCurrentSession().get(Pedido.class, pedido.getId());
+		pedidoPorActualizar.setEstado(Estado.PROCESO);
+		sesion.getCurrentSession().update(pedidoPorActualizar);
+	}
 }

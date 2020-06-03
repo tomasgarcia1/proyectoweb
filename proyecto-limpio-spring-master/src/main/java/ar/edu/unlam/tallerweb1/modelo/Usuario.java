@@ -34,9 +34,6 @@ public class Usuario {
 	private Double caloriasDiarias;
 	private Actividad actividad;
 	private Sexo sexo;
-	//	Agregada la relacion 1:N entre Usuario y Pedido
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<Pedido> listaPedidos;
 	
 	@JoinTable(
 			name = "usuarios_restricciones",
@@ -107,11 +104,4 @@ public class Usuario {
 	public void setCaloriasDiarias(Double caloriasDiarias) {
 		this.caloriasDiarias = caloriasDiarias;
 	}
-	public List<Pedido> getListaPedidos() {
-		return listaPedidos;
-	}
-	public void setListaPedidos(Pedido pedido) {
-		this.listaPedidos.add(pedido);
-	}
-	
 }

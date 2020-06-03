@@ -19,6 +19,7 @@ public class Pedido {
 	//private Datetime fecha;
 	private Estado estado;
 	private Double precio;
+//	Agregada la relacion 1:N entre Usuario y Pedido
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Usuario usuario;
 	//mappedby indica la relacion bidireccional y tambien permitimos que se tome la config de JoinTable de Comida

@@ -43,5 +43,10 @@ public class ServicioPedidoImpl implements ServicioPedido {
 	public Pedido buscarPedidoPorId(Long id) {
 		return pedidoDao.buscarPedidoPorId(id);
 	}
+	@Override
+	public void actualizarPedido(Pedido pedido) {
+		pedidoDao.actualizarPedido(pedido);
+		
+	}
 
 }
