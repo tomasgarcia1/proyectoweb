@@ -45,45 +45,52 @@ public class ControladorComida {
 
 	@RequestMapping("/sugerirComidaPorCalorias")
 	public ModelAndView sugerirComidaPorCalorias(HttpServletRequest request) {
-		
-		Usuario user=(Usuario)request.getSession().getAttribute("usuario");
-		
-		if(user!=null) {
-		Long id = user.getId();
 
-		Double caloriasDiarias = servicioUsuario.obtenerCaloriasPorId(id);
+		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
 
-		Comida desayunoSugerido = servicioComida.sugerirDesayunoPorCalorias(caloriasDiarias);
-		Comida almuerzoSugerido = servicioComida.sugerirAlmuerzoPorCalorias(caloriasDiarias);
-		Comida cenaSugerida = servicioComida.sugerirCenaPorCalorias(caloriasDiarias);
+		if (user != null) {
+			Long id = user.getId();
 
-		ModelMap model = new ModelMap();
+			Double caloriasDiarias = servicioUsuario.obtenerCaloriasPorId(id);
 
-		model.put("desayuno", desayunoSugerido);
-		model.put("almuerzo", almuerzoSugerido);
-		model.put("cena", cenaSugerida);
+			Comida desayunoSugerido = servicioComida.sugerirDesayunoPorCalorias(caloriasDiarias);
+			Comida almuerzoSugerido = servicioComida.sugerirAlmuerzoPorCalorias(caloriasDiarias);
+			Comida cenaSugerida = servicioComida.sugerirCenaPorCalorias(caloriasDiarias);
 
-		return new ModelAndView("sugerirComidaPorCalorias", model);
-		
-		}else{
-		return new ModelAndView("redirect:/home");
+			ModelMap model = new ModelMap();
+
+			model.put("desayuno", desayunoSugerido);
+			model.put("almuerzo", almuerzoSugerido);
+			model.put("cena", cenaSugerida);
+
+			return new ModelAndView("sugerirComidaPorCalorias", model);
+
+		} else {
+			return new ModelAndView("redirect:/home");
 		}
 	}
-	
-	@RequestMapping("/sugerirComidaPorRestricciones")
-	public ModelAndView sugerirComidaPorRestricciones(@RequestParam(value = "id") Long id) {
-		
-		Comida desayunoSugerido = servicioComida.sugerirDesayunoPorRestricciones(id);
-		Comida almuerzoSugerido = servicioComida.sugerirAlmuerzoPorRestricciones(id);
-		Comida cenaSugerida = servicioComida.sugerirCenaPorRestricciones(id);
-		
-		ModelMap model = new ModelMap();
 
-		model.put("desayuno",desayunoSugerido);
-		model.put("almuerzo",almuerzoSugerido);
-		model.put("cena",cenaSugerida);
-	
-		return new ModelAndView("sugerirComidaPorRestricciones", model);
-	
-}
+	@RequestMapping("/sugerirComidaPorRestricciones")
+	public ModelAndView sugerirComidaPorRestricciones(HttpServletRequest request) {
+		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
+
+		if (user != null) {
+			Long id = user.getId();
+
+			Comida desayunoSugerido = servicioComida.sugerirDesayunoPorRestricciones(id);
+			Comida almuerzoSugerido = servicioComida.sugerirAlmuerzoPorRestricciones(id);
+			Comida cenaSugerida = servicioComida.sugerirCenaPorRestricciones(id);
+
+			ModelMap model = new ModelMap();
+
+			model.put("desayuno", desayunoSugerido);
+			model.put("almuerzo", almuerzoSugerido);
+			model.put("cena", cenaSugerida);
+
+			return new ModelAndView("sugerirComidaPorRestricciones", model);
+
+		} else {
+			return new ModelAndView("redirect:/home");
+		}
+	}
 }
