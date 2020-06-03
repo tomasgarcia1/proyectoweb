@@ -2,11 +2,13 @@ package ar.edu.unlam.tallerweb1.modelo;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Pedido {
@@ -17,7 +19,8 @@ public class Pedido {
 	//private Datetime fecha;
 	private Estado estado;
 	private Double precio;
-	
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Usuario usuario;
 	//mappedby indica la relacion bidireccional y tambien permitimos que se tome la config de JoinTable de Comida
 	//hay que escribir mappedBy = <nombre de la lista en la otra entity>
 	//el error que me tiraba era que ponia Pedido en vez de pedidos porque crei que se referia a la clase no a la lista kajsjsajas
@@ -48,6 +51,12 @@ public class Pedido {
 	}
 	public void setEstado(Estado estado) {
 		this.estado = estado;
+	}
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 	
 }

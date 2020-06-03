@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 // Clase que modela el concepto de Usuario, la anotacion @Entity le avisa a hibernate que esta clase es persistible
 // el paquete ar.edu.unlam.tallerweb1.modelo esta indicado en el archivo hibernateCOntext.xml para que hibernate
@@ -32,7 +33,10 @@ public class Usuario {
 	private Double peso;
 	private Double caloriasDiarias;
 	private Actividad actividad;
-	private Sexo sexo;	
+	private Sexo sexo;
+	//	Agregada la relacion 1:N entre Usuario y Pedido
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Pedido> listaPedidos;
 	
 	@JoinTable(
 			name = "usuarios_restricciones",
@@ -103,4 +107,11 @@ public class Usuario {
 	public void setCaloriasDiarias(Double caloriasDiarias) {
 		this.caloriasDiarias = caloriasDiarias;
 	}
+	public List<Pedido> getListaPedidos() {
+		return listaPedidos;
+	}
+	public void setListaPedidos(Pedido pedido) {
+		this.listaPedidos.add(pedido);
+	}
+	
 }
