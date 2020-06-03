@@ -66,7 +66,7 @@
 
                 <div class="col-md-4">
                     <div class="card" style="width: 18rem;">
-                        <img src="../assets/f1.jpg" class="card-img-top" alt="...">
+                        <img src="img/f1.jpg" class="card-img-top" alt="...">
                         <div class="card-body bg-danger text-light">
                           <h5 class="card-title">Comidas balanceadas</h5>
                           <p class="card-text">Ni idea que iria aca, vos haces como que escribis una banda, te llevas el parrafo al lugar mas recondito de tu casa y sos inimptuable hermano.</p>
@@ -77,7 +77,7 @@
 
                 <div class="col-md-4">
                     <div class="card" style="width: 18rem;">
-                        <img src="../assets/f2.jpg" class="card-img-top" alt="...">
+                        <img src="img/f2.jpg" class="card-img-top" alt="...">
                         <div class="card-body bg-danger text-light">
                           <h5 class="card-title">Comidas vegetarianas</h5>
                           <p class="card-text">Ni idea que iria aca, vos haces como que escribis una banda, te llevas el parrafo al lugar mas recondito de tu casa y sos inimptuable hermano.</p>
@@ -88,7 +88,7 @@
 
                 <div class="col-md-4">
                     <div class="card" style="width: 18rem;">
-                        <img src="../assets/f3.jpg" class="card-img-top" alt="...">
+                        <img src="img/f3.jpg" class="card-img-top" alt="...">
                         <div class="card-body bg-danger text-light">
                           <h5 class="card-title">Comidas veganas</h5>
                           <p class="card-text">Ni idea que iria aca, vos haces como que escribis una banda, te llevas el parrafo al lugar mas recondito de tu casa y sos inimptuable hermano.</p>
