@@ -61,52 +61,6 @@ public class ServicioComidaImpl implements ServicioComida {
 		return cena.get(numeroRandom);
 	}
 
-	public Comida sugerirDesayunoPorRestricciones(List<Restriccion> r) {
-		List<Comida> comidas = comidaDao.obtenerComidas();
-		List<Comida> desayuno = new ArrayList<Comida>();
-		for (Comida comida1 : comidas) {
-			comida1.getRestricciones().containsAll(r);
-			desayuno.add(comida1);
-		}
-		Integer numeroRandom = (int) (Math.random() * desayuno.size());
-		return desayuno.get(numeroRandom);
-	}
-
-	public Comida sugerirAlmuerzoPorRestricciones(List<Restriccion> r) {
-		List<Comida> comidas = comidaDao.obtenerComidas();
-		List<Comida> almuerzo = new ArrayList<Comida>();
-		for (Comida comida1 : comidas) {
-			comida1.getRestricciones().containsAll(r);
-			almuerzo.add(comida1);
-		}
-		Integer numeroRandom = (int) (Math.random() * almuerzo.size());
-		return almuerzo.get(numeroRandom);
-	}
-
-	public Comida sugerirCenaPorRestricciones(List<Restriccion> r) {
-		List<Comida> comidas = comidaDao.obtenerComidas();
-		List<Comida> cena = new ArrayList<Comida>();
-		for (Comida comida1 : comidas) {
-			comida1.getRestricciones().containsAll(r);
-			cena.add(comida1);
-		}
-		Integer numeroRandom = (int) (Math.random() * cena.size());
-		return cena.get(numeroRandom);
-	}
-
-	public Comida sugerirComida(Long id) {
-		Usuario user = usuarioDao.obtenerUsuarioPorId(id);
-		List<Restriccion> restricciones = user.getRestricciones();
-		List<Comida> comidas = comidaDao.obtenerComidas();
-		List<Comida> comidarestriccion = new ArrayList<Comida>();
-		for (Comida comida1 : comidas) {
-			comida1.getRestricciones().containsAll(restricciones);
-			comidarestriccion.add(comida1);
-		}
-		Integer numeroRandom = (int) (Math.random() * comidarestriccion.size());
-		return comidarestriccion.get(numeroRandom);
-	}
-
 	@Override
 	public Comida sugerirAlmuerzoPorRestricciones(Long id) {
 		Usuario user = usuarioDao.obtenerUsuarioPorId(id);
