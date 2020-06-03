@@ -45,34 +45,42 @@ public class Comida {
 	
 	@ManyToMany(mappedBy = "comidas")
 	private List<Restriccion> restricciones;
-	
+
 	public List<Tipo> getTipos() {
 		return tipos;
 	}
 	public void setTipo(List<Tipo> tipos) {
 		this.tipos = tipos;
 	}
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getNombre() {
 		return nombre;
 	}
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
 	public String getDescripcion() {
 		return descripcion;
 	}
+
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+
 	public Double getCalorias() {
 		return calorias;
 	}
+
 	public void setCalorias(Double calorias) {
 		this.calorias = calorias;
 	}
@@ -90,6 +98,12 @@ public class Comida {
 		this.pedidos = pedidos;
 	}
 	
+	public List<Restriccion> getRestricciones() {
+		return restricciones;
+	}
+	public void setRestricciones(List<Restriccion> restricciones) {
+		this.restricciones = restricciones;
+	}
 	
 	
 }

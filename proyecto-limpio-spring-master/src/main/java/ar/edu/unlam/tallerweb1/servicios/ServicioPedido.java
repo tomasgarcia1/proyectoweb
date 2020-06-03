@@ -4,4 +4,5 @@ import ar.edu.unlam.tallerweb1.modelo.Pedido;
 
 public interface ServicioPedido {
 	Long crearPedido(Pedido pedido);
+
 }
