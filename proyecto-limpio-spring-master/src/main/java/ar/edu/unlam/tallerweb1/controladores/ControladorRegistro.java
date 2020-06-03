@@ -25,10 +25,10 @@ public class ControladorRegistro {
 
 	/*
 	 * Controlador para registro de usuario, se reciben por parametro e-mail,
-	 * password y rol (momentaneamente). 
-	 * Se valida la existencia del e-mail en un usuario. Si existe, el usuario no se registra.
-	 * Se valida el formato del e-mail. Debe tener un @ y un punto seguido de letras.
-	 * Se crearon interfaces, clases de registro y guardado de usuarios en servicios y repositorios.
+	 * password y rol (momentaneamente). Se valida la existencia del e-mail en un
+	 * usuario. Si existe, el usuario no se registra. Se valida el formato del
+	 * e-mail. Debe tener un @ y un punto seguido de letras. Se crearon interfaces,
+	 * clases de registro y guardado de usuarios en servicios y repositorios.
 	 */
 	@RequestMapping(path = "/registrar", method = RequestMethod.GET)
 	public ModelAndView registrarUsuario(@RequestParam(value = "email", required = true) String email,
@@ -42,7 +42,7 @@ public class ControladorRegistro {
 			 * esto es para no tener almacenada la clave original.
 			 */
 			nuevoUsuario.setPassword(servicioUsuario.encriptarPassword(password));
-			//nuevoUsuario.setRol(rol);
+			// nuevoUsuario.setRol(rol);
 			Long idGenerado = servicioUsuario.registrarUsuario(nuevoUsuario);
 			modeloRegistro.put("user", nuevoUsuario);
 			return new ModelAndView("registroCorrecto", modeloRegistro);

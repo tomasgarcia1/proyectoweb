@@ -12,7 +12,12 @@ public class ControladorHome {
 	@RequestMapping(path = "/home", method = RequestMethod.GET)
 	public ModelAndView irAHome() {
 		ModelMap modelo = new ModelMap();
-		return new ModelAndView ("home", modelo);
+		return new ModelAndView("home", modelo);
+	}
+
+	@RequestMapping(path = "/interno")
+	public ModelAndView interno() {
+		ModelMap modelo = new ModelMap();
+		return new ModelAndView("interno", modelo);
 	}
 }
-

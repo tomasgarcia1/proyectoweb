@@ -18,25 +18,26 @@ import ar.edu.unlam.tallerweb1.modelo.Usuario;
 public class RestriccionDaoImpl implements RestriccionDao {
 	@Inject
 	private SessionFactory sesion;
-	
+
 	@Override
 	public Long crearRestriccion(Restriccion restriccion) {
-		
-		return (Long)sesion.getCurrentSession().save(restriccion);
-	
+
+		return (Long) sesion.getCurrentSession().save(restriccion);
+
 	}
 
 	@Override
 	public void borrarRestriccion(Restriccion restriccion) {
-	
-		sesion.getCurrentSession().delete(restriccion);		
-	
+
+		sesion.getCurrentSession().delete(restriccion);
+
 	}
 
 	@Override
 	public Restriccion obtenerRestriccionPorId(Long id) {
-		
-		return (Restriccion)sesion.getCurrentSession().get(Restriccion.class, id);
+
+
+		return (Restriccion) sesion.getCurrentSession().get(Restriccion.class, id);
 		
 	}
 
@@ -49,6 +50,6 @@ public class RestriccionDaoImpl implements RestriccionDao {
 		
 		return r;
 	}
+
+
 }
-
-

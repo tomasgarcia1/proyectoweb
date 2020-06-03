@@ -70,7 +70,6 @@ public class ControladorLogin {
 		return new ModelAndView("redirect:/home");
 	}
 	/*@RequestMapping(path = "/validar-login", method = RequestMethod.POST)
-
     public ModelAndView validarogin(@ModelAttribute Usuario usuario, HttpServletRequest request) {
         Usuario usuarioBuscado = servicioLogin.consultarUsuario(usuario);
         if (usuarioBuscado != null) {
@@ -104,9 +103,7 @@ ModelAndView("redirect:/home");
             model.put("error", "Usuario o clave incorrecta");
             return new ModelAndView("login", model);
         }
-
  
-
     }xdxdxd
 */	
 	

@@ -18,33 +18,34 @@ public class Restriccion {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nombre;
-	
+
 	@ManyToMany(mappedBy = "restricciones")
 	private List<Usuario> usuarios;
-	
-	@JoinTable(
-			name = "comidas_restricciones",
-			joinColumns = @JoinColumn(name = "fk_restriccion"),
-			inverseJoinColumns = @JoinColumn(name = "fk_comida")
-			)
+
+	@JoinTable(name = "comidas_restricciones", joinColumns = @JoinColumn(name = "fk_restriccion"), inverseJoinColumns = @JoinColumn(name = "fk_comida"))
 	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Comida> comidas;
-	
+
 	public List<Usuario> getUsuarios() {
 		return usuarios;
 	}
+
 	public void setUsuarios(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getNombre() {
 		return nombre;
 	}
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
