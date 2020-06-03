@@ -12,12 +12,17 @@ public interface ServicioComida {
 	Comida obtenerPorId(Long id);
 
 	void borrar(Comida comida);
+
 	Comida sugerirDesayunoPorCalorias(Double caloriasDiarias);
+
 	Comida sugerirAlmuerzoPorCalorias(Double caloriasDiarias);
+
 	Comida sugerirCenaPorCalorias(Double caloriasDiarias);
 
-	Comida sugerirDesayunoPorRestricciones(List<Restriccion> r);
-	Comida sugerirAlmuerzoPorRestricciones(List<Restriccion> r);
-	Comida sugerirCenaPorRestricciones(List<Restriccion> r);
+	Comida sugerirDesayunoPorRestricciones(Long id);
+
+	Comida sugerirAlmuerzoPorRestricciones(Long id);
+
+	Comida sugerirCenaPorRestricciones(Long id);
 
 }

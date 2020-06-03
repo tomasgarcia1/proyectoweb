@@ -36,22 +36,11 @@ public class Usuario {
 	private Actividad actividad;
 	private Sexo sexo;
 
-	@JoinTable(name = "usuarios_restricciones", joinColumns = @JoinColumn(name = "fk_usuario"), inverseJoinColumns = @JoinColumn(name = "fk_restriccion"))
-
 	private Double caloriasDiarias;
 
 	@JoinTable(name = "usuarios_restricciones", joinColumns = @JoinColumn(name = "fk_usuario"), inverseJoinColumns = @JoinColumn(name = "fk_restriccion"))
-
 	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Restriccion> restricciones;
-
-	public List<Restriccion> getRestricciones() {
-		return restricciones;
-	}
-
-	public void setRestricciones(List<Restriccion> restricciones) {
-		this.restricciones = restricciones;
-	}
 
 	public Long getId() {
 		return id;
@@ -123,5 +112,13 @@ public class Usuario {
 
 	public void setCaloriasDiarias(Double caloriasDiarias) {
 		this.caloriasDiarias = caloriasDiarias;
+	}
+
+	public List<Restriccion> getRestricciones() {
+		return restricciones;
+	}
+
+	public void setRestricciones(List<Restriccion> restricciones) {
+		this.restricciones = restricciones;
 	}
 }

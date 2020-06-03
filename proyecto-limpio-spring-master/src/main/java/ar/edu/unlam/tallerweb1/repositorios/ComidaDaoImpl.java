@@ -40,11 +40,10 @@ public class ComidaDaoImpl implements ComidaDao {
 				.list();
 	}
 
-	public List<Comida> obtenerComidasSegunRestricciones(List<Restriccion> restriccion) {
-		return sesion
-				.getCurrentSession().createCriteria(Comida.class).add(Restrictions
-						.and(Restrictions.eq("restriccion", restriccion), Restrictions.in("restriccion", restriccion)))
-				.list();
-	}
+	public List<Comida> obtenerComidas() {
+		List<Comida> comidas = sesion
+				.getCurrentSession().createCriteria(Comida.class).list();
 
+		return comidas;
+	}
 }

@@ -61,23 +61,21 @@ public class ControladorComida {
 
 		return new ModelAndView("sugerirComidaPorCalorias", model);
 	}
-
+	
 	@RequestMapping("/sugerirComidaPorRestricciones")
 	public ModelAndView sugerirComidaPorRestricciones(@RequestParam(value = "id") Long id) {
-
-		List<Restriccion> r = servicioUsuario.obtenerRestriccionesPorId(id);
-
-		Comida desayunoSugerido = servicioComida.sugerirDesayunoPorRestricciones(r);
-		Comida almuerzoSugerido = servicioComida.sugerirAlmuerzoPorRestricciones(r);
-		Comida cenaSugerida = servicioComida.sugerirCenaPorRestricciones(r);
+		
+		Comida desayunoSugerido = servicioComida.sugerirDesayunoPorRestricciones(id);
+		Comida almuerzoSugerido = servicioComida.sugerirAlmuerzoPorRestricciones(id);
+		Comida cenaSugerida = servicioComida.sugerirCenaPorRestricciones(id);
 		
 		ModelMap model = new ModelMap();
 
-		model.put("desayuno", desayunoSugerido);
-		model.put("almuerzo", almuerzoSugerido);
-		model.put("cena", cenaSugerida);
-
+		model.put("desayuno",desayunoSugerido);
+		model.put("almuerzo",almuerzoSugerido);
+		model.put("cena",cenaSugerida);
+	
 		return new ModelAndView("sugerirComidaPorRestricciones", model);
-	}
-
+	
+}
 }

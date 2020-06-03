@@ -106,11 +106,4 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 	public void update(Usuario usuario) {
 		this.usuarioDao.update(usuario);
 	}
-
-	@Override
-	public List<Restriccion> obtenerRestriccionesPorId(Long id) {
-		Usuario user = usuarioDao.obtenerUsuarioPorId(id);
-		List<Restriccion> restriccionuser = user.getRestricciones();
-		return restriccionuser;
-	}
 }

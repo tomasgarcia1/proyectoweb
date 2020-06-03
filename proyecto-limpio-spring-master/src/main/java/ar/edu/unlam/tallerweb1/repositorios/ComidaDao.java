@@ -3,7 +3,6 @@ package ar.edu.unlam.tallerweb1.repositorios;
 import java.util.List;
 
 import ar.edu.unlam.tallerweb1.modelo.Comida;
-import ar.edu.unlam.tallerweb1.modelo.Restriccion;
 
 public interface ComidaDao {
 
@@ -14,8 +13,7 @@ public interface ComidaDao {
 	void borrar(Comida comida);
 	
 	List<Comida> obtenerComidasSegunCalorias(Double calorias);
-
-	List<Comida> obtenerComidasSegunRestricciones(List<Restriccion> restriccion);
-
+	
+	List<Comida> obtenerComidas();
 
 }

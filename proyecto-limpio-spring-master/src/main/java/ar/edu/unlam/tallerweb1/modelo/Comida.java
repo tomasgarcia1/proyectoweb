@@ -45,7 +45,7 @@ public class Comida {
 	
 	@ManyToMany(mappedBy = "comidas")
 	private List<Restriccion> restricciones;
-	
+
 	public List<Tipo> getTipos() {
 		return tipos;
 	}
@@ -96,6 +96,13 @@ public class Comida {
 	}
 	public void setPedidos(List<Pedido> pedidos) {
 		this.pedidos = pedidos;
+	}
+	
+	public List<Restriccion> getRestricciones() {
+		return restricciones;
+	}
+	public void setRestricciones(List<Restriccion> restricciones) {
+		this.restricciones = restricciones;
 	}
 	
 	
