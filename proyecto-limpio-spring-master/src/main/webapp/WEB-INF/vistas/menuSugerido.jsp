@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,7 +53,37 @@
 			</div>
 		</div>
 	</nav>
+	<section>
+        <form method="GET" action="generarpedido">
+			<!--  <h3>Usuario: ${usuario.email}</h3>-->
+			<span>COMIDA 1</span>
+			<input type="radio" name="pedido" value="1" />
+			<li><c:forEach items="${pedido1.comidas}" var="comida">
+					<span>DESAYUNO: </span>
+					<span> ${comida.nombre}</span>
+					<span>${comida.precio}</span>
+					<br>
+				</c:forEach></li>
+				<span>COMIDA 2</span>
+			<input type="radio" name="pedido" value="2" />
+			<li><c:forEach items="${pedido2.comidas}" var="comida2">
+					<span>DESAYUNO: </span>
+					<span> ${comida2.nombre}</span>
+					<span>${comida2.precio}</span>
+					<br>
+				</c:forEach></li>
+				<span>COMIDA 3</span>
+			<input type="radio" name="pedido" value="3" />
+			<li><c:forEach items="${pedido3.comidas}" var="comida3">
+					<span>DESAYUNO: </span>
+					<span> ${comida3.nombre}</span>
+					<span>${comida3.precio}</span>
+					<br>
+				</c:forEach></li>
 
+			<button class="btn btn-success">Confirmar gustos</button>
+		</form>
+    </section>
 	<!-- Footer -->
 	<footer class="page-footer font-small unique-color-dark">
 

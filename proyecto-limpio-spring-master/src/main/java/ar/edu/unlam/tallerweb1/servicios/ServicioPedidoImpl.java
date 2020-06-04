@@ -1,5 +1,8 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -15,6 +18,8 @@ public class ServicioPedidoImpl implements ServicioPedido {
 
 	@Inject
 	private PedidoDao pedidoDao;
+	@Inject
+	private ServicioComida servicioComida;
 
 	@Override
 	public Long crearPedido(Pedido pedido) {
@@ -47,6 +52,27 @@ public class ServicioPedidoImpl implements ServicioPedido {
 	public void actualizarPedido(Pedido pedido) {
 		pedidoDao.actualizarPedido(pedido);
 		
+	}
+	/*
+	 * Recibe por parametro el ID del usuario para buscar sus restricciones.
+	 * Crea un objeto de tipo Comida por cada comida del dia, usando los métodos de servicioComida.
+	 * Estas comidas se almacenan en una lista de comidas, las cuales se agregan a la variable pedido.
+	 * Se calcula el importe total del pedido creado.
+	 * Se devuelve una variable de tipo Pedido.
+	 */
+	@Override
+	public Pedido generarPedidoPorRestricciones(Long id) {
+		Comida desayuno=servicioComida.sugerirDesayunoPorRestricciones(id);
+		Comida almuerzo=servicioComida.sugerirAlmuerzoPorRestricciones(id);
+		Comida cena=servicioComida.sugerirAlmuerzoPorRestricciones(id);
+		Pedido pedido=new Pedido();
+		List<Comida> comidas=new ArrayList<Comida>();
+		comidas.add(desayuno);
+		comidas.add(almuerzo);
+		comidas.add(cena);
+		pedido.setComidas(comidas);
+		pedido.setPrecio(calcularImporteTotal(pedido));
+		return pedido;
 	}
 
 }
