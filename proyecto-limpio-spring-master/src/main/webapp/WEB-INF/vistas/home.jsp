@@ -53,7 +53,9 @@
             <p>Aca le metes una pavada tipo dale papa que haces que no te registraste mostro.</p>
             <a class="btn btn-outline-danger btn-lg" href="registro" role="button">Registrarse</a>
             <a class="btn btn-outline-danger btn-lg" href="login" role="button">Iniciar sesion</a>
+            <br><br>
             <a class="btn btn-outline-danger btn-lg" href="menuSugerido" role="button">Realizar pedido por restricciones</a>
+            <a class="btn btn-outline-danger btn-lg" href="menuCalorias" role="button">Realizar pedido por calorias</a>
           </div>
         </div>
     </section>

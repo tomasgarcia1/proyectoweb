@@ -45,7 +45,7 @@ public class ControladorPedido {
 		model.put("pedido3", pedido3);
 		return new ModelAndView("menuSugerido", model);
 	}
-	
+
 	/*
 	 * Se recibe como parametro un string con la opcion elegida en la vista menuSugerido.
 	 * Esta opcion es evaluada para asignarle a la variable nuevoPedido el pedido acorde a lo elegido.
@@ -108,6 +108,21 @@ public class ControladorPedido {
 		return new ModelAndView("redirect:/home");
 	}
 	
+	@RequestMapping(path = "/menuCalorias")
+	public ModelAndView irAMenuCalorias(HttpServletRequest request) {
+		Usuario user=(Usuario)request.getSession().getAttribute("usuario");
+		ModelMap model = new ModelMap();
+		Pedido pedido1=servicioPedido.generarPedidoPorCalorias(user);
+		Pedido pedido2=servicioPedido.generarPedidoPorCalorias(user);
+		Pedido pedido3=servicioPedido.generarPedidoPorCalorias(user);
+		request.getSession().setAttribute("pedido1", pedido1);
+		request.getSession().setAttribute("pedido2", pedido2);
+		request.getSession().setAttribute("pedido3", pedido3);
+		model.put("pedido1", pedido1);
+		model.put("pedido2", pedido2);
+		model.put("pedido3", pedido3);
+		return new ModelAndView("menuCalorias", model);
+	}
 	/*@RequestMapping(path="/mispedidos")
 	public ModelAndView listarPedidos(HttpServletRequest request) {
 		ModelMap model = new ModelMap();

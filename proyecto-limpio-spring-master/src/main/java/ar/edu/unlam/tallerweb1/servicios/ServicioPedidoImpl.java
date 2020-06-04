@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unlam.tallerweb1.modelo.Comida;
 import ar.edu.unlam.tallerweb1.modelo.Pedido;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.PedidoDao;
 
 @Service
@@ -64,7 +65,7 @@ public class ServicioPedidoImpl implements ServicioPedido {
 	public Pedido generarPedidoPorRestricciones(Long id) {
 		Comida desayuno=servicioComida.sugerirDesayunoPorRestricciones(id);
 		Comida almuerzo=servicioComida.sugerirAlmuerzoPorRestricciones(id);
-		Comida cena=servicioComida.sugerirAlmuerzoPorRestricciones(id);
+		Comida cena=servicioComida.sugerirCenaPorRestricciones(id);
 		Pedido pedido=new Pedido();
 		List<Comida> comidas=new ArrayList<Comida>();
 		comidas.add(desayuno);
@@ -74,5 +75,19 @@ public class ServicioPedidoImpl implements ServicioPedido {
 		pedido.setPrecio(calcularImporteTotal(pedido));
 		return pedido;
 	}
-
+	
+	@Override
+	public Pedido generarPedidoPorCalorias(Usuario usuario) {
+		Comida desayuno=servicioComida.sugerirDesayunoPorCalorias(usuario.getCaloriasDiarias());
+		Comida almuerzo=servicioComida.sugerirAlmuerzoPorCalorias(usuario.getCaloriasDiarias());
+		Comida cena=servicioComida.sugerirCenaPorCalorias(usuario.getCaloriasDiarias());
+		Pedido pedido=new Pedido();
+		List<Comida> comidas=new ArrayList<Comida>();
+		comidas.add(desayuno);
+		comidas.add(almuerzo);
+		comidas.add(cena);
+		pedido.setComidas(comidas);
+		pedido.setPrecio(calcularImporteTotal(pedido));
+		return pedido;
+	}
 }

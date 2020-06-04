@@ -54,7 +54,7 @@
 		</div>
 	</nav>
 	<section>
-	<h1>Seleccionar pedido por restricciones</h1>
+	<h1>Seleccionar pedido por calorias</h1>
         <form method="GET" action="generarpedido">
 			<!--  <h3>Usuario: ${usuario.email}</h3>-->
 			<span>COMIDA 1</span>
@@ -382,4 +382,4 @@
 	<script src="js/bootstrap.min.js" type="text/javascript"></script>
 
 </body>
-</html>
+</html>tml>
