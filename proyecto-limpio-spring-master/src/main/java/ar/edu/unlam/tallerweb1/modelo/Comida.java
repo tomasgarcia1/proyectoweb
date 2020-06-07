@@ -21,6 +21,7 @@ public class Comida {
 	private String descripcion;
 	private Double calorias;	
 	private Double precio;
+	private TipoHorario tipoHorario;
 	
 
 	
@@ -104,6 +105,12 @@ public class Comida {
 	}
 	public void setRestricciones(List<Restriccion> restricciones) {
 		this.restricciones = restricciones;
+	}
+	public TipoHorario getTipoHorario() {
+		return tipoHorario;
+	}
+	public void setTipoHorario(TipoHorario tipoHorario) {
+		this.tipoHorario = tipoHorario;
 	}
 	
 }

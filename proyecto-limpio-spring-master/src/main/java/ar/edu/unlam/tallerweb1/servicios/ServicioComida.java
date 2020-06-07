@@ -1,9 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
-import java.util.List;
-
 import ar.edu.unlam.tallerweb1.modelo.Comida;
-import ar.edu.unlam.tallerweb1.modelo.Restriccion;
 
 public interface ServicioComida {
 
@@ -24,5 +21,11 @@ public interface ServicioComida {
 	Comida sugerirAlmuerzoPorRestricciones(Long id);
 
 	Comida sugerirCenaPorRestricciones(Long id);
+
+	Comida sugerirDesayuno(Double caloriasDiarias, Long id);
+
+	Comida sugerirAlmuerzo(Double caloriasDiarias, Long id);
+
+	Comida sugerirCena(Double caloriasDiarias, Long id);
 
 }

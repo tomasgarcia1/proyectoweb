@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import ar.edu.unlam.tallerweb1.modelo.Comida;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioComida;
+import ar.edu.unlam.tallerweb1.servicios.ServicioPedido;
 import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 
 @Controller
@@ -21,6 +24,9 @@ public class ControladorComida {
 
 	@Inject
 	private ServicioUsuario servicioUsuario;
+	
+	@Inject
+	private ServicioPedido servicioPedido;
 
 	@RequestMapping("/crearComida")
 	public ModelAndView crearComida(@RequestParam(value = "nombre", required = true) String nombre,
@@ -89,6 +95,32 @@ public class ControladorComida {
 
 			return new ModelAndView("sugerirComidaPorRestricciones", model);
 
+		} else {
+			return new ModelAndView("redirect:/home");
+		}
+	}
+	
+	@RequestMapping ("/sugerirMenuDelDia")
+	public ModelAndView sugerirMenuDelDia (HttpServletRequest request) {
+		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
+		
+		if(user != null) {
+			Long id = user.getId();
+			Double caloriasDiarias = servicioUsuario.obtenerCaloriasPorId(id);
+			
+			
+			List<Comida> menu1 = servicioPedido.generarMenusSugeridos(user);
+			List<Comida> menu2 = servicioPedido.generarMenusSugeridos(user);
+			List<Comida> menu3 = servicioPedido.generarMenusSugeridos(user);
+			
+			ModelMap model = new ModelMap();
+			
+			model.put("menu1", menu1);
+			model.put("menu2", menu2);
+			model.put("menu3", menu3);
+			
+			return new ModelAndView("sugerirMenuDelDia", model);
+			
 		} else {
 			return new ModelAndView("redirect:/home");
 		}

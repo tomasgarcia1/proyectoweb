@@ -56,6 +56,7 @@
             <br><br>
             <a class="btn btn-outline-danger btn-lg" href="menuSugerido" role="button">Realizar pedido por restricciones</a>
             <a class="btn btn-outline-danger btn-lg" href="menuCalorias" role="button">Realizar pedido por calorias</a>
+            <a class="btn btn-outline-danger btn-lg" href="sugerirMenuDelDia" role="button">Generar menú del día</a>
           </div>
         </div>
     </section>

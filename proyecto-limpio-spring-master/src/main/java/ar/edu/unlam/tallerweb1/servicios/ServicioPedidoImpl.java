@@ -90,4 +90,16 @@ public class ServicioPedidoImpl implements ServicioPedido {
 		pedido.setPrecio(calcularImporteTotal(pedido));
 		return pedido;
 	}
+	
+	@Override
+	public List<Comida> generarMenusSugeridos(Usuario usuario) {
+		Comida desayuno=servicioComida.sugerirDesayuno(usuario.getCaloriasDiarias(), usuario.getId());
+		Comida almuerzo=servicioComida.sugerirAlmuerzo(usuario.getCaloriasDiarias(), usuario.getId());
+		Comida cena=servicioComida.sugerirCena(usuario.getCaloriasDiarias(), usuario.getId());
+		List<Comida> comidas=new ArrayList<Comida>();
+		comidas.add(desayuno);
+		comidas.add(almuerzo);
+		comidas.add(cena);
+		return comidas;
+	}
 }
