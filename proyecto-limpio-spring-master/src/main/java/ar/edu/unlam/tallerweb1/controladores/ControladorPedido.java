@@ -138,13 +138,4 @@ public class ControladorPedido {
 		//model.put("pedidos", listaPedidos);
 		return new ModelAndView("misPedidos", model);
 	}*/
-
-	/*@RequestMapping("/crearPedido")
-	public ModelAndView crearPedido() {
-		ModelMap model = new ModelMap();
-		Pedido nuevoPedido=new Pedido();
-		Long idGenerado = servicioPedido.crearPedido(nuevoPedido);
-		model.put("pedido", nuevoPedido);
-		return new ModelAndView("pedidoRealizado", model);
-	}*/
 }

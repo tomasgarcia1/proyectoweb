@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unlam.tallerweb1.modelo.Comida;
-import ar.edu.unlam.tallerweb1.modelo.Estado;
 import ar.edu.unlam.tallerweb1.modelo.Pedido;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.PedidoDao;
@@ -66,7 +65,6 @@ public class ServicioPedidoImpl implements ServicioPedido {
 		Comida desayuno=servicioComida.sugerirDesayunoPorRestricciones(id);
 		Comida almuerzo=servicioComida.sugerirAlmuerzoPorRestricciones(id);
 		Comida cena=servicioComida.sugerirCenaPorRestricciones(id);
-		Pedido pedido=new Pedido();
 		List<Comida> comidas=new ArrayList<Comida>();
 		comidas.add(desayuno);
 		comidas.add(almuerzo);
