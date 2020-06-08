@@ -10,6 +10,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unlam.tallerweb1.modelo.Comida;
@@ -131,11 +132,22 @@ public class ControladorPedido {
 	}
 	
 	
-	/*@RequestMapping(path="/mispedidos")
+	@RequestMapping(path="/mispedidos")
 	public ModelAndView listarPedidos(HttpServletRequest request) {
 		ModelMap model = new ModelMap();
-		
-		//model.put("pedidos", listaPedidos);
-		return new ModelAndView("misPedidos", model);
-	}*/
+		Usuario user=(Usuario)request.getSession().getAttribute("usuario");
+		List<Pedido> listaPedidos=servicioPedido.listarPedidosPorUsuario(user);
+		model.put("pedidos", listaPedidos);
+		return new ModelAndView("listapedidos", model);
+	}
+	@RequestMapping(path="/detallepedido")
+	public ModelAndView verDetallePedido(@RequestParam(value="id", required=true) Long id,HttpServletRequest request)
+	{
+		ModelMap model = new ModelMap();
+		Pedido pedido=servicioPedido.buscarPedidoPorId(id);
+		model.put("pedido",pedido);
+		model.put("cancelado", Estado.CANCELADO);
+		model.put("enviado", Estado.ENVIADO);
+		return new ModelAndView("detallepedido", model);
+	}
 }

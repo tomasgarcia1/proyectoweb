@@ -1,13 +1,17 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unlam.tallerweb1.modelo.Estado;
 import ar.edu.unlam.tallerweb1.modelo.Pedido;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
 @Repository
 @Transactional
@@ -40,5 +44,10 @@ public class PedidoDaoImpl implements PedidoDao {
 		Pedido pedidoPorActualizar=sesion.getCurrentSession().get(Pedido.class, pedido.getId());
 		pedidoPorActualizar.setEstado(Estado.PROCESO);
 		sesion.getCurrentSession().update(pedidoPorActualizar);
+	}
+	@Override
+	public List<Pedido> listarPedidosPorUsuario(Usuario usuario) {
+		return sesion.getCurrentSession().createCriteria(Pedido.class).
+				add(Restrictions.eq("usuario.id", usuario.getId())).list();
 	}
 }
