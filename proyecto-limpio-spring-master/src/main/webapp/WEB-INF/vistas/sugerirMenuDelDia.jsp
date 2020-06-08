@@ -47,35 +47,55 @@
 </div>
         </div>
     </nav>
-<section>
-	<h1>Seleccione el menú del que quiere hacer un pedido</h1>
+<section class="container-sm p-4">
+	<h3 class="text-center">Seleccione el menú del que quiere hacer un pedido</h3>
         <form method="GET" action="generarpedido">
-			<span>MENÚ 1</span>
-			<input type="radio" name="pedido" value="1" />
-			<li><c:forEach items="${menu1}" var="comida">
-					<span>DESAYUNO: </span>
-					<span> ${comida.nombre}</span>
-					<span>${comida.precio}</span>
-					<br>
-				</c:forEach></li>
-				<span>MENÚ 2</span>
-			<input type="radio" name="pedido" value="2" />
-			<li><c:forEach items="${menu2}" var="comida2">
-					<span>DESAYUNO: </span>
-					<span> ${comida2.nombre}</span>
-					<span>${comida2.precio}</span>
-					<br>
-				</c:forEach></li>
-				<span>MENÚ 3</span>
-			<input type="radio" name="pedido" value="3" />
-			<li><c:forEach items="${menu3}" var="comida3">
-					<span>DESAYUNO: </span>
-					<span> ${comida3.nombre}</span>
-					<span>${comida3.precio}</span>
-					<br>
-				</c:forEach></li>
+			<h2 class="text-danger">MENÚ 1</h2>			
+			 <span class="h3"> Seleccionar menú </span>
+			 <input type="radio" name="pedido" value="1" />
+			<ul class="list-group list-group-horizontal-sm">
+				<c:forEach items="${menu1}" var="comida">
+				  <li class="list-group-item flex-fill">
+				  	<h4 class="text-danger">${comida.tipoHorario}: </h4>
+					<h5>${comida.nombre}</h5>
+					<p>${comida.descripcion}</p>
+					<h6>Precio: <span class="text-danger h5">$ ${comida.precio}</span></h6>
+				  </li>
+				</c:forEach>
+			</ul>
 
-			<button class="btn btn-success">Confirmar</button>
+			<br>
+				<h2 class="text-danger">MENÚ 2</h2>			
+			 <span class="h3"> Seleccionar menú </span>
+			<input type="radio" name="pedido" value="2" />
+			<ul class="list-group list-group-horizontal-sm">
+				<c:forEach items="${menu2}" var="comida2">
+				  <li class="list-group-item flex-fill">
+				  	<h4 class="text-danger">${comida2.tipoHorario}: </h4>
+					<h5>${comida2.nombre}</h5>
+					<p>${comida2.descripcion}</p>
+					<h6>Precio: <span class="text-danger h5">$ ${comida2.precio}</span></h6>
+				  </li>
+				</c:forEach>
+			</ul>
+			
+			<br>
+				<h2 class="text-danger">MENÚ 3</h2>			
+			 <span class="h3"> Seleccionar menú </span>
+			<input type="radio" name="pedido" value="3" />
+			<ul class="list-group list-group-horizontal-sm">
+				<c:forEach items="${menu3}" var="comida3">
+				  <li class="list-group-item flex-fill">
+				  	<h4 class="text-danger">${comida3.tipoHorario}: </h4>
+					<h5>${comida3.nombre}</h5>
+					<p>${comida3.descripcion}</p>
+					<h6>Precio: <span class="text-danger h5">$ ${comida3.precio}</span></h6>
+				  </li>
+				</c:forEach>
+			</ul>
+			
+			<br>
+			<button class="btn btn-danger">Confirmar</button>
 		</form>
     </section>
 
