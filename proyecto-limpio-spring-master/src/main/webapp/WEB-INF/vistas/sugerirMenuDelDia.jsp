@@ -49,10 +49,10 @@
     </nav>
 <section class="container-sm p-4">
 	<h3 class="text-center">Seleccione el menú del que quiere hacer un pedido</h3>
-        <form method="GET" action="generarpedido">
+        <form method="POST" action="generarpedido" modelAttribute="idComidas">
 			<h2 class="text-danger">MENÚ 1</h2>			
 			 <span class="h3"> Seleccionar menú </span>
-			 <input type="radio" name="pedido" value="1" />
+			 <input type="radio" name="idComidas" value="${idcomidas1}" />
 			<ul class="list-group list-group-horizontal-sm">
 				<c:forEach items="${menu1}" var="comida">
 				  <li class="list-group-item flex-fill">
@@ -67,7 +67,7 @@
 			<br>
 				<h2 class="text-danger">MENÚ 2</h2>			
 			 <span class="h3"> Seleccionar menú </span>
-			<input type="radio" name="pedido" value="2" />
+			<input type="radio" name="idComidas" value="${idcomidas2}" />
 			<ul class="list-group list-group-horizontal-sm">
 				<c:forEach items="${menu2}" var="comida2">
 				  <li class="list-group-item flex-fill">
@@ -82,7 +82,7 @@
 			<br>
 				<h2 class="text-danger">MENÚ 3</h2>			
 			 <span class="h3"> Seleccionar menú </span>
-			<input type="radio" name="pedido" value="3" />
+			<input type="radio" name="idComidas" value="${idcomidas3}" />
 			<ul class="list-group list-group-horizontal-sm">
 				<c:forEach items="${menu3}" var="comida3">
 				  <li class="list-group-item flex-fill">

@@ -112,13 +112,17 @@ public class ControladorComida {
 			List<Comida> menu1 = servicioPedido.generarMenusSugeridos(user);
 			List<Comida> menu2 = servicioPedido.generarMenusSugeridos(user);
 			List<Comida> menu3 = servicioPedido.generarMenusSugeridos(user);
-			
+			String idComidas1=servicioPedido.concatenarIdComidas(menu1);
+			String idComidas2=servicioPedido.concatenarIdComidas(menu2);
+			String idComidas3=servicioPedido.concatenarIdComidas(menu3);
 			ModelMap model = new ModelMap();
 			
 			model.put("menu1", menu1);
 			model.put("menu2", menu2);
 			model.put("menu3", menu3);
-			
+			model.put("idcomidas1", idComidas1);
+			model.put("idcomidas2", idComidas2);
+			model.put("idcomidas3", idComidas3);
 			return new ModelAndView("sugerirMenuDelDia", model);
 			
 		} else {
