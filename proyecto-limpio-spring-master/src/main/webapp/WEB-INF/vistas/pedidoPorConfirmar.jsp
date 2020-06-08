@@ -54,7 +54,7 @@
 <div class="container">
 					<li style="list-style: none">
 						
-						<span>ID del pedido: ${id}</span> <br>
+						<span>Aqui esta su pedido</span> <br>
 						<span>Precio total: ${precio}</span>
 					</li>
 <form:form action="cancelarpedido" method="POST" modelAttribute="pedido">

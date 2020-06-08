@@ -55,28 +55,28 @@
 	</nav>
 	<section>
 	<h1>Seleccionar pedido por restricciones</h1>
-        <form method="GET" action="generarpedido">
+        <form method="POST" action="generarpedido" modelAttribute="idComidas">
 			<!--  <h3>Usuario: ${usuario.email}</h3>-->
 			<span>COMIDA 1</span>
-			<input type="radio" name="pedido" value="1" />
-			<li><c:forEach items="${pedido1.comidas}" var="comida">
-					<span>DESAYUNO: </span>
+			<input type="radio" name="idComidas" value="${idcomidas1}" />
+			<li><c:forEach items="${comidas1}" var="comida">
+					<span>PRODUCTO: </span>
 					<span> ${comida.nombre}</span>
 					<span>${comida.precio}</span>
 					<br>
 				</c:forEach></li>
 				<span>COMIDA 2</span>
-			<input type="radio" name="pedido" value="2" />
-			<li><c:forEach items="${pedido2.comidas}" var="comida2">
-					<span>DESAYUNO: </span>
+			<input type="radio" name="idComidas" value="${idcomidas2}" />
+			<li><c:forEach items="${comidas2}" var="comida2">
+					<span>PRODUCTO: </span>
 					<span> ${comida2.nombre}</span>
 					<span>${comida2.precio}</span>
 					<br>
 				</c:forEach></li>
 				<span>COMIDA 3</span>
-			<input type="radio" name="pedido" value="3" />
-			<li><c:forEach items="${pedido3.comidas}" var="comida3">
-					<span>DESAYUNO: </span>
+			<input type="radio" name="idComidas" value="${idcomidas3}" />
+			<li><c:forEach items="${comidas3}" var="comida3">
+					<span>PRODUCTO: </span>
 					<span> ${comida3.nombre}</span>
 					<span>${comida3.precio}</span>
 					<br>
