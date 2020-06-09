@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -7,11 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import ar.edu.unlam.tallerweb1.modelo.Actividad;
 import ar.edu.unlam.tallerweb1.modelo.Comida;
+import ar.edu.unlam.tallerweb1.modelo.Rol;
+import ar.edu.unlam.tallerweb1.modelo.TipoHorario;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioComida;
 import ar.edu.unlam.tallerweb1.servicios.ServicioPedido;
@@ -128,5 +134,29 @@ public class ControladorComida {
 		} else {
 			return new ModelAndView("redirect:/home");
 		}
+	}
+	
+	@RequestMapping("/agregarComida")
+	public ModelAndView agregarComida (HttpServletRequest request) {
+		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
+		ModelMap modelo = new ModelMap();
+		
+		if (user != null && user.getRol()==Rol.ADMINISTRADOR) {
+			Comida comida = new Comida();
+			List<TipoHorario>tipoHorario=Arrays.asList(TipoHorario.values());
+			modelo.put("comida", comida);
+			modelo.put("tipoHorario", tipoHorario);
+			return new ModelAndView("agregarComida", modelo);
+		
+		}else {
+			return new ModelAndView("redirect:/home");
+		}
+	}
+	
+	@RequestMapping(path = "/agregarComidaValidacion", method = RequestMethod.POST)
+	public ModelAndView agregarComidaValidacion (@ModelAttribute ("comida") Comida comida) {
+			servicioComida.crearComida(comida);
+			return new ModelAndView("redirect:/adminInterno");
+		
 	}
 }

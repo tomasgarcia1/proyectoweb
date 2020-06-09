@@ -11,4 +11,6 @@ public interface UsuarioDao {
 	
 	void update(Usuario usuario);
 
+	Usuario consultarEmailYPassDeUsuario(Usuario usuario);
+
 }

@@ -51,5 +51,12 @@ public class UsuarioDaoImpl implements UsuarioDao {
 	public Usuario obtenerUsuarioPorId(Long id) {
 		return sesion.getCurrentSession().get(Usuario.class, id);
 	}
+	
+	@Override
+	public Usuario consultarEmailYPassDeUsuario(Usuario usuario) {
+		return (Usuario) sesion.getCurrentSession().createCriteria(Usuario.class)
+				.add(Restrictions.eq("email", usuario.getEmail()))
+				.add(Restrictions.eq("password", usuario.getPassword())).uniqueResult();
+	}
 
 }

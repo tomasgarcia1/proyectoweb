@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unlam.tallerweb1.modelo.Actividad;
+import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.Sexo;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.UsuarioDao;
@@ -26,6 +27,7 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 	private UsuarioDao usuarioDao;
 	@Override
 	public Long registrarUsuario(Usuario usuario) {
+		usuario.setRol(Rol.CLIENTE);
 		return usuarioDao.registrarUsuario(usuario);
 	}
 	@Override
@@ -94,6 +96,11 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 	@Override
 	public void update(Usuario usuario) {
 		this.usuarioDao.update(usuario);		
+	}
+	
+	@Override
+	public Usuario consultarEmailYPassDeUsuario(Usuario usuario) {
+		return usuarioDao.consultarEmailYPassDeUsuario(usuario);
 	}
 }
 
