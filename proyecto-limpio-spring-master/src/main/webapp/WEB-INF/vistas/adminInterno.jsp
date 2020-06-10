@@ -50,7 +50,7 @@
             <h1 class="display-4">Bienvenido! Gracias por trabajar en Recomida</h1>
          	<hr class="my-2">
             <a class="btn btn-outline-danger btn-lg" href="agregarComida" role="button">Agregar nueva comida</a>
-            <a class="btn btn-outline-danger btn-lg" href="login" role="button">Agregar nueva restricción</a>
+            <a class="btn btn-outline-danger btn-lg" href="buscarComidaPorHorario" role="button">Agregar nueva restricción</a>
             <br><br>
             <a class="btn btn-outline-danger btn-lg" href="menuSugerido" role="button">Ver pedidos</a>
           </div>

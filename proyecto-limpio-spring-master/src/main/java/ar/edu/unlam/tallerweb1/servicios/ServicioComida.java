@@ -1,6 +1,9 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import java.util.List;
+
 import ar.edu.unlam.tallerweb1.modelo.Comida;
+import ar.edu.unlam.tallerweb1.modelo.TipoHorario;
 
 public interface ServicioComida {
 
@@ -27,5 +30,13 @@ public interface ServicioComida {
 	Comida sugerirAlmuerzo(Double caloriasDiarias, Long id);
 
 	Comida sugerirCena(Double caloriasDiarias, Long id);
+
+	List<Comida> obtenerComidas();
+
+	List<Comida> obtenerComidasSegunTipoHorario(TipoHorario tipo);
+
+	Comida obtenerComidaPorNombre(String nombre);
+
+	void updateComida(Comida comida);
 
 }

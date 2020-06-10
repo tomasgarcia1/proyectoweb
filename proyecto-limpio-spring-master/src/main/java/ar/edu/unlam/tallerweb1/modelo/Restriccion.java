@@ -22,8 +22,7 @@ public class Restriccion {
 	@ManyToMany(mappedBy = "restricciones")
 	private List<Usuario> usuarios;
 
-	@JoinTable(name = "comidas_restricciones", joinColumns = @JoinColumn(name = "fk_restriccion"), inverseJoinColumns = @JoinColumn(name = "fk_comida"))
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy = "restricciones")
 	private List<Comida> comidas;
 
 	public List<Usuario> getUsuarios() {

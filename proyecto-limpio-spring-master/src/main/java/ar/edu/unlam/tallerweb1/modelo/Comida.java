@@ -45,7 +45,10 @@ public class Comida {
 	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Tipo> tipos;
 	
-	@ManyToMany(mappedBy = "comidas")
+	@JoinTable(name = "comidas_restricciones", 
+			joinColumns = @JoinColumn(name = "fk_comida"), 
+			inverseJoinColumns = @JoinColumn(name = "fk_restriccion"))
+	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Restriccion> restricciones;
 
 	public List<Tipo> getTipos() {

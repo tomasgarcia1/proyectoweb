@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unlam.tallerweb1.modelo.Comida;
 import ar.edu.unlam.tallerweb1.modelo.Restriccion;
+import ar.edu.unlam.tallerweb1.modelo.TipoHorario;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
 @Repository
@@ -40,10 +41,17 @@ public class ComidaDaoImpl implements ComidaDao {
 				.list();
 	}
 
+	@Override
 	public List<Comida> obtenerComidas() {
 		List<Comida> comidas = sesion
 				.getCurrentSession().createCriteria(Comida.class).list();
 
 		return comidas;
 	}
+	
+	@Override
+	public void updateComida(Comida comida){
+		sesion.getCurrentSession().update(comida);
+	}
+	
 }
