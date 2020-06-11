@@ -44,7 +44,7 @@
 							<a class="dropdown-item" href="mostrarRestriccionesDeUsuario">Mis
 								restricciones</a>
 							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="#">Mis pedidos</a>
+							<a class="dropdown-item" href="mispedidos">Mis pedidos</a>
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" href="#">Imc</a>
 						</div></li>

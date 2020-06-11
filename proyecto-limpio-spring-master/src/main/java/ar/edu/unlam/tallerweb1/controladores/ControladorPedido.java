@@ -89,32 +89,30 @@ public class ControladorPedido {
 	 */
 	@RequestMapping(path="/generarpedido", method=RequestMethod.POST)
 	public ModelAndView vistaPedido(@ModelAttribute("idComidas") String idComidas, HttpServletRequest request) {
-		Usuario user=(Usuario)request.getSession().getAttribute("usuario");
 		ModelMap model = new ModelMap();
 		Pedido nuevoPedido=new Pedido();
-		
 		nuevoPedido=servicioPedido.generarPedidoPorIdComidas(idComidas);
-		nuevoPedido.setUsuario(user);
-		nuevoPedido.setEstado(Estado.ACEPTADO);
-		Long idPedido=servicioPedido.crearPedido(nuevoPedido);
-		
-		model.put("id", idPedido);
+		String idLista=idComidas;
+		model.put("id", idLista);
 		model.put("precio", nuevoPedido.getPrecio());
 		model.put("comidas", nuevoPedido.getComidas());
-		model.put("pedido", nuevoPedido);
 		return new ModelAndView("pedidoPorConfirmar", model);
 	}
 	/*
 	 * Se le envia el pedido creado y seteado anteriormente, y se le otorga el estado de "PAGADO".
 	 * Se muestra por pantalla el numero de pedido, dado por el ID generado en generarPedido().
 	 */
-	@RequestMapping(path="/pagarpedido", method=RequestMethod.POST)
-	public ModelAndView pagarPedido(@ModelAttribute("pedido") Pedido pedido , HttpServletRequest request) {
+	@RequestMapping(path="/pagarpedido", method=RequestMethod.GET)
+	public ModelAndView pagarPedido(/*@ModelAttribute("id")*/@RequestParam(value="id") String id, HttpServletRequest request) {
 		ModelMap model = new ModelMap();
+		Usuario user=(Usuario)request.getSession().getAttribute("usuario");
+		Pedido nuevoPedido=new Pedido();
 		
-		Pedido nuevoPedido=servicioPedido.buscarPedidoPorId(pedido.getId());
+		nuevoPedido=servicioPedido.generarPedidoPorIdComidas(id);
 		nuevoPedido.setEstado(Estado.PROCESO);
-		servicioPedido.actualizarPedido(nuevoPedido);
+		nuevoPedido.setUsuario(user);
+		Long idPedido=servicioPedido.crearPedido(nuevoPedido);
+		nuevoPedido.setId(idPedido);
 		
 		model.put("pedido", nuevoPedido);
 		return new ModelAndView("pedidoRealizado", model);
@@ -123,10 +121,10 @@ public class ControladorPedido {
 	 * Se recibe por parametro el ID del pedido que queremos cancelar.
 	 * Si es distinto de null, se realiza la accion sobre el pedido existente.
 	 */
-	@RequestMapping(path="/cancelarpedido", method=RequestMethod.POST)
-	public ModelAndView cancelarPedidoPorId(@ModelAttribute("pedido") Pedido pedido, HttpServletRequest request) {
-		if(servicioPedido.buscarPedidoPorId(pedido.getId())!=null)
-			servicioPedido.cancelarPedido(pedido.getId());
+	@RequestMapping(path="/cancelarpedido", method=RequestMethod.GET)
+	public ModelAndView cancelarPedidoPorId(@RequestParam(value="id", required=true) String id, HttpServletRequest request) {
+		if(servicioPedido.buscarPedidoPorId(Long.parseLong(id))!=null)
+			servicioPedido.cancelarPedido(Long.parseLong(id));
 			
 		return new ModelAndView("redirect:/home");
 	}

@@ -37,7 +37,7 @@
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                	<a class="dropdown-item" href="mostrarRestriccionesDeUsuario">Mis restricciones</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Mis pedidos</a>
+                <a class="dropdown-item" href="mispedidos">Mis pedidos</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#">Imc</a>
             </div>
@@ -57,14 +57,11 @@
 						<span>Aqui esta su pedido</span> <br>
 						<span>Precio total: ${precio}</span>
 					</li>
-<form:form action="cancelarpedido" method="POST" modelAttribute="pedido">
-	<form:hidden path="id"/>
- 	<button type="submit" class="btn btn-primary">Cancelar</button>
-</form:form>
-<form:form action="pagarpedido" method="POST" modelAttribute="pedido">
-	<form:hidden path="id"/>
- 	<button type="submit" class="btn btn-primary">Pagar ahora</button>
-</form:form>
+<a href="home" class="btn btn-primary">Cancelar</a>
+<form action="pagarpedido" method="GET">
+	<input type="hidden" name="id" value="${id}">
+ 	<input type="submit" value="Pagar ahora" class="btn btn-primary">
+</form>
 </div>
 
  <!-- Footer -->
