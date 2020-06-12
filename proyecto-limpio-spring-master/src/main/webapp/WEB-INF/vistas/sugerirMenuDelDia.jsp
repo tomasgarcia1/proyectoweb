@@ -94,8 +94,18 @@
 				</c:forEach>
 			</ul>
 			
+			<c:if test="${not empty error}">
+				<h4>
+					<span class="text-danger mt-5">${error}</span>
+				</h4>
+				<br>
+			</c:if>
+			<c:if test="${empty error}">
+				<input type="submit" class="btn btn-danger mt-5" value="Confirmar">
+				<br>
+			</c:if>
+			
 			<br>
-			<button class="btn btn-danger">Confirmar</button>
 		</form>
     </section>
 

@@ -100,11 +100,13 @@ public class ServicioPedidoImpl implements ServicioPedido {
 		Iterator<Comida> it = comidas.iterator();
 		while (it.hasNext()) {
 			Comida comida = it.next();
-			idComidas.append(comida.getId().toString());
-			;
-			if(it.hasNext())
+			if(comida.getId()!=0) {
+				idComidas.append(comida.getId().toString());
 				idComidas.append(",");
+				}
 		}
+			idComidas.deleteCharAt(idComidas.length()-1);
+		
 		return idComidas.toString();
 	}
 	/*

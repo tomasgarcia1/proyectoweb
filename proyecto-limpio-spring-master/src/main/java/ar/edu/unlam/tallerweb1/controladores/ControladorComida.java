@@ -94,7 +94,7 @@ public class ControladorComida {
 			Comida cenaSugerida = servicioComida.sugerirCenaPorRestricciones(id);
 
 			ModelMap model = new ModelMap();
-
+			
 			model.put("desayuno", desayunoSugerido);
 			model.put("almuerzo", almuerzoSugerido);
 			model.put("cena", cenaSugerida);
@@ -122,6 +122,15 @@ public class ControladorComida {
 			String idComidas2=servicioPedido.concatenarIdComidas(menu2);
 			String idComidas3=servicioPedido.concatenarIdComidas(menu3);
 			ModelMap model = new ModelMap();
+			
+			Long contador = 0L;
+			for(Comida com : menu1) {
+				contador += com.getId();
+			}
+			
+			if (contador==0L) {
+				model.put("error", "No se puede hacer un pedido");
+			}
 			
 			model.put("menu1", menu1);
 			model.put("menu2", menu2);

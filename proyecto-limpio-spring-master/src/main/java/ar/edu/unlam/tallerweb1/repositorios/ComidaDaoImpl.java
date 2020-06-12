@@ -37,7 +37,9 @@ public class ComidaDaoImpl implements ComidaDao {
 
 	@Override
 	public List<Comida> obtenerComidasSegunCalorias(Double calorias) {
-		return sesion.getCurrentSession().createCriteria(Comida.class).add(Restrictions.le("calorias", calorias))
+		return sesion.getCurrentSession().createCriteria(Comida.class)
+				.add(Restrictions.le("calorias", calorias))
+				.add(Restrictions.gt("calorias", 50.0))
 				.list();
 	}
 
