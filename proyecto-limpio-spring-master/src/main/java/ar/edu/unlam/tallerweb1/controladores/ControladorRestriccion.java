@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -15,8 +16,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import ar.edu.unlam.tallerweb1.modelo.Comida;
 import ar.edu.unlam.tallerweb1.modelo.Restriccion;
+import ar.edu.unlam.tallerweb1.modelo.Rol;
+import ar.edu.unlam.tallerweb1.modelo.TipoHorario;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.servicios.ServicioComida;
 import ar.edu.unlam.tallerweb1.servicios.ServicioRestriccion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 
@@ -26,6 +31,8 @@ public class ControladorRestriccion {
 	private ServicioRestriccion servicioRestriccion;
 	@Inject
 	private ServicioUsuario servicioUsuario;
+	@Inject
+	private ServicioComida servicioComida;
 	
 	@RequestMapping("/restricciones")
 	public ModelAndView irRegistro() {
@@ -103,5 +110,96 @@ public class ControladorRestriccion {
          * request.getSession().invalidate();
         request.setAttribute("usuario", null);*/            
 		return new ModelAndView("redirect:/home");
+	}
+	
+	@RequestMapping(path="/buscarComidaPorHorario")
+	public ModelAndView buscarComidaPorHorario(HttpServletRequest request) {
+		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
+		ModelMap modelo = new ModelMap();
+		
+		if (user != null && user.getRol()==Rol.ADMINISTRADOR) {
+			Comida comida = new Comida();
+			List<TipoHorario>tipoHorario=Arrays.asList(TipoHorario.values());
+			
+			modelo.put("comida", comida);
+			modelo.put("tipoHorario", tipoHorario);
+
+			return new ModelAndView("buscarComidaPorHorario", modelo);
+			
+		}else {
+			return new ModelAndView("redirect:/home");
+		}
+	}
+	
+	@RequestMapping(path="/seleccionarComida", method = RequestMethod.POST)
+	public ModelAndView seleccionarComida(@ModelAttribute("comida") Comida comida, HttpServletRequest request) {
+		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
+		ModelMap modelo = new ModelMap();
+		
+		if (user != null && user.getRol()==Rol.ADMINISTRADOR) {
+			TipoHorario tipo = comida.getTipoHorario();
+			List<Comida> comidas = servicioComida.obtenerComidasSegunTipoHorario(tipo);
+			
+			Comida c = new Comida();
+			
+			modelo.put("comida", c);
+			modelo.put("comidas", comidas);
+
+			return new ModelAndView("seleccionarComida", modelo);
+			
+		}else {
+			return new ModelAndView("redirect:/home");
+		}
+	}
+	
+	@RequestMapping(path="/seleccionarRestriccionDeComida", method = RequestMethod.POST)
+	public ModelAndView seleccionarRestriccionDeComida(@ModelAttribute("comida") Comida comida, HttpServletRequest request) {
+		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
+		ModelMap modelo = new ModelMap();
+		
+		if (user != null && user.getRol()==Rol.ADMINISTRADOR) {
+			Comida c = servicioComida.obtenerComidaPorNombre(comida.getNombre());
+			List<Restriccion> restricciones=this.servicioRestriccion.obtenerRestricciones();
+			
+			modelo.put("comida", c);
+			modelo.put("restricciones", restricciones);
+
+			return new ModelAndView("seleccionarRestriccionDeComida", modelo);
+			
+		}else {
+			return new ModelAndView("redirect:/home");
+		}
+	}
+	
+	@RequestMapping(path="/colocarRestriccionAComida", method = RequestMethod.GET)
+	public ModelAndView seleccionarRestriccionDeComida(@RequestParam(value="restriccion") String restriccion,
+			@RequestParam(value="id") Long id, HttpServletRequest request) {
+		
+		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
+		ModelMap modelo = new ModelMap();
+		
+		
+		if (user != null && user.getRol()==Rol.ADMINISTRADOR && restriccion!=null) {
+			List<Restriccion> restricciones=new ArrayList<Restriccion>();
+			Comida comida = servicioComida.obtenerPorId(id);
+			
+			char [] array = restriccion.replace(",", "").toCharArray();
+	        for (int i = 0; i < array.length; i++) {            
+	            Restriccion r=this.servicioRestriccion.obtenerRestriccionPorId((long)Character.getNumericValue(array[i]));
+				 if(r!=null) {
+					 restricciones.add(r);
+				 }
+	        }
+	        
+	        comida.setRestricciones(restricciones);
+	        this.servicioComida.updateComida(comida);
+	        
+	        modelo.put("comida", comida);
+
+			return new ModelAndView("listarComidaConRestricciones", modelo);
+			
+		}else {
+			return new ModelAndView("redirect:/home");
+		}
 	}
 }

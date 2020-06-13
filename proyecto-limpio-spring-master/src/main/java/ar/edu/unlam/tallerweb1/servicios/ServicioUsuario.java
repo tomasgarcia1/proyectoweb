@@ -17,4 +17,6 @@ public interface ServicioUsuario {
 
 	void update(Usuario usuario);
 
+	Usuario consultarEmailYPassDeUsuario(Usuario usuario);
+
 }

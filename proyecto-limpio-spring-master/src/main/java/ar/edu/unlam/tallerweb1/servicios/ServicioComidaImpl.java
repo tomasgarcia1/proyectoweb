@@ -189,4 +189,38 @@ public class ServicioComidaImpl implements ServicioComida {
 		Integer numeroRandom = (int) (Math.random() * cena.size());
 		return cena.get(numeroRandom);
 	}
+	
+	@Override
+	public List<Comida> obtenerComidas(){
+		return	comidaDao.obtenerComidas();
+	}
+	
+	@Override
+	public List<Comida> obtenerComidasSegunTipoHorario(TipoHorario tipo){
+		List<Comida> comidas1 = comidaDao.obtenerComidas();
+		List<Comida> comidas2 = new LinkedList();
+		
+		for(Comida comidaAux : comidas1) {
+			if(comidaAux.getTipoHorario() == tipo) {
+				comidas2.add(comidaAux);
+			}
+		}
+		
+		return comidas2;
+	}
+	
+	@Override
+	public Comida obtenerComidaPorNombre (String nombre) {
+		List<Comida> comidas1 = comidaDao.obtenerComidas();
+		for(Comida comidaAux : comidas1) {
+			if(comidaAux.getNombre().equals(nombre)) {
+				return comidaAux;
+			}
+		} return null;
+	}
+	
+	@Override
+	public void updateComida(Comida comida) {
+		comidaDao.updateComida(comida);
+	}
 }
