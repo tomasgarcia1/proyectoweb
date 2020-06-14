@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -18,6 +19,8 @@ import com.mercadopago.resources.Preference;
 import ar.edu.unlam.tallerweb1.modelo.Comida;
 import ar.edu.unlam.tallerweb1.modelo.Estado;
 import ar.edu.unlam.tallerweb1.modelo.Pedido;
+import ar.edu.unlam.tallerweb1.modelo.Rol;
+import ar.edu.unlam.tallerweb1.modelo.Sexo;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioMP;
 import ar.edu.unlam.tallerweb1.servicios.ServicioPedido;
@@ -95,35 +98,41 @@ public class ControladorPedido {
 	 */
 	@RequestMapping(path="/generarpedido", method=RequestMethod.POST)
 	public ModelAndView vistaPedido(@ModelAttribute("idComidas") String idComidas, HttpServletRequest request) {
-		Usuario user=(Usuario)request.getSession().getAttribute("usuario");
 		ModelMap model = new ModelMap();
 		Pedido nuevoPedido=new Pedido();
-		
 		nuevoPedido=servicioPedido.generarPedidoPorIdComidas(idComidas);
-		nuevoPedido.setUsuario(user);
-		nuevoPedido.setEstado(Estado.ACEPTADO);
-		Long idPedido=servicioPedido.crearPedido(nuevoPedido);
+		
+		Usuario user=(Usuario)request.getSession().getAttribute("usuario");
 		//Mercado pago
 		Preference p = servicioMP.checkout(user,nuevoPedido);
 		model.put("preference",p);
 		
-		model.put("id", idPedido);
+		String idLista=idComidas;
+		model.put("id", idLista);
 		model.put("precio", nuevoPedido.getPrecio());
 		model.put("comidas", nuevoPedido.getComidas());
-		model.put("pedido", nuevoPedido);
 		return new ModelAndView("pedidoPorConfirmar", model);
 	}
 	/*
 	 * Se le envia el pedido creado y seteado anteriormente, y se le otorga el estado de "PAGADO".
 	 * Se muestra por pantalla el numero de pedido, dado por el ID generado en generarPedido().
 	 */
-	@RequestMapping(path="/pagarpedido", method=RequestMethod.POST)
-	public ModelAndView pagarPedido(@ModelAttribute("pedido") Pedido pedido , HttpServletRequest request) {
+	@RequestMapping(path="/pagarpedido", method=RequestMethod.GET)
+	public ModelAndView pagarPedido(/*@ModelAttribute("id")*/@RequestParam(value="id") String id,@RequestParam(value="payment_status") String estado, HttpServletRequest request) {
 		ModelMap model = new ModelMap();
+		Usuario user=(Usuario)request.getSession().getAttribute("usuario");
+		Pedido nuevoPedido=new Pedido();
 		
-		Pedido nuevoPedido=servicioPedido.buscarPedidoPorId(pedido.getId());
+		nuevoPedido=servicioPedido.generarPedidoPorIdComidas(id);
+		//Estado proveniente de mercado pago
+		if(estado.equals("approved")){
 		nuevoPedido.setEstado(Estado.PROCESO);
-		servicioPedido.actualizarPedido(nuevoPedido);
+		}else {
+			nuevoPedido.setEstado(Estado.CANCELADO);
+		}
+		nuevoPedido.setUsuario(user);
+		Long idPedido=servicioPedido.crearPedido(nuevoPedido);
+		nuevoPedido.setId(idPedido);
 		
 		model.put("pedido", nuevoPedido);
 		return new ModelAndView("pedidoRealizado", model);
@@ -132,10 +141,10 @@ public class ControladorPedido {
 	 * Se recibe por parametro el ID del pedido que queremos cancelar.
 	 * Si es distinto de null, se realiza la accion sobre el pedido existente.
 	 */
-	@RequestMapping(path="/cancelarpedido", method=RequestMethod.POST)
-	public ModelAndView cancelarPedidoPorId(@ModelAttribute("pedido") Pedido pedido, HttpServletRequest request) {
-		if(servicioPedido.buscarPedidoPorId(pedido.getId())!=null)
-			servicioPedido.cancelarPedido(pedido.getId());
+	@RequestMapping(path="/cancelarpedido", method=RequestMethod.GET)
+	public ModelAndView cancelarPedidoPorId(@RequestParam(value="id", required=true) String id, HttpServletRequest request) {
+		if(servicioPedido.buscarPedidoPorId(Long.parseLong(id))!=null)
+			servicioPedido.cancelarPedido(Long.parseLong(id));
 			
 		return new ModelAndView("redirect:/home");
 	}
@@ -147,6 +156,7 @@ public class ControladorPedido {
 		Usuario user=(Usuario)request.getSession().getAttribute("usuario");
 		List<Pedido> listaPedidos=servicioPedido.listarPedidosPorUsuario(user);
 		model.put("pedidos", listaPedidos);
+		model.put("usuario", user);
 		return new ModelAndView("listapedidos", model);
 	}
 	@RequestMapping(path="/detallepedido")
@@ -154,19 +164,30 @@ public class ControladorPedido {
 	{
 		ModelMap model = new ModelMap();
 		Pedido pedido=servicioPedido.buscarPedidoPorId(id);
+		Usuario user=(Usuario)request.getSession().getAttribute("usuario");
+		List<Estado> estados=Arrays.asList(Estado.values());
+		
 		model.put("pedido",pedido);
-		model.put("cancelado", Estado.CANCELADO);
-		model.put("enviado", Estado.ENVIADO);
+		model.put("usuario", user);
+		model.put("estados",estados);
 		return new ModelAndView("detallepedido", model);
 	}
-	@RequestMapping(path="/checkout")
-	public ModelAndView checkout(HttpServletRequest request)
-	{
-		Usuario user=(Usuario)request.getSession().getAttribute("usuario");
+
+	@RequestMapping(path="/verpedidos")
+	public ModelAndView listarPedidosAdmin(HttpServletRequest request) {
 		ModelMap model = new ModelMap();
-		Preference p = servicioMP.checkout(user);
-		model.put("preference",p);
-		return new ModelAndView("checkout", model);
+		Usuario user=(Usuario)request.getSession().getAttribute("usuario");
+		if(user.getRol().equals(Rol.ADMINISTRADOR))
+		{
+			List<Pedido> listaPedidos=servicioPedido.listarPedidos();
+			model.put("pedidos", listaPedidos);
+			model.put("usuario", user);
+			return new ModelAndView("listapedidos", model);
+		}
+		else
+		{
+			return new ModelAndView("redirect:/mispedidos");
+		}
 	}
-	
+
 }

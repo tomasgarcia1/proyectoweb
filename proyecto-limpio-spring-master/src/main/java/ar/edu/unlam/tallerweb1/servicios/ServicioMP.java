@@ -4,6 +4,7 @@ import java.io.Console;
 import com.mercadopago.MercadoPago;
 import com.mercadopago.exceptions.MPException;
 import com.mercadopago.resources.Preference;
+import com.mercadopago.resources.datastructures.preference.BackUrls;
 import com.mercadopago.resources.datastructures.preference.Identification;
 import com.mercadopago.resources.datastructures.preference.Item;
 import com.mercadopago.resources.datastructures.preference.Payer;
@@ -30,6 +31,9 @@ public class ServicioMP {
 			Payer payer=new Payer();
 			payer.setEmail(usuario.getEmail());
 			p.setPayer(payer);
+			p.setBinaryMode(true);
+			/*BackUrls backUrls = new BackUrls("pagarpedido", "cancelarpedido", "cancelarpedido");
+			p.setBackUrls(backUrls);*/
 			preferencia= p.save();
 			} catch (MPException e) {
 				System. out. println("Execepcion MP\n");

@@ -4,9 +4,12 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
@@ -19,13 +22,19 @@ public class Pedido {
 	//private Datetime fecha;
 	private Estado estado;
 	private Double precio;
-//	Agregada la relacion 1:N entre Usuario y Pedido
-	@ManyToOne(cascade = CascadeType.ALL)
+	//Agregada la relacion 1:N entre Usuario y Pedido
+	@ManyToOne
 	private Usuario usuario;
-	//mappedby indica la relacion bidireccional y tambien permitimos que se tome la config de JoinTable de Comida
-	//hay que escribir mappedBy = <nombre de la lista en la otra entity>
-	//el error que me tiraba era que ponia Pedido en vez de pedidos porque crei que se referia a la clase no a la lista kajsjsajas
-	@ManyToMany/*(mappedBy = "pedidos")*/
+	//esta anotation es opcional pero sirve para manejar mejor la tabla n:n
+	@JoinTable(
+			//nombre de la tabla n:n en la bdd
+			name = "pedidos_comidas",
+			//nombre de la fk de comida
+			joinColumns = @JoinColumn(name = "fk_pedido"),
+			//nombre de la fk de pedido
+			inverseJoinColumns = @JoinColumn(name = "fk_comida")
+			)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Comida> comidas;
 
 	

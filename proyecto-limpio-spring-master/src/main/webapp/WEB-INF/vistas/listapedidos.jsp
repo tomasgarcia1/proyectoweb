@@ -44,7 +44,7 @@
 							<a class="dropdown-item" href="mostrarRestriccionesDeUsuario">Mis
 								restricciones</a>
 							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="#">Mis pedidos</a>
+							<a class="dropdown-item" href="mispedidos">Mis pedidos</a>
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" href="#">Imc</a>
 						</div></li>
@@ -60,15 +60,21 @@
     			<th>ID</th>
     			<th>Importe</th>
     			<th>Estado</th>
+    			<th>
+    			<c:if test="${usuario.rol == 'ADMINISTRADOR'}">Usuario</c:if></th>
   			</tr>
   			<c:forEach items="${pedidos}" var="pedido">
 				<tr>
    			 		<td>${pedido.id}</td>
     				<td>${pedido.precio}</td>
     				<td>${pedido.estado}</td>
+    				<td><c:if test="${usuario.rol == 'ADMINISTRADOR'}">
+    					${pedido.usuario.email}
+    				</c:if>
+    				</td>
     				<td><a href="detallepedido?id=${pedido.id}">VER DETALLE</a></td>
     				<td><c:if test="${pedido.estado != 'CANCELADO'}">
-    					<a href="detallepedido?id=${pedido.id}">CANCELAR</a>
+    					<a href="cancelarpedido?id=${pedido.id}">CANCELAR</a>
     				</c:if>
     				</td>
  				</tr>

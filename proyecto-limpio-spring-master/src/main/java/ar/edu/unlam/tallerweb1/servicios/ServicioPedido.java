@@ -18,4 +18,5 @@ public interface ServicioPedido {
 	String concatenarIdComidas(List<Comida> comidas);
 	Pedido generarPedidoPorIdComidas(String idComidas);
 	List<Pedido> listarPedidosPorUsuario(Usuario usuario);
+	List<Pedido> listarPedidos();
 }

@@ -11,5 +11,6 @@ public interface PedidoDao {
 	Pedido buscarPedidoPorId(Long id);
 	void actualizarPedido(Pedido pedido);
 	List<Pedido> listarPedidosPorUsuario(Usuario usuario);
+	List<Pedido> listarPedidos();
 	
 }

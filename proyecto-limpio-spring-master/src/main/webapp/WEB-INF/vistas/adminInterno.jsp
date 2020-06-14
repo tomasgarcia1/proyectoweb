@@ -52,7 +52,7 @@
             <a class="btn btn-outline-danger btn-lg" href="agregarComida" role="button">Agregar nueva comida</a>
             <a class="btn btn-outline-danger btn-lg" href="buscarComidaPorHorario" role="button">Agregar nueva restricción</a>
             <br><br>
-            <a class="btn btn-outline-danger btn-lg" href="menuSugerido" role="button">Ver pedidos</a>
+            <a class="btn btn-outline-danger btn-lg" href="verpedidos" role="button">Ver pedidos</a>
           </div>
         </div>
     </section>
