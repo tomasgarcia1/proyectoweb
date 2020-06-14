@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,7 +23,7 @@ public class Pedido {
 	private Estado estado;
 	private Double precio;
 	//Agregada la relacion 1:N entre Usuario y Pedido
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private Usuario usuario;
 	//esta anotation es opcional pero sirve para manejar mejor la tabla n:n
 	@JoinTable(
@@ -33,7 +34,7 @@ public class Pedido {
 			//nombre de la fk de pedido
 			inverseJoinColumns = @JoinColumn(name = "fk_comida")
 			)
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Comida> comidas;
 
 	

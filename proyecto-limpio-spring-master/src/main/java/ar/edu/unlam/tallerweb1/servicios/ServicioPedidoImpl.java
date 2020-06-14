@@ -149,4 +149,8 @@ public class ServicioPedidoImpl implements ServicioPedido {
 	public List<Pedido> listarPedidosPorUsuario(Usuario usuario) {
 		return pedidoDao.listarPedidosPorUsuario(usuario);
 	}
+	@Override
+	public List<Pedido> listarPedidos() {
+		return pedidoDao.listarPedidos();
+	}
 }

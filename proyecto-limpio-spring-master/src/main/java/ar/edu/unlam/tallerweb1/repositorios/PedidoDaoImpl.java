@@ -50,4 +50,8 @@ public class PedidoDaoImpl implements PedidoDao {
 		return sesion.getCurrentSession().createCriteria(Pedido.class).
 				add(Restrictions.eq("usuario.id", usuario.getId())).list();
 	}
+	@Override
+	public List<Pedido> listarPedidos() {
+		return sesion.getCurrentSession().createCriteria(Pedido.class).list();
+	}
 }

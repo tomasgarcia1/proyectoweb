@@ -60,12 +60,18 @@
     			<th>ID</th>
     			<th>Importe</th>
     			<th>Estado</th>
+    			<th>
+    			<c:if test="${usuario.rol == 'ADMINISTRADOR'}">Usuario</c:if></th>
   			</tr>
   			<c:forEach items="${pedidos}" var="pedido">
 				<tr>
    			 		<td>${pedido.id}</td>
     				<td>${pedido.precio}</td>
     				<td>${pedido.estado}</td>
+    				<td><c:if test="${usuario.rol == 'ADMINISTRADOR'}">
+    					${pedido.usuario.email}
+    				</c:if>
+    				</td>
     				<td><a href="detallepedido?id=${pedido.id}">VER DETALLE</a></td>
     				<td><c:if test="${pedido.estado != 'CANCELADO'}">
     					<a href="cancelarpedido?id=${pedido.id}">CANCELAR</a>

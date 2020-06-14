@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -16,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 import ar.edu.unlam.tallerweb1.modelo.Comida;
 import ar.edu.unlam.tallerweb1.modelo.Estado;
 import ar.edu.unlam.tallerweb1.modelo.Pedido;
+import ar.edu.unlam.tallerweb1.modelo.Rol;
+import ar.edu.unlam.tallerweb1.modelo.Sexo;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioPedido;
 
@@ -136,6 +139,7 @@ public class ControladorPedido {
 		Usuario user=(Usuario)request.getSession().getAttribute("usuario");
 		List<Pedido> listaPedidos=servicioPedido.listarPedidosPorUsuario(user);
 		model.put("pedidos", listaPedidos);
+		model.put("usuario", user);
 		return new ModelAndView("listapedidos", model);
 	}
 	@RequestMapping(path="/detallepedido")
@@ -143,9 +147,29 @@ public class ControladorPedido {
 	{
 		ModelMap model = new ModelMap();
 		Pedido pedido=servicioPedido.buscarPedidoPorId(id);
+		Usuario user=(Usuario)request.getSession().getAttribute("usuario");
+		List<Estado> estados=Arrays.asList(Estado.values());
+		
 		model.put("pedido",pedido);
-		model.put("cancelado", Estado.CANCELADO);
-		model.put("enviado", Estado.ENVIADO);
+		model.put("usuario", user);
+		model.put("estados",estados);
 		return new ModelAndView("detallepedido", model);
 	}
+	@RequestMapping(path="/verpedidos")
+	public ModelAndView listarPedidosAdmin(HttpServletRequest request) {
+		ModelMap model = new ModelMap();
+		Usuario user=(Usuario)request.getSession().getAttribute("usuario");
+		if(user.getRol().equals(Rol.ADMINISTRADOR))
+		{
+			List<Pedido> listaPedidos=servicioPedido.listarPedidos();
+			model.put("pedidos", listaPedidos);
+			model.put("usuario", user);
+			return new ModelAndView("listapedidos", model);
+		}
+		else
+		{
+			return new ModelAndView("redirect:/mispedidos");
+		}
+	}
+
 }
