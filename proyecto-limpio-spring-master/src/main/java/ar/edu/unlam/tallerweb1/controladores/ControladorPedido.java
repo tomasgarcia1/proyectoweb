@@ -149,7 +149,6 @@ public class ControladorPedido {
 		Pedido pedido=servicioPedido.buscarPedidoPorId(id);
 		Usuario user=(Usuario)request.getSession().getAttribute("usuario");
 		List<Estado> estados=Arrays.asList(Estado.values());
-		
 		model.put("pedido",pedido);
 		model.put("usuario", user);
 		model.put("estados",estados);
@@ -171,5 +170,15 @@ public class ControladorPedido {
 			return new ModelAndView("redirect:/mispedidos");
 		}
 	}
-
+	@RequestMapping(path="/actualizarestado", method=RequestMethod.POST)
+	public ModelAndView actualizarEstado(String id, String estado, HttpServletRequest request)
+	{
+		ModelMap model = new ModelMap();
+		Pedido pedido=servicioPedido.buscarPedidoPorId(Long.parseLong(id));
+		Estado estadoPedido=Enum.valueOf(Estado.class, estado);
+		pedido.setEstado(estadoPedido);
+		servicioPedido.actualizarPedido(pedido, estadoPedido);
+		
+		return new ModelAndView("redirect:/verpedidos");
+	}
 }

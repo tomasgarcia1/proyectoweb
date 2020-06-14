@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unlam.tallerweb1.modelo.Comida;
+import ar.edu.unlam.tallerweb1.modelo.Estado;
 import ar.edu.unlam.tallerweb1.modelo.Pedido;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.PedidoDao;
@@ -51,7 +52,8 @@ public class ServicioPedidoImpl implements ServicioPedido {
 		return pedidoDao.buscarPedidoPorId(id);
 	}
 	@Override
-	public void actualizarPedido(Pedido pedido) {
+	public void actualizarPedido(Pedido pedido, Estado estado) {
+		pedido.setEstado(estado);
 		pedidoDao.actualizarPedido(pedido);
 		
 	}
