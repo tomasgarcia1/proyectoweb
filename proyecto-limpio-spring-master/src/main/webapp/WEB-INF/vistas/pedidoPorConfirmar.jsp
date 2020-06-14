@@ -57,10 +57,14 @@
 						<span>Aqui esta su pedido</span> <br>
 						<span>Precio total: ${precio}</span>
 					</li>
+
 <a href="home" class="btn btn-primary">Cancelar</a>
 <form action="pagarpedido" method="GET">
 	<input type="hidden" name="id" value="${id}">
- 	<input type="submit" value="Pagar ahora" class="btn btn-primary">
+ 		<script
+		  		src="https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js"
+		   		data-preference-id="${preference.id}">
+		  	</script>
 </form>
 </div>
 

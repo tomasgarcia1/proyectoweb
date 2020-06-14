@@ -1,15 +1,10 @@
-<%@ page language="java" contentType="text/html;charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Recomida</title>
+<title>Insert title here</title>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -36,7 +31,7 @@
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item active"><a class="nav-link" href="#">Inicio</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="#">Menú de
+					<li class="nav-item"><a class="nav-link" href="#">Men� de
 							comidas</a></li>
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
@@ -54,66 +49,13 @@
 			</div>
 		</div>
 	</nav>
-
-	<div class="container mt-5 mb-5">
-		<h3>Registro</h3>
-	</div>
-	<div class="container">
-		<form:form action="registroValidacion" method="POST"
-			modelAttribute="usuario">
-
-			<div class="form-row">
-
-				<div class="form-group col-md-6">
-					<label for="email">Email</label>
-					<form:input path="email" id="email" type="email"
-						class="form-control" />
-				</div>
-
-				<div class="form-group col-md-6">
-					<label for="password">Contraseña</label>
-					<form:input path="password" type="password" id="password"
-						class="form-control" />
-				</div>
-			</div>
-
-			<div class="form-group">
-				<label for="altura">Altura (en cm)</label>
-				<form:input path="altura" type="number" class="form-control"
-					id="altura" />
-			</div>
-
-			<div class="form-group">
-				<label for="peso">Peso (en kg)</label>
-				<form:input path="peso" type="number" class="form-control" id="peso" />
-			</div>
-			<div class="form-group">
-				<label for="fec">Fecha de nacimiento</label>
-				<form:input path="fechaDeNacimiento" type="date"
-					class="form-control" id="fec" />
-			</div>
-
-			<div class="form-group">
-				<label for="act">Actividad</label>
-				<form:select path="actividad" class="form-control">
-					<c:forEach items="${actividades}" var="act">
-						<option value="${act}">${act}</option>
-					</c:forEach>
-				</form:select>
-			</div>
-
-			<div class="form-group">
-				<label for="act">Sexo</label>
-				<form:select path="sexo" class="form-control">
-					<c:forEach items="${sexos}" var="sexo">
-						<option value="${sexo}">${sexo}</option>
-					</c:forEach>
-				</form:select>
-			</div>
-
-			<button type="submit" class="btn btn-primary">Registrarse</button>
-
-		</form:form>
+	<div class="container mb-5 mt-5">
+		<form action="/procesar-pago" method="POST">
+		  	<script
+		  		src="https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js"
+		   		data-preference-id="${preference.id}">
+		  	</script>
+		</form>
 	</div>
 
 	<!-- Footer -->
@@ -246,6 +188,5 @@
 						.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')
 	</script>
 	<script src="js/bootstrap.min.js" type="text/javascript"></script>
-
 </body>
 </html>
