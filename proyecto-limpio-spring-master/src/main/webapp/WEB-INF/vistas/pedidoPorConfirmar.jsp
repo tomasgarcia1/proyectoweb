@@ -65,6 +65,13 @@
 	<form:hidden path="id"/>
  	<button type="submit" class="btn btn-primary">Pagar ahora</button>
 </form:form>
+	<form action="pagarpedido" method="POST" modelAttribute="pedido">
+		<form:hidden path="id"/>
+		  	<script
+		  		src="https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js"
+		   		data-preference-id="${preference.id}">
+		  	</script>
+		</form>
 </div>
 
  <!-- Footer -->

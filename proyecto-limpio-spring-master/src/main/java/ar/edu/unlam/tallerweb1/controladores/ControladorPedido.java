@@ -13,14 +13,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mercadopago.resources.Preference;
+
 import ar.edu.unlam.tallerweb1.modelo.Comida;
 import ar.edu.unlam.tallerweb1.modelo.Estado;
 import ar.edu.unlam.tallerweb1.modelo.Pedido;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.servicios.ServicioMP;
 import ar.edu.unlam.tallerweb1.servicios.ServicioPedido;
 
 @Controller
 public class ControladorPedido {
+	
+	private ServicioMP servicioMP= new ServicioMP();
+	
 	@Inject
 	private ServicioPedido servicioPedido;
 	
@@ -97,6 +103,9 @@ public class ControladorPedido {
 		nuevoPedido.setUsuario(user);
 		nuevoPedido.setEstado(Estado.ACEPTADO);
 		Long idPedido=servicioPedido.crearPedido(nuevoPedido);
+		//Mercado pago
+		Preference p = servicioMP.checkout(user,nuevoPedido);
+		model.put("preference",p);
 		
 		model.put("id", idPedido);
 		model.put("precio", nuevoPedido.getPrecio());
@@ -150,4 +159,14 @@ public class ControladorPedido {
 		model.put("enviado", Estado.ENVIADO);
 		return new ModelAndView("detallepedido", model);
 	}
+	@RequestMapping(path="/checkout")
+	public ModelAndView checkout(HttpServletRequest request)
+	{
+		Usuario user=(Usuario)request.getSession().getAttribute("usuario");
+		ModelMap model = new ModelMap();
+		Preference p = servicioMP.checkout(user);
+		model.put("preference",p);
+		return new ModelAndView("checkout", model);
+	}
+	
 }
