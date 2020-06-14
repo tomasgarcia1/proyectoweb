@@ -14,16 +14,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mercadopago.resources.Preference;
+
 import ar.edu.unlam.tallerweb1.modelo.Comida;
 import ar.edu.unlam.tallerweb1.modelo.Estado;
 import ar.edu.unlam.tallerweb1.modelo.Pedido;
 import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.Sexo;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.servicios.ServicioMP;
 import ar.edu.unlam.tallerweb1.servicios.ServicioPedido;
 
 @Controller
 public class ControladorPedido {
+	
+	private ServicioMP servicioMP= new ServicioMP();
+	
 	@Inject
 	private ServicioPedido servicioPedido;
 	
@@ -95,6 +101,12 @@ public class ControladorPedido {
 		ModelMap model = new ModelMap();
 		Pedido nuevoPedido=new Pedido();
 		nuevoPedido=servicioPedido.generarPedidoPorIdComidas(idComidas);
+		
+		Usuario user=(Usuario)request.getSession().getAttribute("usuario");
+		//Mercado pago
+		Preference p = servicioMP.checkout(user,nuevoPedido);
+		model.put("preference",p);
+		
 		String idLista=idComidas;
 		model.put("id", idLista);
 		model.put("precio", nuevoPedido.getPrecio());
@@ -106,13 +118,18 @@ public class ControladorPedido {
 	 * Se muestra por pantalla el numero de pedido, dado por el ID generado en generarPedido().
 	 */
 	@RequestMapping(path="/pagarpedido", method=RequestMethod.GET)
-	public ModelAndView pagarPedido(/*@ModelAttribute("id")*/@RequestParam(value="id") String id, HttpServletRequest request) {
+	public ModelAndView pagarPedido(/*@ModelAttribute("id")*/@RequestParam(value="id") String id,@RequestParam(value="payment_status") String estado, HttpServletRequest request) {
 		ModelMap model = new ModelMap();
 		Usuario user=(Usuario)request.getSession().getAttribute("usuario");
 		Pedido nuevoPedido=new Pedido();
 		
 		nuevoPedido=servicioPedido.generarPedidoPorIdComidas(id);
+		//Estado proveniente de mercado pago
+		if(estado.equals("approved")){
 		nuevoPedido.setEstado(Estado.PROCESO);
+		}else {
+			nuevoPedido.setEstado(Estado.CANCELADO);
+		}
 		nuevoPedido.setUsuario(user);
 		Long idPedido=servicioPedido.crearPedido(nuevoPedido);
 		nuevoPedido.setId(idPedido);
@@ -154,6 +171,7 @@ public class ControladorPedido {
 		model.put("estados",estados);
 		return new ModelAndView("detallepedido", model);
 	}
+
 	@RequestMapping(path="/verpedidos")
 	public ModelAndView listarPedidosAdmin(HttpServletRequest request) {
 		ModelMap model = new ModelMap();
