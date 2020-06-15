@@ -24,17 +24,10 @@ public class Comida {
 	private TipoHorario tipoHorario;
 	
 
-	
-	//esta anotation es opcional pero sirve para manejar mejor la tabla n:n
-	@JoinTable(
-			//nombre de la tabla n:n en la bdd
-			name = "pedidos_comidas",
-			//nombre de la fk de comida
-			joinColumns = @JoinColumn(name = "fk_comida"),
-			//nombre de la fk de pedido
-			inverseJoinColumns = @JoinColumn(name = "fk_pedido")
-			)
-	@ManyToMany(cascade = CascadeType.ALL)
+	//mappedby indica la relacion bidireccional y tambien permitimos que se tome la config de JoinTable de Comida
+	//hay que escribir mappedBy = <nombre de la lista en la otra entity>
+	//el error que me tiraba era que ponia Pedido en vez de pedidos porque crei que se referia a la clase no a la lista kajsjsajas
+	@ManyToMany(mappedBy = "comidas")
 	private List<Pedido> pedidos;
 	
 	@JoinTable(
