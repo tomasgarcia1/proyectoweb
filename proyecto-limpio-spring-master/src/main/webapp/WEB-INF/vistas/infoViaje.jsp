@@ -1,20 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    
+        <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Confirmar pedido</title>
+ <head>
+    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"></head>
-<body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>Recomida!</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
         <div class="container">
 
             <a class="navbar-brand" href="home">RECOMIDA</a>
@@ -32,11 +32,10 @@
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    NombreUsuario
+                    Mi cuenta
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-               	<a class="dropdown-item" href="mostrarRestriccionesDeUsuario">Mis restricciones</a>
-                <div class="dropdown-divider"></div>
+<a class="dropdown-item" href="mostrarRestriccionesDeUsuario">Mis restricciones</a>                <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="mispedidos">Mis pedidos</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#">Imc</a>
@@ -47,53 +46,57 @@
 </div>
         </div>
     </nav>
-   
-   <div class="container mt-5 mb-5">
-		<h3>Pedido</h3>
-   </div>
-<div class="container">
-					<li style="list-style: none">
-						
-						<span>Aqui esta su pedido</span> <br>
-						<span>Precio total: ${precio}</span>
-					</li>
+<body>
+	<div class="container my-5">
+		<div class="row">
+			<div class="col-md-4">
+				<div class="card bg-light mb-3" style="max-width: 18rem;">
+				  <div class="card-header bg-danger text-white">Distancia.</div>
+					  <div class="card-body">
+					    <h5 class="card-title">${distancia} Km</h5>
+					    <p class="card-text">Esta es la distancia de la ubicacion que indicó.</p>
+					  </div>
+				</div>
+			</div>
+			
+			<div class="col-md-4">
+				<div class="card bg-light mb-3" style="max-width: 18rem;">
+					 <div class="card-header bg-danger text-white">Precio.</div>
+					  <div class="card-body">
+					    <h5 class="card-title">$ ${precio}</h5>
+					    <p class="card-text">Este es el precio del envio de su pedido.</p>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-md-4">
+			<div class="card bg-light mb-3" style="max-width: 18rem;">
+			  <div class="card-header bg-danger text-white">Tiempo.</div>
+				  <div class="card-body">
+				    <h5 class="card-title">El envio llega en ${tiempo} minutos.</h5>
+				    <p class="card-text">El tiempo puede variar.</p>
+				    <p class="card-text">${posicion.latitude}</p>
+				        <p class="card-text">${posicion.longitude}</p>
+				  </div>
+			</div>
+			</div>
+		</div>
+		<form:form action="menuSugerido" method="POST" modelAttribute="posicion" >
+			<input type="hidden"  name="latitude" id="latitude" value="${posicion.latitude}"/>
+			<input type="hidden"  name="longitude" id="longitude" value="${posicion.longitude}"/>			
+			<button type="submit" class="btn btn-success">Elegir comidas por gustos</button>
+		</form:form>
+		
+		<form:form action="menuCalorias" method="POST" modelAttribute="posicion" >
+			<input type="hidden"  name="latitude" id="latitude" value="${posicion.latitude}"/>
+			<input type="hidden"  name="longitude" id="longitude" value="${posicion.longitude}"/>			
+			<button type="submit" class="btn btn-success my-3">Elegir comidas por calorias</button>
+		</form:form>
+		
+	</div>
 
-<a href="home" class="btn btn-primary">Cancelar</a>
-<form action="pagarpedido" method="GET">
-	<input type="hidden" name="id" value="${id}">
- 		<script
-		  		src="https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js"
-		   		data-preference-id="${preference.id}">
-		  	</script>
-</form>
-</div>
 
- <!-- Footer -->
-<footer class="page-footer font-small unique-color-dark">
-
-    <div class="bg-danger">
-      <div class="container">
-  
-        <!-- Grid row-->
-        <div class="row py-4 d-flex align-items-center">
-  
-          <!-- Grid column -->
-          <div class="col-md-12 col-lg-12 text-center text-md-left mb-4 mb-md-0">
-            <h6 class="mb-0 text-center text-white">Get connected with us on social networks!</h6>
-          </div>
-          <!-- Grid column -->
-  
-         
-          </div>
-          <!-- Grid column -->
-  
-        </div>
-        <!-- Grid row-->
-  
-      </div>
-    </div>
-  
-    <!-- Footer Links -->
+<!-- Footer Links -->
     <div class="container text-center text-md-left mt-5">
   
       <!-- Grid row -->
@@ -181,9 +184,14 @@
     <!-- Footer Links -->
   
   </footer>
-<!-- Placed at the end of the document so the pages load faster -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" ></script>
-		<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-		<script src="js/bootstrap.min.js" type="text/javascript"></script>
-</body>
+  <!-- Footer -->
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+
 </html>

@@ -1,5 +1,5 @@
 package ar.edu.unlam.tallerweb1.controladores;
-
+ 
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
@@ -13,7 +13,7 @@ import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 
 @Controller
-public class ControladorRegistro {
+public class ControladorRegistro { 
 	@Inject
 	private ServicioUsuario servicioUsuario;
 

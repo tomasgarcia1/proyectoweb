@@ -182,5 +182,10 @@
 			<artifactId>commons-codec</artifactId>
 			<version>1.14</version>
 		</dependency>
+		<dependency>
+            <groupId> com.mercadopago </groupId>
+            <artifactId> dx-java </artifactId>
+            <version> 1.0.33 </version>
+		</dependency>
 	</dependencies>
 </project>
