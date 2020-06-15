@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ar.edu.unlam.tallerweb1.modelo.Restriccion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
-@Repository
+@Repository 
 @Transactional
 public class RestriccionDaoImpl implements RestriccionDao {
 	@Inject
