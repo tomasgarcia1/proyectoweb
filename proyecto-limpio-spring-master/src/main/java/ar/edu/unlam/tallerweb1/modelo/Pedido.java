@@ -11,14 +11,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Pedido {
-
+ 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	//private Datetime fecha;
+	private Long id; 
+	//private Datetime fecha; 
 	private Estado estado;
 	private Double precio;
 	//Agregada la relacion 1:N entre Usuario y Pedido
@@ -35,9 +36,16 @@ public class Pedido {
 			)
 	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Comida> comidas;
-
+	@OneToOne
+	private Posicion ubicacionDestino;
 	
-	public Double getPrecio() {
+	public Posicion getUbicacionDestino() {
+		return ubicacionDestino;
+	}
+	public void setUbicacionDestino(Posicion ubicacionDestino) {
+		this.ubicacionDestino = ubicacionDestino;
+	}
+	public Double getPrecio() { 
 		return precio;
 	}
 	public void setPrecio(Double precio) {

@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,6 +21,7 @@ import com.mercadopago.resources.Preference;
 import ar.edu.unlam.tallerweb1.modelo.Comida;
 import ar.edu.unlam.tallerweb1.modelo.Estado;
 import ar.edu.unlam.tallerweb1.modelo.Pedido;
+import ar.edu.unlam.tallerweb1.modelo.Posicion;
 import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.Sexo;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
@@ -30,8 +33,51 @@ public class ControladorPedido {
 	
 	private ServicioMP servicioMP= new ServicioMP();
 	
+	private Posicion posicionSucursal=new Posicion(-34.668680,-58.566209);
+	
 	@Inject
 	private ServicioPedido servicioPedido;
+	
+	
+	@RequestMapping(path="/mapa")
+	public ModelAndView seleccionarUbicacionDelMapa() {
+		ModelMap model=new ModelMap();
+		
+		Double lat=this.posicionSucursal.getLatitude();
+		Double lag=this.posicionSucursal.getLongitude();
+		
+		model.put("lat",lat);
+		model.put("lag",lag);
+		
+		model.addAttribute("posicion", new Posicion());
+		return new ModelAndView("mapa",model);
+	}
+	
+	@RequestMapping(path="/mostrar", method = RequestMethod.POST)
+	public ModelAndView distanciaDelPedido(@ModelAttribute("posicion")Posicion posicion,HttpServletRequest request) {
+		ModelMap model=new ModelMap();
+				
+		Double distancia=this.servicioPedido.distanciaCoord(posicionSucursal.getLatitude(), posicionSucursal.getLongitude(), posicion.getLatitude(), posicion.getLongitude());
+		
+		Double tiempo=this.servicioPedido.calcularTiempo(distancia);
+		
+		BigDecimal time = new BigDecimal(tiempo);
+		time = time.setScale(0, RoundingMode.HALF_UP);
+		 
+		Double precio=12*distancia;		
+		
+		precio=this.servicioPedido.convertirPrecio(precio);
+		
+		model.put("distancia",(int)(distancia+1));
+		model.put("precio",precio);
+		model.put("tiempo",time);
+		
+		model.addAttribute("posicion",posicion);
+		
+		return new ModelAndView("infoViaje",model);
+	}
+	
+	
 	
 	/*
 	 * Se recibe el usuario activo en la sesion para obtener sus restricciones mediante su ID.
@@ -43,8 +89,8 @@ public class ControladorPedido {
 	 * y los Strings se mandan para ser usados como valores en el formulario.
 	 * La vista de retorno es el menu con las 3 opciones de sugerencias.
 	 */
-	@RequestMapping(path = "/menuSugerido")
-	public ModelAndView irAMenuSugerido(HttpServletRequest request) {
+	@RequestMapping(path = "/menuSugerido",method = RequestMethod.POST )
+	public ModelAndView irAMenuSugerido(@ModelAttribute("posicion") Posicion posicion, HttpServletRequest request) {
 		Usuario user=(Usuario)request.getSession().getAttribute("usuario");
 		ModelMap model = new ModelMap();
 		
@@ -61,6 +107,9 @@ public class ControladorPedido {
 		model.put("idcomidas1", idComidas1);
 		model.put("idcomidas2", idComidas2);
 		model.put("idcomidas3", idComidas3);
+		
+		model.addAttribute("posicion",posicion);
+		
 		return new ModelAndView("menuSugerido", model);
 	}
 	/*
@@ -68,7 +117,7 @@ public class ControladorPedido {
 	 * donde se recibe como parametro el usuario para obtener las calorias diarias.
 	 */
 	@RequestMapping(path = "/menuCalorias")
-	public ModelAndView irAMenuCalorias(HttpServletRequest request) {
+	public ModelAndView irAMenuCalorias(@ModelAttribute("posicion") Posicion posicion,HttpServletRequest request) {
 		Usuario user=(Usuario)request.getSession().getAttribute("usuario");
 		ModelMap model = new ModelMap();
 		
@@ -85,6 +134,9 @@ public class ControladorPedido {
 		model.put("idcomidas1", idComidas1);
 		model.put("idcomidas2", idComidas2);
 		model.put("idcomidas3", idComidas3);
+		
+		model.addAttribute("posicion",posicion);
+		
 		return new ModelAndView("menuCalorias", model);
 	}
 	/*
@@ -97,10 +149,23 @@ public class ControladorPedido {
 	 * Se agrega al model los datos del pedido para mostrarlos en pantalla como vista previa.
 	 */
 	@RequestMapping(path="/generarpedido", method=RequestMethod.POST)
-	public ModelAndView vistaPedido(@ModelAttribute("idComidas") String idComidas, HttpServletRequest request) {
+	public ModelAndView vistaPedido(@ModelAttribute("posicion")Posicion posicion,@RequestParam("idComidas") String idComidas, HttpServletRequest request) {
 		ModelMap model = new ModelMap();
 		Pedido nuevoPedido=new Pedido();
+		
+		//calculo distancia a la que esta el user
+		Double distancia=this.servicioPedido.distanciaCoord(this.posicionSucursal.getLatitude(), 
+				this.posicionSucursal.getLongitude(),posicion.getLatitude(), posicion.getLongitude());
+		//le pongo un precio diciendo que cada km sale 12 pesos
+		Double precioViaje=12*distancia;		
+		//le dejo 2 numeros despues de la coma
+		precioViaje=this.servicioPedido.convertirPrecio(precioViaje);
+		
 		nuevoPedido=servicioPedido.generarPedidoPorIdComidas(idComidas);
+		//sumo el precio del pedido con el del precio de viaje
+		Double precioFinalPedido=nuevoPedido.getPrecio()+precioViaje;
+		//seteo el nuevo precio del pedido
+		nuevoPedido.setPrecio(precioFinalPedido);
 		
 		Usuario user=(Usuario)request.getSession().getAttribute("usuario");
 		//Mercado pago

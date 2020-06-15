@@ -1,5 +1,5 @@
 package ar.edu.unlam.tallerweb1.modelo;
-
+ 
 import java.sql.Date;
 import java.util.List;
 
@@ -50,7 +50,7 @@ public class Usuario {
 	public void setRestricciones(List<Restriccion> restricciones) {
 		this.restricciones = restricciones;
 	}
-	public Long getId() {
+	public Long getId() { 
 		return id;
 	}
 	public void setId(Long id) {
@@ -105,7 +105,7 @@ public class Usuario {
 	public void setCaloriasDiarias(Double caloriasDiarias) {
 		this.caloriasDiarias = caloriasDiarias;
 	}
-	public Rol getRol() {
+	public Rol getRol() { 
 		return rol;
 	}
 	public void setRol(Rol rol) {

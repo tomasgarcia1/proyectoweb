@@ -24,8 +24,8 @@ public class ControladorUsuario {
 	@Inject
 	private ServicioUsuario servicioUsuario;
 
-	@RequestMapping("/registro")
-	public ModelAndView registrar() {
+	@RequestMapping("/registro") 
+	public ModelAndView registrar() {  
 		ModelMap modelo = new ModelMap();
 		Usuario usuario=new Usuario();
 		List<Actividad>actividades=Arrays.asList(Actividad.values());
