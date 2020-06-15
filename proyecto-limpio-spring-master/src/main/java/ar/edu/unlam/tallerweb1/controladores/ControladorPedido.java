@@ -27,17 +27,20 @@ import ar.edu.unlam.tallerweb1.modelo.Sexo;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioMP;
 import ar.edu.unlam.tallerweb1.servicios.ServicioPedido;
+import ar.edu.unlam.tallerweb1.servicios.ServicioPosicion;
 
 @Controller
 public class ControladorPedido {
 	
-	private ServicioMP servicioMP= new ServicioMP();
+	private ServicioMP servicioMP= new ServicioMP(); 
 	
 	private Posicion posicionSucursal=new Posicion(-34.668680,-58.566209);
 	
 	@Inject
 	private ServicioPedido servicioPedido;
 	
+	@Inject
+	private ServicioPosicion servicioPosicion; 
 	
 	@RequestMapping(path="/mapa")
 	public ModelAndView seleccionarUbicacionDelMapa() {
@@ -56,9 +59,14 @@ public class ControladorPedido {
 	@RequestMapping(path="/mostrar", method = RequestMethod.POST)
 	public ModelAndView distanciaDelPedido(@ModelAttribute("posicion")Posicion posicion,HttpServletRequest request) {
 		ModelMap model=new ModelMap();
-				
-		Double distancia=this.servicioPedido.distanciaCoord(posicionSucursal.getLatitude(), posicionSucursal.getLongitude(), posicion.getLatitude(), posicion.getLongitude());
+			
+		if(posicion.getLatitude()==0 || posicion.getLongitude()==0 ) {
+			return new ModelAndView("redirect:/mapa");
+		}
+		this.servicioPosicion.crearPosicion(posicion);
 		
+		Double distancia=this.servicioPedido.distanciaCoord(posicionSucursal.getLatitude(), posicionSucursal.getLongitude(), posicion.getLatitude(), posicion.getLongitude());
+
 		Double tiempo=this.servicioPedido.calcularTiempo(distancia);
 		
 		BigDecimal time = new BigDecimal(tiempo);
@@ -167,15 +175,21 @@ public class ControladorPedido {
 		//seteo el nuevo precio del pedido
 		nuevoPedido.setPrecio(precioFinalPedido);
 		
+		nuevoPedido.setUbicacionDestino(posicion);
+		this.servicioPedido.actualizarPedido(nuevoPedido);
+		
 		Usuario user=(Usuario)request.getSession().getAttribute("usuario");
 		//Mercado pago
 		Preference p = servicioMP.checkout(user,nuevoPedido);
 		model.put("preference",p);
 		
+		
+		
 		String idLista=idComidas;
 		model.put("id", idLista);
 		model.put("precio", nuevoPedido.getPrecio());
 		model.put("comidas", nuevoPedido.getComidas());
+		model.put("idPosicion",posicion.getId());
 		return new ModelAndView("pedidoPorConfirmar", model);
 	}
 	/*
@@ -183,10 +197,13 @@ public class ControladorPedido {
 	 * Se muestra por pantalla el numero de pedido, dado por el ID generado en generarPedido().
 	 */
 	@RequestMapping(path="/pagarpedido", method=RequestMethod.GET)
-	public ModelAndView pagarPedido(/*@ModelAttribute("id")*/@RequestParam(value="id") String id,@RequestParam(value="payment_status") String estado, HttpServletRequest request) {
+	public ModelAndView pagarPedido(@RequestParam(value="id") String id,@RequestParam(value="payment_status") String estado,@RequestParam(value="idPosicion")Long idPosicion, HttpServletRequest request) {
 		ModelMap model = new ModelMap();
 		Usuario user=(Usuario)request.getSession().getAttribute("usuario");
 		Pedido nuevoPedido=new Pedido();
+		
+		Posicion posicionCliente=this.servicioPosicion.obtenerPosicionPorId(idPosicion);
+		
 		
 		nuevoPedido=servicioPedido.generarPedidoPorIdComidas(id);
 		//Estado proveniente de mercado pago
@@ -198,6 +215,8 @@ public class ControladorPedido {
 		nuevoPedido.setUsuario(user);
 		Long idPedido=servicioPedido.crearPedido(nuevoPedido);
 		nuevoPedido.setId(idPedido);
+		
+		nuevoPedido.setUbicacionDestino(posicionCliente);
 		
 		model.put("pedido", nuevoPedido);
 		return new ModelAndView("pedidoRealizado", model);

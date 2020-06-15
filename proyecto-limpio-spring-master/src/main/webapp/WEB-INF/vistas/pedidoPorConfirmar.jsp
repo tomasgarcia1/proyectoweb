@@ -61,6 +61,7 @@
 <a href="home" class="btn btn-primary">Cancelar</a>
 <form action="pagarpedido" method="GET">
 	<input type="hidden" name="id" value="${id}">
+	<input type="hidden" name="idPosicion" value="${idPosicion}">
  		<script
 		  		src="https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js"
 		   		data-preference-id="${preference.id}">
