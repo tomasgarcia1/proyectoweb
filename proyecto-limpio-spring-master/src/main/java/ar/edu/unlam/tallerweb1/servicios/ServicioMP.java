@@ -23,17 +23,13 @@ public class ServicioMP {
 			MercadoPago.SDK.setAccessToken("TEST-2696125203204390-082310-03c3926dd1403c10392a17d99ab313e8-148209369");
 			// Crea un ítem en la preferencia
 			Preference p=new Preference();
-			for (Comida comida : pedido.getComidas()) {
-				Item item = new Item();
-				item.setTitle(comida.getNombre()).setQuantity(1).setUnitPrice(comida.getPrecio().floatValue());	
-				p.appendItem(item);
-			}
+			Item item = new Item();
+			item.setTitle("Pedido").setQuantity(1).setUnitPrice(pedido.getPrecio().floatValue());	
+			p.appendItem(item);
 			Payer payer=new Payer();
 			payer.setEmail(usuario.getEmail());
 			p.setPayer(payer);
 			p.setBinaryMode(true);
-			/*BackUrls backUrls = new BackUrls("pagarpedido", "cancelarpedido", "cancelarpedido");
-			p.setBackUrls(backUrls);*/
 			preferencia= p.save();
 			} catch (MPException e) {
 				System. out. println("Execepcion MP\n");

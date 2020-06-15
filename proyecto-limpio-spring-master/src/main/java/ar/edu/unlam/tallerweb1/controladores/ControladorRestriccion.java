@@ -27,7 +27,7 @@ import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 
 @Controller
 public class ControladorRestriccion {
-	@Inject
+	@Inject 
 	private ServicioRestriccion servicioRestriccion;
 	@Inject
 	private ServicioUsuario servicioUsuario;
@@ -81,7 +81,7 @@ public class ControladorRestriccion {
 		if(user!=null) {
 			return new ModelAndView("usuarioConRestricciones");
 	        }   
-		return new ModelAndView("redirect:/home");
+		return new ModelAndView("redirect:/home"); 
 	}
 	@RequestMapping(path="/asignarRestricciones",method = RequestMethod.GET) 
 	public ModelAndView restriccionesUsuario(@RequestParam(value="restriccion", required=false)

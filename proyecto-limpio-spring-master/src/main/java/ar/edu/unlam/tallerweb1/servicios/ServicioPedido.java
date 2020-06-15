@@ -4,6 +4,7 @@ import java.util.List;
 
 import ar.edu.unlam.tallerweb1.modelo.Comida;
 import ar.edu.unlam.tallerweb1.modelo.Pedido;
+import ar.edu.unlam.tallerweb1.modelo.Posicion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
 public interface ServicioPedido {
@@ -20,4 +21,8 @@ public interface ServicioPedido {
 	List<Pedido> listarPedidosPorUsuario(Usuario usuario);
 	List<Pedido> listarPedidos();
 	List<Comida> listarComidasPedidas(Long id);
+	Double calcularTiempo(Double distancia);
+	Double distanciaCoord(Double lat1, Double lng1, Double lat2, Double lng2);
+	Double convertirPrecio(Double precio);
+
 }

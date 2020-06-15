@@ -55,7 +55,7 @@
 	</nav>
 	<section>
 		<h1>Seleccionar pedido por restricciones</h1>
-		<form method="POST" action="generarpedido" modelAttribute="idComidas">
+		<form method="POST" action="generarpedido" modelAttribute="posicion">
 			<!--  <h3>Usuario: ${usuario.email}</h3>-->
 			<span>COMIDA 1</span> <input type="radio" name="idComidas"
 				value="${idcomidas1}" />
@@ -78,9 +78,11 @@
 					<span> ${comida3.nombre}</span>
 					<span>${comida3.precio}</span>
 					<br>
-				</c:forEach></li>
-
-			<button class="btn btn-success">Confirmar gustos</button>
+				</c:forEach></li> <input type="hidden" name="latitude" id="latitude"
+				value="${posicion.latitude}" /> <input type="hidden"
+				name="longitude" id="longitude" value="${posicion.longitude}" />
+			<button type="submit" class="btn btn-success">Confirmar
+				gustos</button>
 		</form>
 	</section>
 
@@ -99,8 +101,8 @@
 				</div>
 				<div id="collapseOne" class="collapse show"
 					aria-labelledby="headingOne" data-parent="#accordion">
-					<div class="card-body" >${comida.descripcion}</div>
-				</div>	
+					<div class="card-body">${comida.descripcion}</div>
+				</div>
 			</div>
 		</div>
 	</c:forEach>
@@ -129,100 +131,100 @@
 			<!-- Grid row-->
 
 		</div>
-	</div>
+		</div>
 
-	<!-- Footer Links -->
-	<div class="container text-center text-md-left mt-5">
+		<!-- Footer Links -->
+		<div class="container text-center text-md-left mt-5">
 
-		<!-- Grid row -->
-		<div class="row mt-3">
+			<!-- Grid row -->
+			<div class="row mt-3">
 
-			<!-- Grid column -->
-			<div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+				<!-- Grid column -->
+				<div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
 
-				<!-- Content -->
-				<h6 class="text-uppercase font-weight-bold">Recomida</h6>
-				<hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto"
-					style="width: 60px;">
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+					<!-- Content -->
+					<h6 class="text-uppercase font-weight-bold">Recomida</h6>
+					<hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto"
+						style="width: 60px;">
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+
+				</div>
+				<!-- Grid column -->
+
+				<!-- Grid column -->
+				<div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+
+					<!-- Links -->
+					<h6 class="text-uppercase font-weight-bold">Products</h6>
+					<hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto"
+						style="width: 60px;">
+					<p>
+						<a href="#!">Wea1</a>
+					</p>
+					<p>
+						<a href="#!">Wea2</a>
+					</p>
+					<p>
+						<a href="#!">Wea3</a>
+					</p>
+					<p>
+						<a href="#!">Wea4</a>
+					</p>
+
+				</div>
+				<!-- Grid column -->
+
+				<!-- Grid column -->
+				<div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+
+					<!-- Links -->
+					<h6 class="text-uppercase font-weight-bold">Useful links</h6>
+					<hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto"
+						style="width: 60px;">
+					<p>
+						<a href="#!">Tu cuenta</a>
+					</p>
+					<p>
+						<a href="#!">Tu suscripcion</a>
+					</p>
+					<p>
+						<a href="#!">Otra cosa</a>
+					</p>
+					<p>
+						<a href="#!">Help</a>
+					</p>
+
+				</div>
+				<!-- Grid column -->
+
+				<!-- Grid column -->
+				<div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+
+					<!-- Links -->
+					<h6 class="text-uppercase font-weight-bold">Contacto</h6>
+					<hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto"
+						style="width: 60px;">
+					<p>
+						<i class="fas fa-home mr-3"></i> Buenos Aires, Argentina
+					</p>
+					<p>
+						<i class="fas fa-envelope mr-3"></i> info@lala.com
+					</p>
+					<p>
+						<i class="fas fa-phone mr-3"></i> + 011 7777 6666
+					</p>
+					<p>
+						<i class="fas fa-print mr-3"></i> + 011 2424 3332
+					</p>
+
+				</div>
+				<!-- Grid column -->
 
 			</div>
-			<!-- Grid column -->
-
-			<!-- Grid column -->
-			<div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-
-				<!-- Links -->
-				<h6 class="text-uppercase font-weight-bold">Products</h6>
-				<hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto"
-					style="width: 60px;">
-				<p>
-					<a href="#!">Wea1</a>
-				</p>
-				<p>
-					<a href="#!">Wea2</a>
-				</p>
-				<p>
-					<a href="#!">Wea3</a>
-				</p>
-				<p>
-					<a href="#!">Wea4</a>
-				</p>
-
-			</div>
-			<!-- Grid column -->
-
-			<!-- Grid column -->
-			<div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-
-				<!-- Links -->
-				<h6 class="text-uppercase font-weight-bold">Useful links</h6>
-				<hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto"
-					style="width: 60px;">
-				<p>
-					<a href="#!">Tu cuenta</a>
-				</p>
-				<p>
-					<a href="#!">Tu suscripcion</a>
-				</p>
-				<p>
-					<a href="#!">Otra cosa</a>
-				</p>
-				<p>
-					<a href="#!">Help</a>
-				</p>
-
-			</div>
-			<!-- Grid column -->
-
-			<!-- Grid column -->
-			<div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-
-				<!-- Links -->
-				<h6 class="text-uppercase font-weight-bold">Contacto</h6>
-				<hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto"
-					style="width: 60px;">
-				<p>
-					<i class="fas fa-home mr-3"></i> Buenos Aires, Argentina
-				</p>
-				<p>
-					<i class="fas fa-envelope mr-3"></i> info@lala.com
-				</p>
-				<p>
-					<i class="fas fa-phone mr-3"></i> + 011 7777 6666
-				</p>
-				<p>
-					<i class="fas fa-print mr-3"></i> + 011 2424 3332
-				</p>
-
-			</div>
-			<!-- Grid column -->
+			<!-- Grid row -->
 
 		</div>
-		<!-- Grid row -->
-
-	</div>
-	<!-- Footer Links -->
+		<!-- Footer Links -->
 
 	</footer>
 	<!-- Placed at the end of the document so the pages load faster -->

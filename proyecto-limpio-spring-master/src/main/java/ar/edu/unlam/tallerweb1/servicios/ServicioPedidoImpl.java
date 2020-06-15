@@ -4,15 +4,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.TreeSet;
-
 import javax.inject.Inject;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import ar.edu.unlam.tallerweb1.modelo.Comida;
 import ar.edu.unlam.tallerweb1.modelo.Pedido;
 import ar.edu.unlam.tallerweb1.modelo.Restriccion;
+import ar.edu.unlam.tallerweb1.modelo.Posicion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.PedidoDao;
 import ar.edu.unlam.tallerweb1.repositorios.UsuarioDao;
@@ -27,6 +25,28 @@ public class ServicioPedidoImpl implements ServicioPedido {
 	private ServicioComida servicioComida;
 	@Inject
 	private UsuarioDao usuarioDao;
+
+	@Override
+	public Double calcularTiempo(Double distancia) {
+		Double velocidad = (double) (40 * 1000) / 60;
+		Double distanciaEnMetros = (double) (distancia * 1000);
+
+		return ((distanciaEnMetros / velocidad) + 1.5);
+	}
+
+	@Override
+	public Double distanciaCoord(Double lat1, Double lng1, Double lat2, Double lng2) {
+		Double radioTierra = (double) 6371;// en kilómetros
+		Double dLat = Math.toRadians(lat2 - lat1);
+		Double dLng = Math.toRadians(lng2 - lng1);
+		Double sindLat = Math.sin(dLat / 2);
+		Double sindLng = Math.sin(dLng / 2);
+		Double va1 = Math.pow(sindLat, 2)
+				+ Math.pow(sindLng, 2) * Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2));
+		Double va2 = 2 * Math.atan2(Math.sqrt(va1), Math.sqrt(1 - va1));
+		Double distancia = radioTierra * va2;
+		return distancia;
+	}
 
 	@Override
 	public Long crearPedido(Pedido pedido) {
@@ -145,6 +165,7 @@ public class ServicioPedidoImpl implements ServicioPedido {
 			comidas.add(servicioComida.obtenerPorId(Long.parseLong(arrayComidas[i])));
 		}
 		pedido.setComidas(comidas);
+
 		pedido.setPrecio(this.calcularImporteTotal(pedido));
 		return pedido;
 	}
@@ -191,5 +212,9 @@ public class ServicioPedidoImpl implements ServicioPedido {
 		return comidaslistar;
 	}
 
-	
+	@Override
+	public Double convertirPrecio(Double precio) {
+		return Math.rint(precio * 100) / 100;
+	}
+
 }

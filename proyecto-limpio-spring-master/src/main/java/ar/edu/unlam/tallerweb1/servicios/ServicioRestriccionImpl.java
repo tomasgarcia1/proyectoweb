@@ -19,7 +19,7 @@ public class ServicioRestriccionImpl implements ServicioRestriccion {
 
 	@Override
 	public Long crearRestriccion(Restriccion restriccion) {
-
+ 
 		return restriccionDao.crearRestriccion(restriccion);
 	}
 
