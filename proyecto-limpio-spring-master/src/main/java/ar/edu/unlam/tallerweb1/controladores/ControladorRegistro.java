@@ -14,7 +14,7 @@ import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 
 @Controller
 public class ControladorRegistro { 
-	@Inject
+	@Inject 
 	private ServicioUsuario servicioUsuario;
 
 	/*@RequestMapping("/registro")
