@@ -75,8 +75,6 @@
 				  <div class="card-body">
 				    <h5 class="card-title">El envio llega en ${tiempo} minutos.</h5>
 				    <p class="card-text">El tiempo puede variar.</p>
-				    <p class="card-text">${posicion.latitude}</p>
-				        <p class="card-text">${posicion.longitude}</p>
 				  </div>
 			</div>
 			</div>
