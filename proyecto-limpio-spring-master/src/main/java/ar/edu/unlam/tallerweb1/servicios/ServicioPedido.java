@@ -19,4 +19,5 @@ public interface ServicioPedido {
 	Pedido generarPedidoPorIdComidas(String idComidas);
 	List<Pedido> listarPedidosPorUsuario(Usuario usuario);
 	List<Pedido> listarPedidos();
+	List<Comida> listarComidasPedidas(Long id);
 }

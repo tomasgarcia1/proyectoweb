@@ -20,7 +20,6 @@ import ar.edu.unlam.tallerweb1.modelo.Comida;
 import ar.edu.unlam.tallerweb1.modelo.Estado;
 import ar.edu.unlam.tallerweb1.modelo.Pedido;
 import ar.edu.unlam.tallerweb1.modelo.Rol;
-import ar.edu.unlam.tallerweb1.modelo.Sexo;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioMP;
 import ar.edu.unlam.tallerweb1.servicios.ServicioPedido;
@@ -51,6 +50,7 @@ public class ControladorPedido {
 		List<Comida> opcion1=servicioPedido.generarComidasPorRestricciones(user.getId());
 		List<Comida> opcion2=servicioPedido.generarComidasPorRestricciones(user.getId());
 		List<Comida> opcion3=servicioPedido.generarComidasPorRestricciones(user.getId());
+		List<Comida> comidasPedidas = servicioPedido.listarComidasPedidas(user.getId());
 		String idComidas1=servicioPedido.concatenarIdComidas(opcion1);
 		String idComidas2=servicioPedido.concatenarIdComidas(opcion2);
 		String idComidas3=servicioPedido.concatenarIdComidas(opcion3);
@@ -61,6 +61,7 @@ public class ControladorPedido {
 		model.put("idcomidas1", idComidas1);
 		model.put("idcomidas2", idComidas2);
 		model.put("idcomidas3", idComidas3);
+		model.put("comidasPedidas", comidasPedidas);
 		return new ModelAndView("menuSugerido", model);
 	}
 	/*
@@ -159,6 +160,7 @@ public class ControladorPedido {
 		model.put("usuario", user);
 		return new ModelAndView("listapedidos", model);
 	}
+	
 	@RequestMapping(path="/detallepedido")
 	public ModelAndView verDetallePedido(@RequestParam(value="id", required=true) Long id,HttpServletRequest request)
 	{

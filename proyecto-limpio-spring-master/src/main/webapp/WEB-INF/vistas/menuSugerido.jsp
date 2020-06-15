@@ -54,27 +54,25 @@
 		</div>
 	</nav>
 	<section>
-	<h1>Seleccionar pedido por restricciones</h1>
-        <form method="POST" action="generarpedido" modelAttribute="idComidas">
+		<h1>Seleccionar pedido por restricciones</h1>
+		<form method="POST" action="generarpedido" modelAttribute="idComidas">
 			<!--  <h3>Usuario: ${usuario.email}</h3>-->
-			<span>COMIDA 1</span>
-			<input type="radio" name="idComidas" value="${idcomidas1}" />
+			<span>COMIDA 1</span> <input type="radio" name="idComidas"
+				value="${idcomidas1}" />
 			<li><c:forEach items="${comidas1}" var="comida">
 					<span>PRODUCTO: </span>
 					<span> ${comida.nombre}</span>
 					<span>${comida.precio}</span>
 					<br>
-				</c:forEach></li>
-				<span>COMIDA 2</span>
-			<input type="radio" name="idComidas" value="${idcomidas2}" />
+				</c:forEach></li> <span>COMIDA 2</span> <input type="radio" name="idComidas"
+				value="${idcomidas2}" />
 			<li><c:forEach items="${comidas2}" var="comida2">
 					<span>PRODUCTO: </span>
 					<span> ${comida2.nombre}</span>
 					<span>${comida2.precio}</span>
 					<br>
-				</c:forEach></li>
-				<span>COMIDA 3</span>
-			<input type="radio" name="idComidas" value="${idcomidas3}" />
+				</c:forEach></li> <span>COMIDA 3</span> <input type="radio" name="idComidas"
+				value="${idcomidas3}" />
 			<li><c:forEach items="${comidas3}" var="comida3">
 					<span>PRODUCTO: </span>
 					<span> ${comida3.nombre}</span>
@@ -84,7 +82,28 @@
 
 			<button class="btn btn-success">Confirmar gustos</button>
 		</form>
-    </section>
+	</section>
+
+
+	<h1>Comidas adaptadas a tus gustos que otras personas pidieron..</h1>
+
+	<c:forEach items="${comidasPedidas}" var="comida">
+		<div id="accordion">
+			<div class="card">
+				<div class="card-header" id="headingOne">
+					<h5 class="mb-0">
+						<button class="btn btn-link" data-toggle="collapse"
+							data-target="#collapseOne" aria-expanded="true"
+							aria-controls="collapseOne" id="ejecutar" onclick="myejecution()">${comida.nombre}</button>
+					</h5>
+				</div>
+				<div id="collapseOne" class="collapse show"
+					aria-labelledby="headingOne" data-parent="#accordion">
+					<div class="card-body" >${comida.descripcion}</div>
+				</div>	
+			</div>
+		</div>
+	</c:forEach>
 	<!-- Footer -->
 	<footer class="page-footer font-small unique-color-dark">
 
@@ -110,100 +129,100 @@
 			<!-- Grid row-->
 
 		</div>
-		</div>
+	</div>
 
-		<!-- Footer Links -->
-		<div class="container text-center text-md-left mt-5">
+	<!-- Footer Links -->
+	<div class="container text-center text-md-left mt-5">
 
-			<!-- Grid row -->
-			<div class="row mt-3">
+		<!-- Grid row -->
+		<div class="row mt-3">
 
-				<!-- Grid column -->
-				<div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+			<!-- Grid column -->
+			<div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
 
-					<!-- Content -->
-					<h6 class="text-uppercase font-weight-bold">Recomida</h6>
-					<hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto"
-						style="width: 60px;">
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-
-				</div>
-				<!-- Grid column -->
-
-				<!-- Grid column -->
-				<div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-
-					<!-- Links -->
-					<h6 class="text-uppercase font-weight-bold">Products</h6>
-					<hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto"
-						style="width: 60px;">
-					<p>
-						<a href="#!">Wea1</a>
-					</p>
-					<p>
-						<a href="#!">Wea2</a>
-					</p>
-					<p>
-						<a href="#!">Wea3</a>
-					</p>
-					<p>
-						<a href="#!">Wea4</a>
-					</p>
-
-				</div>
-				<!-- Grid column -->
-
-				<!-- Grid column -->
-				<div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-
-					<!-- Links -->
-					<h6 class="text-uppercase font-weight-bold">Useful links</h6>
-					<hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto"
-						style="width: 60px;">
-					<p>
-						<a href="#!">Tu cuenta</a>
-					</p>
-					<p>
-						<a href="#!">Tu suscripcion</a>
-					</p>
-					<p>
-						<a href="#!">Otra cosa</a>
-					</p>
-					<p>
-						<a href="#!">Help</a>
-					</p>
-
-				</div>
-				<!-- Grid column -->
-
-				<!-- Grid column -->
-				<div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-
-					<!-- Links -->
-					<h6 class="text-uppercase font-weight-bold">Contacto</h6>
-					<hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto"
-						style="width: 60px;">
-					<p>
-						<i class="fas fa-home mr-3"></i> Buenos Aires, Argentina
-					</p>
-					<p>
-						<i class="fas fa-envelope mr-3"></i> info@lala.com
-					</p>
-					<p>
-						<i class="fas fa-phone mr-3"></i> + 011 7777 6666
-					</p>
-					<p>
-						<i class="fas fa-print mr-3"></i> + 011 2424 3332
-					</p>
-
-				</div>
-				<!-- Grid column -->
+				<!-- Content -->
+				<h6 class="text-uppercase font-weight-bold">Recomida</h6>
+				<hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto"
+					style="width: 60px;">
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
 
 			</div>
-			<!-- Grid row -->
+			<!-- Grid column -->
+
+			<!-- Grid column -->
+			<div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+
+				<!-- Links -->
+				<h6 class="text-uppercase font-weight-bold">Products</h6>
+				<hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto"
+					style="width: 60px;">
+				<p>
+					<a href="#!">Wea1</a>
+				</p>
+				<p>
+					<a href="#!">Wea2</a>
+				</p>
+				<p>
+					<a href="#!">Wea3</a>
+				</p>
+				<p>
+					<a href="#!">Wea4</a>
+				</p>
+
+			</div>
+			<!-- Grid column -->
+
+			<!-- Grid column -->
+			<div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+
+				<!-- Links -->
+				<h6 class="text-uppercase font-weight-bold">Useful links</h6>
+				<hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto"
+					style="width: 60px;">
+				<p>
+					<a href="#!">Tu cuenta</a>
+				</p>
+				<p>
+					<a href="#!">Tu suscripcion</a>
+				</p>
+				<p>
+					<a href="#!">Otra cosa</a>
+				</p>
+				<p>
+					<a href="#!">Help</a>
+				</p>
+
+			</div>
+			<!-- Grid column -->
+
+			<!-- Grid column -->
+			<div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+
+				<!-- Links -->
+				<h6 class="text-uppercase font-weight-bold">Contacto</h6>
+				<hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto"
+					style="width: 60px;">
+				<p>
+					<i class="fas fa-home mr-3"></i> Buenos Aires, Argentina
+				</p>
+				<p>
+					<i class="fas fa-envelope mr-3"></i> info@lala.com
+				</p>
+				<p>
+					<i class="fas fa-phone mr-3"></i> + 011 7777 6666
+				</p>
+				<p>
+					<i class="fas fa-print mr-3"></i> + 011 2424 3332
+				</p>
+
+			</div>
+			<!-- Grid column -->
 
 		</div>
-		<!-- Footer Links -->
+		<!-- Grid row -->
+
+	</div>
+	<!-- Footer Links -->
 
 	</footer>
 	<!-- Placed at the end of the document so the pages load faster -->
