@@ -27,7 +27,7 @@ import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 
 @Controller
 public class ControladorRestriccion {
-	@Inject
+	@Inject 
 	private ServicioRestriccion servicioRestriccion;
 	@Inject
 	private ServicioUsuario servicioUsuario;

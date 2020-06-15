@@ -24,7 +24,7 @@ import ar.edu.unlam.tallerweb1.servicios.ServicioPedido;
 import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 
 @Controller
-public class ControladorComida {
+public class ControladorComida { 
 	@Inject
 	private ServicioComida servicioComida;
 

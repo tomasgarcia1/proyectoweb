@@ -55,7 +55,7 @@
 	</nav>
 	<section>
 	<h1>Seleccionar pedido por restricciones</h1>
-        <form method="POST" action="generarpedido" modelAttribute="idComidas">
+        <form method="POST" action="generarpedido" modelAttribute="posicion">
 			<!--  <h3>Usuario: ${usuario.email}</h3>-->
 			<span>COMIDA 1</span>
 			<input type="radio" name="idComidas" value="${idcomidas1}" />
@@ -81,8 +81,9 @@
 					<span>${comida3.precio}</span>
 					<br>
 				</c:forEach></li>
-
-			<button class="btn btn-success">Confirmar gustos</button>
+				<input type="hidden"  name="latitude" id="latitude" value="${posicion.latitude}"/>
+			<input type="hidden"  name="longitude" id="longitude" value="${posicion.longitude}"/>		
+			<button type="submit" class="btn btn-success">Confirmar gustos</button>
 		</form>
     </section>
 	<!-- Footer -->
