@@ -25,82 +25,113 @@ import ar.edu.unlam.tallerweb1.repositorios.UsuarioDao;
 public class ServicioUsuarioImpl implements ServicioUsuario {
 	@Inject
 	private UsuarioDao usuarioDao;
+
+	//--------REGISTRAR USUARIO--------
+	
 	@Override
 	public Long registrarUsuario(Usuario usuario) {
 		usuario.setRol(Rol.CLIENTE);
 		return usuarioDao.registrarUsuario(usuario);
 	}
+
+	//--------ACTUALIZAR USUARIO--------
+	
+	@Override
+	public void update(Usuario usuario) {
+		this.usuarioDao.update(usuario);
+	}
+
+	//--------VALIDAR EXIST DE EMAIL--------
+	
 	@Override
 	public Boolean validarExistenciaEmail(String email) {
 		return usuarioDao.validarExistenciaEmail(email);
 	}
+
+	//--------VALIDAR FORMATO EMAIL--------
+	
 	@Override
 	public Boolean validarFormatoEmail(String email) {
-		String regex="[^@]+@[^@]+\\.[a-zA-Z]{2,}";
-		
+		String regex = "[^@]+@[^@]+\\.[a-zA-Z]{2,}";
+
 		return Pattern.matches(regex, email);
 	}
+	
+	//-------ENCRIPTADO DE CONTRASEÑA--------
+	
 	/*
-	 * Se recibe la password por parametro y se la convierte en una cadena de caracteres
-	 * generada bajo el algoritmo SHA-256, el cual genera un hash de 64 dígitos hexadecimales.
+	 * Se recibe la password por parametro y se la convierte en una cadena de
+	 * caracteres generada bajo el algoritmo SHA-256, el cual genera un hash de 64
+	 * dígitos hexadecimales.
 	 */
+	
 	@Override
 	public String encriptarPassword(String password) {
 		return org.apache.commons.codec.digest.DigestUtils.sha256Hex(password);
 	}
+
+	//---------OBTENER CALORIAS POR ID--------
 	
 	@Override
 	public Double obtenerCaloriasPorId(Long id) {
 		Usuario user = usuarioDao.obtenerUsuarioPorId(id);
 		return user.getCaloriasDiarias();
 	}
+
+	//-------------CALCULAR CALORIAS DIARIAS-----------
+	
 	@Override
 	public Double calcularCaloriasDiarias(Usuario usuario) {
-		double ca=0.0;
-		double mb= calcularMB(usuario);
-		if(usuario.getActividad().equals(Actividad.SEDENTARIO)) {
-			ca=mb*1.2;
-		}else if(usuario.getActividad().equals(Actividad.LEVEMENTEACTIVO)) {
-			ca=mb*1.375;
-		}else if(usuario.getActividad().equals(Actividad.MODERADAMENTEACTIVO)) {
-			ca=mb*1.55;
-		}else if(usuario.getActividad().equals(Actividad.MUYACTIVO)) {
-			ca=mb*1725;
-		}else if(usuario.getActividad().equals(Actividad.HIPERACTIVO)) {
-			ca=mb*1.9;
+		double ca = 0.0;
+		double mb = calcularMB(usuario);
+		if (usuario.getActividad().equals(Actividad.SEDENTARIO)) {
+			ca = mb * 1.2;
+		} else if (usuario.getActividad().equals(Actividad.LEVEMENTEACTIVO)) {
+			ca = mb * 1.375;
+		} else if (usuario.getActividad().equals(Actividad.MODERADAMENTEACTIVO)) {
+			ca = mb * 1.55;
+		} else if (usuario.getActividad().equals(Actividad.MUYACTIVO)) {
+			ca = mb * 1725;
+		} else if (usuario.getActividad().equals(Actividad.HIPERACTIVO)) {
+			ca = mb * 1.9;
 		}
-		return (double)Math.round(ca * 100) / 100;
+		return (double) Math.round(ca * 100) / 100;
 	}
+
+	//----------CALCULAR MB------------
+	
 	private static Double calcularMB(Usuario usuario) {
-		Double mb=0.0;
-		if(usuario.getSexo()==Sexo.FEMENINO) {
-			mb= 655.1 + (9.463 *usuario.getPeso()) + (1.8 * usuario.getAltura()) - (4.6756 * calcularEdad(usuario.getFechaDeNacimiento()));
-		}else {
-			mb=66.473 + (13.751 *usuario.getPeso()) + (5.0033 * usuario.getAltura()) - (6.7550 * calcularEdad(usuario.getFechaDeNacimiento()));
+		Double mb = 0.0;
+		if (usuario.getSexo() == Sexo.FEMENINO) {
+			mb = 655.1 + (9.463 * usuario.getPeso()) + (1.8 * usuario.getAltura())
+					- (4.6756 * calcularEdad(usuario.getFechaDeNacimiento()));
+		} else {
+			mb = 66.473 + (13.751 * usuario.getPeso()) + (5.0033 * usuario.getAltura())
+					- (6.7550 * calcularEdad(usuario.getFechaDeNacimiento()));
 		}
 		return mb;
 	}
+
+	//----------CALCULAR EDAD----------
+	
 	private static long calcularEdad(Date fecNac) {
 		Calendar calendar = new GregorianCalendar();
 		calendar.setTime(fecNac);
 		int year = calendar.get(Calendar.YEAR);
-		//Add one to month {0 - 11}
+		// Add one to month {0 - 11}
 		int month = calendar.get(Calendar.MONTH) + 1;
 		int day = calendar.get(Calendar.DAY_OF_MONTH);
-		
+
 		LocalDate nac = LocalDate.of(year, month, day);
 		LocalDate ahora = LocalDate.now();
-		int fecha=Period.between(nac, ahora).getYears();
+		int fecha = Period.between(nac, ahora).getYears();
 		return fecha;
 	}
-	@Override
-	public void update(Usuario usuario) {
-		this.usuarioDao.update(usuario);		
-	}
+
+	//----------CONSULTA EMAIL Y PASS USER------------
 	
 	@Override
 	public Usuario consultarEmailYPassDeUsuario(Usuario usuario) {
 		return usuarioDao.consultarEmailYPassDeUsuario(usuario);
 	}
 }
-

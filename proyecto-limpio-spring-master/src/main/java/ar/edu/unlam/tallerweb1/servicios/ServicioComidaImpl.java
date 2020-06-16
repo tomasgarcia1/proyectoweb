@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unlam.tallerweb1.modelo.Comida;
 import ar.edu.unlam.tallerweb1.modelo.Restriccion;
-import ar.edu.unlam.tallerweb1.modelo.Tipo;
 import ar.edu.unlam.tallerweb1.modelo.TipoHorario;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.ComidaDao;
@@ -41,6 +40,7 @@ public class ServicioComidaImpl implements ServicioComida {
 	}
 
 	// ------------------SUGERIR COMIDAS POR CALORIAS---------------------
+
 	@Override
 	public Comida sugerirDesayunoPorCalorias(Double caloriasDiarias) {
 		Double caloriasDesayuno = caloriasDiarias * 0.35;
@@ -66,6 +66,7 @@ public class ServicioComidaImpl implements ServicioComida {
 	}
 
 	// --------------------SUGERIR COMIDAS POR RESTRICCIONES----------------------
+
 	@Override
 	public Comida sugerirDesayunoPorRestricciones(Long id) {
 		Usuario user = usuarioDao.obtenerUsuarioPorId(id);
@@ -196,10 +197,7 @@ public class ServicioComidaImpl implements ServicioComida {
 		return cena.get(numeroRandom);
 	}
 
-	@Override
-	public List<Comida> obtenerComidas() {
-		return comidaDao.obtenerComidas();
-	}
+	// --------------OBTENER COMIDAS SEGUN TIPOHORARIO------------
 
 	@Override
 	public List<Comida> obtenerComidasSegunTipoHorario(TipoHorario tipo) {
@@ -215,6 +213,8 @@ public class ServicioComidaImpl implements ServicioComida {
 		return comidas2;
 	}
 
+	// --------------OBTENER COMIDA POR NOMBRE------------
+
 	@Override
 	public Comida obtenerComidaPorNombre(String nombre) {
 		List<Comida> comidas1 = comidaDao.obtenerComidas();
@@ -226,9 +226,28 @@ public class ServicioComidaImpl implements ServicioComida {
 		return null;
 	}
 
+	// --------------LISTA DE COMIDAS SEGUN RESTRICCIONES ------------
+
+	public List<Comida> listarComidasSegunRestricciones(Long id) {
+		Usuario user = usuarioDao.obtenerUsuarioPorId(id);
+		List<Restriccion> restricciones = user.getRestricciones();
+		List<Comida> comidas = comidaDao.obtenerComidas();
+		List<Comida> listacomidas = new ArrayList<Comida>();
+		for (Comida comida1 : comidas) {
+			if (comida1.getRestricciones().containsAll(restricciones)) {
+				listacomidas.add(comida1);
+			}
+		}
+		return listacomidas;
+	}
+
+	@Override
+	public List<Comida> obtenerComidas() {
+		return comidaDao.obtenerComidas();
+	}
+
 	public void updateComida(Comida comida) {
 		comidaDao.updateComida(comida);
 	}
-	
-	
+
 }

@@ -28,7 +28,8 @@ public class ControladorLogin {
 	@Inject
 	private ServicioUsuario servicioLogin;
 
-
+	//-----------LOGIN------------
+	
 	@RequestMapping("/login")
 	public ModelAndView irALogin() {
 
@@ -40,9 +41,12 @@ public class ControladorLogin {
 		return new ModelAndView("login", modelo);
 	}
 	
+	//----------VALIDAR LOGIN-------------
+	
 	// Este metodo escucha la URL validar-login siempre y cuando se invoque con metodo http POST
 	// El método recibe un objeto Usuario el que tiene los datos ingresados en el form correspondiente y se corresponde con el modelAttribute definido en el
 	// tag form:form
+	
 	@RequestMapping(path = "/validar-login", method = RequestMethod.POST)
 	public ModelAndView validarLogin(@ModelAttribute("usuario") Usuario usuario, HttpServletRequest request) {
 		ModelMap model = new ModelMap();
@@ -66,6 +70,8 @@ public class ControladorLogin {
 		return new ModelAndView("login", model);
 	}
 
+	//----------------CERRAR SESION------------------
+	
 	@RequestMapping("/cerrarSesion")
 	public ModelAndView cerrarSesion(HttpServletRequest request) {
 		request.getSession().invalidate();

@@ -30,6 +30,9 @@ public class ControladorRegistro {
 	 * e-mail. Debe tener un @ y un punto seguido de letras. Se crearon interfaces,
 	 * clases de registro y guardado de usuarios en servicios y repositorios.
 	 */
+	
+	//----------REGISTRAR USUARIO------------
+	
 	@RequestMapping(path = "/registrar", method = RequestMethod.GET)
 	public ModelAndView registrarUsuario(@RequestParam(value = "email", required = true) String email,
 			@RequestParam(value = "password", required = true) String password,

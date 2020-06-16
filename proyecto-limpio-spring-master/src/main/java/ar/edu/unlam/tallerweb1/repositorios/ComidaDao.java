@@ -12,12 +12,11 @@ public interface ComidaDao {
 	Comida ObtenerPorId(Long id);
 
 	void borrar(Comida comida);
-	
+
 	List<Comida> obtenerComidasSegunCalorias(Double calorias);
-	
+
 	List<Comida> obtenerComidas();
-
+	
 	void updateComida(Comida comida);
-
 
 }

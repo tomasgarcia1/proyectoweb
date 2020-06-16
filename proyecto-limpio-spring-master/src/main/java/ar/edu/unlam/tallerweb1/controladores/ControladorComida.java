@@ -34,6 +34,8 @@ public class ControladorComida {
 	@Inject
 	private ServicioPedido servicioPedido;
 
+	// ---------CREAR COMIDA---------
+	
 	@RequestMapping("/crearComida")
 	public ModelAndView crearComida(@RequestParam(value = "nombre", required = true) String nombre,
 			@RequestParam(value = "descripcion", required = true) String descripcion,
@@ -49,12 +51,16 @@ public class ControladorComida {
 
 	}
 
+	// --------ELIMINAR POR ID---------
+	
 	@RequestMapping("/eliminarPorId")
 	public ModelAndView eliminarPorId(@RequestParam(value = "id", required = true) Long id) {
 		servicioComida.borrar(servicioComida.obtenerPorId(id));
 		return new ModelAndView("comidaborrada");
 	}
 
+	// --------SUGERIR MENU DEL DIA-------
+	
 	@RequestMapping("/sugerirMenuDelDia")
 	public ModelAndView sugerirMenuDelDia(HttpServletRequest request) {
 		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
@@ -84,6 +90,8 @@ public class ControladorComida {
 		}
 	}
 
+	// ----------AGREGAR COMIDA--------
+	
 	@RequestMapping("/agregarComida")
 	public ModelAndView agregarComida(HttpServletRequest request) {
 		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
@@ -100,6 +108,8 @@ public class ControladorComida {
 			return new ModelAndView("redirect:/home");
 		}
 	}
+
+	// ---------AGREGAR COMIDA VALIDACION-------
 
 	@RequestMapping(path = "/agregarComidaValidacion", method = RequestMethod.POST)
 	public ModelAndView agregarComidaValidacion(@ModelAttribute("comida") Comida comida) {

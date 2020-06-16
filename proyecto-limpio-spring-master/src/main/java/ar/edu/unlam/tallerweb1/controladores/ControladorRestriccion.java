@@ -34,11 +34,15 @@ public class ControladorRestriccion {
 	@Inject
 	private ServicioComida servicioComida;
 	
+	//--------IR A RESTRICCIONES--------
+	
 	@RequestMapping("/restricciones")
 	public ModelAndView irRegistro() {
 		ModelMap model = new ModelMap();
 		return new ModelAndView("restricciones", model);
 	}
+	
+	//----------CREAR RESTRICCION------------
 	
 	@RequestMapping(path="/crearrestriccion", method=RequestMethod.GET) 
 	public ModelAndView crestriccionesUsuario(@RequestParam(value="nombre", required=true) String nombre) {	
@@ -52,6 +56,8 @@ public class ControladorRestriccion {
 		
 		return new ModelAndView("restriccionCreada",model);
 	}
+	
+	//---------ELIMINAR RESTRICCION----------
 	
 	@RequestMapping(path="/borrarrestriccion")
 	public ModelAndView eliminarRestriccion(@RequestParam(value="id")Long id) {
@@ -67,6 +73,8 @@ public class ControladorRestriccion {
 		return new ModelAndView("borrarRestriccion",model);
 	}
 	
+	//------------SELECCIONAR RESTRICCIONES----------
+	
 	@RequestMapping(path="/seleccionarRestricciones")
 	public ModelAndView select(HttpServletRequest request){
 		ModelMap model=new ModelMap();		
@@ -75,6 +83,9 @@ public class ControladorRestriccion {
 		model.put("restricciones",restricciones);		
 		return new ModelAndView("listarRestricciones",model);
 	}
+	
+	//-------------MUESTRA RESTRICCIONES DEL USUARIO------------
+	
 	@RequestMapping(path="/mostrarRestriccionesDeUsuario")
 	public ModelAndView x(HttpServletRequest request){
 		Usuario user=(Usuario)request.getSession().getAttribute("usuario");
@@ -83,6 +94,9 @@ public class ControladorRestriccion {
 	        }   
 		return new ModelAndView("redirect:/home"); 
 	}
+	
+	//------------ASIGNAR RESTRICCIONES AL USUARIO----------
+	
 	@RequestMapping(path="/asignarRestricciones",method = RequestMethod.GET) 
 	public ModelAndView restriccionesUsuario(@RequestParam(value="restriccion", required=false)
 	String restriccion,HttpServletRequest request){
@@ -112,6 +126,8 @@ public class ControladorRestriccion {
 		return new ModelAndView("redirect:/home");
 	}
 	
+	//----------BUSCAR COMIDA POR HORARIO-----------
+	
 	@RequestMapping(path="/buscarComidaPorHorario")
 	public ModelAndView buscarComidaPorHorario(HttpServletRequest request) {
 		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
@@ -130,6 +146,8 @@ public class ControladorRestriccion {
 			return new ModelAndView("redirect:/home");
 		}
 	}
+	
+	//-------SELECCIONAR COMIDA-----------
 	
 	@RequestMapping(path="/seleccionarComida", method = RequestMethod.POST)
 	public ModelAndView seleccionarComida(@ModelAttribute("comida") Comida comida, HttpServletRequest request) {
@@ -152,6 +170,8 @@ public class ControladorRestriccion {
 		}
 	}
 	
+	//-----------SELECCIONAR RESTRICCION DE COMIDA---------
+	
 	@RequestMapping(path="/seleccionarRestriccionDeComida", method = RequestMethod.POST)
 	public ModelAndView seleccionarRestriccionDeComida(@ModelAttribute("comida") Comida comida, HttpServletRequest request) {
 		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
@@ -170,6 +190,8 @@ public class ControladorRestriccion {
 			return new ModelAndView("redirect:/home");
 		}
 	}
+	
+	//-----------COLOCAR RESTRICCION A COMIDA--------------
 	
 	@RequestMapping(path="/colocarRestriccionAComida", method = RequestMethod.GET)
 	public ModelAndView seleccionarRestriccionDeComida(@RequestParam(value="restriccion") String restriccion,

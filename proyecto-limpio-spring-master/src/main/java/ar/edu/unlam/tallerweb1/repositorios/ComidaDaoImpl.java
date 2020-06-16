@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unlam.tallerweb1.modelo.Comida;
+import ar.edu.unlam.tallerweb1.modelo.Pedido;
 import ar.edu.unlam.tallerweb1.modelo.Restriccion;
 import ar.edu.unlam.tallerweb1.modelo.TipoHorario;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
@@ -43,15 +44,14 @@ public class ComidaDaoImpl implements ComidaDao {
 
 	@Override
 	public List<Comida> obtenerComidas() {
-		List<Comida> comidas = sesion
-				.getCurrentSession().createCriteria(Comida.class).list();
+		List<Comida> comidas = sesion.getCurrentSession().createCriteria(Comida.class).list();
 
 		return comidas;
 	}
-	
+
 	@Override
-	public void updateComida(Comida comida){
+	public void updateComida(Comida comida) {
 		sesion.getCurrentSession().update(comida);
 	}
-	
+
 }

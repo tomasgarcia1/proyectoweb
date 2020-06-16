@@ -54,4 +54,7 @@ public class PedidoDaoImpl implements PedidoDao {
 	public List<Pedido> listarPedidos() {
 		return sesion.getCurrentSession().createCriteria(Pedido.class).list();
 	}
+
+	
+	
 }

@@ -42,6 +42,8 @@ public class ControladorPedido {
 	@Inject
 	private ServicioPosicion servicioPosicion; 
 	
+	//----------SELECCIONAR UBICACION MAPA---------
+	
 	@RequestMapping(path="/mapa")
 	public ModelAndView seleccionarUbicacionDelMapa() {
 		ModelMap model=new ModelMap();
@@ -55,6 +57,8 @@ public class ControladorPedido {
 		model.addAttribute("posicion", new Posicion());
 		return new ModelAndView("mapa",model);
 	}
+	
+	//----------DISTANCIA DEL PEDIDO------
 	
 	@RequestMapping(path="/mostrar", method = RequestMethod.POST)
 	public ModelAndView distanciaDelPedido(@ModelAttribute("posicion")Posicion posicion,HttpServletRequest request) {
@@ -85,6 +89,9 @@ public class ControladorPedido {
 		return new ModelAndView("infoViaje",model);
 	}
 	
+	
+	//----------MENU SUGERIDO-------
+	
 	/*
 	 * Se recibe el usuario activo en la sesion para obtener sus restricciones mediante su ID.
 	 * Se generan tres listas de comida con la funcion generarComidasPorRestricciones, 
@@ -95,15 +102,15 @@ public class ControladorPedido {
 	 * y los Strings se mandan para ser usados como valores en el formulario.
 	 * La vista de retorno es el menu con las 3 opciones de sugerencias.
 	 */
+	
 	@RequestMapping(path = "/menuSugerido",method = RequestMethod.POST )
 	public ModelAndView irAMenuSugerido(@ModelAttribute("posicion") Posicion posicion, HttpServletRequest request) {
 		Usuario user=(Usuario)request.getSession().getAttribute("usuario");
 		ModelMap model = new ModelMap();
-		
 		List<Comida> opcion1=servicioPedido.generarComidasPorRestricciones(user.getId());
 		List<Comida> opcion2=servicioPedido.generarComidasPorRestricciones(user.getId());
 		List<Comida> opcion3=servicioPedido.generarComidasPorRestricciones(user.getId());
-		TreeSet<Comida> comidasPedidas = servicioPedido.listarComidasPedidas(user.getId());
+		TreeSet<Comida> comidasmaspedidas = servicioPedido.comidasMasPedidas(user.getId());
 		String idComidas1=servicioPedido.concatenarIdComidas(opcion1);
 		String idComidas2=servicioPedido.concatenarIdComidas(opcion2);
 		String idComidas3=servicioPedido.concatenarIdComidas(opcion3);
@@ -114,15 +121,20 @@ public class ControladorPedido {
 		model.put("idcomidas1", idComidas1);
 		model.put("idcomidas2", idComidas2);
 		model.put("idcomidas3", idComidas3);
-		model.put("comidasPedidas", comidasPedidas);
+		model.put("comidasmaspedidas", comidasmaspedidas);
+
 		model.addAttribute("posicion",posicion);
 	
 		return new ModelAndView("menuSugerido", model);
 	}
+	
+	//-----------MENU CALORIAS--------
+	
 	/*
 	 * Tiene el mismo funcionamiento que irAMenuSugerido, con la diferencia de que usa el metodo generarComidasPorCalorias,
 	 * donde se recibe como parametro el usuario para obtener las calorias diarias.
 	 */
+	
 	@RequestMapping(path = "/menuCalorias")
 	public ModelAndView irAMenuCalorias(@ModelAttribute("posicion") Posicion posicion,HttpServletRequest request) {
 		Usuario user=(Usuario)request.getSession().getAttribute("usuario");
@@ -146,6 +158,9 @@ public class ControladorPedido {
 		
 		return new ModelAndView("menuCalorias", model);
 	}
+	
+	//--------GENERAR PEDIDO-------
+	
 	/*
 	 * Se recibe como parametro un String con la opcion elegida en la vista menuSugerido.
 	 * Esta opcion es mandada como parametro del metodo generarPedidoPorIdComidas,
@@ -155,6 +170,7 @@ public class ControladorPedido {
 	 * Se agrega el pedido a la base de datos.
 	 * Se agrega al model los datos del pedido para mostrarlos en pantalla como vista previa.
 	 */
+	
 	@RequestMapping(path="/generarpedido", method=RequestMethod.POST)
 	public ModelAndView vistaPedido(@ModelAttribute("posicion")Posicion posicion,@RequestParam("idComidas") String idComidas, HttpServletRequest request) {
 		ModelMap model = new ModelMap();
@@ -191,10 +207,14 @@ public class ControladorPedido {
 		model.put("idPosicion",posicion.getId());
 		return new ModelAndView("pedidoPorConfirmar", model);
 	}
+	
+	//-------PAGAR PEDIDO-----
+	
 	/*
 	 * Se le envia el pedido creado y seteado anteriormente, y se le otorga el estado de "PAGADO".
 	 * Se muestra por pantalla el numero de pedido, dado por el ID generado en generarPedido().
 	 */
+	
 	@RequestMapping(path="/pagarpedido", method=RequestMethod.GET)
 	public ModelAndView pagarPedido(@RequestParam(value="id") String id,@RequestParam(value="payment_status") String estado,@RequestParam(value="idPosicion")Long idPosicion, HttpServletRequest request) {
 		ModelMap model = new ModelMap();
@@ -220,10 +240,14 @@ public class ControladorPedido {
 		model.put("pedido", nuevoPedido);
 		return new ModelAndView("pedidoRealizado", model);
 	}
+	
+	//----------CANCELAR PEDIDO---------
+	
 	/*
 	 * Se recibe por parametro el ID del pedido que queremos cancelar.
 	 * Si es distinto de null, se realiza la accion sobre el pedido existente.
 	 */
+	
 	@RequestMapping(path="/cancelarpedido", method=RequestMethod.GET)
 	public ModelAndView cancelarPedidoPorId(@RequestParam(value="id", required=true) String id, HttpServletRequest request) {
 		if(servicioPedido.buscarPedidoPorId(Long.parseLong(id))!=null)
@@ -232,6 +256,7 @@ public class ControladorPedido {
 		return new ModelAndView("redirect:/home");
 	}
 	
+	//----------LISTA DE MIS PEDIDOS-------
 	
 	@RequestMapping(path="/mispedidos")
 	public ModelAndView listarPedidos(HttpServletRequest request) {
@@ -242,6 +267,8 @@ public class ControladorPedido {
 		model.put("usuario", user);
 		return new ModelAndView("listapedidos", model);
 	}
+	
+	//---------DETALLE DE PEDIDO--------
 	
 	@RequestMapping(path="/detallepedido")
 	public ModelAndView verDetallePedido(@RequestParam(value="id", required=true) Long id,HttpServletRequest request)
@@ -257,6 +284,8 @@ public class ControladorPedido {
 		return new ModelAndView("detallepedido", model);
 	}
 
+	//--------VER PEDIDO---------
+	
 	@RequestMapping(path="/verpedidos")
 	public ModelAndView listarPedidosAdmin(HttpServletRequest request) {
 		ModelMap model = new ModelMap();

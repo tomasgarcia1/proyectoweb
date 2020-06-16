@@ -24,6 +24,8 @@ public class ControladorUsuario {
 	@Inject
 	private ServicioUsuario servicioUsuario;
 
+	//-----------REGISTRO----------
+	
 	@RequestMapping("/registro") 
 	public ModelAndView registrar() {  
 		ModelMap modelo = new ModelMap();
@@ -36,6 +38,9 @@ public class ControladorUsuario {
 
 		return new ModelAndView("registro", modelo);
 	}
+	
+	//--------REGISTRO VALIDACION--------
+	
 	@RequestMapping(path = "/registroValidacion", method = RequestMethod.POST)
 	public ModelAndView validarRegistro(@ModelAttribute("usuario") Usuario usuario,
 			HttpServletRequest request) {

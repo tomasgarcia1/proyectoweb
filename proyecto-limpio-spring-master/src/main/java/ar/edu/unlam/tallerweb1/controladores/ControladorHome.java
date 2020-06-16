@@ -13,12 +13,18 @@ import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
 @Controller
 public class ControladorHome {
+	
+	//--------IR A HOME--------
+	
 	// Escucha la URL /home por GET, y redirige a una vista.
+	
 	@RequestMapping(path = "/home", method = RequestMethod.GET)
 	public ModelAndView irAHome() { 
 		ModelMap modelo = new ModelMap();
 		return new ModelAndView("home", modelo); 
 	}
+	
+	//-----------INTERNO----------
 
 	@RequestMapping(path = "/interno")
 	public ModelAndView interno(HttpServletRequest request) {
@@ -31,6 +37,8 @@ public class ControladorHome {
 			return new ModelAndView("redirect:/home");
 		}
 	}
+	
+	//----------ADMIN INTERNO----------
 	
 	@RequestMapping(path = "/adminInterno")
 	public ModelAndView adminInterno(HttpServletRequest request) {

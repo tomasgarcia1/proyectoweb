@@ -34,7 +34,9 @@ public interface ServicioComida {
 	List<Comida> obtenerComidas();
 
 	List<Comida> obtenerComidasSegunTipoHorario(TipoHorario tipo);
-
+	
+	List<Comida> listarComidasSegunRestricciones(Long id);
+	
 	Comida obtenerComidaPorNombre(String nombre);
 
 	void updateComida(Comida comida);

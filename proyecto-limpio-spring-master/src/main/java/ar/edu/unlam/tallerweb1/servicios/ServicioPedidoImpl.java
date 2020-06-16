@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.servicios;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.TreeSet;
 
@@ -26,6 +27,8 @@ public class ServicioPedidoImpl implements ServicioPedido {
 	@Inject
 	private UsuarioDao usuarioDao;
 
+	// ----------CALCULAR TIEMPO----------
+
 	@Override
 	public Double calcularTiempo(Double distancia) {
 		Double velocidad = (double) (40 * 1000) / 60;
@@ -34,6 +37,7 @@ public class ServicioPedidoImpl implements ServicioPedido {
 		return ((distanciaEnMetros / velocidad) + 1.5);
 	}
 
+	// ---------------DISTANCIA-------------
 	@Override
 	public Double distanciaCoord(Double lat1, Double lng1, Double lat2, Double lng2) {
 		Double radioTierra = (double) 6371;// en kilómetros
@@ -48,16 +52,21 @@ public class ServicioPedidoImpl implements ServicioPedido {
 		return distancia;
 	}
 
+	// ------------CREAR PEDIDO----------
+
 	@Override
 	public Long crearPedido(Pedido pedido) {
 
 		return pedidoDao.crearPedido(pedido);
 	}
 
+	// ---------CALCULO DE IMPORTE TOTAL----------
+
 	/*
 	 * Se acumulan los precios de cada comida en la variable importe. Esto da como
 	 * resultado el importe total del pedido.
 	 */
+
 	@Override
 	public Double calcularImporteTotal(Pedido pedido) {
 		Double importe = 0.0;
@@ -67,21 +76,7 @@ public class ServicioPedidoImpl implements ServicioPedido {
 		return importe;
 	}
 
-	@Override
-	public void cancelarPedido(Long id) {
-		pedidoDao.cancelarPedido(id);
-	}
-
-	@Override
-	public Pedido buscarPedidoPorId(Long id) {
-		return pedidoDao.buscarPedidoPorId(id);
-	}
-
-	@Override
-	public void actualizarPedido(Pedido pedido) {
-		pedidoDao.actualizarPedido(pedido);
-
-	}
+	// ---------GENERAR COMIDAS POR RESTRICCIONES----------
 
 	/*
 	 * Recibe por parametro el ID del usuario para buscar sus restricciones. Crea un
@@ -89,6 +84,7 @@ public class ServicioPedidoImpl implements ServicioPedido {
 	 * servicioComida. Estas comidas se almacenan en una lista de comidas, que sera
 	 * tomada como valor de retorno
 	 */
+
 	@Override
 	public List<Comida> generarComidasPorRestricciones(Long id) {
 		Comida desayuno = servicioComida.sugerirDesayunoPorRestricciones(id);
@@ -101,10 +97,13 @@ public class ServicioPedidoImpl implements ServicioPedido {
 		return comidas;
 	}
 
+	// ----------GENERAR COMIDAS POR CALORIAS-----------
+
 	/*
 	 * Mismo funcionamiento que generarComidasPorRestricciones, solo que recibe como
 	 * parametro el usuario.
 	 */
+
 	@Override
 	public List<Comida> generarComidasPorCalorias(Usuario usuario) {
 		Comida desayuno = servicioComida.sugerirDesayunoPorCalorias(usuario.getCaloriasDiarias());
@@ -117,6 +116,8 @@ public class ServicioPedidoImpl implements ServicioPedido {
 		return comidas;
 	}
 
+	// ----------CONCATENACION ID COMIDAS----------
+
 	/*
 	 * Recibe una lista de comidas como parametro para extraer el ID de las comidas.
 	 * Se crea una variable de tipo StringBuilder llamada idComidas: esto se debe a
@@ -128,6 +129,7 @@ public class ServicioPedidoImpl implements ServicioPedido {
 	 * String. Se toma como valor de retorno la variable idComidas casteada a
 	 * String.
 	 */
+
 	@Override
 	public String concatenarIdComidas(List<Comida> comidas) {
 		StringBuilder idComidas = new StringBuilder();
@@ -142,6 +144,8 @@ public class ServicioPedidoImpl implements ServicioPedido {
 		return idComidas.toString();
 	}
 
+	// --------------GENERAR PEDIDO POR ID CALORIAS-----------
+
 	/*
 	 * Se recibe como parametro el String con los ID de las comidas del pedido
 	 * seleccionado en el menuSugerido. Se crea un array de Strings, tomando a la
@@ -155,6 +159,7 @@ public class ServicioPedidoImpl implements ServicioPedido {
 	 * ArrayList en el objeto pedido. Se calcula el precio del pedido con el metodo
 	 * calcularImporteTotal. Se toma como valor de retorno el objeto pedido.
 	 */
+
 	@Override
 	public Pedido generarPedidoPorIdComidas(String idComidas) {
 		String[] arrayComidas = idComidas.split(",");
@@ -170,6 +175,8 @@ public class ServicioPedidoImpl implements ServicioPedido {
 		return pedido;
 	}
 
+	// ------------GENERAR MENUS SUGERIDOS-----------
+
 	@Override
 	public List<Comida> generarMenusSugeridos(Usuario usuario) {
 		Comida desayuno = servicioComida.sugerirDesayuno(usuario.getCaloriasDiarias(), usuario.getId());
@@ -182,21 +189,22 @@ public class ServicioPedidoImpl implements ServicioPedido {
 		return comidas;
 	}
 
-	// ----------LISTAR COMIDAS PEDIDAS POR CLIENTES-------------
+	// ----------LISTAR COMIDAS MAS PEDIDAS POR CLIENTES-------------
 
-	public TreeSet<Comida> listarComidasPedidas(Long id) {
-		Usuario user = usuarioDao.obtenerUsuarioPorId(id);
-		List<Restriccion> restricciones = user.getRestricciones();
-		List<Pedido> pedidos = pedidoDao.listarPedidos();
+	@Override
+	public TreeSet<Comida> comidasMasPedidas(Long id) {
+		List<Comida> comida = servicioComida.listarComidasSegunRestricciones(id);
+		List<Comida> comidasmaspedidas = new LinkedList<>();
 		TreeSet<Comida> comidaslistar = new TreeSet<Comida>();
-		for (Pedido pedidoAux : pedidos) {
-			List<Comida> comidas = pedidoAux.getComidas();
-			for (Comida comidaAux : comidas) {
-				if (comidaAux.getRestricciones().containsAll(restricciones)) {
-					comidaslistar.add(comidaAux);
-				}
+		for (Comida c : comida) {
+			if (c.getPedidos().size() >= 3) {
+				comidasmaspedidas.add(c);
 			}
 		}
+		for (Comida comidaAux : comidasmaspedidas) {
+			comidaslistar.add(comidaAux);
+		}
+
 		return comidaslistar;
 	}
 
@@ -213,6 +221,22 @@ public class ServicioPedidoImpl implements ServicioPedido {
 	@Override
 	public Double convertirPrecio(Double precio) {
 		return Math.rint(precio * 100) / 100;
+	}
+
+	@Override
+	public void cancelarPedido(Long id) {
+		pedidoDao.cancelarPedido(id);
+	}
+
+	@Override
+	public Pedido buscarPedidoPorId(Long id) {
+		return pedidoDao.buscarPedidoPorId(id);
+	}
+
+	@Override
+	public void actualizarPedido(Pedido pedido) {
+		pedidoDao.actualizarPedido(pedido);
+
 	}
 
 }
