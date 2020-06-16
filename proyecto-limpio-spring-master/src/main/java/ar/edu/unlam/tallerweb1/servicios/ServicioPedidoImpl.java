@@ -25,8 +25,6 @@ public class ServicioPedidoImpl implements ServicioPedido {
 	private PedidoDao pedidoDao;
 	@Inject
 	private ServicioComida servicioComida;
-	@Inject
-	private UsuarioDao usuarioDao;
 
 	// ----------CALCULAR TIEMPO----------
 
