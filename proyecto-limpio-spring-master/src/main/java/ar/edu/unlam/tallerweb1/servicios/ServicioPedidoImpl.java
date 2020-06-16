@@ -56,12 +56,12 @@ public class ServicioPedidoImpl implements ServicioPedido {
 	 * Esto da como resultado el importe total del pedido.
 	 */
 	@Override
-	public Double calcularImporteTotal(Pedido pedido) {
+	public Double calcularImporteTotal(List<Comida> comidas, Double precioEnvio) {
 		Double importe=0.0;
-		for (Comida comidas : pedido.getComidas()) {
-			importe+=comidas.getPrecio();
+		for (Comida comida : comidas) {
+			importe+=comida.getPrecio();
 		}
-		return importe;
+		return importe+precioEnvio;
 	}
 
 	@Override
@@ -144,19 +144,28 @@ public class ServicioPedidoImpl implements ServicioPedido {
 	 * Se toma como valor de retorno el objeto pedido.
 	 */
 	@Override
-	public Pedido generarPedidoPorIdComidas(String idComidas) {
-		String[] arrayComidas=idComidas.split(",");
-		Pedido pedido=new Pedido();
-		List<Comida> comidas=new ArrayList<Comida>();
+	public Pedido generarPedidoPorIdComidas(String idComidas, Posicion posicion, Posicion posicionSucursal) {
 		
+		Pedido pedido=new Pedido();
+		List<Comida> comidas=this.obtenerComidasConcatenadas(idComidas);
+		Double distancia=this.distanciaCoord(posicionSucursal.getLatitude(), posicionSucursal.getLongitude(), 
+				posicion.getLatitude(), posicion.getLongitude());
+		Double precioEnvio=this.convertirPrecio(distancia);
+		pedido.setComidas(comidas);
+		pedido.setPrecio(this.calcularImporteTotal(comidas, precioEnvio));
+		pedido.setUbicacionDestino(posicion);
+		return pedido;
+	}
+	
+	public List<Comida> obtenerComidasConcatenadas(String idComidas)
+	{
+		String[] arrayComidas=idComidas.split(",");
+		List<Comida> comidas=new ArrayList<Comida>();
 		for(int i=0;i<arrayComidas.length;i++)
 		{
 			comidas.add(servicioComida.obtenerPorId(Long.parseLong(arrayComidas[i])));
 		}
-		pedido.setComidas(comidas);
-		
-		pedido.setPrecio(this.calcularImporteTotal(pedido));
-		return pedido;
+		return comidas;
 	}
 	
 	@Override
@@ -179,7 +188,9 @@ public class ServicioPedidoImpl implements ServicioPedido {
 		return pedidoDao.listarPedidos();
 	}
 	@Override
-	public Double convertirPrecio(Double precio) {
+	public Double convertirPrecio(Double distancia) {
+		//le pongo un precio diciendo que cada km sale 12 pesos
+		Double precio=distancia*12;
 		return Math.rint(precio*100)/100;
 	}
 }

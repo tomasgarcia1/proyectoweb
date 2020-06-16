@@ -75,19 +75,19 @@
 				  <div class="card-body">
 				    <h5 class="card-title">El envio llega en ${tiempo} minutos.</h5>
 				    <p class="card-text">El tiempo puede variar.</p>
-				    <p class="card-text">${posicion.latitude}</p>
-				        <p class="card-text">${posicion.longitude}</p>
 				  </div>
 			</div>
 			</div>
 		</div>
 		<form:form action="menuSugerido" method="POST" modelAttribute="posicion" >
+			<input type="hidden"  name="id" id="id" value="${posicion.id}"/>
 			<input type="hidden"  name="latitude" id="latitude" value="${posicion.latitude}"/>
 			<input type="hidden"  name="longitude" id="longitude" value="${posicion.longitude}"/>			
 			<button type="submit" class="btn btn-success">Elegir comidas por gustos</button>
 		</form:form>
 		
 		<form:form action="menuCalorias" method="POST" modelAttribute="posicion" >
+			<input type="hidden"  name="id" id="id" value="${posicion.id}"/>
 			<input type="hidden"  name="latitude" id="latitude" value="${posicion.latitude}"/>
 			<input type="hidden"  name="longitude" id="longitude" value="${posicion.longitude}"/>			
 			<button type="submit" class="btn btn-success my-3">Elegir comidas por calorias</button>
