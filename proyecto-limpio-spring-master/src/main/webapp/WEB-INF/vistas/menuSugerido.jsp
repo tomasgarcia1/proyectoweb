@@ -81,6 +81,7 @@
 					<span>${comida3.precio}</span>
 					<br>
 				</c:forEach></li>
+				<input type="hidden"  name="id" id="id" value="${posicion.id}"/>
 				<input type="hidden"  name="latitude" id="latitude" value="${posicion.latitude}"/>
 			<input type="hidden"  name="longitude" id="longitude" value="${posicion.longitude}"/>		
 			<button type="submit" class="btn btn-success">Confirmar gustos</button>

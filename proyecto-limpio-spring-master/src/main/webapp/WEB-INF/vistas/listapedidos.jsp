@@ -73,7 +73,7 @@
     				</c:if>
     				</td>
     				<td><a href="detallepedido?id=${pedido.id}">VER DETALLE</a></td>
-    				<td><c:if test="${pedido.estado != 'CANCELADO'}">
+    				<td><c:if test="${pedido.estado != 'CANCELADO' && pedido.estado != 'ENVIADO'}">
     					<a href="cancelarpedido?id=${pedido.id}">CANCELAR</a>
     				</c:if>
     				</td>

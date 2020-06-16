@@ -15,7 +15,7 @@ import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
 public class ServicioMP {
 
-	public Preference checkout(Usuario usuario,Pedido pedido) {
+	public Preference checkout(Usuario usuario, Double precio) {
 		// Crea un objeto de preferencia
 		Preference preferencia=new Preference();
 		try {
@@ -24,7 +24,7 @@ public class ServicioMP {
 			// Crea un ítem en la preferencia
 			Preference p=new Preference();
 			Item item = new Item();
-			item.setTitle("Pedido").setQuantity(1).setUnitPrice(pedido.getPrecio().floatValue());	
+			item.setTitle("Pedido").setQuantity(1).setUnitPrice(precio.floatValue());	
 			p.appendItem(item);
 			Payer payer=new Payer();
 			payer.setEmail(usuario.getEmail());
