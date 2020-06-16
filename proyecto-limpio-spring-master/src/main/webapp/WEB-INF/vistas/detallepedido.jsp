@@ -60,6 +60,21 @@
 		<h3>Email: ${pedido.usuario.email}</h3><br>
 		<h2>Datos del pedido</h2>
 		<h3>Estado: ${pedido.estado}</h3>
+		<c:if test="${usuario.rol == 'ADMINISTRADOR' && pedido.estado!='ENVIADO' && pedido.estado!='CANCELADO'}">
+		<form action="actualizarestado" method="POST">
+			<label for="estado" ><h3>Actualizar estado</h3></label>
+				<input name="id" type="hidden" value="${pedido.id}">
+				<select name="estado" required="required">
+					<c:forEach items="${estados}" var="estado">
+						<c:if test="${estado != pedido.estado}">
+							<option value="${estado}">${estado}</option>
+						</c:if>
+					</c:forEach>
+				</select>
+				<input type="submit" value="Actualizar">
+		</form>
+		</c:if>
+		<h3>Precio final: ${pedido.precio}</h3>
     </section>
 	<!-- Footer -->
 	<footer class="page-footer font-small unique-color-dark">

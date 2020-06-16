@@ -4,11 +4,13 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import ar.edu.unlam.tallerweb1.modelo.Comida;
 import ar.edu.unlam.tallerweb1.modelo.Estado;
 import ar.edu.unlam.tallerweb1.modelo.Pedido;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
@@ -41,9 +43,7 @@ public class PedidoDaoImpl implements PedidoDao {
 	}
 	@Override
 	public void actualizarPedido(Pedido pedido) {
-		Pedido pedidoPorActualizar=sesion.getCurrentSession().get(Pedido.class, pedido.getId());
-		pedidoPorActualizar.setEstado(Estado.PROCESO);
-		sesion.getCurrentSession().update(pedidoPorActualizar);
+		sesion.getCurrentSession().update(pedido);
 	}
 	@Override
 	public List<Pedido> listarPedidosPorUsuario(Usuario usuario) {

@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unlam.tallerweb1.modelo.Actividad;
 import ar.edu.unlam.tallerweb1.modelo.Comida;
+import ar.edu.unlam.tallerweb1.modelo.Posicion;
 import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.TipoHorario;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
@@ -58,16 +59,18 @@ public class ControladorComida {
 		servicioComida.borrar(servicioComida.obtenerPorId(id));
 		return new ModelAndView("comidaborrada");
 	}
-
+	
 	// --------SUGERIR MENU DEL DIA-------
 	
-	@RequestMapping("/sugerirMenuDelDia")
-	public ModelAndView sugerirMenuDelDia(HttpServletRequest request) {
+	@RequestMapping ("/sugerirMenuDelDia")
+	public ModelAndView sugerirMenuDelDia (@ModelAttribute("posicion") Posicion posicion, HttpServletRequest request) {
 		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
-
-		if (user != null) {
+		
+		if(user != null) {
 			Long id = user.getId();
 			Double caloriasDiarias = servicioUsuario.obtenerCaloriasPorId(id);
+						
+			
 
 			List<Comida> menu1 = servicioPedido.generarMenusSugeridos(user);
 			List<Comida> menu2 = servicioPedido.generarMenusSugeridos(user);
@@ -76,13 +79,22 @@ public class ControladorComida {
 			String idComidas2 = servicioPedido.concatenarIdComidas(menu2);
 			String idComidas3 = servicioPedido.concatenarIdComidas(menu3);
 			ModelMap model = new ModelMap();
-
+			
+			for(Comida com : menu1) {
+				if (com.getId() == 0L) {
+					model.put("error", "No se puede hacer un pedido ya que no se encontraron las 3 comidas que necesita");
+				}
+			}
+			
 			model.put("menu1", menu1);
 			model.put("menu2", menu2);
 			model.put("menu3", menu3);
 			model.put("idcomidas1", idComidas1);
 			model.put("idcomidas2", idComidas2);
 			model.put("idcomidas3", idComidas3);
+			
+			model.addAttribute("posicion",posicion);
+			
 			return new ModelAndView("sugerirMenuDelDia", model);
 
 		} else {

@@ -10,8 +10,9 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ar.edu.unlam.tallerweb1.modelo.Comida;
+import ar.edu.unlam.tallerweb1.modelo.Estado;
 import ar.edu.unlam.tallerweb1.modelo.Pedido;
-import ar.edu.unlam.tallerweb1.modelo.Restriccion;
+import ar.edu.unlam.tallerweb1.modelo.Posicion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.PedidoDao;
 import ar.edu.unlam.tallerweb1.repositorios.UsuarioDao;
@@ -53,7 +54,6 @@ public class ServicioPedidoImpl implements ServicioPedido {
 	}
 
 	// ------------CREAR PEDIDO----------
-
 	@Override
 	public Long crearPedido(Pedido pedido) {
 
@@ -61,19 +61,17 @@ public class ServicioPedidoImpl implements ServicioPedido {
 	}
 
 	// ---------CALCULO DE IMPORTE TOTAL----------
-
 	/*
 	 * Se acumulan los precios de cada comida en la variable importe. Esto da como
 	 * resultado el importe total del pedido.
 	 */
-
 	@Override
-	public Double calcularImporteTotal(Pedido pedido) {
+	public Double calcularImporteTotal(List<Comida> comidas, Double precioEnvio) {
 		Double importe = 0.0;
-		for (Comida comidas : pedido.getComidas()) {
-			importe += comidas.getPrecio();
+		for (Comida comida : comidas) {
+			importe += comida.getPrecio();
 		}
-		return importe;
+		return importe + precioEnvio;
 	}
 
 	// ---------GENERAR COMIDAS POR RESTRICCIONES----------
@@ -84,7 +82,6 @@ public class ServicioPedidoImpl implements ServicioPedido {
 	 * servicioComida. Estas comidas se almacenan en una lista de comidas, que sera
 	 * tomada como valor de retorno
 	 */
-
 	@Override
 	public List<Comida> generarComidasPorRestricciones(Long id) {
 		Comida desayuno = servicioComida.sugerirDesayunoPorRestricciones(id);
@@ -103,7 +100,6 @@ public class ServicioPedidoImpl implements ServicioPedido {
 	 * Mismo funcionamiento que generarComidasPorRestricciones, solo que recibe como
 	 * parametro el usuario.
 	 */
-
 	@Override
 	public List<Comida> generarComidasPorCalorias(Usuario usuario) {
 		Comida desayuno = servicioComida.sugerirDesayunoPorCalorias(usuario.getCaloriasDiarias());
@@ -129,50 +125,22 @@ public class ServicioPedidoImpl implements ServicioPedido {
 	 * String. Se toma como valor de retorno la variable idComidas casteada a
 	 * String.
 	 */
-
 	@Override
 	public String concatenarIdComidas(List<Comida> comidas) {
 		StringBuilder idComidas = new StringBuilder();
 		Iterator<Comida> it = comidas.iterator();
 		while (it.hasNext()) {
 			Comida comida = it.next();
-			idComidas.append(comida.getId().toString());
-			;
-			if (it.hasNext())
+			if (comida.getId() != 0) {
+				idComidas.append(comida.getId().toString());
 				idComidas.append(",");
+			}
 		}
+		if (idComidas.length() > 0) {
+			idComidas.deleteCharAt(idComidas.length() - 1);
+		}
+
 		return idComidas.toString();
-	}
-
-	// --------------GENERAR PEDIDO POR ID CALORIAS-----------
-
-	/*
-	 * Se recibe como parametro el String con los ID de las comidas del pedido
-	 * seleccionado en el menuSugerido. Se crea un array de Strings, tomando a la
-	 * coma como separador de posiciones. Cada posicion es un ID de una comida.
-	 * Ejemplo: si tengo "8,12", el array tendra en su primer posicion "8", y en la
-	 * segunda "12". Se crea un objeto de tipo Pedido para guardar el pedido, y un
-	 * ArrayList de comidas para guardar las comidas del pedido. Se usa un for para
-	 * recorrer el array de String e ir agregando en el ArrayList cada comida. Para
-	 * encontrar la comida, castea el ID (que es de tipo String en el array) a Long,
-	 * ya que el metodo obtenerPorId recibe como parametro un Long. Se guarda el
-	 * ArrayList en el objeto pedido. Se calcula el precio del pedido con el metodo
-	 * calcularImporteTotal. Se toma como valor de retorno el objeto pedido.
-	 */
-
-	@Override
-	public Pedido generarPedidoPorIdComidas(String idComidas) {
-		String[] arrayComidas = idComidas.split(",");
-		Pedido pedido = new Pedido();
-		List<Comida> comidas = new ArrayList<Comida>();
-
-		for (int i = 0; i < arrayComidas.length; i++) {
-			comidas.add(servicioComida.obtenerPorId(Long.parseLong(arrayComidas[i])));
-		}
-		pedido.setComidas(comidas);
-
-		pedido.setPrecio(this.calcularImporteTotal(pedido));
-		return pedido;
 	}
 
 	// ------------GENERAR MENUS SUGERIDOS-----------
@@ -208,6 +176,51 @@ public class ServicioPedidoImpl implements ServicioPedido {
 		return comidaslistar;
 	}
 
+	public List<Comida> obtenerComidasConcatenadas(String idComidas) {
+		String[] arrayComidas = idComidas.split(",");
+		List<Comida> comidas = new ArrayList<Comida>();
+		for (int i = 0; i < arrayComidas.length; i++) {
+			comidas.add(servicioComida.obtenerPorId(Long.parseLong(arrayComidas[i])));
+		}
+		return comidas;
+	}
+
+	// --------------GENERAR PEDIDO POR ID COMIDAS-----------
+
+	/*
+	 * Se recibe como parametro el String con los ID de las comidas del pedido
+	 * seleccionado en el menuSugerido. Se crea un array de Strings, tomando a la
+	 * coma como separador de posiciones. Cada posicion es un ID de una comida.
+	 * Ejemplo: si tengo "8,12", el array tendra en su primer posicion "8", y en la
+	 * segunda "12". Se crea un objeto de tipo Pedido para guardar el pedido, y un
+	 * ArrayList de comidas para guardar las comidas del pedido. Se usa un for para
+	 * recorrer el array de String e ir agregando en el ArrayList cada comida. Para
+	 * encontrar la comida, castea el ID (que es de tipo String en el array) a Long,
+	 * ya que el metodo obtenerPorId recibe como parametro un Long. Se guarda el
+	 * ArrayList en el objeto pedido. Se calcula el precio del pedido con el metodo
+	 * calcularImporteTotal. Se toma como valor de retorno el objeto pedido.
+	 */
+	@Override
+	public Pedido generarPedidoPorIdComidas(String idComidas, Posicion posicion, Posicion posicionSucursal) {
+
+		Pedido pedido = new Pedido();
+		List<Comida> comidas = this.obtenerComidasConcatenadas(idComidas);
+		Double distancia = this.distanciaCoord(posicionSucursal.getLatitude(), posicionSucursal.getLongitude(),
+				posicion.getLatitude(), posicion.getLongitude());
+		Double precioEnvio = this.convertirPrecio(distancia);
+		pedido.setComidas(comidas);
+		pedido.setPrecio(this.calcularImporteTotal(comidas, precioEnvio));
+		pedido.setUbicacionDestino(posicion);
+		return pedido;
+	}
+
+	@Override
+	public Double convertirPrecio(Double distancia) {
+		// le pongo un precio diciendo que cada km sale 12 pesos
+		Double precio = distancia * 12;
+		return Math.rint(precio * 100) / 100;
+	}
+
 	@Override
 	public List<Pedido> listarPedidosPorUsuario(Usuario usuario) {
 		return pedidoDao.listarPedidosPorUsuario(usuario);
@@ -216,11 +229,6 @@ public class ServicioPedidoImpl implements ServicioPedido {
 	@Override
 	public List<Pedido> listarPedidos() {
 		return pedidoDao.listarPedidos();
-	}
-
-	@Override
-	public Double convertirPrecio(Double precio) {
-		return Math.rint(precio * 100) / 100;
 	}
 
 	@Override
@@ -234,9 +242,9 @@ public class ServicioPedidoImpl implements ServicioPedido {
 	}
 
 	@Override
-	public void actualizarPedido(Pedido pedido) {
+	public void actualizarPedido(Pedido pedido, Estado estado) {
+		pedido.setEstado(estado);
 		pedidoDao.actualizarPedido(pedido);
 
 	}
-
 }

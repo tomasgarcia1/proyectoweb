@@ -139,6 +139,13 @@ public class ServicioComidaImpl implements ServicioComida {
 			}
 		}
 
+		if (desayuno.isEmpty()) {
+			Comida cError = new Comida();
+			cError.setId(0L);
+			cError.setNombre("No se encontró una comida adecuada");
+			return cError;
+		}
+
 		Integer numeroRandom = (int) (Math.random() * desayuno.size());
 		return desayuno.get(numeroRandom);
 	}
@@ -164,6 +171,12 @@ public class ServicioComidaImpl implements ServicioComida {
 			if (comidaAux.getRestricciones().containsAll(restricciones)) {
 				almuerzo.add(comidaAux);
 			}
+		}
+		if (almuerzo.isEmpty()) {
+			Comida cError = new Comida();
+			cError.setId(0L);
+			cError.setNombre("No se encontró una comida adecuada");
+			return cError;
 		}
 
 		Integer numeroRandom = (int) (Math.random() * almuerzo.size());
@@ -191,6 +204,13 @@ public class ServicioComidaImpl implements ServicioComida {
 			if (comidaAux.getRestricciones().containsAll(restricciones)) {
 				cena.add(comidaAux);
 			}
+		}
+
+		if (cena.isEmpty()) {
+			Comida cError = new Comida();
+			cError.setId(0L);
+			cError.setNombre("No se encontró una comida adecuada");
+			return cError;
 		}
 
 		Integer numeroRandom = (int) (Math.random() * cena.size());
