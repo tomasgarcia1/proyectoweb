@@ -12,13 +12,14 @@ public interface ServicioPedido {
 	Long crearPedido(Pedido pedido);
 	List<Comida> generarComidasPorRestricciones(Long id);
 	List<Comida> generarComidasPorCalorias(Usuario usuario);
-	Double calcularImporteTotal(Pedido pedido);
+	Double calcularImporteTotal(List<Comida> comidas, Double precioEnvio);
 	void cancelarPedido(Long id);
 	Pedido buscarPedidoPorId(Long id);
 	void actualizarPedido(Pedido pedido, Estado estado);
 	List<Comida> generarMenusSugeridos(Usuario usuario);
 	String concatenarIdComidas(List<Comida> comidas);
-	Pedido generarPedidoPorIdComidas(String idComidas);
+	List<Comida> obtenerComidasConcatenadas(String idComidas);
+	Pedido generarPedidoPorIdComidas(String idComidas, Posicion posicion, Posicion posicionSucursal);
 	List<Pedido> listarPedidosPorUsuario(Usuario usuario);
 	List<Pedido> listarPedidos();
 	Double calcularTiempo(Double distancia);

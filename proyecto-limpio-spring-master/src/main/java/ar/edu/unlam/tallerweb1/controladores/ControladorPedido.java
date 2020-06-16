@@ -23,7 +23,6 @@ import ar.edu.unlam.tallerweb1.modelo.Estado;
 import ar.edu.unlam.tallerweb1.modelo.Pedido;
 import ar.edu.unlam.tallerweb1.modelo.Posicion;
 import ar.edu.unlam.tallerweb1.modelo.Rol;
-import ar.edu.unlam.tallerweb1.modelo.Sexo;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioMP;
 import ar.edu.unlam.tallerweb1.servicios.ServicioPedido;
@@ -72,9 +71,9 @@ public class ControladorPedido {
 		BigDecimal time = new BigDecimal(tiempo);
 		time = time.setScale(0, RoundingMode.HALF_UP);
 		 
-		Double precio=12*distancia;		
+		//Double precio=12*distancia;		
 		
-		precio=this.servicioPedido.convertirPrecio(precio);
+		Double precio=this.servicioPedido.convertirPrecio(distancia);
 		
 		model.put("distancia",(int)(distancia+1));
 		model.put("precio",precio);
@@ -159,36 +158,34 @@ public class ControladorPedido {
 	@RequestMapping(path="/generarpedido", method=RequestMethod.POST)
 	public ModelAndView vistaPedido(@ModelAttribute("posicion")Posicion posicion,@RequestParam("idComidas") String idComidas, HttpServletRequest request) {
 		ModelMap model = new ModelMap();
-		Pedido nuevoPedido=new Pedido();
 		
 		//calculo distancia a la que esta el user
 		Double distancia=this.servicioPedido.distanciaCoord(this.posicionSucursal.getLatitude(), 
 				this.posicionSucursal.getLongitude(),posicion.getLatitude(), posicion.getLongitude());
-		//le pongo un precio diciendo que cada km sale 12 pesos
-		Double precioViaje=12*distancia;		
-		//le dejo 2 numeros despues de la coma
-		precioViaje=this.servicioPedido.convertirPrecio(precioViaje);
 		
-		nuevoPedido=servicioPedido.generarPedidoPorIdComidas(idComidas);
+		//le dejo 2 numeros despues de la coma
+		Double precioViaje=this.servicioPedido.convertirPrecio(distancia);
+		// Obtengo la lista de comidas que tiene el futuro pedido
+		List<Comida> comidas=servicioPedido.obtenerComidasConcatenadas(idComidas);
 		//sumo el precio del pedido con el del precio de viaje
-		Double precioFinalPedido=nuevoPedido.getPrecio()+precioViaje;
-		//seteo el nuevo precio del pedido
+		Double precioFinalPedido=servicioPedido.calcularImporteTotal(comidas, precioViaje);
+		
+		/*nuevoPedido=servicioPedido.generarPedidoPorIdComidas(idComidas);
+	
+		seteo el nuevo precio del pedido
 		nuevoPedido.setPrecio(precioFinalPedido);
 		
-		nuevoPedido.setUbicacionDestino(posicion);
-		this.servicioPedido.actualizarPedido(nuevoPedido);
-		
+		nuevoPedido.setUbicacionDestino(posicion);*/
+
+		String idLista=idComidas;
 		Usuario user=(Usuario)request.getSession().getAttribute("usuario");
 		//Mercado pago
-		Preference p = servicioMP.checkout(user,nuevoPedido);
+		Preference p = servicioMP.checkout(user, precioFinalPedido);
+		
 		model.put("preference",p);
-		
-		
-		
-		String idLista=idComidas;
 		model.put("id", idLista);
-		model.put("precio", nuevoPedido.getPrecio());
-		model.put("comidas", nuevoPedido.getComidas());
+		model.put("precio", precioFinalPedido);
+		model.put("comidas", comidas);
 		model.put("idPosicion",posicion.getId());
 		return new ModelAndView("pedidoPorConfirmar", model);
 	}
@@ -201,11 +198,9 @@ public class ControladorPedido {
 		ModelMap model = new ModelMap();
 		Usuario user=(Usuario)request.getSession().getAttribute("usuario");
 		Pedido nuevoPedido=new Pedido();
-		
 		Posicion posicionCliente=this.servicioPosicion.obtenerPosicionPorId(idPosicion);
 		
-		
-		nuevoPedido=servicioPedido.generarPedidoPorIdComidas(id);
+		nuevoPedido=servicioPedido.generarPedidoPorIdComidas(id, posicionCliente, posicionSucursal);
 		//Estado proveniente de mercado pago
 		if(estado.equals("approved")){
 		nuevoPedido.setEstado(Estado.PROCESO);
@@ -215,8 +210,6 @@ public class ControladorPedido {
 		nuevoPedido.setUsuario(user);
 		Long idPedido=servicioPedido.crearPedido(nuevoPedido);
 		nuevoPedido.setId(idPedido);
-		
-		nuevoPedido.setUbicacionDestino(posicionCliente);
 		
 		model.put("pedido", nuevoPedido);
 		return new ModelAndView("pedidoRealizado", model);
@@ -275,7 +268,6 @@ public class ControladorPedido {
 	@RequestMapping(path="/actualizarestado", method=RequestMethod.POST)
 	public ModelAndView actualizarEstado(String id, String estado, HttpServletRequest request)
 	{
-		ModelMap model = new ModelMap();
 		Pedido pedido=servicioPedido.buscarPedidoPorId(Long.parseLong(id));
 		Estado estadoPedido=Enum.valueOf(Estado.class, estado);
 		pedido.setEstado(estadoPedido);
