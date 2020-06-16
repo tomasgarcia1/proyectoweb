@@ -176,6 +176,8 @@ public class ServicioPedidoImpl implements ServicioPedido {
 		return comidaslistar;
 	}
 
+	// ----------OBTENER COMIDAS CONCATENADAS-------------
+
 	public List<Comida> obtenerComidasConcatenadas(String idComidas) {
 		String[] arrayComidas = idComidas.split(",");
 		List<Comida> comidas = new ArrayList<Comida>();
@@ -222,6 +224,13 @@ public class ServicioPedidoImpl implements ServicioPedido {
 	}
 
 	@Override
+	public void actualizarPedido(Pedido pedido, Estado estado) {
+		pedido.setEstado(estado);
+		pedidoDao.actualizarPedido(pedido);
+
+	}
+
+	@Override
 	public List<Pedido> listarPedidosPorUsuario(Usuario usuario) {
 		return pedidoDao.listarPedidosPorUsuario(usuario);
 	}
@@ -241,10 +250,4 @@ public class ServicioPedidoImpl implements ServicioPedido {
 		return pedidoDao.buscarPedidoPorId(id);
 	}
 
-	@Override
-	public void actualizarPedido(Pedido pedido, Estado estado) {
-		pedido.setEstado(estado);
-		pedidoDao.actualizarPedido(pedido);
-
-	}
 }

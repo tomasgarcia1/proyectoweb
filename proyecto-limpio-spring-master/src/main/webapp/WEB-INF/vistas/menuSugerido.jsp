@@ -86,31 +86,20 @@
 				gustos</button>
 		</form>
 	</section>
-
+ 
 	<section>
-		<h1>También podes ver.. ¡Las comidas adaptadas a tus gustos más
-			pedidas!</h1>
+		<h3>También podes ver.. ¡Las comidas adaptadas a tus gustos más
+			pedidas!</h3>
 		<c:forEach items="${comidasmaspedidas}" var="comida">
-			<div id="accordion">
-
-				<div class="card">
-					<div class="card-header" id="headingOne">
-						<h5 class="mb-0">
-							<button class="btn btn-link" data-toggle="collapse"
-								data-target="#collapseOne" aria-expanded="true"
-								aria-controls="collapseOne">${comida.nombre}</button>
-						</h5>
-					</div>
-					<div id="collapseOne" class="collapse show"
-						aria-labelledby="headingOne" data-parent="#accordion"
-						aria-expanded="true">
-						<div class="card-body">${comida.descripcion}</div>
-
-					</div>
-
+			<div class="media">
+				<img src="img/j2.jpg" class="mr-3">
+				<div class="media-body">
+					<h5 class="mt-0">${comida.nombre}</h5>
+					${comida.descripcion}
 				</div>
 			</div>
 		</c:forEach>
+
 	</section>
 	<!-- Footer -->
 	<footer class="page-footer font-small unique-color-dark">
