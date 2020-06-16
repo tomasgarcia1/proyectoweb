@@ -129,7 +129,9 @@ public class ServicioPedidoImpl implements ServicioPedido {
 				idComidas.append(",");
 				}
 		}
+			if(idComidas.length()>0) {
 			idComidas.deleteCharAt(idComidas.length()-1);
+			}
 		
 		return idComidas.toString();
 	}
@@ -181,6 +183,7 @@ public class ServicioPedidoImpl implements ServicioPedido {
 		comidas.add(cena);
 		return comidas;
 	}
+	
 	@Override
 	public List<Pedido> listarPedidosPorUsuario(Usuario usuario) {
 		return pedidoDao.listarPedidosPorUsuario(usuario);

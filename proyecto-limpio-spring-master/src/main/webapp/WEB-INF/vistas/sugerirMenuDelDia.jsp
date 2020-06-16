@@ -49,7 +49,7 @@
     </nav>
 <section class="container-sm p-4">
 	<h3 class="text-center">Seleccione el menú del que quiere hacer un pedido</h3>
-        <form method="POST" action="generarpedido" modelAttribute="idComidas">
+        <form method="POST" action="generarpedido" modelAttribute="posicion">
 			<h2 class="text-danger">MENÚ 1</h2>			
 			 <span class="h3"> Seleccionar menú </span>
 			 <input type="radio" name="idComidas" value="${idcomidas1}" />
@@ -93,6 +93,9 @@
 				  </li>
 				</c:forEach>
 			</ul>
+				<input type="hidden"  name="id" id="id" value="${posicion.id}"/>
+				<input type="hidden"  name="latitude" id="latitude" value="${posicion.latitude}"/>
+				<input type="hidden"  name="longitude" id="longitude" value="${posicion.longitude}"/>	
 			
 			<c:if test="${not empty error}">
 				<h4>

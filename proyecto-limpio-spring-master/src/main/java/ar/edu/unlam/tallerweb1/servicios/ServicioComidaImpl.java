@@ -134,7 +134,7 @@ public class ServicioComidaImpl implements ServicioComida {
 		
 		if(desayuno.isEmpty()) {
 			Comida cError = new Comida();
-			cError.setId((long) 0);
+			cError.setId(0L);
 			cError.setNombre("No se encontró una comida adecuada");
 			return cError;
 		}
@@ -168,7 +168,7 @@ public class ServicioComidaImpl implements ServicioComida {
 		
 		if(almuerzo.isEmpty()) {
 			Comida cError = new Comida();
-			cError.setId((long) 0);
+			cError.setId(0L);
 			cError.setNombre("No se encontró una comida adecuada");
 			return cError;
 		}
@@ -202,7 +202,7 @@ public class ServicioComidaImpl implements ServicioComida {
 		
 		if(cena.isEmpty()) {
 			Comida cError = new Comida();
-			cError.setId((long) 0);
+			cError.setId(0L);
 			cError.setNombre("No se encontró una comida adecuada");
 			return cError;
 		}
