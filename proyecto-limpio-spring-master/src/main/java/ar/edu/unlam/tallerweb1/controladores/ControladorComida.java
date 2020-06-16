@@ -24,13 +24,13 @@ import ar.edu.unlam.tallerweb1.servicios.ServicioPedido;
 import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 
 @Controller
-public class ControladorComida { 
+public class ControladorComida {
 	@Inject
 	private ServicioComida servicioComida;
 
 	@Inject
 	private ServicioUsuario servicioUsuario;
-	
+
 	@Inject
 	private ServicioPedido servicioPedido;
 
@@ -55,74 +55,22 @@ public class ControladorComida {
 		return new ModelAndView("comidaborrada");
 	}
 
-	@RequestMapping("/sugerirComidaPorCalorias")
-	public ModelAndView sugerirComidaPorCalorias(HttpServletRequest request) {
-
+	@RequestMapping("/sugerirMenuDelDia")
+	public ModelAndView sugerirMenuDelDia(HttpServletRequest request) {
 		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
 
 		if (user != null) {
 			Long id = user.getId();
-
 			Double caloriasDiarias = servicioUsuario.obtenerCaloriasPorId(id);
 
-			Comida desayunoSugerido = servicioComida.sugerirDesayunoPorCalorias(caloriasDiarias);
-			Comida almuerzoSugerido = servicioComida.sugerirAlmuerzoPorCalorias(caloriasDiarias);
-			Comida cenaSugerida = servicioComida.sugerirCenaPorCalorias(caloriasDiarias);
-
-			ModelMap model = new ModelMap();
-
-			model.put("desayuno", desayunoSugerido);
-			model.put("almuerzo", almuerzoSugerido);
-			model.put("cena", cenaSugerida);
-
-			return new ModelAndView("sugerirComidaPorCalorias", model);
-
-		} else {
-			return new ModelAndView("redirect:/home");
-		}
-	}
-
-	@RequestMapping("/sugerirComidaPorRestricciones")
-	public ModelAndView sugerirComidaPorRestricciones(HttpServletRequest request) {
-		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
-
-		if (user != null) {
-			Long id = user.getId();
-
-			Comida desayunoSugerido = servicioComida.sugerirDesayunoPorRestricciones(id);
-			Comida almuerzoSugerido = servicioComida.sugerirAlmuerzoPorRestricciones(id);
-			Comida cenaSugerida = servicioComida.sugerirCenaPorRestricciones(id);
-
-			ModelMap model = new ModelMap();
-
-			model.put("desayuno", desayunoSugerido);
-			model.put("almuerzo", almuerzoSugerido);
-			model.put("cena", cenaSugerida);
-
-			return new ModelAndView("sugerirComidaPorRestricciones", model);
-
-		} else {
-			return new ModelAndView("redirect:/home");
-		}
-	}
-	
-	@RequestMapping ("/sugerirMenuDelDia")
-	public ModelAndView sugerirMenuDelDia (HttpServletRequest request) {
-		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
-		
-		if(user != null) {
-			Long id = user.getId();
-			Double caloriasDiarias = servicioUsuario.obtenerCaloriasPorId(id);
-			
-			
 			List<Comida> menu1 = servicioPedido.generarMenusSugeridos(user);
 			List<Comida> menu2 = servicioPedido.generarMenusSugeridos(user);
 			List<Comida> menu3 = servicioPedido.generarMenusSugeridos(user);
-			String idComidas1=servicioPedido.concatenarIdComidas(menu1);
-			String idComidas2=servicioPedido.concatenarIdComidas(menu2);
-			String idComidas3=servicioPedido.concatenarIdComidas(menu3);
+			String idComidas1 = servicioPedido.concatenarIdComidas(menu1);
+			String idComidas2 = servicioPedido.concatenarIdComidas(menu2);
+			String idComidas3 = servicioPedido.concatenarIdComidas(menu3);
 			ModelMap model = new ModelMap();
-			
+
 			model.put("menu1", menu1);
 			model.put("menu2", menu2);
 			model.put("menu3", menu3);
@@ -130,33 +78,33 @@ public class ControladorComida {
 			model.put("idcomidas2", idComidas2);
 			model.put("idcomidas3", idComidas3);
 			return new ModelAndView("sugerirMenuDelDia", model);
-			
+
 		} else {
 			return new ModelAndView("redirect:/home");
 		}
 	}
-	
+
 	@RequestMapping("/agregarComida")
-	public ModelAndView agregarComida (HttpServletRequest request) {
+	public ModelAndView agregarComida(HttpServletRequest request) {
 		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
 		ModelMap modelo = new ModelMap();
-		
-		if (user != null && user.getRol()==Rol.ADMINISTRADOR) {
+
+		if (user != null && user.getRol() == Rol.ADMINISTRADOR) {
 			Comida comida = new Comida();
-			List<TipoHorario>tipoHorario=Arrays.asList(TipoHorario.values());
+			List<TipoHorario> tipoHorario = Arrays.asList(TipoHorario.values());
 			modelo.put("comida", comida);
 			modelo.put("tipoHorario", tipoHorario);
 			return new ModelAndView("agregarComida", modelo);
-		
-		}else {
+
+		} else {
 			return new ModelAndView("redirect:/home");
 		}
 	}
-	
+
 	@RequestMapping(path = "/agregarComidaValidacion", method = RequestMethod.POST)
-	public ModelAndView agregarComidaValidacion (@ModelAttribute ("comida") Comida comida) {
-			servicioComida.crearComida(comida);
-			return new ModelAndView("redirect:/adminInterno");
-		
+	public ModelAndView agregarComidaValidacion(@ModelAttribute("comida") Comida comida) {
+		servicioComida.crearComida(comida);
+		return new ModelAndView("redirect:/adminInterno");
+
 	}
 }

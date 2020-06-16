@@ -40,7 +40,7 @@ public class ServicioComidaImpl implements ServicioComida {
 		comidaDao.borrar(comida);
 	}
 
-	// -------------------------SUGERIR COMIDAS POR CALORIAS--------------------------------
+	// ------------------SUGERIR COMIDAS POR CALORIAS---------------------
 	@Override
 	public Comida sugerirDesayunoPorCalorias(Double caloriasDiarias) {
 		Double caloriasDesayuno = caloriasDiarias * 0.35;
@@ -229,4 +229,6 @@ public class ServicioComidaImpl implements ServicioComida {
 	public void updateComida(Comida comida) {
 		comidaDao.updateComida(comida);
 	}
+	
+	
 }

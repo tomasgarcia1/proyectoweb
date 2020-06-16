@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.TreeSet;
+
 import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ar.edu.unlam.tallerweb1.modelo.Comida;
 import ar.edu.unlam.tallerweb1.modelo.Pedido;
 import ar.edu.unlam.tallerweb1.modelo.Restriccion;
-import ar.edu.unlam.tallerweb1.modelo.Posicion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.PedidoDao;
 import ar.edu.unlam.tallerweb1.repositorios.UsuarioDao;
@@ -182,6 +182,24 @@ public class ServicioPedidoImpl implements ServicioPedido {
 		return comidas;
 	}
 
+	// ----------LISTAR COMIDAS PEDIDAS POR CLIENTES-------------
+
+	public TreeSet<Comida> listarComidasPedidas(Long id) {
+		Usuario user = usuarioDao.obtenerUsuarioPorId(id);
+		List<Restriccion> restricciones = user.getRestricciones();
+		List<Pedido> pedidos = pedidoDao.listarPedidos();
+		TreeSet<Comida> comidaslistar = new TreeSet<Comida>();
+		for (Pedido pedidoAux : pedidos) {
+			List<Comida> comidas = pedidoAux.getComidas();
+			for (Comida comidaAux : comidas) {
+				if (comidaAux.getRestricciones().containsAll(restricciones)) {
+					comidaslistar.add(comidaAux);
+				}
+			}
+		}
+		return comidaslistar;
+	}
+
 	@Override
 	public List<Pedido> listarPedidosPorUsuario(Usuario usuario) {
 		return pedidoDao.listarPedidosPorUsuario(usuario);
@@ -190,26 +208,6 @@ public class ServicioPedidoImpl implements ServicioPedido {
 	@Override
 	public List<Pedido> listarPedidos() {
 		return pedidoDao.listarPedidos();
-	}
-
-	// ----------LISTAR COMIDAS PEDIDAS POR CLIENTES-------------
-
-	public List<Comida> listarComidasPedidas(Long id) {
-		Usuario user = usuarioDao.obtenerUsuarioPorId(id);
-		List<Restriccion> restricciones = user.getRestricciones();
-		List<Pedido> pedidos = pedidoDao.listarPedidos();
-		List<Comida> comidaslistar = new ArrayList<Comida>();
-		for (Pedido pedidoAux : pedidos) {
-			List<Comida> comidas = pedidoAux.getComidas();
-			for (Comida comidaAux : comidas) {
-				if (comidaAux.getRestricciones().containsAll(restricciones)) {
-					if (!comidaslistar.contains(comidaAux)) {
-						comidaslistar.add(comidaAux);
-					}
-				}
-			}
-		}
-		return comidaslistar;
 	}
 
 	@Override

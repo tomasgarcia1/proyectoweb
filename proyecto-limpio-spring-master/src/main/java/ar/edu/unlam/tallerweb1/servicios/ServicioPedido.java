@@ -1,10 +1,10 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
 import java.util.List;
+import java.util.TreeSet;
 
 import ar.edu.unlam.tallerweb1.modelo.Comida;
 import ar.edu.unlam.tallerweb1.modelo.Pedido;
-import ar.edu.unlam.tallerweb1.modelo.Posicion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
 public interface ServicioPedido {
@@ -20,7 +20,7 @@ public interface ServicioPedido {
 	Pedido generarPedidoPorIdComidas(String idComidas);
 	List<Pedido> listarPedidosPorUsuario(Usuario usuario);
 	List<Pedido> listarPedidos();
-	List<Comida> listarComidasPedidas(Long id);
+	TreeSet<Comida> listarComidasPedidas(Long id);
 	Double calcularTiempo(Double distancia);
 	Double distanciaCoord(Double lat1, Double lng1, Double lat2, Double lng2);
 	Double convertirPrecio(Double precio);

@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.List;
+import java.util.TreeSet;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -84,8 +85,6 @@ public class ControladorPedido {
 		return new ModelAndView("infoViaje",model);
 	}
 	
-	
-	
 	/*
 	 * Se recibe el usuario activo en la sesion para obtener sus restricciones mediante su ID.
 	 * Se generan tres listas de comida con la funcion generarComidasPorRestricciones, 
@@ -104,7 +103,7 @@ public class ControladorPedido {
 		List<Comida> opcion1=servicioPedido.generarComidasPorRestricciones(user.getId());
 		List<Comida> opcion2=servicioPedido.generarComidasPorRestricciones(user.getId());
 		List<Comida> opcion3=servicioPedido.generarComidasPorRestricciones(user.getId());
-		List<Comida> comidasPedidas = servicioPedido.listarComidasPedidas(user.getId());
+		TreeSet<Comida> comidasPedidas = servicioPedido.listarComidasPedidas(user.getId());
 		String idComidas1=servicioPedido.concatenarIdComidas(opcion1);
 		String idComidas2=servicioPedido.concatenarIdComidas(opcion2);
 		String idComidas3=servicioPedido.concatenarIdComidas(opcion3);
@@ -139,7 +138,7 @@ public class ControladorPedido {
 		model.put("comidas1", opcion1);
 		model.put("comidas2", opcion2);
 		model.put("comidas3", opcion3);
-		model.put("idcomidas1", idComidas1);
+		model.put("idcomidas1", idComidas1); 
 		model.put("idcomidas2", idComidas2);
 		model.put("idcomidas3", idComidas3);
 		

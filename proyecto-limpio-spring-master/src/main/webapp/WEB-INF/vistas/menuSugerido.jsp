@@ -86,26 +86,30 @@
 		</form>
 	</section>
 
+	<section>
+		<h1>Comidas adaptadas a tus gustos que otras personas pidieron..</h1>
 
-	<h1>Comidas adaptadas a tus gustos que otras personas pidieron..</h1>
 
-	<c:forEach items="${comidasPedidas}" var="comida">
-		<div id="accordion">
-			<div class="card">
-				<div class="card-header" id="headingOne">
-					<h5 class="mb-0">
-						<button class="btn btn-link" data-toggle="collapse"
-							data-target="#collapseOne" aria-expanded="true"
-							aria-controls="collapseOne" id="ejecutar" onclick="myejecution()">${comida.nombre}</button>
-					</h5>
-				</div>
-				<div id="collapseOne" class="collapse show"
-					aria-labelledby="headingOne" data-parent="#accordion">
-					<div class="card-body">${comida.descripcion}</div>
+		<c:forEach items="${comidasPedidas}" var="comida">
+			<div id="accordion">
+				<div class="card">
+					<div class="card-header" id="headingOne">
+						<h5 class="mb-0">
+							<button class="btn btn-link" data-toggle="collapse"
+								data-target="#collapseOne" aria-expanded="false"
+								aria-controls="collapseOne" id="ejecutar">${comida.nombre}</button>
+						</h5>
+					</div>
+					<div id="collapseOne" class="collapse show"
+						aria-labelledby="headingOne" data-parent="#accordion">
+						<div class="card-body">${comida.descripcion}</div>
+					</div>
 				</div>
 			</div>
-		</div>
-	</c:forEach>
+		</c:forEach>
+		
+	</section>
+
 	<!-- Footer -->
 	<footer class="page-footer font-small unique-color-dark">
 
