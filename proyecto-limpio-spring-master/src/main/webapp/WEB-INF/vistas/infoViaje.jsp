@@ -86,13 +86,6 @@
 			<button type="submit" class="btn btn-success">Elegir comidas por gustos</button>
 		</form:form>
 		
-		<form:form action="menuCalorias" method="POST" modelAttribute="posicion" >
-			<input type="hidden"  name="id" id="id" value="${posicion.id}"/>
-			<input type="hidden"  name="latitude" id="latitude" value="${posicion.latitude}"/>
-			<input type="hidden"  name="longitude" id="longitude" value="${posicion.longitude}"/>			
-			<button type="submit" class="btn btn-success my-3">Elegir comidas por calorias</button>
-		</form:form>
-		
 		<form:form action="sugerirMenuDelDia" method="POST" modelAttribute="posicion" >
 			<input type="hidden"  name="id" id="id" value="${posicion.id}"/>
 			<input type="hidden"  name="latitude" id="latitude" value="${posicion.latitude}"/>
