@@ -34,6 +34,8 @@
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item active"><a class="nav-link" href="#">Inicio</a>
 					</li>
+					<li class="nav-item"><a class="nav-link" href="cerrarSesion">Cerrar
+							Sesión</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">Menú de
 							comidas</a></li>
 					<li class="nav-item dropdown"><a
@@ -79,15 +81,15 @@
 					<span>${comida3.precio}</span>
 					<br>
 
-				</c:forEach></li> 
-				<input type="hidden"  name="id" id="id" value="${posicion.id}"/>
-				<input type="hidden" name="latitude" id="latitude" value="${posicion.latitude}" /> 
-				<input type="hidden" name="longitude" id="longitude" value="${posicion.longitude}" />
+				</c:forEach></li> <input type="hidden" name="id" id="id" value="${posicion.id}" /> <input
+				type="hidden" name="latitude" id="latitude"
+				value="${posicion.latitude}" /> <input type="hidden"
+				name="longitude" id="longitude" value="${posicion.longitude}" />
 			<button type="submit" class="btn btn-success">Confirmar
 				gustos</button>
 		</form>
 	</section>
- 
+
 	<section>
 		<h3>También podes ver.. ¡Las comidas adaptadas a tus gustos más
 			pedidas!</h3>
