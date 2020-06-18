@@ -58,7 +58,7 @@
 						<span>Precio total: ${precio}</span>
 					</li>
 
-<a href="home" class="btn btn-primary">Cancelar</a>
+<a href="interno" class="btn btn-primary">Cancelar</a>
 <form action="pagarpedido" method="GET">
 	<input type="hidden" name="id" value="${id}">
 	<input type="hidden" name="idPosicion" value="${idPosicion}">
