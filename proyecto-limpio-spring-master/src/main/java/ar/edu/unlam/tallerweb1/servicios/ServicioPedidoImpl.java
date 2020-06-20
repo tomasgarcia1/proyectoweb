@@ -92,24 +92,6 @@ public class ServicioPedidoImpl implements ServicioPedido {
 		return comidas;
 	}
 
-	// ----------GENERAR COMIDAS POR CALORIAS-----------
-
-	/*
-	 * Mismo funcionamiento que generarComidasPorRestricciones, solo que recibe como
-	 * parametro el usuario.
-	 */
-	@Override
-	public List<Comida> generarComidasPorCalorias(Usuario usuario) {
-		Comida desayuno = servicioComida.sugerirDesayunoPorCalorias(usuario.getCaloriasDiarias());
-		Comida almuerzo = servicioComida.sugerirAlmuerzoPorCalorias(usuario.getCaloriasDiarias());
-		Comida cena = servicioComida.sugerirCenaPorCalorias(usuario.getCaloriasDiarias());
-		List<Comida> comidas = new ArrayList<Comida>();
-		comidas.add(desayuno);
-		comidas.add(almuerzo);
-		comidas.add(cena);
-		return comidas;
-	}
-
 	// ----------CONCATENACION ID COMIDAS----------
 
 	/*

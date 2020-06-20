@@ -39,32 +39,6 @@ public class ServicioComidaImpl implements ServicioComida {
 		comidaDao.borrar(comida);
 	}
 
-	// ------------------SUGERIR COMIDAS POR CALORIAS---------------------
-
-	@Override
-	public Comida sugerirDesayunoPorCalorias(Double caloriasDiarias) {
-		Double caloriasDesayuno = caloriasDiarias * 0.35;
-		List<Comida> desayuno = comidaDao.obtenerComidasSegunCalorias(caloriasDesayuno);
-		Integer numeroRandom = (int) (Math.random() * desayuno.size());
-		return desayuno.get(numeroRandom);
-	}
-
-	@Override
-	public Comida sugerirAlmuerzoPorCalorias(Double caloriasDiarias) {
-		Double caloriasAlmuerzo = caloriasDiarias * 0.45;
-		List<Comida> almuerzo = comidaDao.obtenerComidasSegunCalorias(caloriasAlmuerzo);
-		Integer numeroRandom = (int) (Math.random() * almuerzo.size());
-		return almuerzo.get(numeroRandom);
-	}
-
-	@Override
-	public Comida sugerirCenaPorCalorias(Double caloriasDiarias) {
-		Double caloriasCena = caloriasDiarias * 0.20;
-		List<Comida> cena = comidaDao.obtenerComidasSegunCalorias(caloriasCena);
-		Integer numeroRandom = (int) (Math.random() * cena.size());
-		return cena.get(numeroRandom);
-	}
-
 	// --------------------SUGERIR COMIDAS POR RESTRICCIONES----------------------
 
 	@Override

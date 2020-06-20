@@ -14,8 +14,6 @@ public interface ServicioPedido {
 
 	List<Comida> generarComidasPorRestricciones(Long id);
 
-	List<Comida> generarComidasPorCalorias(Usuario usuario);
-
 	Double calcularImporteTotal(List<Comida> comidas, Double precioEnvio);
 
 	void cancelarPedido(Long id);

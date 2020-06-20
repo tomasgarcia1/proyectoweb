@@ -13,12 +13,6 @@ public interface ServicioComida {
 
 	void borrar(Comida comida);
 
-	Comida sugerirDesayunoPorCalorias(Double caloriasDiarias);
-
-	Comida sugerirAlmuerzoPorCalorias(Double caloriasDiarias);
-
-	Comida sugerirCenaPorCalorias(Double caloriasDiarias);
-
 	Comida sugerirDesayunoPorRestricciones(Long id);
 
 	Comida sugerirAlmuerzoPorRestricciones(Long id);

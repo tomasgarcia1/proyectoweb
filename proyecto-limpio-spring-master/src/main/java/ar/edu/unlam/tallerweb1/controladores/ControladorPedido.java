@@ -129,37 +129,6 @@ public class ControladorPedido {
 		return new ModelAndView("menuSugerido", model);
 	}
 
-	// -----------MENU CALORIAS--------
-
-	/*
-	 * Tiene el mismo funcionamiento que irAMenuSugerido, con la diferencia de que
-	 * usa el metodo generarComidasPorCalorias, donde se recibe como parametro el
-	 * usuario para obtener las calorias diarias.
-	 */
-
-	@RequestMapping(path = "/menuCalorias")
-	public ModelAndView irAMenuCalorias(@ModelAttribute("posicion") Posicion posicion, HttpServletRequest request) {
-		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
-		ModelMap model = new ModelMap();
-
-		List<Comida> opcion1 = servicioPedido.generarComidasPorCalorias(user);
-		List<Comida> opcion2 = servicioPedido.generarComidasPorCalorias(user);
-		List<Comida> opcion3 = servicioPedido.generarComidasPorCalorias(user);
-		String idComidas1 = servicioPedido.concatenarIdComidas(opcion1);
-		String idComidas2 = servicioPedido.concatenarIdComidas(opcion2);
-		String idComidas3 = servicioPedido.concatenarIdComidas(opcion3);
-
-		model.put("comidas1", opcion1);
-		model.put("comidas2", opcion2);
-		model.put("comidas3", opcion3);
-		model.put("idcomidas1", idComidas1);
-		model.put("idcomidas2", idComidas2);
-		model.put("idcomidas3", idComidas3);
-
-		model.addAttribute("posicion", posicion);
-
-		return new ModelAndView("menuCalorias", model);
-	}
 
 	// --------GENERAR PEDIDO-------
 
