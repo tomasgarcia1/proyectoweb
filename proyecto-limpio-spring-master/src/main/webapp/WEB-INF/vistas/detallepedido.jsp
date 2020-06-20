@@ -34,6 +34,8 @@
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item active"><a class="nav-link" href="#">Inicio</a>
 					</li>
+					<li class="nav-item"><a class="nav-link" href="cerrarSesion">Cerrar
+							Sesión</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">Menú de
 							comidas</a></li>
 					<li class="nav-item dropdown"><a
