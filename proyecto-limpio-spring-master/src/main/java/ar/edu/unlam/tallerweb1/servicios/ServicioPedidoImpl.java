@@ -221,11 +221,6 @@ public class ServicioPedidoImpl implements ServicioPedido {
 	}
 
 	@Override
-	public void cancelarPedido(Long id) {
-		pedidoDao.cancelarPedido(id);
-	}
-
-	@Override
 	public Pedido buscarPedidoPorId(Long id) {
 		return pedidoDao.buscarPedidoPorId(id);
 	}

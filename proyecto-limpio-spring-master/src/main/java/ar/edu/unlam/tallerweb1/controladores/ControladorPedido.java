@@ -156,15 +156,6 @@ public class ControladorPedido {
 		List<Comida> comidas = servicioPedido.obtenerComidasConcatenadas(idComidas);
 		// sumo el precio del pedido con el del precio de viaje
 		Double precioFinalPedido = servicioPedido.calcularImporteTotal(comidas, precioViaje);
-
-		/*
-		 * nuevoPedido=servicioPedido.generarPedidoPorIdComidas(idComidas);
-		 * 
-		 * seteo el nuevo precio del pedido nuevoPedido.setPrecio(precioFinalPedido);
-		 * 
-		 * nuevoPedido.setUbicacionDestino(posicion);
-		 */
-
 		String idLista = idComidas;
 		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
 		// Mercado pago
@@ -208,6 +199,19 @@ public class ControladorPedido {
 		model.put("pedido", nuevoPedido);
 		return new ModelAndView("pedidoRealizado", model);
 	}
+	
+	// ----------ACTUALIZAR ESTADO DEL PEDIDO---------
+	
+	@RequestMapping(path = "/actualizarestado", method = RequestMethod.POST)
+	public ModelAndView actualizarEstado(String id, String estado, HttpServletRequest request) {
+		Pedido pedido = servicioPedido.buscarPedidoPorId(Long.parseLong(id));
+		Estado estadoPedido = Enum.valueOf(Estado.class, estado);
+		if(pedido != null) {
+			pedido.setEstado(estadoPedido);
+			servicioPedido.actualizarPedido(pedido, estadoPedido);
+		}
+		return new ModelAndView("redirect:/verpedidos");
+	}
 
 	// ----------CANCELAR PEDIDO---------
 
@@ -219,9 +223,10 @@ public class ControladorPedido {
 	@RequestMapping(path = "/cancelarpedido", method = RequestMethod.GET)
 	public ModelAndView cancelarPedidoPorId(@RequestParam(value = "id", required = true) String id,
 			HttpServletRequest request) {
-		if (servicioPedido.buscarPedidoPorId(Long.parseLong(id)) != null)
-			servicioPedido.cancelarPedido(Long.parseLong(id));
-
+		Pedido pedido=servicioPedido.buscarPedidoPorId(Long.parseLong(id));
+		
+		if ((pedido != null) && !(pedido.getEstado().equals(Estado.ENVIADO)))
+			servicioPedido.actualizarPedido(pedido, Estado.CANCELADO);
 		return new ModelAndView("redirect:/home");
 	}
 
@@ -252,7 +257,7 @@ public class ControladorPedido {
 		return new ModelAndView("detallepedido", model);
 	}
 
-	// --------VER PEDIDO---------
+	// --------VER PEDIDO ADMINISTRADOR---------
 
 	@RequestMapping(path = "/verpedidos")
 	public ModelAndView listarPedidosAdmin(HttpServletRequest request) {
@@ -266,15 +271,5 @@ public class ControladorPedido {
 		} else {
 			return new ModelAndView("redirect:/mispedidos");
 		}
-	}
-
-	@RequestMapping(path = "/actualizarestado", method = RequestMethod.POST)
-	public ModelAndView actualizarEstado(String id, String estado, HttpServletRequest request) {
-		Pedido pedido = servicioPedido.buscarPedidoPorId(Long.parseLong(id));
-		Estado estadoPedido = Enum.valueOf(Estado.class, estado);
-		pedido.setEstado(estadoPedido);
-		servicioPedido.actualizarPedido(pedido, estadoPedido);
-
-		return new ModelAndView("redirect:/verpedidos");
 	}
 }

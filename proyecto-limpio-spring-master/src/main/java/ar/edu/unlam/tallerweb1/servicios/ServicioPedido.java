@@ -16,8 +16,6 @@ public interface ServicioPedido {
 
 	Double calcularImporteTotal(List<Comida> comidas, Double precioEnvio);
 
-	void cancelarPedido(Long id);
-
 	Pedido buscarPedidoPorId(Long id);
 
 	void actualizarPedido(Pedido pedido, Estado estado);
