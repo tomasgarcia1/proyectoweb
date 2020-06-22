@@ -85,7 +85,7 @@ public class ControladorLogin {
 	//----------------REDIRECCIONAR RAIZ A HOME------------------
 	
 	@RequestMapping(path = "/", method = RequestMethod.GET)
-	public ModelAndView inicio(HttpServletRequest request) {
+	public ModelAndView inicio() {
 		return new ModelAndView("redirect:/home");
 	}
 }

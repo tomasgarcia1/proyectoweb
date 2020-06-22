@@ -42,8 +42,7 @@ public class ControladorUsuario {
 	//--------REGISTRO VALIDACION--------
 	
 	@RequestMapping(path = "/registroValidacion", method = RequestMethod.POST)
-	public ModelAndView validarRegistro(@ModelAttribute("usuario") Usuario usuario,
-			HttpServletRequest request, RedirectAttributes atributos) {
+	public ModelAndView validarRegistro(@ModelAttribute("usuario") Usuario usuario, RedirectAttributes atributos) {
 		List<String> errores=servicioUsuario.validarUsuario(usuario);
 		
 		if(errores.isEmpty())
