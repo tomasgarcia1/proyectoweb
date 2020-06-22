@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.controladores;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.TreeSet;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unlam.tallerweb1.modelo.Actividad;
 import ar.edu.unlam.tallerweb1.modelo.Comida;
+import ar.edu.unlam.tallerweb1.modelo.OrdenPorContador;
 import ar.edu.unlam.tallerweb1.modelo.Posicion;
 import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.TipoHorario;
@@ -36,7 +38,7 @@ public class ControladorComida {
 	private ServicioPedido servicioPedido;
 
 	// ---------CREAR COMIDA---------
-	
+
 	@RequestMapping("/crearComida")
 	public ModelAndView crearComida(@RequestParam(value = "nombre", required = true) String nombre,
 			@RequestParam(value = "descripcion", required = true) String descripcion,
@@ -53,24 +55,22 @@ public class ControladorComida {
 	}
 
 	// --------ELIMINAR POR ID---------
-	
+
 	@RequestMapping("/eliminarPorId")
 	public ModelAndView eliminarPorId(@RequestParam(value = "id", required = true) Long id) {
 		servicioComida.borrar(servicioComida.obtenerPorId(id));
 		return new ModelAndView("comidaborrada");
 	}
-	
+
 	// --------SUGERIR MENU DEL DIA-------
-	
-	@RequestMapping ("/sugerirMenuDelDia")
-	public ModelAndView sugerirMenuDelDia (@ModelAttribute("posicion") Posicion posicion, HttpServletRequest request) {
+
+	@RequestMapping("/sugerirMenuDelDia")
+	public ModelAndView sugerirMenuDelDia(@ModelAttribute("posicion") Posicion posicion, HttpServletRequest request) {
 		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
-		
-		if(user != null) {
+
+		if (user != null) {
 			Long id = user.getId();
 			Double caloriasDiarias = servicioUsuario.obtenerCaloriasPorId(id);
-						
-			
 
 			List<Comida> menu1 = servicioPedido.generarMenusSugeridos(user);
 			List<Comida> menu2 = servicioPedido.generarMenusSugeridos(user);
@@ -79,22 +79,23 @@ public class ControladorComida {
 			String idComidas2 = servicioPedido.concatenarIdComidas(menu2);
 			String idComidas3 = servicioPedido.concatenarIdComidas(menu3);
 			ModelMap model = new ModelMap();
-			
-			for(Comida com : menu1) {
+
+			for (Comida com : menu1) {
 				if (com.getId() == 0L) {
-					model.put("error", "No se puede hacer un pedido ya que no se encontraron las 3 comidas que necesita");
+					model.put("error",
+							"No se puede hacer un pedido ya que no se encontraron las 3 comidas que necesita");
 				}
 			}
-			
+
 			model.put("menu1", menu1);
 			model.put("menu2", menu2);
 			model.put("menu3", menu3);
 			model.put("idcomidas1", idComidas1);
 			model.put("idcomidas2", idComidas2);
 			model.put("idcomidas3", idComidas3);
-			
-			model.addAttribute("posicion",posicion);
-			
+
+			model.addAttribute("posicion", posicion);
+
 			return new ModelAndView("sugerirMenuDelDia", model);
 
 		} else {
@@ -103,7 +104,7 @@ public class ControladorComida {
 	}
 
 	// ----------AGREGAR COMIDA--------
-	
+
 	@RequestMapping("/agregarComida")
 	public ModelAndView agregarComida(HttpServletRequest request) {
 		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
@@ -129,4 +130,30 @@ public class ControladorComida {
 		return new ModelAndView("redirect:/adminInterno");
 
 	}
+
+	@RequestMapping(path = "/mostrarComidasMasVistasyPedidas")
+	public ModelAndView contadorDeComidas(@RequestParam(value = "id", required = true) Long id, HttpServletRequest request) {
+
+		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
+		if(user != null) {
+		ModelMap modelo = new ModelMap();
+		
+		
+		Comida comida1 = servicioComida.obtenerPorId(id);
+		List<Comida> comidasContador = servicioComida.contadorComida(comida1);
+		TreeSet<Comida> comidasMasVistas = servicioComida.comidasMasVistas();
+		TreeSet<Comida> comidasMasPedidas = servicioPedido.comidasMasPedidas(user.getId());
+
+		modelo.put("comidasVistas", comidasMasVistas);
+		modelo.put("comidasPedidas", comidasMasPedidas);
+		modelo.put("comidasContador", comidasContador);
+		modelo.put("comida", comida1);
+	
+		return new ModelAndView("/mostrarDetalleComida",modelo);
+		}else {
+			return new ModelAndView("redirect:/interno");
+		}
+		
+	}
+
 }

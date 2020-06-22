@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Detalle Comida</title>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -22,7 +22,7 @@
 	<nav class="navbar navbar-expand-lg navbar-dark bg-danger">
 		<div class="container">
 
-			<a class="navbar-brand" href="#">RECOMIDA</a>
+			<a class="navbar-brand" href="home">RECOMIDA</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -46,7 +46,7 @@
 							<a class="dropdown-item" href="mostrarRestriccionesDeUsuario">Mis
 								restricciones</a>
 							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="mispedidos">Mis pedidos</a>
+							<a class="dropdown-item" href="#">Mis pedidos</a>
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" href="#">Imc</a>
 						</div></li>
@@ -56,53 +56,29 @@
 		</div>
 	</nav>
 	<section>
-		<h1>Seleccionar pedido por restricciones</h1>
-		<form method="POST" action="generarpedido" modelAttribute="posicion">
-			<!--  <h3>Usuario: ${usuario.email}</h3>-->
-			<span>COMIDA 1</span> <input type="radio" name="idComidas"
-				value="${idcomidas1}" />
-			<li><c:forEach items="${comidas1}" var="comida">
-					<span>PRODUCTO: </span>
-					<span> ${comida.nombre}</span>
-					<span>${comida.precio}</span>
-					<br>
-				</c:forEach></li> <span>COMIDA 2</span> <input type="radio" name="idComidas"
-				value="${idcomidas2}" />
-			<li><c:forEach items="${comidas2}" var="comida2">
-					<span>PRODUCTO: </span>
-					<span> ${comida2.nombre}</span>
-					<span>${comida2.precio}</span>
-					<br>
-				</c:forEach></li> <span>COMIDA 3</span> <input type="radio" name="idComidas"
-				value="${idcomidas3}" />
-			<li><c:forEach items="${comidas3}" var="comida3">
-					<span>PRODUCTO: </span>
-					<span> ${comida3.nombre}</span>
-					<span>${comida3.precio}</span>
-					<br>
-
-				</c:forEach></li> <input type="hidden" name="id" id="id" value="${posicion.id}" /> <input
-				type="hidden" name="latitude" id="latitude"
-				value="${posicion.latitude}" /> <input type="hidden"
-				name="longitude" id="longitude" value="${posicion.longitude}" />
-			<button type="submit" class="btn btn-success">Confirmar
-				gustos</button>
-		</form>
-	</section>
-
-	<section>
-		<h3>También podes ver.. ¡Las comidas adaptadas a tus gustos más
-			pedidas!</h3>
-		<c:forEach items="${comidasmaspedidas}" var="comida">
-			<div class="media">
-				<img src="img/j2.jpg" class="mr-3">
-				<div class="media-body">
-					<a href="mostrarComidasMasVistasyPedidas?id=${comida.id}" role= "button" >${comida.nombre}</a>
-				</div>
-			</div>
+		<p>Detalle de la Comida</p>
+		<h3>Comida: ${comida.nombre}</h3>
+		<h3>Descripción: ${comida.descripcion}</h3>
+		<h3>Calorías: ${comida.calorias}</h3>
+		<h3>Precio: ${comida.precio}</h3>
+		<h3>Horario: ${comida.tipoHorario}</h3>
+		<br>
+		<h1>Comidas más vistas</h1>
+		<c:forEach items="${comidasVistas}" var="comida1">
+			<ul>
+				<li>${comida1.nombre}</li>
+			</ul>
 		</c:forEach>
-
+		<br>
+		<h1>Comidas más Pedidas</h1>
+		<c:forEach items="${comidasPedidas}" var="comida2">
+			<ul>
+				<li>${comida2.nombre}</li>
+			</ul>
+		</c:forEach>
+		<br>
 	</section>
+
 	<!-- Footer -->
 	<footer class="page-footer font-small unique-color-dark">
 
@@ -128,8 +104,6 @@
 			<!-- Grid row-->
 
 		</div>
-		</div>
-
 
 		<!-- Footer Links -->
 		<div class="container text-center text-md-left mt-5">
