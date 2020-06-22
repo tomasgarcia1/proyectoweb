@@ -39,4 +39,6 @@ public interface ServicioPedido {
 	Double convertirPrecio(Double precio);
 
 	TreeSet<Comida> comidasMasPedidas(Long id);
+	
+	List<Comida> listarComidasDeUnPedido(Pedido pedido);
 }

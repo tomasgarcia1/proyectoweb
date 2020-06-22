@@ -1,6 +1,6 @@
 package ar.edu.unlam.tallerweb1.modelo;
  
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,7 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 // Clase que modela el concepto de Usuario, la anotacion @Entity le avisa a hibernate que esta clase es persistible
 // el paquete ar.edu.unlam.tallerweb1.modelo esta indicado en el archivo hibernateCOntext.xml para que hibernate
@@ -27,7 +28,8 @@ public class Usuario {
 	// el atributo, la misma admite nulos, y el tipo de dato se deduce del tipo de dato de java.
 	private String email;
 	private String password;
-	private Date fechaDeNacimiento;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate fechaDeNacimiento;
 	//no se si lo de date esta bien
 	private Integer altura;
 	private Double peso;
@@ -81,10 +83,10 @@ public class Usuario {
 	public void setActividad(Actividad actividad) {
 		this.actividad = actividad;
 	}
-	public Date getFechaDeNacimiento() {
+	public LocalDate getFechaDeNacimiento() {
 		return fechaDeNacimiento;
 	}
-	public void setFechaDeNacimiento(Date fechaDeNacimiento) {
+	public void setFechaDeNacimiento(LocalDate fechaDeNacimiento) {
 		this.fechaDeNacimiento = fechaDeNacimiento;
 	}
 	public Double getPeso() {

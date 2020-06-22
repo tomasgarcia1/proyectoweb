@@ -241,22 +241,7 @@ public class ControladorPedido {
 		model.put("usuario", user);
 		return new ModelAndView("listapedidos", model);
 	}
-
-	// ---------DETALLE DE PEDIDO--------
-
-	@RequestMapping(path = "/detallepedido")
-	public ModelAndView verDetallePedido(@RequestParam(value = "id", required = true) Long id,
-			HttpServletRequest request) {
-		ModelMap model = new ModelMap();
-		Pedido pedido = servicioPedido.buscarPedidoPorId(id);
-		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
-		List<Estado> estados = Arrays.asList(Estado.values());
-		model.put("pedido", pedido);
-		model.put("usuario", user);
-		model.put("estados", estados);
-		return new ModelAndView("detallepedido", model);
-	}
-
+	
 	// --------VER PEDIDO ADMINISTRADOR---------
 
 	@RequestMapping(path = "/verpedidos")
@@ -271,5 +256,53 @@ public class ControladorPedido {
 		} else {
 			return new ModelAndView("redirect:/mispedidos");
 		}
+	}
+	// ---------DETALLE DE PEDIDO--------
+
+	@RequestMapping(path = "/detallepedido")
+	public ModelAndView verDetallePedido(@RequestParam(value = "id", required = true) Long id,
+			HttpServletRequest request) {
+		ModelMap model = new ModelMap();
+		Pedido pedido = servicioPedido.buscarPedidoPorId(id);
+		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
+		List<Estado> estados = Arrays.asList(Estado.values());
+		List<Comida> comidas = servicioPedido.listarComidasDeUnPedido(pedido);
+		model.put("pedido", pedido);
+		model.put("usuario", user);
+		model.put("estados", estados);
+		model.put("comidas", comidas);
+		return new ModelAndView("detallepedido", model);
+	}
+	
+	public ServicioMP getServicioMP() {
+		return servicioMP;
+	}
+
+	public void setServicioMP(ServicioMP servicioMP) {
+		this.servicioMP = servicioMP;
+	}
+
+	public Posicion getPosicionSucursal() {
+		return posicionSucursal;
+	}
+
+	public void setPosicionSucursal(Posicion posicionSucursal) {
+		this.posicionSucursal = posicionSucursal;
+	}
+
+	public ServicioPedido getServicioPedido() {
+		return servicioPedido;
+	}
+
+	public void setServicioPedido(ServicioPedido servicioPedido) {
+		this.servicioPedido = servicioPedido;
+	}
+
+	public ServicioPosicion getServicioPosicion() {
+		return servicioPosicion;
+	}
+
+	public void setServicioPosicion(ServicioPosicion servicioPosicion) {
+		this.servicioPosicion = servicioPosicion;
 	}
 }

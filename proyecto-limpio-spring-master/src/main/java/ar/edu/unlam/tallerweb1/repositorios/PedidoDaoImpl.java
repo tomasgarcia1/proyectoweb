@@ -9,6 +9,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import ar.edu.unlam.tallerweb1.modelo.Comida;
 import ar.edu.unlam.tallerweb1.modelo.Pedido;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
@@ -41,6 +42,11 @@ public class PedidoDaoImpl implements PedidoDao {
 		return sesion.getCurrentSession().createCriteria(Pedido.class).list();
 	}
 
-	
+	public List<Comida> listarComidasDeUnPedido(Pedido pedido)
+	{
+		return sesion.getCurrentSession().createCriteria(Comida.class)
+				.createAlias("pedidos", "pedidosjoin")
+				.add(Restrictions.eq("pedidosjoin.id", pedido.getId())).list();
+	}
 	
 }

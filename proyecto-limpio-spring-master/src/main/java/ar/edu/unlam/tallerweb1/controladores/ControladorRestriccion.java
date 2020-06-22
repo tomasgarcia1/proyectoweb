@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -50,7 +49,7 @@ public class ControladorRestriccion {
 		Restriccion restriccion=new Restriccion();
 		restriccion.setNombre(nombre);
 		
-		Long idGenerado=this.servicioRestriccion.crearRestriccion(restriccion);
+		//Long idGenerado=this.servicioRestriccion.crearRestriccion(restriccion);
 		
 		model.put("restriccion",restriccion);		
 		
@@ -89,8 +88,12 @@ public class ControladorRestriccion {
 	@RequestMapping(path="/mostrarRestriccionesDeUsuario")
 	public ModelAndView x(HttpServletRequest request){
 		Usuario user=(Usuario)request.getSession().getAttribute("usuario");
+		ModelMap model=new ModelMap();
+		
 		if(user!=null) {
-			return new ModelAndView("usuarioConRestricciones");
+			List<Restriccion> restricciones=servicioRestriccion.listarRestriccionesDeUsuario(user);
+			model.put("restricciones", restricciones);
+			return new ModelAndView("usuarioConRestricciones", model);
 	        }   
 		return new ModelAndView("redirect:/home"); 
 	}
@@ -116,7 +119,8 @@ public class ControladorRestriccion {
 	        
 	        this.servicioUsuario.update(user);
 	        
-	        model.put("usuario",user);
+	        model.put("usuario", user);
+	        model.put("restricciones", restricciones);
 	        return new ModelAndView("usuarioConRestricciones",model);
 		}
         

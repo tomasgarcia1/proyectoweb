@@ -16,4 +16,6 @@ public interface PedidoDao {
 	List<Pedido> listarPedidosPorUsuario(Usuario usuario);
 
 	List<Pedido> listarPedidos();
+	
+	List<Comida> listarComidasDeUnPedido(Pedido pedido);
 }

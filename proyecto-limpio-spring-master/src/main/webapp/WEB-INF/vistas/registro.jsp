@@ -24,7 +24,7 @@
 	<nav class="navbar navbar-expand-lg navbar-dark bg-danger">
 		<div class="container">
 
-			<a class="navbar-brand" href="#">RECOMIDA</a>
+			<a class="navbar-brand" href="home">RECOMIDA</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -34,7 +34,7 @@
 
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item active"><a class="nav-link" href="#">Inicio</a>
+					<li class="nav-item active"><a class="nav-link" href="home">Inicio</a>
 					</li>
 					<li class="nav-item"><a class="nav-link" href="#">Menú de
 							comidas</a></li>
@@ -67,30 +67,30 @@
 				<div class="form-group col-md-6">
 					<label for="email">Email</label>
 					<form:input path="email" id="email" type="email"
-						class="form-control" />
+						class="form-control"/>
 				</div>
 
 				<div class="form-group col-md-6">
-					<label for="password">Contraseña</label>
+					<label for="password">Contrasena (entre 8 y 16 caracteres, al menos una mayuscula y un numero)</label>
 					<form:input path="password" type="password" id="password"
-						class="form-control" />
+						class="form-control"/>
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label for="altura">Altura (en cm)</label>
 				<form:input path="altura" type="number" class="form-control"
-					id="altura" />
+					id="altura"/>
 			</div>
 
 			<div class="form-group">
 				<label for="peso">Peso (en kg)</label>
-				<form:input path="peso" type="number" class="form-control" id="peso" />
+				<form:input path="peso" type="number" class="form-control" id="peso"/>
 			</div>
 			<div class="form-group">
 				<label for="fec">Fecha de nacimiento</label>
 				<form:input path="fechaDeNacimiento" type="date"
-					class="form-control" id="fec" />
+					class="form-control" id="fec"/>
 			</div>
 
 			<div class="form-group">
@@ -114,6 +114,14 @@
 			<button type="submit" class="btn btn-primary">Registrarse</button>
 
 		</form:form>
+		<c:if test="${not empty errores}">
+			<c:forEach items="${errores}" var="error">
+				<h4>
+					<span class="text-danger">${error}</span>
+				</h4>
+				<br>
+			</c:forEach>
+		</c:if>
 	</div>
 
 	<!-- Footer -->

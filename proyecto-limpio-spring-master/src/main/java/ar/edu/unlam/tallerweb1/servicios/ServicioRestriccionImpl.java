@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unlam.tallerweb1.modelo.Restriccion;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.RestriccionDao;
 
 @Service
@@ -37,5 +38,9 @@ public class ServicioRestriccionImpl implements ServicioRestriccion {
 	public List<Restriccion> obtenerRestricciones() {		
 		return restriccionDao.obtenerRestricciones();
 	}
-
+	
+	public List<Restriccion> listarRestriccionesDeUsuario(Usuario usuario)
+	{
+		return restriccionDao.listarRestriccionesDeUsuario(usuario);
+	}
 }

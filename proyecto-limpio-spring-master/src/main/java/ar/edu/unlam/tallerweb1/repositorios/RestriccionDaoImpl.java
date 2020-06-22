@@ -50,6 +50,12 @@ public class RestriccionDaoImpl implements RestriccionDao {
 		
 		return r;
 	}
-
+	
+	public List<Restriccion> listarRestriccionesDeUsuario(Usuario usuario)
+	{
+		return sesion.getCurrentSession().createCriteria(Restriccion.class)
+				.createAlias("usuarios", "usuariojoin")
+				.add(Restrictions.eq("usuariojoin.id", usuario.getId())).list();
+	}
 
 }

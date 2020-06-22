@@ -19,9 +19,13 @@ public class ControladorHome {
 	// Escucha la URL /home por GET, y redirige a una vista.
 	
 	@RequestMapping(path = "/home", method = RequestMethod.GET)
-	public ModelAndView irAHome() { 
-		ModelMap modelo = new ModelMap();
-		return new ModelAndView("home", modelo); 
+	public ModelAndView irAHome(HttpServletRequest request) { 
+		Usuario user=(Usuario)request.getSession().getAttribute("usuario");
+		if(user==null)
+			return new ModelAndView("home");
+		if(user.getRol().equals(Rol.ADMINISTRADOR))
+			return new ModelAndView("redirect:/adminInterno");
+		return new ModelAndView("redirect:/interno");
 	}
 	
 	//-----------INTERNO----------
