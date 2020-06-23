@@ -7,6 +7,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -34,6 +35,12 @@ public class ControladorRestriccion {
 	private ServicioComida servicioComida;
 	
 	//--------IR A RESTRICCIONES--------
+	@Autowired
+	public ControladorRestriccion(ServicioRestriccion servicioRestriccion,ServicioUsuario servicioUsuario,ServicioComida servicioComida) {
+		this.servicioRestriccion=servicioRestriccion;
+		this.servicioUsuario=servicioUsuario;
+		this.servicioComida=servicioComida;
+	}
 	
 	@RequestMapping("/restricciones")
 	public ModelAndView irRegistro() {
