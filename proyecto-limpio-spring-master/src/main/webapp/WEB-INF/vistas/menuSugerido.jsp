@@ -97,8 +97,7 @@
 			<div class="media">
 				<img src="img/j2.jpg" class="mr-3">
 				<div class="media-body">
-					<h5 class="mt-0">${comida.nombre}</h5>
-					${comida.descripcion}
+					<a href="mostrarComidasMasVistasyPedidas?id=${comida.id}" role= "button" >${comida.nombre}</a>
 				</div>
 			</div>
 		</c:forEach>

@@ -51,6 +51,13 @@ public class ComidaDaoImpl implements ComidaDao {
 		return comidas;
 	}
 
+	
+	public List<Comida> obtenerComidasMasVistas(){
+		List<Comida> comidasVistas = sesion.getCurrentSession().createCriteria(Comida.class).add(Restrictions.gt("contador", 5)).list();
+		return comidasVistas;
+	}
+	
+	
 	@Override
 	public void updateComida(Comida comida) {
 		sesion.getCurrentSession().update(comida);
