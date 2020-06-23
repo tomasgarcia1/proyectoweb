@@ -67,6 +67,7 @@
 <form:form action="mostrar" method="POST" modelAttribute="posicion" >
 	<input type="hidden"  name="latitude" id="latitude" value="0"/>
 	<input type="hidden"  name="longitude" id="longitude" value="0"/>
+	<input type="hidden"  name="nombre" id="nombre" value="0"/>
 	
  	<button type="submit" class="btn btn-success my-3">Confirmar ubicacion</button>
 	
@@ -77,7 +78,7 @@
 
   <!-- Footer -->
 
-<script src="js/map.js"></script>
+<script src="js/posicionMapa.js"></script>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
    <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

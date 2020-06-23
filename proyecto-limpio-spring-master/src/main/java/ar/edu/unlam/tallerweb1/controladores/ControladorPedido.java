@@ -34,7 +34,7 @@ public class ControladorPedido {
 
 	private ServicioMP servicioMP = new ServicioMP();
 
-	private Posicion posicionSucursal = new Posicion(-34.668680, -58.566209);
+	private Posicion posicionSucursal = new Posicion(-34.668680, -58.566209,"recomida");
 
 	@Inject
 	private ServicioPedido servicioPedido;

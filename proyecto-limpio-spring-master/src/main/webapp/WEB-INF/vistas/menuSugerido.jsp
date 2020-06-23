@@ -85,6 +85,8 @@
 				type="hidden" name="latitude" id="latitude"
 				value="${posicion.latitude}" /> <input type="hidden"
 				name="longitude" id="longitude" value="${posicion.longitude}" />
+				<input type="hidden"  name="nombre" id="nombre" value="${posicion.nombre}"/>
+				
 			<button type="submit" class="btn btn-success">Confirmar
 				gustos</button>
 		</form>

@@ -1,3 +1,4 @@
+use recomida;
 insert into usuario values
 (3, 1, 180, 2800.0, "pepe@pepe", '1999-01-01', "123", 80.0, 0, 1),
 (1, 0, 160, 2500.0, "marta@m.com", '1999-01-01', "123", 63.0, 1, 1),
@@ -20,6 +21,9 @@ Insert into restriccion values(1,"variado");
 Insert into restriccion values(2,"vegetariano");
 Insert into restriccion values(3,"vegano");
 Insert into restriccion values(4,"celiaco");
+
+select * from posicion;
+
 
 Insert into comidas_restricciones
 Values (1,2), (2,2), (3,2), (4,3), (5,2), (6,3), (7,1), (8,2), (9,2), (9, 3), (10, 1), (6,2), (11,2);
