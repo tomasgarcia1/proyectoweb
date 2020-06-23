@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,6 +22,7 @@ public class Comida implements Comparable<Comida> {
 	private Double calorias;
 	private Double precio;
 	private TipoHorario tipoHorario;
+	private Integer contador;
 
 	// mappedby indica la relacion bidireccional y tambien permitimos que se tome la
 	// config de JoinTable de Comida
@@ -110,6 +110,14 @@ public class Comida implements Comparable<Comida> {
 
 	public void setTipoHorario(TipoHorario tipoHorario) {
 		this.tipoHorario = tipoHorario;
+	}
+
+	public Integer getContador() {
+		return contador;
+	}
+
+	public void setContador(Integer contador) {
+		this.contador = contador;
 	}
 
 	@Override

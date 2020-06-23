@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
 import java.util.List;
+import java.util.TreeSet;
 
 import ar.edu.unlam.tallerweb1.modelo.Comida;
 import ar.edu.unlam.tallerweb1.modelo.TipoHorario;
@@ -28,9 +29,13 @@ public interface ServicioComida {
 	List<Comida> obtenerComidas();
 
 	List<Comida> obtenerComidasSegunTipoHorario(TipoHorario tipo);
-	
+
 	List<Comida> listarComidasSegunRestricciones(Long id);
-	
+
+	List<Comida> contadorComida(Comida comida);
+
+	TreeSet<Comida> comidasMasVistas();
+
 	Comida obtenerComidaPorNombre(String nombre);
 
 	void updateComida(Comida comida);

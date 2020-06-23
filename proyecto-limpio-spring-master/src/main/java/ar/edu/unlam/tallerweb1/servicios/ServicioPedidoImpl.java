@@ -207,7 +207,6 @@ public class ServicioPedidoImpl implements ServicioPedido {
 	public void actualizarPedido(Pedido pedido, Estado estado) {
 		pedido.setEstado(estado);
 		pedidoDao.actualizarPedido(pedido);
-
 	}
 
 	@Override
@@ -223,6 +222,11 @@ public class ServicioPedidoImpl implements ServicioPedido {
 	@Override
 	public Pedido buscarPedidoPorId(Long id) {
 		return pedidoDao.buscarPedidoPorId(id);
+	}
+
+	@Override
+	public List<Comida> listarComidasDeUnPedido(Pedido pedido) {
+		return pedidoDao.listarComidasDeUnPedido(pedido);
 	}
 
 }

@@ -3,6 +3,7 @@ package ar.edu.unlam.tallerweb1.servicios;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.TreeSet;
 
 import javax.inject.Inject;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unlam.tallerweb1.modelo.Comida;
+import ar.edu.unlam.tallerweb1.modelo.OrdenPorContador;
 import ar.edu.unlam.tallerweb1.modelo.Restriccion;
 import ar.edu.unlam.tallerweb1.modelo.TipoHorario;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
@@ -267,6 +269,23 @@ public class ServicioComidaImpl implements ServicioComida {
 
 	public void updateComida(Comida comida) {
 		comidaDao.updateComida(comida);
+	}
+
+	public List<Comida> contadorComida(Comida comida) {
+		List<Comida> comidas = new LinkedList<>();
+		comidas.add(comida);
+		int contador = comida.getContador();
+		contador = contador + 1;
+		comida.setContador(contador);
+		comidaDao.updateComida(comida);
+		return comidas;
+	}
+
+	public TreeSet<Comida> comidasMasVistas() {
+		OrdenPorContador ordenContador = new OrdenPorContador();
+		TreeSet<Comida> comidasMasVistas = new TreeSet<>(ordenContador);
+		comidasMasVistas.addAll(comidaDao.obtenerComidasMasVistas());
+		return comidasMasVistas;
 	}
 
 }

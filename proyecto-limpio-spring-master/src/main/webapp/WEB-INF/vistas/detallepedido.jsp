@@ -76,6 +76,19 @@
 				<input type="submit" value="Actualizar">
 		</form>
 		</c:if>
+		<br>
+	<table>
+		<tr>
+			<th><h3>Comida</h3></th>
+    		<th><h3>Precio</h3></th>
+    	</tr>
+		<c:forEach items="${comidas}" var="comida">
+		<tr>
+			<td><h4>${comida.nombre}</h4></td>
+			<td><h4>${comida.precio}</h4></td>
+		</tr>
+		</c:forEach>
+	</table>
 		<h3>Precio final: ${pedido.precio}</h3>
     </section>
 	<!-- Footer -->

@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -50,7 +49,7 @@ public class ControladorRestriccion {
 		Restriccion restriccion=new Restriccion();
 		restriccion.setNombre(nombre);
 		
-		Long idGenerado=this.servicioRestriccion.crearRestriccion(restriccion);
+		//Long idGenerado=this.servicioRestriccion.crearRestriccion(restriccion);
 		
 		model.put("restriccion",restriccion);		
 		
@@ -84,19 +83,23 @@ public class ControladorRestriccion {
 		return new ModelAndView("listarRestricciones",model);
 	}
 	
+	
 	//-------------MUESTRA RESTRICCIONES DEL USUARIO------------
 	
 	@RequestMapping(path="/mostrarRestriccionesDeUsuario")
 	public ModelAndView x(HttpServletRequest request){
 		Usuario user=(Usuario)request.getSession().getAttribute("usuario");
+		ModelMap model=new ModelMap();
+		
 		if(user!=null) {
-			return new ModelAndView("usuarioConRestricciones");
+			List<Restriccion> restricciones=servicioRestriccion.listarRestriccionesDeUsuario(user);
+			model.put("restricciones", restricciones);
+			return new ModelAndView("usuarioConRestricciones", model);
 	        }   
 		return new ModelAndView("redirect:/home"); 
 	}
 	
 	//------------ASIGNAR RESTRICCIONES AL USUARIO----------
-	
 	@RequestMapping(path="/asignarRestricciones",method = RequestMethod.GET) 
 	public ModelAndView restriccionesUsuario(@RequestParam(value="restriccion", required=false)
 	String restriccion,HttpServletRequest request){
@@ -116,15 +119,17 @@ public class ControladorRestriccion {
 	        
 	        this.servicioUsuario.update(user);
 	        
-	        model.put("usuario",user);
+	        model.put("usuario", user);
+	        model.put("restricciones", restricciones);
 	        return new ModelAndView("usuarioConRestricciones",model);
 		}
         
-        /* cerrar sesion
+       /* cerrar sesion
          * request.getSession().invalidate();
-        request.setAttribute("usuario", null);*/            
+        request.setAttribute("usuario", null);   */        
 		return new ModelAndView("redirect:/home");
 	}
+
 	
 	//----------BUSCAR COMIDA POR HORARIO-----------
 	
