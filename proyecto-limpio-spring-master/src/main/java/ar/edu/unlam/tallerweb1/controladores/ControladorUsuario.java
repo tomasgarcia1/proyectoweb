@@ -51,11 +51,11 @@ public class ControladorUsuario {
 
 	@RequestMapping(path = "/registroValidacion", method = RequestMethod.POST)
 	public ModelAndView validarRegistro(@ModelAttribute("usuario") Usuario usuario, String restriccion, RedirectAttributes atributos) {
-		List<String> errores=servicioUsuario.validarUsuario(usuario, restriccion);
-		
+		List<Restriccion> restricciones=servicioRestriccion.buscarRestriccionesSeleccionadas(restriccion);
+		List<String> errores=servicioUsuario.validarUsuario(usuario, restricciones);
 		if(errores.isEmpty())
 		{
-			servicioUsuario.registrarUsuario(usuario, restriccion);
+			servicioUsuario.registrarUsuario(usuario, restricciones);
 			return new ModelAndView("redirect:/login");
 		}
 		else 

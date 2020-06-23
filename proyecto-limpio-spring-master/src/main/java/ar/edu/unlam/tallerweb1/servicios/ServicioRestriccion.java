@@ -15,5 +15,7 @@ public interface ServicioRestriccion {
 	List<Restriccion> obtenerRestricciones();
 	
 	List<Restriccion> listarRestriccionesDeUsuario(Usuario usuario);
+	
+	List<Restriccion> buscarRestriccionesSeleccionadas(String restriccion);
 
 }

@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -42,5 +43,20 @@ public class ServicioRestriccionImpl implements ServicioRestriccion {
 	public List<Restriccion> listarRestriccionesDeUsuario(Usuario usuario)
 	{
 		return restriccionDao.listarRestriccionesDeUsuario(usuario);
+	}
+	public List<Restriccion> buscarRestriccionesSeleccionadas(String restriccion)
+	{
+		List<Restriccion> restguardada = new LinkedList<>();
+		if(restriccion!=null) {
+			char[] array = restriccion.replace(",", "").toCharArray();
+			for (int i = 0; i < array.length; i++) {
+				Restriccion r = restriccionDao.obtenerRestriccionPorId((long) Character.getNumericValue(array[i]));
+				if (r != null) {
+					restguardada.add(r);
+				}
+			}
+			return restguardada;
+		}
+		return null;
 	}
 }

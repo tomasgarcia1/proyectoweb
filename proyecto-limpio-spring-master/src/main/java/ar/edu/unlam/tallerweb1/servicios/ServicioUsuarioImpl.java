@@ -27,17 +27,15 @@ import ar.edu.unlam.tallerweb1.repositorios.UsuarioDao;
 public class ServicioUsuarioImpl implements ServicioUsuario {
 	@Inject
 	private UsuarioDao usuarioDao;
-	@Inject
-	private RestriccionDao restriccionDao;
 
 	//--------REGISTRAR USUARIO--------
 	
 	@Override
-	public Long registrarUsuario(Usuario usuario, String restricciones) {
+	public Long registrarUsuario(Usuario usuario, List<Restriccion> restricciones) {
 		usuario.setPassword(this.encriptarPassword(usuario.getPassword()));
 		usuario.setCaloriasDiarias(this.calcularCaloriasDiarias(usuario));
 		usuario.setRol(Rol.CLIENTE);
-		usuario.setRestricciones(this.obtenerRestricciones(restricciones));
+		usuario.setRestricciones(restricciones);
 		return usuarioDao.registrarUsuario(usuario);
 	}
 
@@ -90,18 +88,7 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 	}
 	
 	//--------VALIDAR EXISTENCIA DE, AL MENOS, UNA RESTRICCION--------
-	public List<Restriccion> obtenerRestricciones(String restriccion)
-	{
-		List<Restriccion> restguardada = new LinkedList<>();
-		char[] array = restriccion.replace(",", "").toCharArray();
-		for (int i = 0; i < array.length; i++) {
-			Restriccion r = restriccionDao.obtenerRestriccionPorId((long) Character.getNumericValue(array[i]));
-			if (r != null) {
-				restguardada.add(r);
-			}
-		}
-		return restguardada;
-	}
+	
 	
 	//-------ENCRIPTADO DE CONTRASEÑA--------
 	
@@ -116,7 +103,7 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 		return org.apache.commons.codec.digest.DigestUtils.sha256Hex(password);
 	}
 	
-	public List<String> validarUsuario(Usuario usuario, String restricciones)
+	public List<String> validarUsuario(Usuario usuario, List<Restriccion> restricciones)
 	{
 		List<String> errores=new LinkedList<String>();
 		if(!(this.validarDatosNulos(usuario, restricciones)))
@@ -134,7 +121,7 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 				errores.add("Hablar con administracion.");
 			if(!(this.validarFecha(usuario.getFechaDeNacimiento())))
 				errores.add("Ingrese una fecha valida");
-			if(this.obtenerRestricciones(restricciones).isEmpty())
+			if(restricciones.isEmpty())
 				errores.add("Seleccion al menos una restriccion");
 			/* SACAR COMENTARIO CUANDO ESTE EL ATRIBUTO USERNAME
 			if(!(this.validarUsername(usuario.getUsername()))) 
@@ -143,13 +130,13 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 		return errores;
 	}
 	//----------VALIDAR NULL------------
-	public Boolean validarDatosNulos(Usuario usuario, String restriccion)
+	public Boolean validarDatosNulos(Usuario usuario, List<Restriccion> restricciones)
 	{
 		if(usuario.getActividad()==null || usuario.getAltura()==null
 				|| usuario.getEmail()==null || usuario.getPeso()==null 
 				|| usuario.getFechaDeNacimiento()==null
 				|| usuario.getPassword()==null || usuario.getSexo()==null
-				|| restriccion==null)
+				|| restricciones == null)
 			return false;
 		return true;
 	}
