@@ -178,7 +178,7 @@ public class ControladorRestriccion {
 		ModelMap modelo = new ModelMap();
 		
 		if (user != null && user.getRol()==Rol.ADMINISTRADOR) {
-			Comida c = servicioComida.obtenerComidaPorNombre(comida.getNombre());
+			Comida c = servicioComida.obtenerPorId(comida.getId());
 			List<Restriccion> restricciones=this.servicioRestriccion.obtenerRestricciones();
 			
 			modelo.put("comida", c);
@@ -211,8 +211,7 @@ public class ControladorRestriccion {
 				 if(r!=null) {
 					 restricciones.add(r);
 				 }
-	        }
-	        
+	        }	        
 	        comida.setRestricciones(restricciones);
 	        this.servicioComida.updateComida(comida);
 	        

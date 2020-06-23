@@ -10,6 +10,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import ar.edu.unlam.tallerweb1.modelo.Comida;
 import ar.edu.unlam.tallerweb1.modelo.Restriccion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
@@ -49,6 +50,14 @@ public class RestriccionDaoImpl implements RestriccionDao {
 		List <Restriccion> r=session.createCriteria(Restriccion.class).list();
 		
 		return r;
+	}
+	
+	@Override
+	public List<Restriccion> obtenerRestriccionPorComida(Comida comida){
+		return sesion.getCurrentSession().createCriteria(Restriccion.class)
+				.createAlias("comidas", "comidas")
+				.add(Restrictions.eq("comidas.id", comida.getId()))
+				.list();
 	}
 
 
