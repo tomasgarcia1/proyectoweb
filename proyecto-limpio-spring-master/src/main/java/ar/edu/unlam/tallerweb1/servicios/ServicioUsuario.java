@@ -5,9 +5,9 @@ import java.util.List;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
 public interface ServicioUsuario {
-	List<String> validarUsuario(Usuario usuario);
+	List<String> validarUsuario(Usuario usuario, String restricciones);
 	
-	Long registrarUsuario(Usuario usuario);
+	Long registrarUsuario(Usuario usuario, String restricciones);
 
 	Boolean validarExistenciaEmail(String email);
 

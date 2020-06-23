@@ -126,13 +126,12 @@ label img {
 	<div class="container p-4 mb-5 mt-5">
 		<h3>Usuario: ${usuario.email}</h3>
 		<ul>
-			<c:forEach items="${usuario.restricciones}" var="restriccion">
+			<c:forEach items="${restricciones}" var="restriccion">
 				<li>${restriccion.nombre}<label for="${restriccion.id}"><img
 						src="img/${restriccion.nombre}.jpg" /></label>
 				</li>
 			</c:forEach>
 		</ul>
-
 		 <a class="btn btn-danger" href="seleccionarRestricciones">Modificar restricciones</a>
 
 	</div>

@@ -15,9 +15,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unlam.tallerweb1.modelo.Actividad;
+import ar.edu.unlam.tallerweb1.modelo.Restriccion;
 import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.Sexo;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.repositorios.RestriccionDao;
 import ar.edu.unlam.tallerweb1.repositorios.UsuarioDao;
 
 @Service
@@ -25,14 +27,17 @@ import ar.edu.unlam.tallerweb1.repositorios.UsuarioDao;
 public class ServicioUsuarioImpl implements ServicioUsuario {
 	@Inject
 	private UsuarioDao usuarioDao;
+	@Inject
+	private RestriccionDao restriccionDao;
 
 	//--------REGISTRAR USUARIO--------
 	
 	@Override
-	public Long registrarUsuario(Usuario usuario) {
+	public Long registrarUsuario(Usuario usuario, String restricciones) {
 		usuario.setPassword(this.encriptarPassword(usuario.getPassword()));
 		usuario.setCaloriasDiarias(this.calcularCaloriasDiarias(usuario));
 		usuario.setRol(Rol.CLIENTE);
+		usuario.setRestricciones(this.obtenerRestricciones(restricciones));
 		return usuarioDao.registrarUsuario(usuario);
 	}
 
@@ -84,6 +89,20 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 		return true;
 	}
 	
+	//--------VALIDAR EXISTENCIA DE, AL MENOS, UNA RESTRICCION--------
+	public List<Restriccion> obtenerRestricciones(String restriccion)
+	{
+		List<Restriccion> restguardada = new LinkedList<>();
+		char[] array = restriccion.replace(",", "").toCharArray();
+		for (int i = 0; i < array.length; i++) {
+			Restriccion r = restriccionDao.obtenerRestriccionPorId((long) Character.getNumericValue(array[i]));
+			if (r != null) {
+				restguardada.add(r);
+			}
+		}
+		return restguardada;
+	}
+	
 	//-------ENCRIPTADO DE CONTRASEÑA--------
 	
 	/*
@@ -97,10 +116,10 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 		return org.apache.commons.codec.digest.DigestUtils.sha256Hex(password);
 	}
 	
-	public List<String> validarUsuario(Usuario usuario)
+	public List<String> validarUsuario(Usuario usuario, String restricciones)
 	{
 		List<String> errores=new LinkedList<String>();
-		if(!(this.validarDatosNulos(usuario)))
+		if(!(this.validarDatosNulos(usuario, restricciones)))
 			errores.add("Agregar todos los datos solicitados.");
 		else {
 			if(this.validarExistenciaEmail(usuario.getEmail()))
@@ -115,6 +134,8 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 				errores.add("Hablar con administracion.");
 			if(!(this.validarFecha(usuario.getFechaDeNacimiento())))
 				errores.add("Ingrese una fecha valida");
+			if(this.obtenerRestricciones(restricciones).isEmpty())
+				errores.add("Seleccion al menos una restriccion");
 			/* SACAR COMENTARIO CUANDO ESTE EL ATRIBUTO USERNAME
 			if(!(this.validarUsername(usuario.getUsername()))) 
 				errores.add("Formato de username invalido. Debe tener entre 3 y 12 caracteres");*/
@@ -122,12 +143,13 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 		return errores;
 	}
 	//----------VALIDAR NULL------------
-	public Boolean validarDatosNulos(Usuario usuario)
+	public Boolean validarDatosNulos(Usuario usuario, String restriccion)
 	{
 		if(usuario.getActividad()==null || usuario.getAltura()==null
 				|| usuario.getEmail()==null || usuario.getPeso()==null 
 				|| usuario.getFechaDeNacimiento()==null
-				|| usuario.getPassword()==null || usuario.getSexo()==null)
+				|| usuario.getPassword()==null || usuario.getSexo()==null
+				|| restriccion==null)
 			return false;
 		return true;
 	}
