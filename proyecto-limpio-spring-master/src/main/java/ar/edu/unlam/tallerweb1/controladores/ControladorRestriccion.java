@@ -84,6 +84,7 @@ public class ControladorRestriccion {
 		return new ModelAndView("listarRestricciones",model);
 	}
 	
+	
 	//-------------MUESTRA RESTRICCIONES DEL USUARIO------------
 	
 	@RequestMapping(path="/mostrarRestriccionesDeUsuario")
@@ -96,7 +97,6 @@ public class ControladorRestriccion {
 	}
 	
 	//------------ASIGNAR RESTRICCIONES AL USUARIO----------
-	
 	@RequestMapping(path="/asignarRestricciones",method = RequestMethod.GET) 
 	public ModelAndView restriccionesUsuario(@RequestParam(value="restriccion", required=false)
 	String restriccion,HttpServletRequest request){
@@ -120,11 +120,12 @@ public class ControladorRestriccion {
 	        return new ModelAndView("usuarioConRestricciones",model);
 		}
         
-        /* cerrar sesion
+       /* cerrar sesion
          * request.getSession().invalidate();
-        request.setAttribute("usuario", null);*/            
+        request.setAttribute("usuario", null);   */        
 		return new ModelAndView("redirect:/home");
 	}
+
 	
 	//----------BUSCAR COMIDA POR HORARIO-----------
 	
