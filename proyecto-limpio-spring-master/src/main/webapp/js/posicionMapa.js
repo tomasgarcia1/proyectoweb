@@ -1,4 +1,3 @@
-
 const cordsRecomida={
 		latitude:-34.668680,
 		longitude:-58.566209
@@ -33,15 +32,15 @@ searchControl.on("results", function(data) {
     	
         results.addLayer(L.marker(data.results[0].latlng));
         
-        console.log(data.latlng.lat+"   "+data.latlng.lng);
+        console.log(data.results[0].text);
         
         coord[0]=data.latlng.lat;
         coord[1]=data.latlng.lng;
         
         document.getElementsByName("latitude")[0].value = coord[0];
         document.getElementsByName("longitude")[0].value = coord[1];
+        document.getElementsByName("nombre")[0].value = data.results[0].text;
+
         
     }	
 });
-
-

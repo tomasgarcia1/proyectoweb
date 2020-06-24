@@ -7,6 +7,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -34,6 +35,12 @@ public class ControladorRestriccion {
 	private ServicioComida servicioComida;
 	
 	//--------IR A RESTRICCIONES--------
+	@Autowired
+	public ControladorRestriccion(ServicioRestriccion servicioRestriccion,ServicioUsuario servicioUsuario,ServicioComida servicioComida) {
+		this.servicioRestriccion=servicioRestriccion;
+		this.servicioUsuario=servicioUsuario;
+		this.servicioComida=servicioComida;
+	}
 	
 	@RequestMapping("/restricciones")
 	public ModelAndView irRegistro() {
@@ -108,13 +115,7 @@ public class ControladorRestriccion {
 		
 		Usuario user=(Usuario)request.getSession().getAttribute("usuario");
 		if(user!=null && restriccion!=null) {
-			char [] array = restriccion.replace(",", "").toCharArray();
-	        for (int i = 0; i < array.length; i++) {            
-	            Restriccion restrict=this.servicioRestriccion.obtenerRestriccionPorId((long)Character.getNumericValue(array[i]));
-				 if(restrict!=null) {
-					 restricciones.add(restrict);
-				 }
-	        }      
+			restricciones.addAll(this.servicioRestriccion.buscarRestriccionesSeleccionadas(restriccion));
 	        user.setRestricciones(restricciones);
 	        
 	        this.servicioUsuario.update(user);
@@ -210,13 +211,6 @@ public class ControladorRestriccion {
 			List<Restriccion> restricciones=new ArrayList<Restriccion>();
 			Comida comida = servicioComida.obtenerPorId(id);
 			
-			char [] array = restriccion.replace(",", "").toCharArray();
-	        for (int i = 0; i < array.length; i++) {            
-	            Restriccion r=this.servicioRestriccion.obtenerRestriccionPorId((long)Character.getNumericValue(array[i]));
-				 if(r!=null) {
-					 restricciones.add(r);
-				 }
-	        }	        
 	        comida.setRestricciones(restricciones);
 	        this.servicioComida.updateComida(comida);
 	        

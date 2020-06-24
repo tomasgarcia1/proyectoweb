@@ -48,9 +48,9 @@ public class ServicioRestriccionImpl implements ServicioRestriccion {
 	{
 		List<Restriccion> restguardada = new LinkedList<>();
 		if(restriccion!=null) {
-			char[] array = restriccion.replace(",", "").toCharArray();
-			for (int i = 0; i < array.length; i++) {
-				Restriccion r = restriccionDao.obtenerRestriccionPorId((long) Character.getNumericValue(array[i]));
+			String[] restricciones=restriccion.split(",");
+			for (int i = 0; i < restricciones.length; i++) {
+				Restriccion r = restriccionDao.obtenerRestriccionPorId(Long.parseLong(restricciones[i]));
 				if (r != null) {
 					restguardada.add(r);
 				}

@@ -82,14 +82,18 @@
 		<form:form action="menuSugerido" method="POST" modelAttribute="posicion" >
 			<input type="hidden"  name="id" id="id" value="${posicion.id}"/>
 			<input type="hidden"  name="latitude" id="latitude" value="${posicion.latitude}"/>
-			<input type="hidden"  name="longitude" id="longitude" value="${posicion.longitude}"/>			
+			<input type="hidden"  name="longitude" id="longitude" value="${posicion.longitude}"/>	
+			<input type="hidden"  name="nombre" id="nombre" value="${posicion.nombre}"/>
+				
 			<button type="submit" class="btn btn-success">Elegir comidas por gustos</button>
 		</form:form>
 		
 		<form:form action="sugerirMenuDelDia" method="POST" modelAttribute="posicion" >
 			<input type="hidden"  name="id" id="id" value="${posicion.id}"/>
 			<input type="hidden"  name="latitude" id="latitude" value="${posicion.latitude}"/>
-			<input type="hidden"  name="longitude" id="longitude" value="${posicion.longitude}"/>			
+			<input type="hidden"  name="longitude" id="longitude" value="${posicion.longitude}"/>
+			<input type="hidden"  name="nombre" id="nombre" value="${posicion.nombre}"/>
+						
 			<button type="submit" class="btn btn-success my-3">Sugerir Menu del Día</button>
 		</form:form>
 		

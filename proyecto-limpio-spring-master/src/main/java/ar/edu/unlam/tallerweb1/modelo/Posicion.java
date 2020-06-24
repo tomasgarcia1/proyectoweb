@@ -10,18 +10,25 @@ public class Posicion {
 	  @Id 
 	  @GeneratedValue(strategy = GenerationType.IDENTITY)
 	  private Long id;  
+	  private String nombre;
 	  private Double latitude;
 	  private Double longitude;
  
 	  public Posicion() { 
 	  } 
 
-	  public Posicion(Double latitude, Double longitude) {
+	  public Posicion(Double latitude, Double longitude,String nombre) {
 	    this.latitude = latitude;
 	    this.longitude = longitude;
-	  }
-	  
-	   
+	    this.nombre=nombre;
+	  }  
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
 	public Long getId() {
 		return id;
