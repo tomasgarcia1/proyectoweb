@@ -7,6 +7,7 @@ import java.util.TreeSet;
 
 import javax.inject.Inject;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,6 +32,13 @@ public class ServicioComidaImpl implements ServicioComida {
 	@Inject
 	private RestriccionDao restriccionDao;
 
+	@Autowired
+	public ServicioComidaImpl(ComidaDao cD, UsuarioDao uD, RestriccionDao rD) {
+		this.comidaDao = cD;
+		this.restriccionDao = rD;
+		this.usuarioDao = uD; 
+	}
+	
 	@Override
 	public Long crearComida(Comida comida) {
 		return comidaDao.crearComida(comida);

@@ -5,13 +5,20 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ar.edu.unlam.tallerweb1.controladores.ControladorUsuario;
+import ar.edu.unlam.tallerweb1.modelo.Comida;
 import ar.edu.unlam.tallerweb1.modelo.Restriccion;
+import ar.edu.unlam.tallerweb1.modelo.TipoHorario;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.repositorios.ComidaDao;
+import ar.edu.unlam.tallerweb1.repositorios.RestriccionDao;
+import ar.edu.unlam.tallerweb1.repositorios.UsuarioDao;
+import ar.edu.unlam.tallerweb1.servicios.ServicioComidaImpl;
 import ar.edu.unlam.tallerweb1.servicios.ServicioRestriccion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 
 import static org.mockito.Mockito.*;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -49,5 +56,6 @@ public class TestRegistroUsuario {
 		assertThat(resultado.getViewName()).isEqualTo("redirect:/login");
 
 	}
+	
 
 }
