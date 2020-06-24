@@ -34,6 +34,8 @@
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item active"><a class="nav-link" href="#">Inicio</a>
 					</li>
+					<li class="nav-item"><a class="nav-link" href="cerrarSesion">Cerrar
+							Sesión</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">Menú de
 							comidas</a></li>
 					<li class="nav-item dropdown"><a
@@ -54,33 +56,31 @@
 		</div>
 	</nav>
 	<section>
-	<!-- ACA VA LA LISTA PAPA -->
+		<!-- ACA VA LA LISTA PAPA -->
 		<table>
 			<tr>
-    			<th>ID</th>
-    			<th>Importe</th>
-    			<th>Estado</th>
-    			<th>
-    			<c:if test="${usuario.rol == 'ADMINISTRADOR'}">Usuario</c:if></th>
-  			</tr>
-  			<c:forEach items="${pedidos}" var="pedido">
+				<th>ID</th>
+				<th>Importe</th>
+				<th>Estado</th>
+				<th><c:if test="${usuario.rol == 'ADMINISTRADOR'}">Usuario</c:if></th>
+			</tr>
+			<c:forEach items="${pedidos}" var="pedido">
 				<tr>
-   			 		<td>${pedido.id}</td>
-    				<td>${pedido.precio}</td>
-    				<td>${pedido.estado}</td>
-    				<td><c:if test="${usuario.rol == 'ADMINISTRADOR'}">
+					<td>${pedido.id}</td>
+					<td>${pedido.precio}</td>
+					<td>${pedido.estado}</td>
+					<td><c:if test="${usuario.rol == 'ADMINISTRADOR'}">
     					${pedido.usuario.email}
-    				</c:if>
-    				</td>
-    				<td><a href="detallepedido?id=${pedido.id}">VER DETALLE</a></td>
-    				<td><c:if test="${pedido.estado != 'CANCELADO' && pedido.estado != 'ENVIADO'}">
-    					<a href="cancelarpedido?id=${pedido.id}">CANCELAR</a>
-    				</c:if>
-    				</td>
- 				</tr>
+    				</c:if></td>
+					<td><a href="detallepedido?id=${pedido.id}">VER DETALLE</a></td>
+					<td><c:if
+							test="${pedido.estado != 'CANCELADO' && pedido.estado != 'ENVIADO'}">
+							<a href="cancelarpedido?id=${pedido.id}">CANCELAR</a>
+						</c:if></td>
+				</tr>
 			</c:forEach>
 		</table>
-    </section>
+	</section>
 	<!-- Footer -->
 	<footer class="page-footer font-small unique-color-dark">
 

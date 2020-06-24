@@ -31,6 +31,8 @@
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item active"><a class="nav-link" href="#">Inicio</a>
 					</li>
+					<li class="nav-item"><a class="nav-link" href="cerrarSesion">Cerrar
+							Sesión</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">Menú de
 							comidas</a></li>
 					<li class="nav-item dropdown"><a
@@ -51,10 +53,11 @@
 	</nav>
 	<div class="container mb-5 mt-5">
 		<form action="/procesar-pago" method="POST">
-		  	<script
-		  		src="https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js"
-		   		data-preference-id="${preference.id}">
-		  	</script>
+			<script
+				src="https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js"
+				data-preference-id="${preference.id}">
+				
+			</script>
 		</form>
 	</div>
 
