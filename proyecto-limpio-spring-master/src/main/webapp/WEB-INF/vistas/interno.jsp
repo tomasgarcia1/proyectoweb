@@ -68,8 +68,8 @@
 					class="btn btn-outline-danger btn-lg" href="menuSugerido"
 					role="button">Realizar pedido por restricciones</a> <br> <br> 
 					<a
-					class="btn btn-outline-danger btn-lg" href="sugerirMenuDelDia"
-					role="button">Generar menú del día</a>
+					class="btn btn-outline-danger btn-lg" href="suscripciones"
+					role="button">Suscripciones</a>
 			</div>
 		</div>
 	</section>

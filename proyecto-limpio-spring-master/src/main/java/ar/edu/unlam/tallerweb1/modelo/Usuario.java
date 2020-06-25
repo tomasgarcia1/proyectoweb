@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -37,6 +38,9 @@ public class Usuario {
 	private Actividad actividad;
 	private Sexo sexo;
 	private Rol rol;
+	
+	@ManyToOne
+	private Suscripcion suscripcion;
 	
 	@JoinTable(
 			name = "usuarios_restricciones",
@@ -113,4 +117,12 @@ public class Usuario {
 	public void setRol(Rol rol) {
 		this.rol = rol;
 	}
+	public Suscripcion getSuscripcion() {
+		return suscripcion;
+	}
+	public void setSuscripcion(Suscripcion suscripcion) {
+		this.suscripcion = suscripcion;
+	}
+	
+	
 }
