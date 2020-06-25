@@ -58,9 +58,11 @@
 		</div>
 	</nav>
 
-	<div class="container mt-5 mb-5">
+	<div class="container mt-5 mb-3">
 		<h3>Seleccione el tipo de comida</h3>
+		<p class="lead">Atención: Las restricciones nuevas suplantarán a las restricciones anteriores!</p>
 	</div>
+
 	<div class="container mb-4">
 		<form:form action="seleccionarComida" method="POST"
 			modelAttribute="comida">

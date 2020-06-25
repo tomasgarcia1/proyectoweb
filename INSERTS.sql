@@ -1,29 +1,30 @@
-use recomida;
 insert into usuario values
-(3, 1, 180, 2800.0, "pepe@pepe", '1999-01-01', "123", 80.0, 0, 1),
-(1, 0, 160, 2500.0, "marta@m.com", '1999-01-01', "123", 63.0, 1, 1),
-(2, 3, 170, 3000.0, "juan@juan", '1999-01-01', "123", 84.0, 1, 0);
+(3, 1, 180, 2800.0, "pepe@pepe", '1999-01-01', "123Ab", 80.0, 0, 1, null),
+(1, 0, 160, 2500.0, "marta@m.com", '1999-01-01', "123Ab", 63.0, 1, 1, null),
+(2, 3, 170, 3000.0, "juan@juan", '1999-01-01', "123Ab", 84.0, 1, 0, null);
+
+insert into tiposuscripcion values
+(1, "mensual", 75.00),
+(2, "semestral", 65.00),
+(3, "anual", 50.00);
 
 insert into comida values
-(1, 100, "Una zanahoria rallada", "Zanahoria rallada", 5.0, 2),
-(2, 900, "Tarta de acelga", "Tarta de acelga", 75.5, 1),
-(3, 600, "Ensalada de choclo y tomate", "Ensalada de choclo y tomate", 35.0, 2),
-(4, 800, "Pollo al horno", "Pollo al horno", 100.0, 1),
-(5, 500, "Tostadas con queso crema", "Tostadas con queso crema", 40.0, 0),
-(6, 50, "Sopa de zapallo", "Sopa de zapallo", 23.0, 2),
-(7, 1500, "Guiso de lentejas con chinchulines", "Guiso de sobras", 140.9, 1),
-(8, 120, "Licuado de frutos rojos", "Licuado Red Velvet", 30.0, 0),
-(9, 1000, "Tostadas con hummus y licuado verde", "Veggie Break", 60.0, 0),
-(10, 230, "Huevos y Bacon", "American Breakfast", 80.0 ,0),
-(11, 150, "Tortilla verde", "Tortilla de zapallito y huevo", 54.99, 1);
+(1, 100, 0, "Una zanahoria rallada", "Zanahoria rallada", 5.0, 2),
+(2, 900, 0,"Tarta de acelga", "Tarta de acelga", 75.5, 1),
+(3, 600, 0,"Ensalada de choclo y tomate", "Ensalada de choclo y tomate", 35.0, 2),
+(4, 800, 0,"Pollo al horno", "Pollo al horno", 100.0, 1),
+(5, 500, 0, "Tostadas con queso crema", "Tostadas con queso crema", 40.0, 0),
+(6, 50, 0,"Sopa de zapallo", "Sopa de zapallo", 23.0, 2),
+(7, 1500, 0,"Guiso de lentejas con chinchuusuariolines", "Guiso de sobras", 140.9, 1),
+(8, 120, 0,"Licuado de frutos rojos", "Licuado Red Velvet", 30.0, 0),
+(9, 1000, 0,"Tostadas con hummus y licuado verde", "Veggie Break", 60.0, 0),
+(10, 230, 0,"Huevos y Bacon", "American Breakfast", 80.0 ,0),
+(11, 150, 0,"Tortilla verde", "Tortilla de zapallito y huevo", 54.99, 1);
 
 Insert into restriccion values(1,"variado");
 Insert into restriccion values(2,"vegetariano");
 Insert into restriccion values(3,"vegano");
 Insert into restriccion values(4,"celiaco");
-
-select * from posicion;
-
 
 Insert into comidas_restricciones
 Values (1,2), (2,2), (3,2), (4,3), (5,2), (6,3), (7,1), (8,2), (9,2), (9, 3), (10, 1), (6,2), (11,2);

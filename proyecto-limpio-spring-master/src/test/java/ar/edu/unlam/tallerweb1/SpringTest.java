@@ -8,6 +8,23 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import ar.edu.unlam.tallerweb1.modelo.Comida;
+import ar.edu.unlam.tallerweb1.modelo.Restriccion;
+import ar.edu.unlam.tallerweb1.modelo.TipoHorario;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.repositorios.ComidaDao;
+import ar.edu.unlam.tallerweb1.repositorios.RestriccionDao;
+import ar.edu.unlam.tallerweb1.repositorios.UsuarioDao;
+import ar.edu.unlam.tallerweb1.servicios.ServicioComidaImpl;
+
+import static org.assertj.core.api.Assertions.*;
+import  static org.mockito.Mockito.*;
+
+import java.util.LinkedList;
+import java.util.List;
+
+import org.junit.Test;
+
 // Se indica que los test que hereden de esta clase corran con el runner de junit para spring.
 @RunWith(SpringJUnit4ClassRunner.class)
 // Se indica

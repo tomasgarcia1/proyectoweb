@@ -67,7 +67,7 @@
 			<div class="form-row">
 
 				<div class="form-group col-md-6">
-					<label>Nombre</label>
+					<label >Nombre</label>
 					<input type="text" value="${comida.nombre}" class="form-control" readonly/>
 				</div>
 
@@ -75,17 +75,19 @@
 					<label>Id</label>
 					<input type="text" name="id" value="${comida.id}" class="form-control" readonly/>
 				</div>
+				
 			</div>
 			
-			<label>Restricciones</label><br>
+			<label class="h6">Restricciones</label><br>
 			<c:forEach items="${restricciones}" var="restriccion">
-					<input type="checkbox" name="restriccion" value="${restriccion.id}"/>
+					<input type="checkbox" name="restriccion" value="${restriccion.id} required"/>
 					<span> ${restriccion.nombre}</span>
 					<br>
 				</c:forEach>
+					
+			<button type="submit" class="btn btn-danger mt-4" id="checkBtn">Agregar Restricción</button>
 
-			<button type="submit" class="btn btn-danger">Agregar Restricción</button>
-
+			
 		</form:form>
 	</div>
 	
@@ -213,11 +215,27 @@
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+		
 	<script>
 		window.jQuery
 				|| document
 						.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')
 	</script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+		    $('#checkBtn').click(function() {
+		      checked = $("input[type=checkbox]:checked").length;
+		
+		      if(!checked) {
+		        alert("Por favor seleccionar al menos una restricción");
+		        return false;
+		      }
+		
+		    });
+		});
+		
+		</script>  
 	<script src="js/bootstrap.min.js" type="text/javascript"></script>
 
 </body>

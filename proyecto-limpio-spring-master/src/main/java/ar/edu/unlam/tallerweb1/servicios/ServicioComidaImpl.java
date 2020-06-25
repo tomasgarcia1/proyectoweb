@@ -7,6 +7,7 @@ import java.util.TreeSet;
 
 import javax.inject.Inject;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +17,7 @@ import ar.edu.unlam.tallerweb1.modelo.Restriccion;
 import ar.edu.unlam.tallerweb1.modelo.TipoHorario;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.ComidaDao;
+import ar.edu.unlam.tallerweb1.repositorios.RestriccionDao;
 import ar.edu.unlam.tallerweb1.repositorios.UsuarioDao;
 
 @Service
@@ -26,7 +28,17 @@ public class ServicioComidaImpl implements ServicioComida {
 
 	@Inject
 	private UsuarioDao usuarioDao;
+	
+	@Inject
+	private RestriccionDao restriccionDao;
 
+	@Autowired
+	public ServicioComidaImpl(ComidaDao cD, UsuarioDao uD, RestriccionDao rD) {
+		this.comidaDao = cD;
+		this.restriccionDao = rD;
+		this.usuarioDao = uD; 
+	}
+	
 	@Override
 	public Long crearComida(Comida comida) {
 		return comidaDao.crearComida(comida);
@@ -40,8 +52,28 @@ public class ServicioComidaImpl implements ServicioComida {
 	public void borrar(Comida comida) {
 		comidaDao.borrar(comida);
 	}
+	
+	
+	// --------------------GETTERS Y SETTERS PARA LOS TEST----------------------
 
+	public ComidaDao getComidaDao() {
+		return comidaDao;
+	}
+
+	public void setComidaDao(ComidaDao comidaDao) {
+		this.comidaDao = comidaDao;
+	}
+
+	public UsuarioDao getUsuarioDao() {
+		return usuarioDao;
+	}
+
+	public void setUsuarioDao(UsuarioDao usuarioDao) {
+		this.usuarioDao = usuarioDao;
+	}
+	
 	// --------------------SUGERIR COMIDAS POR RESTRICCIONES----------------------
+
 
 	@Override
 	public Comida sugerirDesayunoPorRestricciones(Long id) {
@@ -202,6 +234,7 @@ public class ServicioComidaImpl implements ServicioComida {
 
 		for (Comida comidaAux : comidas1) {
 			if (comidaAux.getTipoHorario() == tipo) {
+				comidaAux.setRestricciones(restriccionDao.obtenerRestriccionPorComida(comidaAux));
 				comidas2.add(comidaAux);
 			}
 		}

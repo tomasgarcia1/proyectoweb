@@ -115,13 +115,7 @@ public class ControladorRestriccion {
 		
 		Usuario user=(Usuario)request.getSession().getAttribute("usuario");
 		if(user!=null && restriccion!=null) {
-			char [] array = restriccion.replace(",", "").toCharArray();
-	        for (int i = 0; i < array.length; i++) {            
-	            Restriccion restrict=this.servicioRestriccion.obtenerRestriccionPorId((long)Character.getNumericValue(array[i]));
-				 if(restrict!=null) {
-					 restricciones.add(restrict);
-				 }
-	        }      
+			restricciones.addAll(this.servicioRestriccion.buscarRestriccionesSeleccionadas(restriccion));
 	        user.setRestricciones(restricciones);
 	        
 	        this.servicioUsuario.update(user);
@@ -190,7 +184,7 @@ public class ControladorRestriccion {
 		ModelMap modelo = new ModelMap();
 		
 		if (user != null && user.getRol()==Rol.ADMINISTRADOR) {
-			Comida c = servicioComida.obtenerComidaPorNombre(comida.getNombre());
+			Comida c = servicioComida.obtenerPorId(comida.getId());
 			List<Restriccion> restricciones=this.servicioRestriccion.obtenerRestricciones();
 			
 			modelo.put("comida", c);
@@ -217,14 +211,6 @@ public class ControladorRestriccion {
 			List<Restriccion> restricciones=new ArrayList<Restriccion>();
 			Comida comida = servicioComida.obtenerPorId(id);
 			
-			char [] array = restriccion.replace(",", "").toCharArray();
-	        for (int i = 0; i < array.length; i++) {            
-	            Restriccion r=this.servicioRestriccion.obtenerRestriccionPorId((long)Character.getNumericValue(array[i]));
-				 if(r!=null) {
-					 restricciones.add(r);
-				 }
-	        }
-	        
 	        comida.setRestricciones(restricciones);
 	        this.servicioComida.updateComida(comida);
 	        
