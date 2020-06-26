@@ -62,5 +62,18 @@ public class ServicioSuscripcionImpl implements ServicioSuscripcion{
 		user.setSuscripcion(susc);
 		this.usuarioDao.update(user);
 	}
+	
+	@Override
+	public Boolean vencerSuscripcion(Long id) {
+		Suscripcion susc = this.suscripcionDao.obtenerSuscripcionSegunId(id);
+		LocalDate vencim = susc.getFechaVencimiento();
+		if(vencim.equals(LocalDate.now())) {
+			susc.setEstado(false);
+			this.suscripcionDao.updateSuscripcion(susc);
+			return true;
+		}else {
+			return false;
+		}
+	}
 		
 }

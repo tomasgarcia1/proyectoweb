@@ -9,9 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mercadopago.resources.Preference;
+
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.servicios.ServicioMP;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
 
 @Controller
@@ -19,6 +22,8 @@ public class ControladorSuscripcion {
 
 	@Inject
 	private ServicioSuscripcion servicioSuscripcion;
+	
+	private ServicioMP servicioMP = new ServicioMP();
 	
 	@RequestMapping("/suscripciones")
 	public ModelAndView verSuscripciones() {
@@ -37,13 +42,16 @@ public class ControladorSuscripcion {
 		Double precio = susc.getPrecio();
 		String tipo = susc.getNombre();
 		Long idTipo = susc.getId();
-		
+		// Mercado pago
+		Preference p = servicioMP.checkout(user, precio);
+
 		if(user.getSuscripcion()!=null) {
 			if(user.getSuscripcion().getEstado()) {
 				modelo.put("mensaje", "Usted ya posee una suscripcion");
 			}
 		}
 		
+		modelo.put("preference", p);
 		modelo.put("precio", precio);
 		modelo.put("tipo", tipo);
 		modelo.put("id", idTipo);
@@ -54,4 +62,6 @@ public class ControladorSuscripcion {
 			return new ModelAndView("redirect:/login");
 		}
 	}
+	
+	//pagarSuscripcion donde creo la susc y se la asigno al user, obtengo fecha de inicio
 }

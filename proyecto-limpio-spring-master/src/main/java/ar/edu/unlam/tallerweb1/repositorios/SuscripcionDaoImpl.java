@@ -27,6 +27,16 @@ public class SuscripcionDaoImpl implements SuscripcionDao {
 	public Suscripcion insertarSuscripcion(Suscripcion susc) {
 		return (Suscripcion) sesion.getCurrentSession().save(susc);
 	}
+	
+	@Override
+	public Suscripcion obtenerSuscripcionSegunId(Long id) {
+		return (Suscripcion) sesion.getCurrentSession().get(Suscripcion.class, id);
+	}
+	
+	@Override
+	public void updateSuscripcion(Suscripcion susc) {
+		sesion.getCurrentSession().update(susc);
+	}
 
 	
 }

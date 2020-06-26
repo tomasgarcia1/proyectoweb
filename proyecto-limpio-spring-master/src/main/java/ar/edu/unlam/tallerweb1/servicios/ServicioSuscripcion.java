@@ -15,4 +15,6 @@ public interface ServicioSuscripcion {
 
 	void insertarSuscripcionEnUsuario(Long tipo, LocalDate fechaInicio, Long id);
 
+	Boolean vencerSuscripcion(Long id);
+
 }

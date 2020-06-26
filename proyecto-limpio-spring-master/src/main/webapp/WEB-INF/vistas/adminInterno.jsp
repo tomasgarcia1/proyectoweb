@@ -32,7 +32,8 @@
                     Mi cuenta
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-<a class="dropdown-item" href="mostrarRestriccionesDeUsuario">Mis restricciones</a>                <div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="mostrarRestriccionesDeUsuario">Mis restricciones</a>                
+				<div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#">Mis pedidos</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#">Imc</a>
@@ -46,13 +47,20 @@
      
     <section id="bienvenido" class="my-1">
         <div class="container">
-        <div class="jumbotron bg-white">
-            <h1 class="display-4">Bienvenido! Gracias por trabajar en Recomida</h1>
-         	<hr class="my-2">
-            <a class="btn btn-outline-danger btn-lg" href="agregarComida" role="button">Agregar nueva comida</a>
-            <a class="btn btn-outline-danger btn-lg" href="buscarComidaPorHorario" role="button">Agregar nueva restricción</a>
-            <br><br>
-            <a class="btn btn-outline-danger btn-lg" href="verpedidos" role="button">Ver pedidos</a>
+        <div class="row">
+	        <div class="col-8">
+		        <div class="jumbotron bg-white">
+		            <h1 class="display-4">Bienvenido! Gracias por trabajar en Recomida</h1>
+		         	<hr class="my-4">
+		            <a class="btn btn-outline-danger btn-lg" href="agregarComida" role="button">Agregar nueva comida</a>
+		            <a class="btn btn-outline-danger btn-lg" href="buscarComidaPorHorario" role="button">Agregar nueva restricción</a>
+		            <br><br>
+		            <a class="btn btn-outline-danger btn-lg" href="verpedidos" role="button">Ver pedidos</a>
+		          </div>
+	          </div>
+	          <div class="col-2">
+	          	<img src="img/admin.jpg" class="w-150">
+	          </div>
           </div>
         </div>
     </section>

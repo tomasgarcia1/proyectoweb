@@ -28,6 +28,7 @@ import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioMP;
 import ar.edu.unlam.tallerweb1.servicios.ServicioPedido;
 import ar.edu.unlam.tallerweb1.servicios.ServicioPosicion;
+import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
 
 @Controller
 public class ControladorPedido {
@@ -41,6 +42,9 @@ public class ControladorPedido {
 
 	@Inject
 	private ServicioPosicion servicioPosicion;
+	
+	@Inject
+	private ServicioSuscripcion servicioSuscripcion;
 
 	// ----------SELECCIONAR UBICACION MAPA---------
 
@@ -63,7 +67,21 @@ public class ControladorPedido {
 	@RequestMapping(path = "/mostrar", method = RequestMethod.POST)
 	public ModelAndView distanciaDelPedido(@ModelAttribute("posicion") Posicion posicion, HttpServletRequest request) {
 		ModelMap model = new ModelMap();
-
+		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
+		
+		//validacion de suscripcion
+		if(user.getSuscripcion()!=null) {
+			this.servicioSuscripcion.vencerSuscripcion(user.getSuscripcion().getId());
+			if(!user.getSuscripcion().getEstado()) {
+				String mensaje = "Suscripción vencida";
+				model.put("msj", mensaje);
+			}
+		}else {
+			String mensaje = "Debe tener una suscripción para obtener este beneficio";
+			model.put("msj", mensaje);
+		}
+		//-----------------------------------
+		
 		if (posicion.getLatitude() == 0 || posicion.getLongitude() == 0) {
 			return new ModelAndView("redirect:/mapa");
 		}

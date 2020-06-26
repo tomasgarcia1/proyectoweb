@@ -9,4 +9,8 @@ public interface SuscripcionDao {
 
 	Suscripcion insertarSuscripcion(Suscripcion susc);
 
+	Suscripcion obtenerSuscripcionSegunId(Long id);
+
+	void updateSuscripcion(Suscripcion susc);
+
 }

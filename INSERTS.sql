@@ -1,7 +1,7 @@
 insert into usuario values
-(3, 1, 180, 2800.0, "pepe@pepe", '1999-01-01', "123Ab", 80.0, 0, 1, null),
-(1, 0, 160, 2500.0, "marta@m.com", '1999-01-01', "123Ab", 63.0, 1, 1, null),
-(2, 3, 170, 3000.0, "juan@juan", '1999-01-01', "123Ab", 84.0, 1, 0, null);
+(3, 1, 180, 2800.0, "pepe@pepe", '1999-01-01', "db1a4c0c96fd1f7daf946ae3f066c3a55b339fab3043becfa479e0cd5e023cfc", 80.0, 0, 1, null),
+(1, 0, 160, 2500.0, "marta@m.com", '1999-01-01', "db1a4c0c96fd1f7daf946ae3f066c3a55b339fab3043becfa479e0cd5e023cfc", 63.0, 1, 1, null),
+(2, 3, 170, 3000.0, "juan@juan", '1999-01-01', "db1a4c0c96fd1f7daf946ae3f066c3a55b339fab3043becfa479e0cd5e023cfc", 84.0, 1, 0, null);
 
 insert into tiposuscripcion values
 (1, "mensual", 75.00),

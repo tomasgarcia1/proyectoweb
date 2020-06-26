@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
         <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+        <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+        
 <!DOCTYPE html>
 <html>
  <head>
@@ -91,17 +93,52 @@
 			<button type="submit" class="btn btn-success">Elegir comidas por gustos</button>
 		</form:form>
 		
+		<c:if test="${empty msj}">
 		<form:form action="sugerirMenuDelDia" method="POST" modelAttribute="posicion" >
 			<input type="hidden"  name="id" id="id" value="${posicion.id}"/>
 			<input type="hidden"  name="latitude" id="latitude" value="${posicion.latitude}"/>
 			<input type="hidden"  name="longitude" id="longitude" value="${posicion.longitude}"/>
 			<input type="hidden"  name="nombre" id="nombre" value="${posicion.nombre}"/>
 						
-			<button type="submit" class="btn btn-success my-3">Sugerir Menu del Día</button>
+			<button type="submit" class="btn btn-success my-3">Sugerir Menú del Día</button>
 		</form:form>
+		</c:if>
+		
+		<c:if test="${not empty msj}">
+		<span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="${msj}" data-placement="right">
+		  <button class="btn btn-success my-3" style="pointer-events: none;" type="button" id="tooltip" disabled>
+		  Sugerir Menú del Día</button>
+		</span>
+		</c:if>
 		
 	</div>
 
+	<!-- Footer -->
+	<footer class="page-footer font-small unique-color-dark">
+
+		<div class="bg-danger">
+			<div class="container">
+
+				<!-- Grid row-->
+				<div class="row py-4 d-flex align-items-center">
+
+					<!-- Grid column -->
+					<div
+						class="col-md-12 col-lg-12 text-center text-md-left mb-4 mb-md-0">
+						<h6 class="mb-0 text-center text-white">Get connected with us
+							on social networks!</h6>
+					</div>
+					<!-- Grid column -->
+
+
+				</div>
+				<!-- Grid column -->
+
+			</div>
+			<!-- Grid row-->
+
+		</div>
+		</div>
 
 <!-- Footer Links -->
     <div class="container text-center text-md-left mt-5">
@@ -193,12 +230,14 @@
   </footer>
   <!-- Footer -->
 
-
-    <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-  </body>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+	<script>
+		$("[data-toggle=tooltip]").tooltip();
+	</script>
+
+</body>
 
 </html>
