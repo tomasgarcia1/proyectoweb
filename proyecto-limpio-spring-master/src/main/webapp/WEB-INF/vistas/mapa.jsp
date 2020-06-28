@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,17 +64,40 @@
     </nav>
 
 <div class="container my-5">
-
+	<h3>Hola! Para realizar un pedido primero ingresa la direccion de envio.</h3>
+	
+	<c:if test="${not empty posicionesUsuario}">
+	<p>Podes elegir una ubicacion elegida anteriormente aqui...</p>
+		<div id="select-location">
+		  <select name="location" id="location">
+		    <option value="-1">Tus ubicaciones</option>
+		    <c:forEach items="${posicionesUsuario}" var="posicion">
+				<option value="${posicion.latitude} , ${posicion.longitude} , ${posicion.id}" id="pos">${posicion.nombre}</option>
+			</c:forEach>	
+		  </select>
+		  		  
+		  <button id="nuevaPos" class="btn btn-outline-danger" onClick="activar()">Ingresar posicion nueva</button>
+		</div>
+	</c:if>
+	
+	
+	
 	<div id="map"></div>
 
 <form:form action="mostrar" method="POST" modelAttribute="posicion" >
+	
 	<input type="hidden"  name="latitude" id="latitude" value="0"/>
 	<input type="hidden"  name="longitude" id="longitude" value="0"/>
 	<input type="hidden"  name="nombre" id="nombre" value="0"/>
+ 	
 	
- 	<button type="submit" class="btn btn-success my-3">Confirmar ubicacion</button>
+		<input type="hidden"  name="id" id="id" value="-1"/>
 	
-	<a href="mapa" class="btn btn-danger my-3 ml-5">Cancelar ubicacion</a>
+	
+	<input type="hidden" name="idComidas" value="${idComidas}">
+
+	<button type="submit" id="boton" class="btn btn-success my-3">Confirmar ubicacion</button>
+	
 </form:form>
  
 </div>

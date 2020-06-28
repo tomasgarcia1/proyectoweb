@@ -45,6 +45,11 @@ public class Pedido {
 	public void setUbicacionDestino(Posicion ubicacionDestino) {
 		this.ubicacionDestino = ubicacionDestino;
 	}
+	
+	public Long getUbicacionId() {
+		return this.ubicacionDestino.getId();
+	}
+	
 	public Double getPrecio() { 
 		return precio;
 	}

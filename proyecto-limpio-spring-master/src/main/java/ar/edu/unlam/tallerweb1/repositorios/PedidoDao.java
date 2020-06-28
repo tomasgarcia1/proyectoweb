@@ -4,6 +4,7 @@ import java.util.List;
 
 import ar.edu.unlam.tallerweb1.modelo.Comida;
 import ar.edu.unlam.tallerweb1.modelo.Pedido;
+import ar.edu.unlam.tallerweb1.modelo.Posicion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
 public interface PedidoDao {
@@ -18,4 +19,6 @@ public interface PedidoDao {
 	List<Pedido> listarPedidos();
 	
 	List<Comida> listarComidasDeUnPedido(Pedido pedido);
+	
+	Posicion listarPosicion(Pedido pedido);
 }

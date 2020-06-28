@@ -3,6 +3,8 @@ package ar.edu.unlam.tallerweb1.servicios;
 import java.util.List;
 import java.util.TreeSet;
 
+import org.springframework.ui.ModelMap;
+
 import ar.edu.unlam.tallerweb1.modelo.Comida;
 import ar.edu.unlam.tallerweb1.modelo.Estado;
 import ar.edu.unlam.tallerweb1.modelo.Pedido;
@@ -41,4 +43,8 @@ public interface ServicioPedido {
 	TreeSet<Comida> comidasMasPedidas(Long id);
 	
 	List<Comida> listarComidasDeUnPedido(Pedido pedido);
+	
+	Posicion listarPosicionesDeUnUsuario(Pedido pedido);
+
+	ModelMap generarPreviewPosicion(Posicion posicionSucursal,Posicion posicion);
 }
