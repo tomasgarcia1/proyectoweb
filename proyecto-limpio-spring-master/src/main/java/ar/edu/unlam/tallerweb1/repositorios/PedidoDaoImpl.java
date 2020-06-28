@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unlam.tallerweb1.modelo.Comida;
 import ar.edu.unlam.tallerweb1.modelo.Pedido;
+import ar.edu.unlam.tallerweb1.modelo.Posicion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
 @Repository
@@ -47,6 +48,11 @@ public class PedidoDaoImpl implements PedidoDao {
 		return sesion.getCurrentSession().createCriteria(Comida.class)
 				.createAlias("pedidos", "pedidosjoin")
 				.add(Restrictions.eq("pedidosjoin.id", pedido.getId())).list();
+	}
+	@Override
+	public Posicion listarPosicion(Pedido pedido) {		
+		return (Posicion) sesion.getCurrentSession().createCriteria(Posicion.class)
+				.add(Restrictions.eq("id", pedido.getUbicacionId())).uniqueResult();
 	}
 	
 }

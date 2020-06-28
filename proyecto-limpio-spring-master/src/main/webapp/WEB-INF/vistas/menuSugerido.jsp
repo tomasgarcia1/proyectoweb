@@ -35,8 +35,8 @@
 					<li class="nav-item active"><a class="nav-link" href="#">Inicio</a>
 					</li>
 					<li class="nav-item"><a class="nav-link" href="cerrarSesion">Cerrar
-							Sesión</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Menú de
+							SesiÃ³n</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">MenÃº de
 							comidas</a></li>
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
@@ -55,13 +55,15 @@
 			</div>
 		</div>
 	</nav>
+
 	<section class="container p-4">
-		<h3 class="text-center">Seleccionar pedido según gustos</h3>
-		<form method="POST" action="generarpedido" modelAttribute="posicion">
+		<h3 class="text-center">Seleccionar pedido segÃºn gustos</h3>
+		<form method="POST" action="seleccionarUbicacion">
 			<!--  <h3>Usuario: ${usuario.email}</h3>-->
 
-			<span class="h5">Menú 1</span> <input type="radio" name="idComidas"
+			<span class="h5">MenÃº 1</span> <input type="radio" name="idComidas"
 				value="${idcomidas1}" />
+
 
 			<ul class="list-group list-group-flush">
 				<li class="list-group-item  flex-fill"><c:forEach
@@ -79,7 +81,7 @@
 						</ul>
 					</c:forEach></li>
 			</ul>
-			<br> <span class="h5">Menú 2</span> <input type="radio"
+			<br> <span class="h5">MenÃº 2</span> <input type="radio"
 				name="idComidas" value="${idcomidas2}" />
 
 			<ul class="list-group list-group-flush">
@@ -98,7 +100,7 @@
 						</ul>
 					</c:forEach></li>
 			</ul>
-			<br> <span class="h5">Menú 3</span> <input type="radio"
+			<br> <span class="h5">MenÃº 3</span> <input type="radio"
 				name="idComidas" value="${idcomidas3}" />
 
 			<ul class="list-group list-group-flush">
@@ -124,6 +126,7 @@
 				type="hidden" name="nombre" id="nombre" value="${posicion.nombre}" />
 
 			<button type="submit" class="btn btn-success mt-5">Confirmar
+
 				gustos</button>
 		</form>
 	</section>
@@ -131,8 +134,8 @@
 	<br>
 
 	<section>
-		<h3 class="text-center">También podes ver.. ¡Las comidas
-			adaptadas a tus gustos más pedidas!</h3>
+		<h3 class="text-center">TambiÃ©n podes ver.. Â¡Las comidas
+			adaptadas a tus gustos mÃ¡s pedidas!</h3>
 		<br>
 		<div class="container -sm p-2">
 			<ul class="list-unstyled">

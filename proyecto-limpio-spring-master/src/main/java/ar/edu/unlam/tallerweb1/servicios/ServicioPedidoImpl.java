@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -9,6 +11,8 @@ import java.util.TreeSet;
 import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.ModelMap;
+
 import ar.edu.unlam.tallerweb1.modelo.Comida;
 import ar.edu.unlam.tallerweb1.modelo.Estado;
 import ar.edu.unlam.tallerweb1.modelo.Pedido;
@@ -27,7 +31,31 @@ public class ServicioPedidoImpl implements ServicioPedido {
 	private ServicioComida servicioComida;
 
 	// ----------CALCULAR TIEMPO----------
+	
+	@Override
+	public ModelMap generarPreviewPosicion(Posicion posicionSucursal,Posicion posicion) {
+		ModelMap model = new ModelMap();
+		Double distancia = this.distanciaCoord(posicionSucursal.getLatitude(),
+				posicionSucursal.getLongitude(), posicion.getLatitude(), posicion.getLongitude());
 
+		Double tiempo = this.calcularTiempo(distancia);
+
+		BigDecimal time = new BigDecimal(tiempo);
+		time = time.setScale(0, RoundingMode.HALF_UP);
+
+		// Double precio=12*distancia;
+
+		Double precio = this.convertirPrecio(distancia);
+
+		model.put("distancia", (int) (distancia + 1));
+		model.put("precio", precio);
+		model.put("tiempo", time);
+
+		model.addAttribute("posicion", posicion);
+		
+		return model;
+	}
+	
 	@Override
 	public Double calcularTiempo(Double distancia) {
 		Double velocidad = (double) (40 * 1000) / 60;
@@ -228,5 +256,12 @@ public class ServicioPedidoImpl implements ServicioPedido {
 	public List<Comida> listarComidasDeUnPedido(Pedido pedido) {
 		return pedidoDao.listarComidasDeUnPedido(pedido);
 	}
+	
+	@Override
+	public Posicion listarPosicionesDeUnUsuario(Pedido pedido) {
+		return pedidoDao.listarPosicion(pedido);
+	}
+
+	
 
 }

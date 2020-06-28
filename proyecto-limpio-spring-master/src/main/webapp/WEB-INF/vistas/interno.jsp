@@ -31,8 +31,8 @@
 					<li class="nav-item active"><a class="nav-link" href="home">Inicio</a>
 					</li>
 					<li class="nav-item"><a class="nav-link" href="cerrarSesion">Cerrar
-							Sesión</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Menú de
+							SesiÃ³n</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">MenÃº de
 							comidas</a></li>
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
@@ -61,14 +61,11 @@
 					pasto tipo vaca</p>
 				<hr class="my-2">
 				<p>Antes de realizar un pedido, debe informarnos donde se
-					encuentra, una vez que realiza esto, puede realizar su pedido según
+					encuentra, una vez que realiza esto, puede realizar su pedido segÃºn
 					sus gustos o calorias</p>
-				<a class="btn btn-outline-danger btn-lg" href="mapa" role="button">Insertar
-					ubicacion en el mapa</a> <br><br> <a
-					class="btn btn-outline-danger btn-lg" href="menuSugerido"
-					role="button">Realizar pedido por restricciones</a> <br> <br> 
-					<a
-					class="btn btn-outline-danger btn-lg" href="suscripciones"
+				<a class="btn btn-outline-danger btn-lg" href="elegirPedido" role="button">Realizar pedido</a> 
+
+				<a class="btn btn-outline-danger btn-lg" href="suscripciones"
 					role="button">Suscripciones</a>
 			</div>
 		</div>
@@ -76,7 +73,7 @@
 
 	<section id="info" class="my-4">
 		<div class="container">
-			<h3 class="text-center">Elegí las comidas que mas se adapten a
+			<h3 class="text-center">ElegÃ­ las comidas que mas se adapten a
 				vos</h3>
 			<div class="row my-5">
 
