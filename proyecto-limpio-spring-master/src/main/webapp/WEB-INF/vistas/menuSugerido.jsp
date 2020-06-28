@@ -35,8 +35,8 @@
 					<li class="nav-item active"><a class="nav-link" href="#">Inicio</a>
 					</li>
 					<li class="nav-item"><a class="nav-link" href="cerrarSesion">Cerrar
-							SesiÛn</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Men˙ de
+							Sesi√≥n</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Men√∫ de
 							comidas</a></li>
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
@@ -55,51 +55,104 @@
 			</div>
 		</div>
 	</nav>
-	<section>
-		<h1>Seleccionar pedido por restricciones</h1>
+
+	<section class="container p-4">
+		<h3 class="text-center">Seleccionar pedido seg√∫n gustos</h3>
 		<form method="POST" action="seleccionarUbicacion">
 			<!--  <h3>Usuario: ${usuario.email}</h3>-->
-			<span>COMIDA 1</span> <input type="radio" name="idComidas"
-				value="${idcomidas1}" />
-			<li><c:forEach items="${comidas1}" var="comida">
-					<span>PRODUCTO: </span>
-					<span> ${comida.nombre}</span>
-					<span>${comida.precio}</span>
-					<br>
-				</c:forEach></li> <span>COMIDA 2</span> <input type="radio" name="idComidas"
-				value="${idcomidas2}" />
-			<li><c:forEach items="${comidas2}" var="comida2">
-					<span>PRODUCTO: </span>
-					<span> ${comida2.nombre}</span>
-					<span>${comida2.precio}</span>
-					<br>
-				</c:forEach></li> <span>COMIDA 3</span> <input type="radio" name="idComidas"
-				value="${idcomidas3}" />
-			<li><c:forEach items="${comidas3}" var="comida3">
-					<span>PRODUCTO: </span>
-					<span> ${comida3.nombre}</span>
-					<span>${comida3.precio}</span>
-					<br>
-					</c:forEach>
 
-				
-				
-			<button type="submit" class="btn btn-success">Confirmar
+			<span class="h5">Men√∫ 1</span> <input type="radio" name="idComidas"
+				value="${idcomidas1}" />
+
+
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item  flex-fill"><c:forEach
+						items="${comidas1}" var="comida">
+
+						<ul class="list-unstyled">
+							<li class="media"><img src="img/${comida.nombre}.jpg"
+								class="mr-3" alt="..." style="width: 170px; height: 100px">
+								<div class="media-body">
+									<h5 class="text-danger">${comida.tipoHorario}</h5>
+									<h6 class="mt-0 mb-1">${comida.nombre}</h6>
+									<span>${comida.descripcion}</span>
+									<p>Precio: $ ${comida.precio}</p>
+								</div></li>
+						</ul>
+					</c:forEach></li>
+			</ul>
+			<br> <span class="h5">Men√∫ 2</span> <input type="radio"
+				name="idComidas" value="${idcomidas2}" />
+
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item  flex-fill"><c:forEach
+						items="${comidas2}" var="comida2">
+
+						<ul class="list-unstyled">
+							<li class="media"><img src="img/${comida2.nombre}.jpg"
+								class="mr-3" alt="..." style="width: 170px; height: 100px">
+								<div class="media-body">
+									<h5 class="text-danger">${comida2.tipoHorario}</h5>
+									<h6 class="mt-0 mb-1">${comida2.nombre}</h6>
+									<span>${comida2.descripcion}</span>
+									<p>Precio: $ ${comida2.precio}</p>
+								</div></li>
+						</ul>
+					</c:forEach></li>
+			</ul>
+			<br> <span class="h5">Men√∫ 3</span> <input type="radio"
+				name="idComidas" value="${idcomidas3}" />
+
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item  flex-fill"><c:forEach
+						items="${comidas3}" var="comida3">
+
+						<ul class="list-unstyled">
+							<li class="media"><img src="img/${comida3.nombre}.jpg"
+								class="mr-3" alt="..." style="width: 170px; height: 100px">
+								<div class="media-body">
+									<h5 class="text-danger">${comida3.tipoHorario}</h5>
+									<h6 class="mt-0 mb-1">${comida3.nombre}</h6>
+									<span>${comida3.descripcion}</span>
+									<p>Precio: $ ${comida3.precio}</p>
+								</div></li>
+						</ul>
+					</c:forEach></li>
+			</ul>
+			<input type="hidden" name="id" id="id" value="${posicion.id}" /> <input
+				type="hidden" name="latitude" id="latitude"
+				value="${posicion.latitude}" /> <input type="hidden"
+				name="longitude" id="longitude" value="${posicion.longitude}" /> <input
+				type="hidden" name="nombre" id="nombre" value="${posicion.nombre}" />
+
+			<button type="submit" class="btn btn-success mt-5">Confirmar
+
 				gustos</button>
 		</form>
 	</section>
 
+	<br>
+
 	<section>
-		<h3>TambiÈn podes ver.. °Las comidas adaptadas a tus gustos m·s
-			pedidas!</h3>
-		<c:forEach items="${comidasmaspedidas}" var="comida">
-			<div class="media">
-				<img src="img/j2.jpg" class="mr-3">
-				<div class="media-body">
-					<a href="mostrarComidasMasVistasyPedidas?id=${comida.id}" role= "button" >${comida.nombre}</a>
-				</div>
-			</div>
-		</c:forEach>
+		<h3 class="text-center">Tambi√©n podes ver.. ¬°Las comidas
+			adaptadas a tus gustos m√°s pedidas!</h3>
+		<br>
+		<div class="container -sm p-2">
+			<ul class="list-unstyled">
+				<li class="media"><c:forEach items="${comidasmaspedidas}"
+						var="comida">
+						<img src="img/${comida.nombre}.jpg" class="mr-3" alt="..."
+							style="width: 140px; height: 100px; border: 1px black">
+						<div class="media-body">
+							<h5 class="mt-0 mb-1">${comida.nombre}</h5>
+							<br> <a
+								href="mostrarComidasMasVistasyPedidas?id=${comida.id}"
+								class="btn btn-primary" role="button" aria-pressed="false">Ver
+								detalle</a>
+						</div>
+					</c:forEach></li>
+			</ul>
+		</div>
 
 	</section>
 	<!-- Footer -->

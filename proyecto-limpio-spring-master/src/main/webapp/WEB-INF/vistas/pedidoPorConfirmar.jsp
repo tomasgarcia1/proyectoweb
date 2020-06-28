@@ -27,6 +27,9 @@
             <li class="nav-item active">
                 <a class="nav-link" href="home">Inicio</a>
             </li>
+             <li class="nav-item">
+                <a class="nav-link" href="cerrarSesion">Cerrar Sesión</a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Menú de comidas</a>
             </li>
@@ -48,26 +51,36 @@
         </div>
     </nav>
    
-   <div class="container mt-5 mb-5">
-		<h3>Pedido</h3>
+   <div class="container mt-5 mb-4">
+		<h3>Información de su pedido</h3>
    </div>
-<div class="container">
-					<li style="list-style: none">
-						
-						<span>Aqui esta su pedido</span> <br>
-						<span>Precio total: ${precio}</span>
-					</li>
-
-<a href="interno" class="btn btn-primary">Cancelar</a>
-<form action="pagarpedido" method="GET">
-	<input type="hidden" name="id" value="${id}">
-	<input type="hidden" name="idPosicion" value="${idPosicion}">
- 		<script
-		  		src="https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js"
-		   		data-preference-id="${preference.id}">
-		  	</script>
-</form>
-</div>
+		<div class="container">
+			<li style="list-style: none">
+				<h4><u>Resumen de menú</u></h4>
+					<ul class="list-group list-group-flush">
+					<c:forEach items="${comidas}" var="c">
+						<li class="list-group-item"><span class="h5">${c.nombre}</span>
+						 porción individual <span class="h5 text-danger float-right">$ ${c.precio}</span></li>
+					</c:forEach>
+						<li class="list-group-item"><span class="h5">Envío </span>
+						<span class="h5 text-danger float-right">$ ${viaje}</span></li>
+					</ul>
+						<div class="float-right">
+						<span class="h5 m-2">Total: <span class="h4 text-danger">$${precio}</span></span>
+						</div>
+			</li>
+			<div class="mt-5">
+			<form action="pagarpedido" method="GET" class="d-inline">
+				<input type="hidden" name="id" value="${id}">
+				<input type="hidden" name="idPosicion" value="${idPosicion}">
+			 		<script
+					  		src="https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js"
+					   		data-preference-id="${preference.id}">
+					  	</script>
+			</form>
+			<a href="interno" class="btn btn-danger m-3">Cancelar</a>
+			</div>
+	</div>
 
  <!-- Footer -->
 <footer class="page-footer font-small unique-color-dark">

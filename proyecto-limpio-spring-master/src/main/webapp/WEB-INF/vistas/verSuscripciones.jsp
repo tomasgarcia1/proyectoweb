@@ -1,12 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -17,13 +12,13 @@
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
 	crossorigin="anonymous">
 
-
+<title>Recomida!</title>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-danger">
 		<div class="container">
 
-			<a class="navbar-brand" href="#">RECOMIDA</a>
+			<a class="navbar-brand" href="home">RECOMIDA</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -33,7 +28,7 @@
 
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item active"><a class="nav-link" href="#">Inicio</a>
+					<li class="nav-item active"><a class="nav-link" href="home">Inicio</a>
 					</li>
 					<li class="nav-item"><a class="nav-link" href="#">Menú de
 							comidas</a></li>
@@ -54,23 +49,86 @@
 			</div>
 		</div>
 	</nav>
-	<div class="container p-4 mb-5 mt-5">
-		<h3 class="text-center">Bienvenido, empecemos agregando tus
-			gustos y/o restricciones alimentarias.</h3>
 
-		<form method="get" action="asignarRestricciones">
-			<!--  <h3>Usuario: ${usuario.email}</h3>-->
-			<p>En base a estos gustos te vamos a sugerir la comida.</p>
-			<li><c:forEach items="${restricciones}" var="restriccion">
-					<input type="checkbox" name="restriccion" value="${restriccion.id}" />
-					<span> ${restriccion.nombre}</span>
-					<span>${restriccion.id}</span>
-					<br>
-				</c:forEach></li>
-
-			<button class="btn btn-success">Confirmar gustos</button>
-		</form>
+	<section class="container mt-5 mb-5 clearfix">
+		<h1 class="display-3 text-center">Suscripciones</h1>
+		<p class="lead text-center mb-5">
+			Obtener una suscripción en <span class="text-danger">Recomida</span> te va a permitir, por un bajo precio,
+			disfrutar de todos los servicios que tenemos para vos. Solo los clientes suscritos 
+			tienen acceso a la sugerencia de menús distintos cada día según sus restricciones de salud, 
+			gustos, calorías diarias recomendadas y calculadas según tú estilo de vida y tus caracteristicas
+			físicas. ¿Qué estas esperando para obtener beneficios únicos?
+		</p>
+		
+	<div class="card-deck">
+		<div class="card text-center">
+		  <div class="card-header h2 text-success">
+		    Mensual
+		  </div>
+		  <div class="card-body">
+		  	<div class="mb-2">
+			    <h1 class="h4">$ <span class="display-3">75,00</span>/mes </h1>
+			    <h6>Pesos Argentinos</h6>
+			    <hr/>
+		    </div>
+		    <p class="card-text">La suscripción mensual se le cobrará una sola vez y deberá ser renovada
+		    al pasar la fecha de vencimiento.<br>
+		    Los pedidos no estan incluídos en la suscripción</p>
+		    <form action="obtenerSuscripcion" method="get">
+		     <input type="hidden" value="1" name="tipo">
+		    <input type="submit" class="btn btn-success" value="Suscribirme">
+		    </form>
+		  </div>
+		</div>
+		
+		<div class="card text-center">
+		  <div class="card-header h2 text-info">
+		    Semestral
+		  </div>
+		  <div class="card-body">
+		  	<div class="mb-2">
+			    <h1 class="h4">$ <span class="display-3">65,00</span>/mes </h1>
+			    <h6>Pesos Argentinos</h6>
+			    <hr/>
+		    </div>
+		    <p class="card-text">La suscripción semestral descontará el precio mensual al
+		    momento de ser adquirida y, cada vez que se cumpla un mes del pago anterior,
+		     durante los seis meses activos. Al pasar la fecha de vencimiento deberá renovar
+		     la suscripción.<br>
+		     Los pedidos no estan incluídos en la suscripción.</p>
+		     <form action="obtenerSuscripcion" method="get">
+		     <input type="hidden" value="2" name="tipo">
+		    <input type="submit" class="btn btn-info" value="Suscribirme">
+		    </form>
+		  </div>
+		</div>
+		
+		<div class="card text-center">
+		  <div class="card-header h2 text-danger">
+		    Anual
+		  </div>
+		  <div class="card-body">
+		  	<div class="mb-2">
+			    <h1 class="h4">$ <span class="display-3">50,00</span>/mes </h1>
+			    <h6>Pesos Argentinos</h6>
+			    <hr/>
+		    </div>
+		    <p class="card-text">La suscripción anual descontará el precio mensual al
+		    momento de ser adquirida y, cada vez que se cumpla un mes del pago anterior,
+		     durante los doce meses activos. Al pasar la fecha de vencimiento deberá renovar
+		     la suscripción.<br>
+		     Los pedidos no estan incluídos en la suscripción.</p>
+		    <form action="obtenerSuscripcion" method="get">
+		     <input type="hidden" value="3" name="tipo">
+		    <input type="submit" class="btn btn-danger" value="Suscribirme">
+		    </form>
+		  </div>
+		</div>
 	</div>
+	
+		<a href="interno"  class="btn btn-outline-danger mt-5 btn-lg">Por ahora no, gracias</a>
+	</section>
+
 	<!-- Footer -->
 	<footer class="page-footer font-small unique-color-dark">
 
@@ -192,14 +250,21 @@
 		<!-- Footer Links -->
 
 	</footer>
-	<!-- Placed at the end of the document so the pages load faster -->
+	<!-- Footer -->
+
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+		crossorigin="anonymous"></script>
 	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script>
-		window.jQuery
-				|| document
-						.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')
-	</script>
-	<script src="js/bootstrap.min.js" type="text/javascript"></script>
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+		crossorigin="anonymous"></script>
 </body>
 </html>

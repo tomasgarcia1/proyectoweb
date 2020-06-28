@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Pedido</title>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -32,6 +32,9 @@
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item active"><a class="nav-link" href="home">Inicio</a>
 					</li>
+					 <li class="nav-item">
+                <a class="nav-link" href="cerrarSesion">Cerrar Sesión</a>
+            </li>
 					<li class="nav-item"><a class="nav-link" href="#">Menú de
 							comidas</a></li>
 					<li class="nav-item dropdown"><a
@@ -53,10 +56,15 @@
 	</nav>
 	<div class="container mb-5 mt-5">
 
-		<div class="container mb-5 mt-5">
-
-			<h3>Tu pedido se encuentra ${pedido.estado}</h3>
+		<div class="container mb-5 mt-5 clearfix">
+			<p class="h3">Excelente! Tu pedido ya se encuentra en <span class="text-lowercase">${pedido.estado}</span></p>
+			<p class="h5">Nuestros chefs se están poniendo en marcha para preparar tu menú a tiempo. Gracias por elegir 
+			<span class="text-danger">Recomida</span>, buen provecho!</p>
+			<img src="img/gracias2.jpg" class="w-50 mx-auto d-block" style="opacity:0.7">
+			
 		</div>
+		
+		<a class="btn btn-danger btn-block" href="interno" role="button">Volver al home</a>
 	</div>
 		
 		

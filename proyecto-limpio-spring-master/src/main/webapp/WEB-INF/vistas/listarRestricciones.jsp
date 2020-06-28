@@ -105,6 +105,8 @@ label img {
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item active"><a class="nav-link" href="home">Inicio</a>
 					</li>
+					  <li class="nav-item"><a class="nav-link" href="cerrarSesion">Cerrar
+							Sesión</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">Menú de
 							comidas</a></li>
 					<li class="nav-item dropdown"><a
@@ -126,7 +128,8 @@ label img {
 	</nav>
 
 	<div class="container p-4 mb-5 mt-5">
-		<h3 class="text-center">Modifique sus restricciones</h3>
+		<h3 class="text-center">Modifique sus gustos alimentarios</h3>
+		<br>
 		<form method="get" action="asignarRestricciones">
 			<ul>
 				<c:forEach items="${restricciones}" var="restriccion">

@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html;charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -9,6 +8,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<html lang="en">
 <title>Recomida</title>
 <meta charset="utf-8">
 <meta name="viewport"
@@ -35,10 +35,11 @@ input[type="checkbox"][id^="cb"] {
 
 label {
 	border: 1px solid #fff;
-	padding: 10px;
+	padding: 5px;
 	display: block;
 	position: relative;
-	margin: 10px;
+	margin: 3px;
+	overflow: hidden;
 	cursor: pointer;
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
@@ -46,6 +47,7 @@ label {
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
+	cursor: pointer;
 }
 
 label::before {
@@ -138,30 +140,31 @@ label img {
 				<div class="form-group col-md-6">
 					<label for="email">Email</label>
 					<form:input path="email" id="email" type="email"
-						class="form-control"/>
+						class="form-control" />
 				</div>
 
 				<div class="form-group col-md-6">
-					<label for="password">Contrasena (entre 8 y 16 caracteres, al menos una mayuscula y un numero)</label>
+					<label for="password">Contrasena (entre 8 y 16 caracteres,
+						al menos una mayuscula y un numero)</label>
 					<form:input path="password" type="password" id="password"
-						class="form-control"/>
+						class="form-control" />
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label for="altura">Altura (en cm)</label>
 				<form:input path="altura" type="number" class="form-control"
-					id="altura"/>
+					id="altura" />
 			</div>
 
 			<div class="form-group">
 				<label for="peso">Peso (en kg)</label>
-				<form:input path="peso" type="number" class="form-control" id="peso"/>
+				<form:input path="peso" type="number" class="form-control" id="peso" />
 			</div>
 			<div class="form-group">
 				<label for="fec">Fecha de nacimiento</label>
 				<form:input path="fechaDeNacimiento" type="date"
-					class="form-control" id="fec"/>
+					class="form-control" id="fec" />
 			</div>
 
 			<div class="form-group">
@@ -182,8 +185,10 @@ label img {
 				</form:select>
 			</div>
 
-			<div class="container p-4 mb-5 mt-3">
-				<p>En base a tus gustos, vamos a sugerirte las comidas</p>
+			<div class="container p-5 mb-2 mt-3">
+				<h4 class="text-center">Por ultimo, selecciona tus gustos
+					alimentarios, ya que en base a ellos te sugerimos la comida.</h4>
+				<br>
 				<ul>
 					<c:forEach items="${restricciones}" var="restriccion">
 						<li>${restriccion.nombre}<input type="checkbox"
@@ -194,7 +199,10 @@ label img {
 					</c:forEach>
 				</ul>
 			</div>
-			<button type="submit" class="btn btn-primary">Registrarse</button>
+			<div class="container p-0 mb-3 mt-3">
+				<button type="submit" class="btn btn-primary btn-lg"
+					aria-pressed="false">Registrarse</button>
+			</div>
 		</form:form>
 		<c:if test="${not empty errores}">
 			<c:forEach items="${errores}" var="error">

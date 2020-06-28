@@ -190,6 +190,7 @@ public class ControladorPedido {
 		model.put("id", idLista);
 		model.put("precio", precioFinalPedido);
 		model.put("comidas", comidas);
+		model.put("viaje", precioViaje);
 		model.put("idPosicion", posicion.getId());
 		return new ModelAndView("pedidoPorConfirmar", model);
 	}

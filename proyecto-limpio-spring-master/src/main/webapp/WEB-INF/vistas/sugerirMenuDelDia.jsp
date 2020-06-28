@@ -120,7 +120,7 @@
 				<br>
 			</c:if>
 			<c:if test="${empty error}">
-				<input type="submit" class="btn btn-danger mt-5" value="Confirmar">
+				<input type="submit" class="btn btn-danger mt-5 btn-block" value="Confirmar">
 				<br>
 			</c:if>
 
