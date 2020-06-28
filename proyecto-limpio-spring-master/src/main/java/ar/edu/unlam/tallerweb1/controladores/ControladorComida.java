@@ -64,7 +64,7 @@ public class ControladorComida {
 	// --------SUGERIR MENU DEL DIA-------
 
 	@RequestMapping("/sugerirMenuDelDia")
-	public ModelAndView sugerirMenuDelDia(@ModelAttribute("posicion") Posicion posicion, HttpServletRequest request) {
+	public ModelAndView sugerirMenuDelDia(HttpServletRequest request) {
 		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
 
 		if (user != null) {
@@ -92,8 +92,6 @@ public class ControladorComida {
 			model.put("idcomidas1", idComidas1);
 			model.put("idcomidas2", idComidas2);
 			model.put("idcomidas3", idComidas3);
-
-			model.addAttribute("posicion", posicion);
 
 			return new ModelAndView("sugerirMenuDelDia", model);
 

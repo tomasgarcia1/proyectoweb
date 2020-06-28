@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
         <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+          <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
  <head>
@@ -79,23 +80,16 @@
 			</div>
 			</div>
 		</div>
-		<form:form action="menuSugerido" method="POST" modelAttribute="posicion" >
-			<input type="hidden"  name="id" id="id" value="${posicion.id}"/>
-			<input type="hidden"  name="latitude" id="latitude" value="${posicion.latitude}"/>
-			<input type="hidden"  name="longitude" id="longitude" value="${posicion.longitude}"/>	
-			<input type="hidden"  name="nombre" id="nombre" value="${posicion.nombre}"/>
-				
-			<button type="submit" class="btn btn-success">Elegir comidas por gustos</button>
-		</form:form>
 		
-		<form:form action="sugerirMenuDelDia" method="POST" modelAttribute="posicion" >
-			<input type="hidden"  name="id" id="id" value="${posicion.id}"/>
-			<input type="hidden"  name="latitude" id="latitude" value="${posicion.latitude}"/>
-			<input type="hidden"  name="longitude" id="longitude" value="${posicion.longitude}"/>
-			<input type="hidden"  name="nombre" id="nombre" value="${posicion.nombre}"/>
-						
-			<button type="submit" class="btn btn-success my-3">Sugerir Menu del Día</button>
-		</form:form>
+			<form:form action="generarpedido" method="POST" modelAttribute="posicion" >
+				<input type="hidden"  name="id" id="id" value="${posicion.id}"/>
+				<input type="hidden"  name="latitude" id="latitude" value="${posicion.latitude}"/>
+				<input type="hidden"  name="longitude" id="longitude" value="${posicion.longitude}"/>	
+				<input type="hidden"  name="nombre" id="nombre" value="${posicion.nombre}"/>
+				<input type="hidden"  name="idComidas" id="idComidas" value="${idComidas}"/>
+					
+				<button type="submit" class="btn btn-success">Realizar pedido</button>
+			</form:form>
 		
 	</div>
 

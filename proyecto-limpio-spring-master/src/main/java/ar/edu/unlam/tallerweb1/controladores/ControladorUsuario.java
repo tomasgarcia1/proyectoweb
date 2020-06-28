@@ -1,7 +1,11 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,17 +17,27 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ar.edu.unlam.tallerweb1.modelo.Actividad;
+import ar.edu.unlam.tallerweb1.modelo.Pedido;
+import ar.edu.unlam.tallerweb1.modelo.Posicion;
 import ar.edu.unlam.tallerweb1.modelo.Restriccion;
 import ar.edu.unlam.tallerweb1.modelo.Sexo;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.servicios.ServicioPedido;
+import ar.edu.unlam.tallerweb1.servicios.ServicioPosicion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioRestriccion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 
 @Controller
 public class ControladorUsuario {
-
+	@Inject
 	private ServicioUsuario servicioUsuario;
-	private ServicioRestriccion servicioRestriccion;
+	@Inject
+	private ServicioRestriccion servicioRestriccion;	
+	@Inject
+	private ServicioPedido servicioPedido;
+	@Inject
+	private ServicioPosicion servicioPosicion;
+	
 
 	// -----------REGISTRO----------
 	@Autowired
@@ -64,4 +78,6 @@ public class ControladorUsuario {
 			return new ModelAndView("redirect:/registro"); 
 		} 	        			
 	}
+	
+	
 }

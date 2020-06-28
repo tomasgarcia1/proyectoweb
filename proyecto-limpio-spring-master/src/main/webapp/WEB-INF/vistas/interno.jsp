@@ -63,13 +63,7 @@
 				<p>Antes de realizar un pedido, debe informarnos donde se
 					encuentra, una vez que realiza esto, puede realizar su pedido según
 					sus gustos o calorias</p>
-				<a class="btn btn-outline-danger btn-lg" href="mapa" role="button">Insertar
-					ubicacion en el mapa</a> <br><br> <a
-					class="btn btn-outline-danger btn-lg" href="menuSugerido"
-					role="button">Realizar pedido por restricciones</a> <br> <br> 
-					<a
-					class="btn btn-outline-danger btn-lg" href="sugerirMenuDelDia"
-					role="button">Generar menú del día</a>
+				<a class="btn btn-outline-danger btn-lg" href="elegirPedido" role="button">Realizar pedido</a> 
 			</div>
 		</div>
 	</section>
