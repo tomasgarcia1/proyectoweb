@@ -11,7 +11,7 @@ public interface ServicioSuscripcion {
 
 	LocalDate calcularFechaVencimiento(LocalDate fechaInicio, Long tipo);
 
-	Suscripcion crearSuscripcion(Long tipo, LocalDate fechaInicio);
+	Long crearSuscripcion(Long tipo, LocalDate fechaInicio);
 
 	void insertarSuscripcionEnUsuario(Long tipo, LocalDate fechaInicio, Long id);
 

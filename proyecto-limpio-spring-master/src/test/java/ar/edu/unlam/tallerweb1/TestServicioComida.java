@@ -39,7 +39,10 @@ public class TestServicioComida {
     	lista.add(c3);
     	lista.add(c4);
     	
-    	ServicioComidaImpl sC = new ServicioComidaImpl(cD, uD, rD);
+    	ServicioComidaImpl sC = new ServicioComidaImpl();
+    	sC.setComidaDao(cD);
+    	sC.setUsuarioDao(uD);
+    	sC.setRestriccionDao(rD);
     	
     	when(sC.getComidaDao().obtenerComidas()).thenReturn(lista);
     	

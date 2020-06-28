@@ -7,7 +7,7 @@ public interface SuscripcionDao {
 
 	TipoSuscripcion obtenerTipoSegunId(Long tipo);
 
-	Suscripcion insertarSuscripcion(Suscripcion susc);
+	Long insertarSuscripcion(Suscripcion susc);
 
 	Suscripcion obtenerSuscripcionSegunId(Long id);
 

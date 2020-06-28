@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import java.time.LocalDate;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mercadopago.resources.Preference;
 
+import ar.edu.unlam.tallerweb1.modelo.Estado;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
@@ -63,5 +66,29 @@ public class ControladorSuscripcion {
 		}
 	}
 	
-	//pagarSuscripcion donde creo la susc y se la asigno al user, obtengo fecha de inicio
+	@RequestMapping("/pagarSuscripcion")
+	public ModelAndView pagarSuscripcion(@RequestParam(value = "id") Long id,
+			@RequestParam(value = "payment_status") String estado, HttpServletRequest request) {
+		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
+		
+		if(user != null) {
+			ModelMap model = new ModelMap();
+			TipoSuscripcion susc = servicioSuscripcion.obtenerDatosSegunTipo(id);
+			
+			if (estado.equals("approved")) {
+				LocalDate fechaInicio = LocalDate.now();
+				this.servicioSuscripcion.insertarSuscripcionEnUsuario(id, fechaInicio, user.getId());
+			} else {
+				String mensaje = "Su pedido no ha podido ser procesado, intente de nuevo";
+				model.put("msj", mensaje);
+			}
+			
+			model.put("tipo", susc.getNombre());
+			
+			return new ModelAndView("pagarSuscripcion", model);
+			
+		}else {
+			return new ModelAndView("redirect:/login");
+		}
+	}
 }
