@@ -7,6 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%@include file="header.jsp" %>
 <h1>Todavía no hice esta página :p</h1>
+<%@include file="footer.jsp" %>
+
 </body>
 </html>
