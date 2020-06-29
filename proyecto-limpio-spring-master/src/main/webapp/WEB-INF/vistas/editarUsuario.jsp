@@ -19,103 +19,32 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
 	crossorigin="anonymous">
-<style>
-ul {
-	list-style-type: none;
-}
 
-li {
-	display: inline-block;
-	text-align: center;
-}
-
-input[type="checkbox"][id^="cb"] {
-	display: none;
-}
-
-label {
-	border: 1px solid #fff;
-	padding: 5px;
-	display: block;
-	position: relative;
-	margin: 3px;
-	overflow: hidden;
-	cursor: pointer;
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	cursor: pointer;
-}
-
-label::before {
-	background-color: white;
-	color: white;
-	content: "";
-	display: block;
-	border-radius: 50%;
-	border: 1px solid grey;
-	position: absolute;
-	top: -5px;
-	left: -5px;
-	width: 25px;
-	height: 25px;
-	text-align: center;
-	line-height: 28px;
-	transition-duration: 0.4s;
-	transform: scale(0);
-}
-
-label img {
-	height: 300px;
-	width: 300px;
-	transition-duration: 0.2s;
-	transform-origin: 50% 50%;
-}
-
-:checked+label {
-	border-color: #ddd;
-}
-
-:checked+label::before {
-	content: "";
-	background-color: red;
-	border-color: red;
-	transform: scale(1);
-}
-
-:checked+label img {
-	transform: scale(0.9);
-	box-shadow: 0 0 5px #333;
-	z-index: -1;
-}
-</style>
 </head>
 <body>
-	<%@include file="headerSinLogin.jsp" %>
+	<%@include file="header.jsp" %>
 
 
 	<div class="container mt-5 mb-5">
-		<h3>Registro</h3>
+		<h3>Editar usuario</h3>
 	</div>
 	<div class="container">
-		<form:form action="registroValidacion" method="POST"
+		<form:form action="editarValidacion" method="POST"
 			modelAttribute="usuario">
 
 			<div class="form-row">
-
+			<form:input path="id" hidden= "true" />				
+					
 				<div class="form-group col-md-6">
 					<label for="email">Email</label>
 					<form:input path="email" id="email" type="email"
-						class="form-control" />
+						class="form-control" value="" />
 				</div>
 
 				<div class="form-group col-md-6">
 					<label for="password">Contrasena (entre 8 y 16 caracteres,
 						al menos una mayuscula y un numero)</label>
-					<form:input path="password" type="password" id="password"
+					<input name="password" type="password" id="password"
 						class="form-control" />
 				</div>
 			</div>
@@ -154,23 +83,10 @@ label img {
 				</form:select>
 			</div>
 
-			<div class="container p-5 mb-2 mt-3">
-				<h4 class="text-center">Por ultimo, selecciona tus gustos
-					alimentarios, ya que en base a ellos te sugerimos la comida.</h4>
-				<br>
-				<ul>
-					<c:forEach items="${restricciones}" var="restriccion">
-						<li>${restriccion.nombre}<input type="checkbox"
-							id="${restriccion.id}" name="restriccion" id="restriccion"
-							value="${restriccion.id}" /> <label for="${restriccion.id}"><img
-								src="img/${restriccion.nombre}.jpg" /></label>
-						</li>
-					</c:forEach>
-				</ul>
-			</div>
+			
 			<div class="container p-0 mb-3 mt-3">
 				<button type="submit" class="btn btn-primary btn-lg"
-					aria-pressed="false">Registrarse</button>
+					aria-pressed="false">Aceptar</button>
 			</div>
 		</form:form>
 		<c:if test="${not empty errores}">

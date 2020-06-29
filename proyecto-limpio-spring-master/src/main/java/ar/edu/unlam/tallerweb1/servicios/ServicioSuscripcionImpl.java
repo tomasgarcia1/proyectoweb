@@ -23,6 +23,23 @@ public class ServicioSuscripcionImpl implements ServicioSuscripcion{
 	@Inject
 	UsuarioDao usuarioDao;
 	
+	
+	public SuscripcionDao getSuscripcionDao() {
+		return suscripcionDao;
+	}
+
+	public void setSuscripcionDao(SuscripcionDao suscripcionDao) {
+		this.suscripcionDao = suscripcionDao;
+	}
+
+	public UsuarioDao getUsuarioDao() {
+		return usuarioDao;
+	}
+
+	public void setUsuarioDao(UsuarioDao usuarioDao) {
+		this.usuarioDao = usuarioDao;
+	}
+
 	@Override
 	public TipoSuscripcion obtenerDatosSegunTipo(Long tipo) {
 		TipoSuscripcion tipoSusc = suscripcionDao.obtenerTipoSegunId(tipo);
@@ -44,7 +61,7 @@ public class ServicioSuscripcionImpl implements ServicioSuscripcion{
 	}
 	
 	@Override
-	public Suscripcion crearSuscripcion(Long tipo, LocalDate fechaInicio) {
+	public Long crearSuscripcion(Long tipo, LocalDate fechaInicio) {
 		TipoSuscripcion tipoSusc = this.obtenerDatosSegunTipo(tipo);
 		LocalDate fechaVencimiento = this.calcularFechaVencimiento(fechaInicio, tipo);
 		Suscripcion susc = new Suscripcion();
@@ -57,10 +74,24 @@ public class ServicioSuscripcionImpl implements ServicioSuscripcion{
 	
 	@Override
 	public void insertarSuscripcionEnUsuario(Long tipo, LocalDate fechaInicio, Long id) {
-		Suscripcion susc = this.crearSuscripcion(tipo, fechaInicio);
+		Long idSusc = this.crearSuscripcion(tipo, fechaInicio);
+		Suscripcion susc = this.suscripcionDao.obtenerSuscripcionSegunId(idSusc);
 		Usuario user = this.usuarioDao.obtenerUsuarioPorId(id);
 		user.setSuscripcion(susc);
 		this.usuarioDao.update(user);
+	}
+	
+	@Override
+	public Boolean vencerSuscripcion(Long id) {
+		Suscripcion susc = this.suscripcionDao.obtenerSuscripcionSegunId(id);
+		LocalDate vencim = susc.getFechaVencimiento();
+		if(vencim.equals(LocalDate.now())) {
+			susc.setEstado(false);
+			this.suscripcionDao.updateSuscripcion(susc);
+			return true;
+		}else {
+			return false;
+		}
 	}
 		
 }

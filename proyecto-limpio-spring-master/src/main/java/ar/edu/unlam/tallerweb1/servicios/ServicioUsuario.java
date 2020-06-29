@@ -23,5 +23,9 @@ public interface ServicioUsuario {
 	void update(Usuario usuario);
 
 	Usuario consultarEmailYPassDeUsuario(Usuario usuario);
+	
+	List<String> validarUsuarioEditar(Usuario usuario);
+	 
+	void editarUsuario(Usuario usuario);
 
 }

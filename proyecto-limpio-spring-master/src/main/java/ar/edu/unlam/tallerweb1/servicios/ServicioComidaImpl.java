@@ -31,13 +31,6 @@ public class ServicioComidaImpl implements ServicioComida {
 	
 	@Inject
 	private RestriccionDao restriccionDao;
-
-	@Autowired
-	public ServicioComidaImpl(ComidaDao cD, UsuarioDao uD, RestriccionDao rD) {
-		this.comidaDao = cD;
-		this.restriccionDao = rD;
-		this.usuarioDao = uD; 
-	}
 	
 	@Override
 	public Long crearComida(Comida comida) {
@@ -72,8 +65,17 @@ public class ServicioComidaImpl implements ServicioComida {
 		this.usuarioDao = usuarioDao;
 	}
 	
+	
 	// --------------------SUGERIR COMIDAS POR RESTRICCIONES----------------------
 
+
+	public RestriccionDao getRestriccionDao() {
+		return restriccionDao;
+	}
+
+	public void setRestriccionDao(RestriccionDao restriccionDao) {
+		this.restriccionDao = restriccionDao;
+	}
 
 	@Override
 	public Comida sugerirDesayunoPorRestricciones(Long id) {

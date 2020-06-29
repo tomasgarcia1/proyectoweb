@@ -30,6 +30,7 @@ import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioMP;
 import ar.edu.unlam.tallerweb1.servicios.ServicioPedido;
 import ar.edu.unlam.tallerweb1.servicios.ServicioPosicion;
+import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
 
 @Controller
 public class ControladorPedido {
@@ -43,13 +44,32 @@ public class ControladorPedido {
 
 	@Inject
 	private ServicioPosicion servicioPosicion;
-	//------------PROBANDO-----------
 	
+	@Inject
+	private ServicioSuscripcion servicioSuscripcion;
+	//------------PROBANDO-----------
+
 
 	// ----------SELECCIONAR UBICACION MAPA---------
 	@RequestMapping(path="/elegirPedido")
-	public ModelAndView elegir() {
-		return new ModelAndView("elegirPedido",null);
+	public ModelAndView elegir(HttpServletRequest request) {
+		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
+		ModelMap model = new ModelMap();
+		
+		//validacion de suscripcion
+		if(user.getSuscripcion()!=null) {
+			this.servicioSuscripcion.vencerSuscripcion(user.getSuscripcion().getId());
+			if(!user.getSuscripcion().getEstado()) {
+				String mensaje = "Suscripción vencida";
+				model.put("msj", mensaje);
+			}
+		}else {
+			String mensaje = "Debe tener una suscripción para obtener este beneficio";
+			model.put("msj", mensaje);
+		}
+		//-----------------------------------
+	
+		return new ModelAndView("elegirPedido", model);
 	}
 	
 	@RequestMapping(path = "/posicionId", method = RequestMethod.POST)

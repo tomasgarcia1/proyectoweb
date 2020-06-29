@@ -13,6 +13,7 @@ import ar.edu.unlam.tallerweb1.modelo.Usuario;
 @Repository
 @Transactional
 public class UsuarioDaoImpl implements UsuarioDao {
+	
 	@Inject
 	private SessionFactory sesion;
 
@@ -57,6 +58,10 @@ public class UsuarioDaoImpl implements UsuarioDao {
 		return (Usuario) sesion.getCurrentSession().createCriteria(Usuario.class)
 				.add(Restrictions.eq("email", usuario.getEmail()))
 				.add(Restrictions.eq("password", usuario.getPassword())).uniqueResult();
+	}
+	@Override
+	public void editarUsuario(Usuario usuario) {
+		sesion.getCurrentSession().merge(usuario);
 	}
 
 }
