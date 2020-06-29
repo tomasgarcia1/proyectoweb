@@ -1,3 +1,4 @@
+
 	<nav class="navbar navbar-expand-lg navbar-dark bg-danger">
 		<div class="container">
 
@@ -26,7 +27,7 @@
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" href="mispedidos">Mis pedidos</a>
 							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="#">Imc</a>
+							<a class="dropdown-item" href="editarUsuario">Editar cuenta</a>
 						</div></li>
 
 				</ul>

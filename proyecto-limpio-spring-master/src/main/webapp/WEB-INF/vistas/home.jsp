@@ -15,7 +15,7 @@
 <title>Recomida!</title>
 </head>
 <body>
-	<%@include file="header.jsp" %>
+	<%@include file="headerSinLogin.jsp" %>
 
 	<section id="bienvenido" class="my-1">
 		<div class="container">

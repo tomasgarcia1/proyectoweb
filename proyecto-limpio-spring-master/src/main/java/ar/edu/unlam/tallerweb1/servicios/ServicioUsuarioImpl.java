@@ -129,6 +129,39 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 		}
 		return errores;
 	}
+	public List<String> validarUsuarioEditar(Usuario usuario)
+	{
+		List<String> errores=new LinkedList<String>();
+		if(!(this.validarDatosNulosEditar(usuario)))
+			errores.add("Agregar todos los datos solicitados.");
+		else {
+			if(!this.validarFormatoEmail(usuario.getEmail()))
+				errores.add("El formato del e-mail es invalido.");
+			if(!(this.validarPassword(usuario.getPassword())))
+				errores.add("Formato de contrasena invalida. Debe tener entre 8 y 16 caracteres, una mayuscula y un numero.");
+			if(!(usuario.getAltura()>50 && usuario.getAltura()<260))
+				errores.add("Ingrese una altura valida");
+			if(!(usuario.getPeso()>25.0&&usuario.getPeso()<600.0))
+				errores.add("Hablar con administracion.");
+			if(!(this.validarFecha(usuario.getFechaDeNacimiento())))
+				errores.add("Ingrese una fecha valida");
+			/* SACAR COMENTARIO CUANDO ESTE EL ATRIBUTO USERNAME
+			if(!(this.validarUsername(usuario.getUsername()))) 
+				errores.add("Formato de username invalido. Debe tener entre 3 y 12 caracteres");*/
+		}
+		return errores;
+	}
+	
+	public Boolean validarDatosNulosEditar(Usuario usuario)
+	{
+		if(usuario.getActividad()==null || usuario.getAltura()==null
+				|| usuario.getEmail()==null || usuario.getPeso()==null 
+				|| usuario.getFechaDeNacimiento()==null
+				|| usuario.getPassword()==null || usuario.getSexo()==null)
+			return false;
+		return true;
+	}
+	
 	//----------VALIDAR NULL------------
 	public Boolean validarDatosNulos(Usuario usuario, List<Restriccion> restricciones)
 	{
@@ -206,4 +239,13 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 		int fecha = Period.between(nac, ahora).getYears();
 		return fecha;
 	}
+	
+	public void editarUsuario(Usuario usuario) {
+		usuario.setCaloriasDiarias(calcularCaloriasDiarias(usuario));
+		usuario.setPassword(encriptarPassword(usuario.getPassword()));
+		usuario.setSuscripcion(usuarioDao.obtenerUsuarioPorId(usuario.getId()).getSuscripcion());
+		usuario.setRol(usuarioDao.obtenerUsuarioPorId(usuario.getId()).getRol());
+		usuarioDao.editarUsuario(usuario);
+	}
 }
+

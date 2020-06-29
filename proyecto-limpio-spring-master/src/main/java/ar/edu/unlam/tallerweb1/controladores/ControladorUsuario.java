@@ -78,6 +78,30 @@ public class ControladorUsuario {
 			return new ModelAndView("redirect:/registro"); 
 		} 	        			
 	}
-	
-	
+	@RequestMapping(path = "/editarUsuario")
+	public ModelAndView editarUsuario(HttpServletRequest request) {
+		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
+		List<Actividad> actividades = Arrays.asList(Actividad.values());
+		List<Sexo> sexos = Arrays.asList(Sexo.values());
+		ModelMap modelo = new ModelMap();
+		modelo.put("usuario",user);
+		modelo.put("actividades", actividades);
+		modelo.put("sexos", sexos);
+		return new ModelAndView("editarUsuario", modelo);
+	}
+	@RequestMapping(path="/editarValidacion")
+	public ModelAndView editarValidacion(@ModelAttribute("usuario") Usuario usuario, RedirectAttributes atributos,HttpServletRequest request) {
+		List<String> errores=servicioUsuario.validarUsuarioEditar(usuario);
+		if(errores.isEmpty())
+		{
+			servicioUsuario.editarUsuario(usuario);
+			request.getSession().setAttribute("usuario",usuario);
+			return new ModelAndView("redirect:/interno");
+		}
+		else 
+		{
+			atributos.addFlashAttribute("errores",errores);
+			return new ModelAndView("redirect:/editarUsuario"); 
+		} 	        			
+	}
 }
