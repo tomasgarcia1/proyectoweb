@@ -298,4 +298,18 @@ public class ServicioComidaImpl implements ServicioComida {
 		return comidasMasVistas;
 	}
 
+	@Override
+	public TreeSet<Comida> listarComidasUsuarioSinRepetir(Long id) {
+		Usuario user = usuarioDao.obtenerUsuarioPorId(id);
+		List<Restriccion> restricciones = user.getRestricciones();
+		List<Comida> comidas = comidaDao.obtenerComidas();
+		TreeSet<Comida> listacomidas = new TreeSet<Comida>();
+		for (Comida comida1 : comidas) {
+			if (comida1.getRestricciones().containsAll(restricciones)) {
+				listacomidas.add(comida1);
+			}
+		}
+		return listacomidas;
+	}
+
 }

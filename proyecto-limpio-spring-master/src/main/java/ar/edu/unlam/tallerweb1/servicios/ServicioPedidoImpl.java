@@ -99,6 +99,13 @@ public class ServicioPedidoImpl implements ServicioPedido {
 		}
 		return importe + precioEnvio;
 	}
+	
+	@Override
+	public Double calcularImporteTotalComidaUnica(Comida comida, Double precioEnvio) {
+		Double importe = comida.getPrecio();
+		return importe + precioEnvio;
+	}
+
 
 	// ---------GENERAR COMIDAS POR RESTRICCIONES----------
 
@@ -261,6 +268,7 @@ public class ServicioPedidoImpl implements ServicioPedido {
 	public Posicion listarPosicionesDeUnUsuario(Pedido pedido) {
 		return pedidoDao.listarPosicion(pedido);
 	}
+
 
 	
 

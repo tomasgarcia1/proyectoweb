@@ -27,12 +27,8 @@
 				<hr class="my-4">
 				<a class="btn btn-outline-danger btn-lg" href="elegirPedido" role="button">Realizar pedido</a> 
 
-<<<<<<< HEAD
-					<a class="btn btn-outline-danger btn-lg" href="suscripciones"
-=======
-				<a class="btn btn-outline-danger btn-lg" href="suscripciones"
->>>>>>> master
-					role="button">Suscripciones</a>
+
+					<a class="btn btn-outline-danger btn-lg" href="suscripciones" role="button">Suscripciones</a>
 			</div>
 		</div>
 	</section>
@@ -87,9 +83,6 @@
 	<!-- Footer -->
 	<%@include file="footer.jsp" %>
 	
-	<!-- Footer -->
-
-
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"

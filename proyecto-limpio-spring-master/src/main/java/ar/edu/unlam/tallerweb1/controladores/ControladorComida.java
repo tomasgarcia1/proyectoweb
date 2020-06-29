@@ -129,28 +129,45 @@ public class ControladorComida {
 	}
 
 	@RequestMapping(path = "/mostrarComidasMasVistasyPedidas")
-	public ModelAndView contadorDeComidas(@RequestParam(value = "id", required = true) Long id, HttpServletRequest request) {
+	public ModelAndView contadorDeComidas(@RequestParam(value = "id", required = true) Long id,
+			HttpServletRequest request) {
 
 		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
-		if(user != null) {
-		ModelMap modelo = new ModelMap();
-		
-		
-		Comida comida1 = servicioComida.obtenerPorId(id);
-		List<Comida> comidasContador = servicioComida.contadorComida(comida1);
-		TreeSet<Comida> comidasMasVistas = servicioComida.comidasMasVistas();
-		TreeSet<Comida> comidasMasPedidas = servicioPedido.comidasMasPedidas(user.getId());
+		if (user != null) {
+			ModelMap modelo = new ModelMap();
 
-		modelo.put("comidasVistas", comidasMasVistas);
-		modelo.put("comidasPedidas", comidasMasPedidas);
-		modelo.put("comidasContador", comidasContador);
-		modelo.put("comida", comida1);
-	
-		return new ModelAndView("/mostrarDetalleComida",modelo);
-		}else {
+			Comida comida1 = servicioComida.obtenerPorId(id);
+			List<Comida> comidasContador = servicioComida.contadorComida(comida1);
+			TreeSet<Comida> comidasMasVistas = servicioComida.comidasMasVistas();
+			TreeSet<Comida> comidasMasPedidas = servicioPedido.comidasMasPedidas(user.getId());
+
+			modelo.put("comidasVistas", comidasMasVistas);
+			modelo.put("comidasPedidas", comidasMasPedidas);
+			modelo.put("comidasContador", comidasContador);
+			modelo.put("comida", comida1);
+
+			return new ModelAndView("/mostrarDetalleComida", modelo);
+		} else {
 			return new ModelAndView("redirect:/interno");
 		}
-		
+
+	}
+
+	@RequestMapping(path = "/mostrarComidasEleccion")
+	public ModelAndView mostrarComidasEleccionUsuario(HttpServletRequest request) {
+		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
+		ModelMap modelo = new ModelMap();
+
+		if (user != null) {
+			TreeSet<Comida> comidas = servicioComida.listarComidasUsuarioSinRepetir(user.getId());
+
+			modelo.put("comidas", comidas);
+
+			return new ModelAndView("listarElegirComidas", modelo);
+		} else {
+			return new ModelAndView("redirect:/interno");
+
+		}
 	}
 
 }

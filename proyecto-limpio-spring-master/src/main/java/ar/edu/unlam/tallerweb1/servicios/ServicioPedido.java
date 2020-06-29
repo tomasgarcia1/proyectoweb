@@ -47,4 +47,6 @@ public interface ServicioPedido {
 	Posicion listarPosicionesDeUnUsuario(Pedido pedido);
 
 	ModelMap generarPreviewPosicion(Posicion posicionSucursal,Posicion posicion);
+
+	Double calcularImporteTotalComidaUnica(Comida comida, Double precioEnvio);
 }

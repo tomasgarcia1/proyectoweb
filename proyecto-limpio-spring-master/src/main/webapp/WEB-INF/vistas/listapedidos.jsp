@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Mis Pedidos</title>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -19,36 +19,41 @@
 </head>
 <body>
 
-	<%@include file="header.jsp" %>
+	<%@include file="header.jsp"%>
 
-	<section>
+	<h5 class="text-center display-4">Mis Pedidos</h5>
+	<section class="container -sm p-4">
 		<!-- ACA VA LA LISTA PAPA -->
-		<table>
-			<tr>
-				<th>ID</th>
-				<th>Importe</th>
-				<th>Estado</th>
-				<th><c:if test="${usuario.rol == 'ADMINISTRADOR'}">Usuario</c:if></th>
-			</tr>
-			<c:forEach items="${pedidos}" var="pedido">
+		<table class="table table-hover">
+			<thead>
 				<tr>
-					<td>${pedido.id}</td>
-					<td>${pedido.precio}</td>
-					<td>${pedido.estado}</td>
-					<td><c:if test="${usuario.rol == 'ADMINISTRADOR'}">
+					<th scope="col">ID</th>
+					<th scope="col">Importe</th>
+					<th scope="col">Estado</th>
+					<th scope="col"><c:if test="${usuario.rol == 'ADMINISTRADOR'}">Usuario</c:if></th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${pedidos}" var="pedido">
+					<tr>
+						<th scope="row">${pedido.id}</th>
+						<td>${pedido.precio}</td>
+						<td>${pedido.estado}</td>
+						<td><c:if test="${usuario.rol == 'ADMINISTRADOR'}">
     					${pedido.usuario.email}
     				</c:if></td>
-					<td><a href="detallepedido?id=${pedido.id}">VER DETALLE</a></td>
-					<td><c:if
-							test="${pedido.estado != 'CANCELADO' && pedido.estado != 'ENVIADO'}">
-							<a href="cancelarpedido?id=${pedido.id}">CANCELAR</a>
-						</c:if></td>
-				</tr>
-			</c:forEach>
+						<td><a href="detallepedido?id=${pedido.id}">VER DETALLE</a></td>
+						<td><c:if
+								test="${pedido.estado != 'CANCELADO' && pedido.estado != 'ENVIADO'}">
+								<a href="cancelarpedido?id=${pedido.id}">CANCELAR</a>
+							</c:if></td>
+					</tr>
+				</c:forEach>
+			</tbody>
 		</table>
 	</section>
 	<!-- Footer -->
-	<%@include file="footer.jsp" %>
+	<%@include file="footer.jsp"%>
 
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script

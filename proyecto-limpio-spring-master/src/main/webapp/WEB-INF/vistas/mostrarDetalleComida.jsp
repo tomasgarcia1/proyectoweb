@@ -21,44 +21,9 @@
 
 <%@include file="header.jsp" %>
 
-<<<<<<< HEAD
-			<a class="navbar-brand" href="home">RECOMIDA</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#navbarSupportedContent"
-				aria-controls="navbarSupportedContent" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav ml-auto">
-					<li class="nav-item active"><a class="nav-link" href="#">Inicio</a>
-					</li>
-					<li class="nav-item"><a class="nav-link" href="cerrarSesion">Cerrar
-							Sesión</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Menú de
-							comidas</a></li>
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-						role="button" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false"> Mi cuenta </a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="mostrarRestriccionesDeUsuario">Mis
-								restricciones</a>
-							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="#">Mis pedidos</a>
-							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="#">Imc</a>
-						</div></li>
-
-				</ul>
-			</div>
-		</div>
-	</nav>
-
-
 
 	<section class="container-sm p-4">
+		<form method="POST" action="seleccionarUbicacionUnicaComida">
 		<ul class="list-group list-group-horizontal-sm">
 			<li class="list-group-item"><img src="img/${comida.nombre}.jpg"
 				alt="..." style="width: 650px; height: 420px"></li>
@@ -76,37 +41,19 @@
 				<img src="img/wallet.png" style="width: 40px; height: 40px;"
 				alt="efectivo"> <img src="img/bank.png"
 				style="width: 40px; height: 40px;" alt="banco"> <br> <br>
-				<a href="mapa" class="btn btn-danger" role="button"
-				aria-pressed="false">Comprar</a>
-
+				
+				
+				<input type="hidden" name="id" id="id" value="${posicion.id}"/> <input
+				type="hidden" name="latitude" id="latitude"
+				value="${posicion.latitude}" /> <input type="hidden"
+				name="longitude" id="longitude" value="${posicion.longitude}" /> <input
+				type="hidden" name="nombre" id="nombre" value="${posicion.nombre}" />
+				<input type="hidden" name="idComidas" value="${comida.id}" />
+				<button type="submit" class="btn btn-danger">Comprar</button>
 			</li>
-
 		</ul>
-=======
-	<section>
-		<p>Detalle de la Comida</p>
-		<h3>Comida: ${comida.nombre}</h3>
-		<h3>Descripción: ${comida.descripcion}</h3>
-		<h3>Calorías: ${comida.calorias}</h3>
-		<h3>Precio: ${comida.precio}</h3>
-		<h3>Horario: ${comida.tipoHorario}</h3>
+		</form>
 		<br>
-		<h1>Comidas más vistas</h1>
-		<c:forEach items="${comidasVistas}" var="comida1">
-			<ul>
-				<li>${comida1.nombre}</li>
-			</ul>
-		</c:forEach>
-		<br>
-		<h1>Comidas más Pedidas</h1>
-		<c:forEach items="${comidasPedidas}" var="comida2">
-			<ul>
-				<li>${comida2.nombre}</li>
-			</ul>
-		</c:forEach>
->>>>>>> master
-		<br>
-
 		<section class="container -sm p-2">
 			<h3 class="text-center">También podría interesarte las comidas
 				más Vistas..</h3>
