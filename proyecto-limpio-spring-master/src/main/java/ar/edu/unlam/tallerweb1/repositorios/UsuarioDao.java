@@ -13,4 +13,6 @@ public interface UsuarioDao {
 
 	Usuario consultarEmailYPassDeUsuario(Usuario usuario);
 
+	void editarUsuario(Usuario usuario);
+
 }
