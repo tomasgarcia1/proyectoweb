@@ -56,86 +56,90 @@
 		</div>
 	</nav>
 
-	<section class="container p-4">
-		<h3 class="text-center">Seleccionar pedido segÃºn gustos</h3>
+	<section class="container-sm p-4">
+		<h2 class="text-center">Seleccionar pedido según gustos</h2>
 		<form method="POST" action="seleccionarUbicacion">
-			<!--  <h3>Usuario: ${usuario.email}</h3>-->
 
-			<span class="h5">MenÃº 1</span> <input type="radio" name="idComidas"
-				value="${idcomidas1}" />
+			<h3 class="text-danger">MENÚ 1</h3>
+			<span class="h5"> Seleccionar menú </span> <input type="radio"
+				name="idComidas" value="${idcomidas1}" />
 
-
-			<ul class="list-group list-group-flush">
-				<li class="list-group-item  flex-fill"><c:forEach
-						items="${comidas1}" var="comida">
-
-						<ul class="list-unstyled">
-							<li class="media"><img src="img/${comida.nombre}.jpg"
-								class="mr-3" alt="..." style="width: 170px; height: 100px">
-								<div class="media-body">
-									<h5 class="text-danger">${comida.tipoHorario}</h5>
-									<h6 class="mt-0 mb-1">${comida.nombre}</h6>
-									<span>${comida.descripcion}</span>
-									<p>Precio: $ ${comida.precio}</p>
-								</div></li>
-						</ul>
-					</c:forEach></li>
+			<ul class="list-group list-group-horizontal-sm">
+				<c:forEach items="${comidas1}" var="comida">
+					<li class="list-group-item flex-fill"><img
+						src="img/${comida.nombre}.jpg"
+						class="rounded mx-auto d-block mr-3 mb-2" alt="..."
+						style="width: 300px; height: 190px">
+						<h4 class="text-danger">${comida.tipoHorario}:</h4>
+						<h5>${comida.nombre}</h5>
+						<p>${comida.descripcion}</p>
+						<h6>
+							Precio: <span class="text-danger h5">$ ${comida.precio}</span>
+						</h6></li>
+				</c:forEach>
 			</ul>
-			<br> <span class="h5">MenÃº 2</span> <input type="radio"
+
+			<br>
+
+			<h3 class="text-danger">MENÚ 2</h3>
+			<span class="h5"> Seleccionar menú </span> <input type="radio"
 				name="idComidas" value="${idcomidas2}" />
 
-			<ul class="list-group list-group-flush">
-				<li class="list-group-item  flex-fill"><c:forEach
-						items="${comidas2}" var="comida2">
-
-						<ul class="list-unstyled">
-							<li class="media"><img src="img/${comida2.nombre}.jpg"
-								class="mr-3" alt="..." style="width: 170px; height: 100px">
-								<div class="media-body">
-									<h5 class="text-danger">${comida2.tipoHorario}</h5>
-									<h6 class="mt-0 mb-1">${comida2.nombre}</h6>
-									<span>${comida2.descripcion}</span>
-									<p>Precio: $ ${comida2.precio}</p>
-								</div></li>
-						</ul>
-					</c:forEach></li>
+			<ul class="list-group list-group-horizontal-sm">
+				<c:forEach items="${comidas2}" var="comida2">
+					<li class="list-group-item flex-fill"><img
+						src="img/${comida2.nombre}.jpg"
+						class="rounded mx-auto d-block mr-3 mb-2" alt="..."
+						style="width: 300px; height: 190px">
+						<h4 class="text-danger">${comida2.tipoHorario}:</h4>
+						<h5>${comida2.nombre}</h5>
+						<p>${comida2.descripcion}</p>
+						<h6>
+							Precio: <span class="text-danger h5">$ ${comida2.precio}</span>
+						</h6></li>
+				</c:forEach>
 			</ul>
-			<br> <span class="h5">MenÃº 3</span> <input type="radio"
+
+			<br>
+
+			<h3 class="text-danger">MENÚ 3</h3>
+			<span class="h5"> Seleccionar menú </span> <input type="radio"
 				name="idComidas" value="${idcomidas3}" />
 
-			<ul class="list-group list-group-flush">
-				<li class="list-group-item  flex-fill"><c:forEach
-						items="${comidas3}" var="comida3">
-
-						<ul class="list-unstyled">
-							<li class="media"><img src="img/${comida3.nombre}.jpg"
-								class="mr-3" alt="..." style="width: 170px; height: 100px">
-								<div class="media-body">
-									<h5 class="text-danger">${comida3.tipoHorario}</h5>
-									<h6 class="mt-0 mb-1">${comida3.nombre}</h6>
-									<span>${comida3.descripcion}</span>
-									<p>Precio: $ ${comida3.precio}</p>
-								</div></li>
-						</ul>
-					</c:forEach></li>
+			<ul class="list-group list-group-horizontal-sm">
+				<c:forEach items="${comidas3}" var="comida3">
+					<li class="list-group-item flex-fill"><img
+						src="img/${comida3.nombre}.jpg"
+						class="rounded mx-auto d-block mr-3 mb-2" alt="..."
+						style="width: 300px; height: 190px">
+						<h4 class="text-danger">${comida3.tipoHorario}:</h4>
+						<h5>${comida3.nombre}</h5>
+						<p>${comida3.descripcion}</p>
+						<h6>
+							Precio: <span class="text-danger h5">$ ${comida3.precio}</span>
+						</h6></li>
+				</c:forEach>
 			</ul>
+
 			<input type="hidden" name="id" id="id" value="${posicion.id}" /> <input
 				type="hidden" name="latitude" id="latitude"
 				value="${posicion.latitude}" /> <input type="hidden"
 				name="longitude" id="longitude" value="${posicion.longitude}" /> <input
 				type="hidden" name="nombre" id="nombre" value="${posicion.nombre}" />
 
-			<button type="submit" class="btn btn-success mt-5">Confirmar
-
-				gustos</button>
+			<button type="submit" class="btn btn-danger btn-block mt-5 ">Confirmar</button>
 		</form>
 	</section>
 
 	<br>
 
-	<section>
-		<h3 class="text-center">TambiÃ©n podes ver.. Â¡Las comidas
-			adaptadas a tus gustos mÃ¡s pedidas!</h3>
+
+	<section class="container -sm p-2">
+
+		<hr class="my-2">
+		<br>
+		<h4 class="text-center">Tambien podes ver.. ¡Las comidas
+			adaptadas a tus gustos más pedidas!</h4>
 		<br>
 		<div class="container -sm p-2">
 			<ul class="list-unstyled">
@@ -144,11 +148,11 @@
 						<img src="img/${comida.nombre}.jpg" class="mr-3" alt="..."
 							style="width: 140px; height: 100px; border: 1px black">
 						<div class="media-body">
-							<h5 class="mt-0 mb-1">${comida.nombre}</h5>
+							<h5 class="mt-0 mb-1 text-dark">${comida.nombre}</h5>
 							<br> <a
 								href="mostrarComidasMasVistasyPedidas?id=${comida.id}"
-								class="btn btn-primary" role="button" aria-pressed="false">Ver
-								detalle</a>
+								class="btn btn-outline-danger" role="button"
+								aria-pressed="false">Ver detalle</a>
 						</div>
 					</c:forEach></li>
 			</ul>

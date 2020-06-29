@@ -65,7 +65,7 @@
 					sus gustos o calorias</p>
 				<a class="btn btn-outline-danger btn-lg" href="elegirPedido" role="button">Realizar pedido</a> 
 
-					class="btn btn-outline-danger btn-lg" href="suscripciones"
+					<a class="btn btn-outline-danger btn-lg" href="suscripciones"
 					role="button">Suscripciones</a>
 			</div>
 		</div>
