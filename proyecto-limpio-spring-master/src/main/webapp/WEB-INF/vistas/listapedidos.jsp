@@ -21,37 +21,60 @@
 
 	<%@include file="header.jsp"%>
 
-	<h5 class="text-center display-4">Mis Pedidos</h5>
+	<h5 class="text-center display-4 mt-4">Pedidos</h5>
 	<section class="container -sm p-4">
 		<!-- ACA VA LA LISTA PAPA -->
 		<table class="table table-hover">
 			<thead>
 				<tr>
-					<th scope="col">ID</th>
-					<th scope="col">Importe</th>
-					<th scope="col">Estado</th>
-					<th scope="col"><c:if test="${usuario.rol == 'ADMINISTRADOR'}">Usuario</c:if></th>
+					<th scope="col" class="text-danger">ID</th>
+					<th scope="col" class="text-danger">Importe</th>
+					<th scope="col" class="text-danger">Estado</th>
+					<c:if test="${usuario.rol == 'ADMINISTRADOR'}">
+						<th scope="col" class="text-danger">Usuario</th>
+					</c:if>
+					<th scope="col" class="text-danger">Detalle</th>
+					<c:if test="${usuario.rol == 'ADMINISTRADOR'}">
+						<th scope="col" class="text-danger">Cancelar</th>
+					</c:if>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${pedidos}" var="pedido">
 					<tr>
-						<th scope="row">${pedido.id}</th>
-						<td>${pedido.precio}</td>
-						<td>${pedido.estado}</td>
-						<td><c:if test="${usuario.rol == 'ADMINISTRADOR'}">
-    					${pedido.usuario.email}
-    				</c:if></td>
-						<td><a href="detallepedido?id=${pedido.id}">VER DETALLE</a></td>
-						<td><c:if
-								test="${pedido.estado != 'CANCELADO' && pedido.estado != 'ENVIADO'}">
-								<a href="cancelarpedido?id=${pedido.id}">CANCELAR</a>
+						<th scope="row" class="text-secondary">${pedido.id}</th>
+						<td class="h5">$ ${pedido.precio}</td>
+						<td><c:if test="${pedido.estado =='ENVIADO'}">
+								<h5 class="text-primary">${pedido.estado}</h5>
+							</c:if> <c:if test="${pedido.estado =='CANCELADO'}">
+								<h5 class="text-danger">${pedido.estado}</h5>
+							</c:if> <c:if test="${pedido.estado =='ENVIO'}">
+								<h5 class="text-secondary">${pedido.estado}</h5>
+							</c:if> <c:if test="${pedido.estado =='ACEPTADO'}">
+								<h5 class="text-info">${pedido.estado}</h5>
+							</c:if> <c:if test="${pedido.estado =='PROCESO'}">
+								<h5 class="text-success">${pedido.estado}</h5>
 							</c:if></td>
+						<c:if test="${usuario.rol == 'ADMINISTRADOR'}">
+							<td>${pedido.usuario.email}</td>
+						</c:if>
+						<td><a href="detallepedido?id=${pedido.id}">VER DETALLE</a></td>
+						<c:if
+							test="${pedido.estado != 'CANCELADO' && pedido.estado != 'ENVIADO' && usuario.rol == 'ADMINISTRADOR'}">
+							<td><a href="cancelarpedido?id=${pedido.id}">CANCELAR</a></td>
+						</c:if>
+						<c:if
+							test="${pedido.estado != 'ACEPTADO' && pedido.estado != 'ENVIO' && pedido.estado != 'PROCESO' && usuario.rol == 'ADMINISTRADOR'}">
+							<td>No se puede cancelar, ya concretó el estado del pedido</td>
+						</c:if>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
+		<a href="adminInterno" class="btn btn-lg btn-danger mt-3">Atrás</a>
 	</section>
+
+
 	<!-- Footer -->
 	<%@include file="footer.jsp"%>
 

@@ -28,9 +28,9 @@
 				<div class="row my-5">
 				<c:forEach items="${comidas}" var="comida">
 					<div class="col-md-4 mb-4">
-						<div class="card" style="width: 20rem;">
+						<div class="card" style="width: 21rem;">
 							<img class="card-img-top" src="img/${comida.nombre}.jpg"
-								alt="Card image cap" style="height: 196px">
+								alt="Card image cap" style="height: 220px">
 							<div class="card-body">
 								<h5 class="card-title text-center text-danger">${comida.nombre}</h5>
 								<div class="align-center">
