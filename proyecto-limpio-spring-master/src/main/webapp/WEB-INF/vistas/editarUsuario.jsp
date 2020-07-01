@@ -34,13 +34,18 @@
 
 			<div class="form-row">
 			<form:input path="id" hidden= "true" />				
-					
+				<div class="form-group col-md-4">
+					<label for="username">Nombre de usuario</label>
+					<form:input path="username" id="username" type="text"
+						class="form-control" />
+				</div>
 				<div class="form-group col-md-6">
 					<label for="email">Email</label>
 					<form:input path="email" id="email" type="email"
 						class="form-control" value="" />
 				</div>
-
+			</div>
+			<div class="form-row">
 				<div class="form-group col-md-6">
 					<label for="password">Contrasena (entre 8 y 16 caracteres,
 						al menos una mayuscula y un numero)</label>

@@ -38,6 +38,8 @@ public class Usuario {
 	private Actividad actividad;
 	private Sexo sexo;
 	private Rol rol;
+	private String username;
+	
 	
 	@ManyToOne
 	private Suscripcion suscripcion;
@@ -123,6 +125,10 @@ public class Usuario {
 	public void setSuscripcion(Suscripcion suscripcion) {
 		this.suscripcion = suscripcion;
 	}
-	
-	
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
 }
