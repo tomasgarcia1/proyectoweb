@@ -29,6 +29,9 @@
 			<ul class="list-group list-group-horizontal-sm">
 				<c:forEach items="${menu1}" var="comida">
 					<li class="list-group-item flex-fill">
+					<img src="img/${comida.nombre}.jpg"
+						class="rounded mx-auto d-block mr-3 mb-2" alt="..."
+						style="width: 300px; height: 190px">
 						<h4 class="text-danger">${comida.tipoHorario}:</h4>
 						<h5>${comida.nombre}</h5>
 						<p>${comida.descripcion}</p>
@@ -46,6 +49,9 @@
 			<ul class="list-group list-group-horizontal-sm">
 				<c:forEach items="${menu2}" var="comida2">
 					<li class="list-group-item flex-fill">
+					<img src="img/${comida2.nombre}.jpg"
+						class="rounded mx-auto d-block mr-3 mb-2" alt="..."
+						style="width: 300px; height: 190px">
 						<h4 class="text-danger">${comida2.tipoHorario}:</h4>
 						<h5>${comida2.nombre}</h5>
 						<p>${comida2.descripcion}</p>
@@ -63,6 +69,9 @@
 			<ul class="list-group list-group-horizontal-sm">
 				<c:forEach items="${menu3}" var="comida3">
 					<li class="list-group-item flex-fill">
+					<img src="img/${comida3.nombre}.jpg"
+						class="rounded mx-auto d-block mr-3 mb-2" alt="..."
+						style="width: 300px; height: 190px">
 						<h4 class="text-danger">${comida3.tipoHorario}:</h4>
 						<h5>${comida3.nombre}</h5>
 						<p>${comida3.descripcion}</p>

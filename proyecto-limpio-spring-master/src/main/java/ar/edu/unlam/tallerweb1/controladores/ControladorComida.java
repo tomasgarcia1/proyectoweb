@@ -36,23 +36,6 @@ public class ControladorComida {
 	@Inject
 	private ServicioPedido servicioPedido;
 
-	// ---------CREAR COMIDA---------
-
-	@RequestMapping("/crearComida")
-	public ModelAndView crearComida(@RequestParam(value = "nombre", required = true) String nombre,
-			@RequestParam(value = "descripcion", required = true) String descripcion,
-			@RequestParam(value = "calorias", required = true) Double calorias) {
-		ModelMap model = new ModelMap();
-		Comida comida = new Comida();
-		comida.setNombre(nombre);
-		comida.setDescripcion(descripcion);
-		comida.setCalorias(calorias);
-		Long idGenerado = servicioComida.crearComida(comida);
-		model.put("comida", comida);
-		return new ModelAndView("nuevaComida", model);
-
-	}
-
 	// --------ELIMINAR POR ID---------
 
 	@RequestMapping("/eliminarPorId")
