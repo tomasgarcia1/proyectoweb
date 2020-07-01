@@ -1,4 +1,5 @@
-
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page session="true" %>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-danger">
 		<div class="container">
 
@@ -20,7 +21,7 @@
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 						role="button" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false"> Mi cuenta </a>
+						aria-expanded="false">${usuario.username} </a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<a class="dropdown-item" href="mostrarRestriccionesDeUsuario">Mis
 								restricciones</a>

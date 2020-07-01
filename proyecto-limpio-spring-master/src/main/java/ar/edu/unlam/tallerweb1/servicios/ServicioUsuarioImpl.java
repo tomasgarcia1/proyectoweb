@@ -123,9 +123,8 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 				errores.add("Ingrese una fecha valida");
 			if(restricciones.isEmpty())
 				errores.add("Seleccion al menos una restriccion");
-			/* SACAR COMENTARIO CUANDO ESTE EL ATRIBUTO USERNAME
 			if(!(this.validarUsername(usuario.getUsername()))) 
-				errores.add("Formato de username invalido. Debe tener entre 3 y 12 caracteres");*/
+				errores.add("Formato de username invalido. Debe tener entre 3 y 12 caracteres");
 		}
 		return errores;
 	}
@@ -145,9 +144,9 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 				errores.add("Hablar con administracion.");
 			if(!(this.validarFecha(usuario.getFechaDeNacimiento())))
 				errores.add("Ingrese una fecha valida");
-			/* SACAR COMENTARIO CUANDO ESTE EL ATRIBUTO USERNAME
+			
 			if(!(this.validarUsername(usuario.getUsername()))) 
-				errores.add("Formato de username invalido. Debe tener entre 3 y 12 caracteres");*/
+				errores.add("Formato de username invalido. Debe tener entre 3 y 12 caracteres");
 		}
 		return errores;
 	}
@@ -157,7 +156,8 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 		if(usuario.getActividad()==null || usuario.getAltura()==null
 				|| usuario.getEmail()==null || usuario.getPeso()==null 
 				|| usuario.getFechaDeNacimiento()==null
-				|| usuario.getPassword()==null || usuario.getSexo()==null)
+				|| usuario.getPassword()==null || usuario.getSexo()==null
+				||usuario.getUsername()==null)
 			return false;
 		return true;
 	}
@@ -169,7 +169,7 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 				|| usuario.getEmail()==null || usuario.getPeso()==null 
 				|| usuario.getFechaDeNacimiento()==null
 				|| usuario.getPassword()==null || usuario.getSexo()==null
-				|| restricciones == null)
+				|| restricciones == null||usuario.getUsername()==null)
 			return false;
 		return true;
 	}

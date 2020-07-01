@@ -105,21 +105,27 @@ label img {
 			modelAttribute="usuario">
 
 			<div class="form-row">
-
-				<div class="form-group col-md-6">
+				<div class="form-group col-md-4">
+					<label for="username">Nombre de usuario</label>
+					<form:input path="username" id="username" type="text"
+						class="form-control" />
+				</div>
+				<div class="form-group col-md-4">
 					<label for="email">Email</label>
 					<form:input path="email" id="email" type="email"
 						class="form-control" />
 				</div>
 
-				<div class="form-group col-md-6">
+				
+			</div>
+			<div class="form-row">
+			<div class="form-group col-md-4">
 					<label for="password">Contrasena (entre 8 y 16 caracteres,
 						al menos una mayuscula y un numero)</label>
 					<form:input path="password" type="password" id="password"
 						class="form-control" />
 				</div>
 			</div>
-
 			<div class="form-group">
 				<label for="altura">Altura (en cm)</label>
 				<form:input path="altura" type="number" class="form-control"
