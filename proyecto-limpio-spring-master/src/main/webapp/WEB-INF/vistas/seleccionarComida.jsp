@@ -23,7 +23,7 @@
 <body>
 	<%@include file="header.jsp" %>
 
-	<div class="container mt-5 mb-5">
+	<div class="container mt-5 mb-3">
 		<h3>Seleccione comida</h3>
 	</div>
 	<div class="container mb-4">
@@ -47,7 +47,7 @@
 			
 			<div class="form-group mt-4">
 				<label for="th" class="h6">Comida a modificar</label>
-				<form:select path="nombre" class="form-control" required="required">
+				<form:select path="id" class="form-control" required="required">
 					<c:forEach items="${comidas}" var="th">
 						<option value="${th.id}">${th.nombre}</option>
 					</c:forEach>

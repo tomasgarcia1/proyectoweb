@@ -34,6 +34,7 @@ public class ServicioComidaImpl implements ServicioComida {
 	
 	@Override
 	public Long crearComida(Comida comida) {
+		comida.setContador(0);
 		return comidaDao.crearComida(comida);
 	}
 

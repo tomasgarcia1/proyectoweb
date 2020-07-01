@@ -211,6 +211,14 @@ public class ControladorRestriccion {
 			List<Restriccion> restricciones=new ArrayList<Restriccion>();
 			Comida comida = servicioComida.obtenerPorId(id);
 			
+			char [] array = restriccion.replace(",", "").toCharArray();
+	        for (int i = 0; i < array.length; i++) {            
+	            Restriccion r=this.servicioRestriccion.obtenerRestriccionPorId((long)Character.getNumericValue(array[i]));
+				 if(r!=null) {
+					 restricciones.add(r);
+				 }
+	        }
+			
 	        comida.setRestricciones(restricciones);
 	        this.servicioComida.updateComida(comida);
 	        

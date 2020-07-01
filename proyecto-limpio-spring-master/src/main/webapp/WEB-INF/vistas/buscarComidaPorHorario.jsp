@@ -23,17 +23,23 @@
 <body>
 	<%@include file="header.jsp" %>
 
-
-	<div class="container mt-5 mb-3">
-		<h3>Seleccione el tipo de comida</h3>
-		<p class="lead">Atención: Las restricciones nuevas suplantarán a las restricciones anteriores!</p>
+	<div class="container">
+		<div class="row mt-5 mb-3">
+			<div class="col-9">
+			<h3>Seleccione el tipo de comida</h3>
+			<p class="lead">Atención: Las restricciones nuevas suplantarán a las restricciones anteriores!</p>
+			</div>
+			<div class="col-1">
+				<img src="img/dieta.png" style="width:100px;">
+			</div>
+		</div>
 	</div>
 
 	<div class="container mb-4">
 		<form:form action="seleccionarComida" method="POST"
 			modelAttribute="comida">
 
-			<div class="form-group">
+			<div class="form-group mb-5">
 				<label for="th">Tipo de Comida</label>
 				<form:select path="tipoHorario" class="form-control" required="required">
 					<c:forEach items="${tipoHorario}" var="th">
@@ -43,6 +49,7 @@
 			</div>
 
 			<button type="submit" class="btn btn-danger">Aceptar</button>
+			<a href="adminInterno" class="btn btn-danger">Atrás</a>
 
 		</form:form>
 	</div>

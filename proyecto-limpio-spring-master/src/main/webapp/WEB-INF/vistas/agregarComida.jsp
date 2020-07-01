@@ -24,7 +24,7 @@
 	<%@include file="header.jsp" %>
 
 	<div class="container mt-5 mb-5">
-		<h3>Formulario de comida</h3>
+		<h3>Creación de comidas</h3>
 	</div>
 	<div class="container">
 		<form:form action="agregarComidaValidacion" method="POST"
@@ -53,7 +53,7 @@
 				<form:input path="precio" type="number" class="form-control" id="precio" required="required"/>
 			</div>
 
-			<div class="form-group">
+			<div class="form-group mb-5">
 				<label for="th">Tipo de Comida</label>
 				<form:select path="tipoHorario" class="form-control" required="required">
 					<c:forEach items="${tipoHorario}" var="th">
@@ -62,7 +62,8 @@
 				</form:select>
 			</div>
 
-			<button type="submit" class="btn btn-danger">Crear Comida</button>
+			<button type="submit" class="btn btn-danger mb-5">Crear Comida</button>
+			<a href="adminInterno" class="btn btn-danger mb-5">Atrás</a>
 
 		</form:form>
 	</div>

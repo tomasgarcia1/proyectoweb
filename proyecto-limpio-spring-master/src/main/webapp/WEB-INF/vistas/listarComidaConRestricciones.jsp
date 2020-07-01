@@ -22,18 +22,27 @@
 </head>
 <body>
 	<%@include file="header.jsp" %>
-
-
-<div class="container p-4 mb-5 mt-5">
-	<h3>Comida: ${comida.nombre}</h3>
-	<ul>
-			<c:forEach items="${comida.restricciones}" var="restriccion">
-				<li>${restriccion.nombre}</li>
-			</c:forEach>
-		</ul>
 	
-	<a class="btn btn-success" href="adminInterno">Confirmar restricciones</a>
-	
+	<div class="container p-4 mb-5 mt-5">
+		<div class="row">
+		  	<div class="col-6">
+				<h3>${comida.nombre}</h3>
+			<ul class="list-group list-group-flush">
+				<c:forEach items="${comida.restricciones}" var="restriccion">
+					<li class="list-group-item lead">${restriccion.nombre}</li>
+				</c:forEach>
+			</ul>
+			
+			<a class="btn btn-outline-danger mt-5" href="adminInterno">Confirmar restricciones</a>
+			
+		</div>
+		
+	    <div class="col-1 text-right">
+	    	<img src="img/receta.png" style="width:400px; opacity:0.7;">
+	    </div>
+	    
+	</div>
+
 </div>
 		<!-- Footer -->
 		<%@include file="footer.jsp" %>

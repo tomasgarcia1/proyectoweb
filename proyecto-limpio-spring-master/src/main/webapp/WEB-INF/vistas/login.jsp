@@ -41,6 +41,7 @@
 					class="form-control" />
 
 				<button class="btn btn-lg btn-danger mt-4" Type="Submit" />Login</button>
+				<a href="home" class="btn btn-lg btn-danger mt-4">Atrás</a>
 			</form:form>
 
 			<c:if test="${not empty error}">
