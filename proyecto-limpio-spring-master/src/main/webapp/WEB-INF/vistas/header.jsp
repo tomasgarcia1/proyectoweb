@@ -28,6 +28,10 @@
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" href="mispedidos">Mis pedidos</a>
 							<div class="dropdown-divider"></div>
+							<c:if test="${usuario.rol == 'CLIENTE'}">
+							<a class="dropdown-item" href="miscupones">Mis cupones</a>
+							<div class="dropdown-divider"></div>
+							</c:if>
 							<a class="dropdown-item" href="editarUsuario">Editar cuenta</a>
 						</div></li>
 

@@ -116,7 +116,7 @@
 						<div class="media-body">
 							<h5 class="mt-0 mb-1 text-dark">${comida.nombre}</h5>
 							<br> <a
-								href="mostrarComidasMasVistasyPedidas?id=${comida.id}"
+								href="mostrarComidasVistasyPedidas?id=${comida.id}"
 								class="btn btn-outline-danger" role="button"
 								aria-pressed="false">Ver detalle</a>
 						</div>

@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unlam.tallerweb1.modelo.Comida;
-import ar.edu.unlam.tallerweb1.modelo.OrdenPorContador;
 import ar.edu.unlam.tallerweb1.modelo.Posicion;
 import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.TipoHorario;
@@ -111,7 +110,9 @@ public class ControladorComida {
 
 	}
 
-	@RequestMapping(path = "/mostrarComidasMasVistasyPedidas")
+	// -----------------COMIDAS VISTAS Y PEDIDAS----------------
+
+	@RequestMapping(path = "/mostrarComidasVistasyPedidas")
 	public ModelAndView contadorDeComidas(@RequestParam(value = "id", required = true) Long id,
 			HttpServletRequest request) {
 
@@ -121,10 +122,12 @@ public class ControladorComida {
 
 			Comida comida1 = servicioComida.obtenerPorId(id);
 			List<Comida> comidasContador = servicioComida.contadorComida(comida1);
-			TreeSet<Comida> comidasMasVistas = servicioComida.comidasMasVistas();
+			List<Comida> comidasMasVistas = servicioComida.comidasMasVistasSegunUsuario(user.getId());
+			List<Comida> comidasMenosVistas = servicioComida.comidasMenosVistasSegunUsuario(user.getId());
 			TreeSet<Comida> comidasMasPedidas = servicioPedido.comidasMasPedidas(user.getId());
 
 			modelo.put("comidasVistas", comidasMasVistas);
+			modelo.put("comidasMenosVistas", comidasMenosVistas);
 			modelo.put("comidasPedidas", comidasMasPedidas);
 			modelo.put("comidasContador", comidasContador);
 			modelo.put("comida", comida1);
@@ -136,6 +139,8 @@ public class ControladorComida {
 
 	}
 
+	// ----------------ELEGIR COMIDAS SEGUN RESTRICCIONES DEL USUARIO---------------
+
 	@RequestMapping(path = "/mostrarComidasEleccion")
 	public ModelAndView mostrarComidasEleccionUsuario(HttpServletRequest request) {
 		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
@@ -143,13 +148,16 @@ public class ControladorComida {
 
 		if (user != null) {
 			TreeSet<Comida> comidas = servicioComida.listarComidasUsuarioSinRepetir(user.getId());
+			List<Comida> comidasMasVistas = servicioComida.comidasMasVistas();
+			List<Comida> comidasMenosVistas = servicioComida.comidasMenosVistas();
 
 			modelo.put("comidas", comidas);
+			modelo.put("comidasVistas", comidasMasVistas);
+			modelo.put("comidasMenosVistas", comidasMenosVistas);
 
 			return new ModelAndView("listarElegirComidas", modelo);
 		} else {
 			return new ModelAndView("redirect:/interno");
-
 		}
 	}
 

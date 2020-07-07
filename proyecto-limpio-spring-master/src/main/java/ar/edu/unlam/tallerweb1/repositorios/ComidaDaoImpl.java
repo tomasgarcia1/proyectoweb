@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,10 +51,14 @@ public class ComidaDaoImpl implements ComidaDao {
 
 		return comidas;
 	}
-
 	
 	public List<Comida> obtenerComidasMasVistas(){
-		List<Comida> comidasVistas = sesion.getCurrentSession().createCriteria(Comida.class).add(Restrictions.gt("contador", 5)).list();
+		List<Comida> comidasVistas = sesion.getCurrentSession().createCriteria(Comida.class).addOrder(Order.desc("contador")).setMaxResults(10).list();
+		return comidasVistas;
+	}
+	
+	public List<Comida> obtenerComidasMenosVistas(){
+		List<Comida> comidasVistas = sesion.getCurrentSession().createCriteria(Comida.class).addOrder(Order.asc("contador")).setMaxResults(5).list();
 		return comidasVistas;
 	}
 	

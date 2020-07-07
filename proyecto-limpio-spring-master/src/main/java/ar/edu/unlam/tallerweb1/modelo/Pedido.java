@@ -38,6 +38,15 @@ public class Pedido {
 	private List<Comida> comidas;
 	@OneToOne
 	private Posicion ubicacionDestino;
+	@OneToOne
+	private CuponDescuento cuponDescuento;
+	
+	public CuponDescuento getCuponDescuento() {
+		return cuponDescuento;
+	}
+	public void setCuponDescuento(CuponDescuento cuponDescuento) {
+		this.cuponDescuento = cuponDescuento;
+	}
 	
 	public Posicion getUbicacionDestino() {
 		return ubicacionDestino;

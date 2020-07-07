@@ -19,7 +19,6 @@ import ar.edu.unlam.tallerweb1.modelo.Pedido;
 import ar.edu.unlam.tallerweb1.modelo.Posicion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.PedidoDao;
-import ar.edu.unlam.tallerweb1.repositorios.UsuarioDao;
 
 @Service
 @Transactional

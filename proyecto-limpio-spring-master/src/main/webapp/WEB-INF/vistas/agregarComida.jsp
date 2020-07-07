@@ -21,7 +21,7 @@
 	crossorigin="anonymous">
 </head>
 <body>
-	<%@include file="header.jsp" %>
+	<%@include file="header.jsp"%>
 
 	<div class="container mt-5 mb-5">
 		<h3>Creación de comidas</h3>
@@ -30,46 +30,67 @@
 		<form:form action="agregarComidaValidacion" method="POST"
 			modelAttribute="comida">
 
-				<div class="form-group">
-					<label for="nombre">Nombre</label>
-					<form:input path="nombre" id="nombre" type="text"
-						class="form-control" required="required"/>
-				</div>
+			<div class="form-group">
+				<label for="nombre">Nombre</label>
+				<form:input path="nombre" id="nombre" type="text"
+					class="form-control" required="required" />
+			</div>
 
-				<div class="form-group">
-					<label for="descripcion">Descripcion</label>
-					<form:textarea path="descripcion" rows="4" cols="50" id="descripcion"
-						class="form-control" required="required"/>
-				</div>
+			<div class="form-group">
+				<label for="descripcion">Descripcion</label>
+				<form:textarea path="descripcion" rows="4" cols="50"
+					id="descripcion" class="form-control" required="required" />
+			</div>
 
 			<div class="form-group">
 				<label for="calorias">Calorias</label>
 				<form:input path="calorias" type="number" class="form-control"
-					id="calorias" required="required"/>
+					id="calorias" required="required" />
 			</div>
 
 			<div class="form-group">
+				<label for="calorias">Grasas Totales</label>
+				<form:input path="grasas" type="number" class="form-control"
+					id="grasas" required="required" />
+			</div>
+			
+			<div class="form-group">
+				<label for="calorias">Carbohidratos</label>
+				<form:input path="carbohidratos" type="number" class="form-control"
+					id="carbohidratos" required="required"/>
+			</div>
+			
+			<div class="form-group">
+				<label for="calorias">Proteinas</label>
+				<form:input path="proteinas" type="number" class="form-control"
+					id="proteinas" required="required"/>
+			</div>
+			
+			<div class="form-group">
 				<label for="precio">Precio</label>
-				<form:input path="precio" type="number" class="form-control" id="precio" required="required"/>
+				<form:input path="precio" type="number" class="form-control"
+					id="precio" required="required" />
 			</div>
 
 			<div class="form-group mb-5">
 				<label for="th">Tipo de Comida</label>
-				<form:select path="tipoHorario" class="form-control" required="required">
+				<form:select path="tipoHorario" class="form-control"
+					required="required">
 					<c:forEach items="${tipoHorario}" var="th">
 						<option value="${th}">${th}</option>
 					</c:forEach>
 				</form:select>
 			</div>
 
-			<button type="submit" class="btn btn-danger mb-5">Crear Comida</button>
+			<button type="submit" class="btn btn-danger mb-5">Crear
+				Comida</button>
 			<a href="adminInterno" class="btn btn-danger mb-5">Atrás</a>
 
 		</form:form>
 	</div>
 
 	<!-- Footer -->
-		<%@include file="footer.jsp" %>
+	<%@include file="footer.jsp"%>
 
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script

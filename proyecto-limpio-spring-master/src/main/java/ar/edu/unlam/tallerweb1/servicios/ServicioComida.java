@@ -32,12 +32,18 @@ public interface ServicioComida {
 	List<Comida> obtenerComidasSegunTipoHorario(TipoHorario tipo);
 
 	List<Comida> listarComidasSegunRestricciones(Long id);
-	
+
 	TreeSet<Comida> listarComidasUsuarioSinRepetir(Long id);
 
 	List<Comida> contadorComida(Comida comida);
 
-	TreeSet<Comida> comidasMasVistas();
+	List<Comida> comidasMasVistasSegunUsuario(Long id);
+	
+	List<Comida> comidasMenosVistasSegunUsuario(Long id);
+	
+	List<Comida> comidasMasVistas();
+	
+	List<Comida> comidasMenosVistas();
 
 	Comida obtenerComidaPorNombre(String nombre);
 

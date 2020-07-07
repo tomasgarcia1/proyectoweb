@@ -23,6 +23,9 @@ public class Comida implements Comparable<Comida> {
 	private Double precio;
 	private TipoHorario tipoHorario;
 	private Integer contador;
+	private Double grasas;
+	private Double carbohidratos;
+	private Double proteinas;
 
 	// mappedby indica la relacion bidireccional y tambien permitimos que se tome la
 	// config de JoinTable de Comida
@@ -120,6 +123,30 @@ public class Comida implements Comparable<Comida> {
 		this.contador = contador;
 	}
 
+	public Double getGrasas() {
+		return grasas;
+	}
+
+	public void setGrasas(Double grasas) {
+		this.grasas = grasas;
+	}
+
+	public Double getCarbohidratos() {
+		return carbohidratos;
+	}
+
+	public void setCarbohidratos(Double carbohidratos) {
+		this.carbohidratos = carbohidratos;
+	}
+
+	public Double getProteinas() {
+		return proteinas;
+	}
+
+	public void setProteinas(Double proteinas) {
+		this.proteinas = proteinas;
+	}
+
 	@Override
 	public int compareTo(Comida comida) {
 		int resultado = 0;
@@ -132,6 +159,5 @@ public class Comida implements Comparable<Comida> {
 		}
 		return resultado;
 	}
-
 
 }
