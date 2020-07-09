@@ -17,4 +17,6 @@ public interface ServicioSuscripcion {
 
 	Boolean vencerSuscripcion(Long id);
 
+	void cancelarSuscripcion(Long idUser);
+
 }

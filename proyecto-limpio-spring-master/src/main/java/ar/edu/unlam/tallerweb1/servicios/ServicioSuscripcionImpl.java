@@ -77,6 +77,12 @@ public class ServicioSuscripcionImpl implements ServicioSuscripcion{
 		Long idSusc = this.crearSuscripcion(tipo, fechaInicio);
 		Suscripcion susc = this.suscripcionDao.obtenerSuscripcionSegunId(idSusc);
 		Usuario user = this.usuarioDao.obtenerUsuarioPorId(id);
+		
+		if(user.getSuscripcion()!=null) {
+			Suscripcion suscVieja = this.suscripcionDao.obtenerSuscripcionSegunId(user.getSuscripcion().getId());
+			this.suscripcionDao.eliminarSuscripcion(suscVieja);
+		}
+		
 		user.setSuscripcion(susc);
 		this.usuarioDao.update(user);
 	}
@@ -92,6 +98,16 @@ public class ServicioSuscripcionImpl implements ServicioSuscripcion{
 		}else {
 			return false;
 		}
+	}
+	
+	@Override
+	public void cancelarSuscripcion(Long idUser) {
+		Usuario user = this.usuarioDao.obtenerUsuarioPorId(idUser);
+		Suscripcion susc = this.suscripcionDao.obtenerSuscripcionSegunId(user.getSuscripcion().getId());
+		this.suscripcionDao.eliminarSuscripcion(susc);
+		
+		user.setSuscripcion(null);
+		this.usuarioDao.update(user);
 	}
 		
 }

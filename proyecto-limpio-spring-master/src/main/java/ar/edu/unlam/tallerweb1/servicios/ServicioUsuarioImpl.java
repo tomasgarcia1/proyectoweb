@@ -52,6 +52,14 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 	public Boolean validarExistenciaEmail(String email) {
 		return usuarioDao.validarExistenciaEmail(email);
 	}
+	
+	//--------VALIDAR EXIST DE EMAIL--------
+	
+	@Override
+	public Usuario obtenerUsuarioPorId(Long id) {
+		return this.usuarioDao.obtenerUsuarioPorId(id);
+	}
+
 
 	//--------VALIDAR FORMATO EMAIL--------
 	

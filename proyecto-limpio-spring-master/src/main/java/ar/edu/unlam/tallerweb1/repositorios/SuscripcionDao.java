@@ -13,4 +13,6 @@ public interface SuscripcionDao {
 
 	void updateSuscripcion(Suscripcion susc);
 
+	void eliminarSuscripcion(Suscripcion susc);
+
 }

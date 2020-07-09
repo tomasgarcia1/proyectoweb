@@ -7,18 +7,22 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mercadopago.resources.Preference;
 
+import ar.edu.unlam.tallerweb1.modelo.Comida;
 import ar.edu.unlam.tallerweb1.modelo.Estado;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioMP;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
+import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 
 @Controller
 public class ControladorSuscripcion {
@@ -27,6 +31,9 @@ public class ControladorSuscripcion {
 	private ServicioSuscripcion servicioSuscripcion;
 	
 	private ServicioMP servicioMP = new ServicioMP();
+	
+	@Inject
+	private ServicioUsuario servicioUsuario;
 	
 	@RequestMapping("/suscripciones")
 	public ModelAndView verSuscripciones() {
@@ -78,6 +85,12 @@ public class ControladorSuscripcion {
 			if (estado.equals("approved")) {
 				LocalDate fechaInicio = LocalDate.now();
 				this.servicioSuscripcion.insertarSuscripcionEnUsuario(id, fechaInicio, user.getId());
+				request.getSession().invalidate();
+				
+				Usuario user2=this.servicioUsuario.obtenerUsuarioPorId(user.getId());
+				
+				request.getSession(true);
+				request.getSession().setAttribute("usuario",user2);
 			} else {
 				String mensaje = "Su pedido no ha podido ser procesado, intente de nuevo";
 				model.put("msj", mensaje);
@@ -87,6 +100,53 @@ public class ControladorSuscripcion {
 			
 			return new ModelAndView("pagarSuscripcion", model);
 			
+		}else {
+			return new ModelAndView("redirect:/login");
+		}
+	}
+	
+	@RequestMapping("/miSuscripcion")
+	public ModelAndView verMiSuscripcion(HttpServletRequest request) {
+		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
+		
+		if(user != null) {
+			ModelMap model = new ModelMap();
+			
+			if(user.getSuscripcion()!=null) {
+				Suscripcion susc = user.getSuscripcion();
+				TipoSuscripcion tipo = susc.getTipo();
+				model.put("susc", susc);
+				model.put("tipo", tipo);
+				model.put("estado", susc.getEstado());
+				
+			}else {
+				model.put("msj", "Usted no posee una suscripción");
+				
+			}
+			
+			return new ModelAndView("miSuscripcion", model);
+		}else {
+			return new ModelAndView("redirect:/login");
+		}
+	}
+	
+	@RequestMapping(path="/cancelarSuscripcion")
+	public ModelAndView cancelarSuscripcion(HttpServletRequest request) {
+		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
+		
+		if(user != null) {
+			ModelMap model = new ModelMap();
+			if(user.getSuscripcion()!=null) {
+			this.servicioSuscripcion.cancelarSuscripcion(user.getId());
+			request.getSession().invalidate();
+			
+			Usuario user2=this.servicioUsuario.obtenerUsuarioPorId(user.getId());
+			
+			request.getSession(true);
+			request.getSession().setAttribute("usuario",user2);
+			}
+			
+			return new ModelAndView("cancelarSuscripcion", model);
 		}else {
 			return new ModelAndView("redirect:/login");
 		}

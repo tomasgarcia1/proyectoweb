@@ -37,6 +37,11 @@ public class SuscripcionDaoImpl implements SuscripcionDao {
 	public void updateSuscripcion(Suscripcion susc) {
 		sesion.getCurrentSession().update(susc);
 	}
+	
+	@Override
+	public void eliminarSuscripcion(Suscripcion susc) {
+		sesion.getCurrentSession().delete(susc);
+	}
 
 	
 }

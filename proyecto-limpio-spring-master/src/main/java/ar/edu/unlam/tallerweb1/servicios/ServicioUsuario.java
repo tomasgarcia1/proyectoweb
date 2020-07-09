@@ -28,4 +28,6 @@ public interface ServicioUsuario {
 	 
 	void editarUsuario(Usuario usuario);
 
+	Usuario obtenerUsuarioPorId(Long id);
+
 }
