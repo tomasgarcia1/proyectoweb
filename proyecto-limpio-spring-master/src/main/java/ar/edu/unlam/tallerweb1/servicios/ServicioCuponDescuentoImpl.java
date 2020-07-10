@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,8 +11,10 @@ import org.springframework.stereotype.Service;
 
 import ar.edu.unlam.tallerweb1.modelo.CuponDescuento;
 import ar.edu.unlam.tallerweb1.modelo.MoldeCupon;
+import ar.edu.unlam.tallerweb1.modelo.Pedido;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.CuponDescuentoDao;
+import ar.edu.unlam.tallerweb1.repositorios.PedidoDao;
 import ar.edu.unlam.tallerweb1.repositorios.UsuarioDao;
 
 @Service
@@ -23,6 +26,9 @@ public class ServicioCuponDescuentoImpl implements ServicioCuponDescuento {
 
 	@Inject
 	private UsuarioDao usuarioDao;
+
+	@Inject
+	private PedidoDao pedidoDao;
 
 	@Override
 	public void agregarCupon(CuponDescuento cupon) {
@@ -44,7 +50,9 @@ public class ServicioCuponDescuentoImpl implements ServicioCuponDescuento {
 		return cuponDescuentoDao.consultarCuponPorId(id);
 	}
 
-	public void agregarCuponDescuentoUsuario(Double precioPedido, Long id) {
+	// --------AGREGAR DESCUENTO USUARIO CALCULO SEGUN GASTOS--------
+
+	public void agregarCuponDescuentoUsuarioGastos(Double precioPedido, Long id) {
 		Usuario user = usuarioDao.obtenerUsuarioPorId(id);
 		Integer cupones = cuponesUsuario(id).size();
 		Double gastos = user.getGastos();
@@ -60,11 +68,64 @@ public class ServicioCuponDescuentoImpl implements ServicioCuponDescuento {
 		}
 	}
 
+	// --------AGREGAR DESCUENTO USUARIO CALCULO SEGUN CANT PEDIDOS DE 1
+	// SEMANA----------
+
+	public void agregarCuponDescuentoUsuarioSemana(Double precioPedido, LocalDate fecha, Long id) {
+		Usuario user = usuarioDao.obtenerUsuarioPorId(id);
+		LocalDate fechahoy = fecha;
+		LocalDate fechaweekatras = fechahoy.minusWeeks(1);
+		Double gastosUser = user.getGastos();
+		Double gastosFinal = gastosUser + precioPedido;
+		user.setGastos(gastosFinal);
+		usuarioDao.update(user);
+		List<Pedido> pedidos = pedidoDao.listarPedidosEntreFechasDeUnUsuario(user, fechaweekatras, fechahoy);
+		if (pedidos.size() >= 4) {
+			MoldeCupon molde = valorMoldeAleatorio();
+			CuponDescuento cupon = new CuponDescuento();
+			cupon.setValor(molde.getValor());
+			cupon.setUsuario(user);
+			cupon.setEstado(true);
+			agregarCupon(cupon);
+		}
+	}
+
+	// --------AGREGAR DESCUENTO USUARIO CALCULO ENTRE DOS DIAS EN BASE A
+	// GASTOS--------
+
+	public void agregarCuponDescuentoUsuario2Fechas(Double precioPedido, LocalDate fecha, Long id) {
+		Usuario user = usuarioDao.obtenerUsuarioPorId(id);
+		LocalDate fechahoy = fecha;
+		LocalDate fechaayer = fechahoy.minusDays(1);
+		LocalDate fechaantesayer = fechahoy.minusDays(2);
+		Double gastosUser = user.getGastos();
+		Double gastosFinal = gastosUser + precioPedido;
+		user.setGastos(gastosFinal);
+		usuarioDao.update(user);
+		List<Pedido> pedidos = pedidoDao.listarPedidosEntreFechasDeUnUsuario(user, fechaantesayer, fechaayer);
+		Double gastosPedido = 0.0;
+		for (Pedido pedido : pedidos) {
+			gastosPedido += pedido.getPrecio();
+		}
+		if (gastosPedido >= 400.0) {
+			MoldeCupon molde = valorMoldeAleatorio();
+			CuponDescuento cupon = new CuponDescuento();
+			cupon.setValor(molde.getValor());
+			cupon.setUsuario(user);
+			cupon.setEstado(true);
+			agregarCupon(cupon);
+		}
+	}
+
+	// ------SELECCION DE UN MOLDE ALEATORIO------
+
 	public MoldeCupon valorMoldeAleatorio() {
 		List<MoldeCupon> molde = listarMoldeCupon();
 		Integer numeroRandom = (int) (Math.random() * molde.size());
 		return molde.get(numeroRandom);
 	}
+
+	// ------LISTA TODOS LOS CUPONES DEL USUARIO---------
 
 	public List<CuponDescuento> cuponesUsuario(Long id) {
 		List<CuponDescuento> cuponesUsuario = new LinkedList<CuponDescuento>();
@@ -77,6 +138,8 @@ public class ServicioCuponDescuentoImpl implements ServicioCuponDescuento {
 		return cuponesUsuario;
 	}
 
+	// --------LISTA CUPONES DEL USUARIO HABILITADOS---------
+
 	public List<CuponDescuento> cuponesUsuarioHabilitados(Long id) {
 		List<CuponDescuento> cuponeshabilitadosUsuario = new LinkedList<CuponDescuento>();
 		List<CuponDescuento> cuponeshabilitados = cuponDescuentoDao.listarCuponesHabilitados();
@@ -88,17 +151,21 @@ public class ServicioCuponDescuentoImpl implements ServicioCuponDescuento {
 		return cuponeshabilitadosUsuario;
 	}
 
+	// --------LISTA DE LOS MOLDES DE CUPON---------
+
 	public List<MoldeCupon> listarMoldeCupon() {
 		return cuponDescuentoDao.listarMoldeCupon();
 	}
+
+	// --------CALCULO DE IMPORTE CON CUPON-----------
 
 	@Override
 	public Double calcularImporteConCupon(Long idCupon, Double precioPedido) {
 		CuponDescuento cupon = consultarCuponPorId(idCupon);
 		Integer valorCupon = cupon.getValor();
 		Double resultado = precioPedido - valorCupon;
-		if(resultado < 0) {
-			resultado=0.0;
+		if (resultado < 0) {
+			resultado = 0.0;
 			return resultado;
 		}
 		return resultado;

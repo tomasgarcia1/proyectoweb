@@ -122,8 +122,8 @@ public class ControladorComida {
 
 			Comida comida1 = servicioComida.obtenerPorId(id);
 			List<Comida> comidasContador = servicioComida.contadorComida(comida1);
-			List<Comida> comidasMasVistas = servicioComida.comidasMasVistasSegunUsuario(user.getId());
-			List<Comida> comidasMenosVistas = servicioComida.comidasMenosVistasSegunUsuario(user.getId());
+			List<Comida> comidasMasVistas = servicioComida.comidasMasVistas();
+			List<Comida> comidasMenosVistas = servicioComida.comidasMenosVistas();
 			TreeSet<Comida> comidasMasPedidas = servicioPedido.comidasMasPedidas(user.getId());
 
 			modelo.put("comidasVistas", comidasMasVistas);
@@ -148,8 +148,8 @@ public class ControladorComida {
 
 		if (user != null) {
 			TreeSet<Comida> comidas = servicioComida.listarComidasUsuarioSinRepetir(user.getId());
-			List<Comida> comidasMasVistas = servicioComida.comidasMasVistas();
-			List<Comida> comidasMenosVistas = servicioComida.comidasMenosVistas();
+			List<Comida> comidasMasVistas = servicioComida.comidasMasVistasSegunUsuario(user.getId());
+			List<Comida> comidasMenosVistas = servicioComida.comidasMenosVistasSegunUsuario(user.getId());
 
 			modelo.put("comidas", comidas);
 			modelo.put("comidasVistas", comidasMasVistas);

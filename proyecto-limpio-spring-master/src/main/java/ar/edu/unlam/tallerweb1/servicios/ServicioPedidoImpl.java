@@ -243,6 +243,10 @@ public class ServicioPedidoImpl implements ServicioPedido {
 		pedidoDao.actualizarPedido(pedido);
 	}
 
+	public void updatePedido(Pedido pedido) {
+		pedidoDao.actualizarPedido(pedido);
+	}
+
 	@Override
 	public List<Pedido> listarPedidosPorUsuario(Usuario usuario) {
 		return pedidoDao.listarPedidosPorUsuario(usuario);

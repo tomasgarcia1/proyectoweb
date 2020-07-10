@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import ar.edu.unlam.tallerweb1.modelo.Comida;
@@ -17,6 +18,8 @@ public interface PedidoDao {
 	List<Pedido> listarPedidosPorUsuario(Usuario usuario);
 
 	List<Pedido> listarPedidos();
+	
+	List<Pedido> listarPedidosEntreFechasDeUnUsuario(Usuario usuario, LocalDate fechaanterior, LocalDate fechadespues);
 	
 	List<Comida> listarComidasDeUnPedido(Pedido pedido);
 	

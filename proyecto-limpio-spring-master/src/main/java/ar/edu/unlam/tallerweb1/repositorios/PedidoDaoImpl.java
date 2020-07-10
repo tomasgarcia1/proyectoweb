@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -55,4 +56,10 @@ public class PedidoDaoImpl implements PedidoDao {
 				.add(Restrictions.eq("id", pedido.getUbicacionId())).uniqueResult();
 	}
 	
+	@Override
+	public List<Pedido> listarPedidosEntreFechasDeUnUsuario(Usuario usuario, LocalDate fechaanterior, LocalDate fechadespues) {
+		List <Pedido> pedidos = sesion.getCurrentSession().createCriteria(Pedido.class).
+		add(Restrictions.and(Restrictions.eq("usuario.id", usuario.getId()), Restrictions.between("fecha", fechaanterior, fechadespues))).list();
+		return pedidos;
+	}
 }

@@ -22,7 +22,7 @@
 	<%@include file="header.jsp"%>
 
 	<h5 class="text-center display-4 mt-4">Pedidos</h5>
-	<section class="container -sm p-4">
+	<section class="container -xl">
 		<!-- ACA VA LA LISTA PAPA -->
 		<table class="table table-hover">
 			<thead>
@@ -30,6 +30,7 @@
 					<th scope="col" class="text-danger">ID</th>
 					<th scope="col" class="text-danger">Importe</th>
 					<th scope="col" class="text-danger">Estado</th>
+					<th scope="col" class="text-danger">Fecha</th>
 					<c:if test="${usuario.rol == 'ADMINISTRADOR'}">
 						<th scope="col" class="text-danger">Usuario</th>
 					</c:if>
@@ -55,6 +56,8 @@
 							</c:if> <c:if test="${pedido.estado =='PROCESO'}">
 								<h5 class="text-success">${pedido.estado}</h5>
 							</c:if></td>
+
+						<th class="h5 text-secondary">${pedido.fecha}</th>
 						<c:if test="${usuario.rol == 'ADMINISTRADOR'}">
 							<td>${pedido.usuario.email}</td>
 						</c:if>
@@ -71,7 +74,9 @@
 				</c:forEach>
 			</tbody>
 		</table>
-		<a href="adminInterno" class="btn btn-lg btn-danger mt-3">Atrás</a>
+
+		<a href="adminInterno" class="btn btn-lg btn-danger mt-3">Atrás</a> <br>
+		<br>
 	</section>
 
 

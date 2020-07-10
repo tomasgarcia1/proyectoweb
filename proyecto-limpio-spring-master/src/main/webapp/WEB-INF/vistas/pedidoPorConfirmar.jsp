@@ -51,7 +51,6 @@
 		<div class="container -sm">
 			<form action="pedidoConCuponComidas" method="POST" id="form">
 				<c:forEach items="${cupones}" var="cupon">
-					<c:if test="${cupones == null }">Lo sentimos, usted no tiene cupones disponibles</c:if>
 					<div class="input-group-prepend" id="select" style="display: none;">
 						<c:if test="${cupones != null}">
 							<span>Una vez que seleccionó el cupon, de click en elegir!</span>
@@ -59,7 +58,6 @@
 								required="required">
 								<option value="${cupon.id}">${cupon.valor}</option>
 							</select>
-
 							<input type="hidden" name="idCupon" value="${cupon.id}">
 							<input type="hidden" name="id" value="${id}">
 							<input type="hidden" name="idPosicion" value="${idPosicion}">
@@ -72,14 +70,13 @@
 		</div>
 
 		<div class="mt-5">
+			
 			<form action="pagarpedido" method="GET" class="d-inline">
 				<input type="hidden" name="id" value="${id}"> <input
-					type="hidden" name="idPosicion" value="${idPosicion}"> <input
-					type="hidden" name="idCupon" value="-1">
+					type="hidden" name="idPosicion" value="${idPosicion}">
 				<script
 					src="https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js"
 					data-preference-id="${preference.id}">
-					
 				</script>
 			</form>
 			<a href="interno" class="btn btn-danger m-3">Cancelar</a>

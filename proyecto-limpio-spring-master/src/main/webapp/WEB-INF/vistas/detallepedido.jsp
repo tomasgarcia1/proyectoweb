@@ -63,6 +63,11 @@
 		<hr>
 		<ul>
 			<li>
+				<h5>Fecha del Pedido:</h5>
+				<h4 class="text-secondary">${pedido.fecha}</h4>
+			</li>
+			<br>
+			<li>
 				<h5>Cliente:</h5>
 				<h4 class="text-danger">${pedido.usuario.email}</h4>
 			</li>

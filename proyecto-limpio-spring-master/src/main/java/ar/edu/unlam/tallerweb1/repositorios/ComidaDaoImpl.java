@@ -39,10 +39,8 @@ public class ComidaDaoImpl implements ComidaDao {
 
 	@Override
 	public List<Comida> obtenerComidasSegunCalorias(Double calorias) {
-		return sesion.getCurrentSession().createCriteria(Comida.class)
-				.add(Restrictions.le("calorias", calorias))
-				.add(Restrictions.gt("calorias", 50.0))
-				.list();
+		return sesion.getCurrentSession().createCriteria(Comida.class).add(Restrictions.le("calorias", calorias))
+				.add(Restrictions.gt("calorias", 50.0)).list();
 	}
 
 	@Override
@@ -51,18 +49,19 @@ public class ComidaDaoImpl implements ComidaDao {
 
 		return comidas;
 	}
-	
-	public List<Comida> obtenerComidasMasVistas(){
-		List<Comida> comidasVistas = sesion.getCurrentSession().createCriteria(Comida.class).addOrder(Order.desc("contador")).setMaxResults(10).list();
+
+	public List<Comida> obtenerComidasMasVistas() {
+		List<Comida> comidasVistas = sesion.getCurrentSession().createCriteria(Comida.class)
+				.addOrder(Order.desc("contador")).setMaxResults(5).list();
 		return comidasVistas;
 	}
-	
-	public List<Comida> obtenerComidasMenosVistas(){
-		List<Comida> comidasVistas = sesion.getCurrentSession().createCriteria(Comida.class).addOrder(Order.asc("contador")).setMaxResults(5).list();
+
+	public List<Comida> obtenerComidasMenosVistas() {
+		List<Comida> comidasVistas = sesion.getCurrentSession().createCriteria(Comida.class)
+				.addOrder(Order.asc("contador")).setMaxResults(5).list();
 		return comidasVistas;
 	}
-	
-	
+
 	@Override
 	public void updateComida(Comida comida) {
 		sesion.getCurrentSession().update(comida);

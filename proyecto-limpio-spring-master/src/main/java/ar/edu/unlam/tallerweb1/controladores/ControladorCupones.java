@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -17,6 +18,7 @@ import com.mercadopago.resources.Preference;
 
 import ar.edu.unlam.tallerweb1.modelo.Comida;
 import ar.edu.unlam.tallerweb1.modelo.CuponDescuento;
+import ar.edu.unlam.tallerweb1.modelo.Estado;
 import ar.edu.unlam.tallerweb1.modelo.MoldeCupon;
 import ar.edu.unlam.tallerweb1.modelo.Pedido;
 import ar.edu.unlam.tallerweb1.modelo.Posicion;
@@ -47,30 +49,29 @@ public class ControladorCupones {
 	@Inject
 	private ServicioCuponDescuento servicioCuponDescuento;
 
-	
 	/*
-	// ----------------AGREGAR CUPON------------------
+	 * // ----------------AGREGAR CUPON------------------
+	 * 
+	 * @RequestMapping(path = "/agregarCupon", method = RequestMethod.GET) public
+	 * ModelAndView agregarCupon(@RequestParam(value = "id") String id,
+	 * 
+	 * @RequestParam(value = "idPosicion") Long idPosicion, @RequestParam(value =
+	 * "precio") Double precio, HttpServletRequest request) { ModelMap model = new
+	 * ModelMap();
+	 * 
+	 * Usuario user = (Usuario) request.getSession().getAttribute("usuario");
+	 * 
+	 * List<CuponDescuento> cupon =
+	 * servicioCuponDescuento.cuponesUsuarioHabilitados(user.getId());
+	 * 
+	 * model.put("id", id); model.put("cupones", cupon); model.put("precio",
+	 * precio); model.put("idPosicion", idPosicion); return new
+	 * ModelAndView("agregarCupon", model); }
+	 * 
+	 */
 
-	@RequestMapping(path = "/agregarCupon", method = RequestMethod.GET)
-	public ModelAndView agregarCupon(@RequestParam(value = "id") String id,
-			@RequestParam(value = "idPosicion") Long idPosicion, @RequestParam(value = "precio") Double precio, HttpServletRequest request) {
-		ModelMap model = new ModelMap();
+	// --------------CUPONES DEL USUARIO------------------
 
-		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
-
-		List<CuponDescuento> cupon = servicioCuponDescuento.cuponesUsuarioHabilitados(user.getId());
-
-		model.put("id", id);
-		model.put("cupones", cupon);
-		model.put("precio", precio);
-		model.put("idPosicion", idPosicion);
-		return new ModelAndView("agregarCupon", model);
-	}
-	
-	*/
-
-	//--------------CUPONES DEL USUARIO------------------
-	
 	@RequestMapping(path = "/miscupones")
 	public ModelAndView miscupones(HttpServletRequest request) {
 		ModelMap model = new ModelMap();
@@ -80,7 +81,6 @@ public class ControladorCupones {
 		return new ModelAndView("listarCupones", model);
 	}
 
-		
 	// ---------------GENERA PEDIDO CON CUPON--------------
 
 	@RequestMapping(path = "/pedidoConCuponComidas", method = RequestMethod.POST)
@@ -116,6 +116,44 @@ public class ControladorCupones {
 
 		return new ModelAndView("pedidoConCupon", model);
 
+	}
+
+	// ---------PAGAR PEDIDO CON CUPON----------
+
+	@RequestMapping(path = "/pagarPedidoConCupon", method = RequestMethod.GET)
+	public ModelAndView pagarPedido(@RequestParam(value = "id") String id,
+			@RequestParam(value = "payment_status") String estado, @RequestParam(value = "idPosicion") Long idPosicion,
+			@RequestParam(value = "idCupon") Long idCupon, HttpServletRequest request) {
+		ModelMap model = new ModelMap();
+		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
+		Pedido nuevoPedido = new Pedido();
+		Posicion posicionCliente = this.servicioPosicion.obtenerPosicionPorId(idPosicion);
+		CuponDescuento cupon = servicioCuponDescuento.consultarCuponPorId(idCupon);
+
+		nuevoPedido = servicioPedido.generarPedidoPorIdComidas(id, posicionCliente, posicionSucursal);
+		// Estado proveniente de mercado pago
+		if (estado.equals("approved")) {
+			nuevoPedido.setEstado(Estado.PROCESO);
+		} else {
+			nuevoPedido.setEstado(Estado.CANCELADO);
+		}
+
+		nuevoPedido.setUsuario(user);
+		Long idPedido = servicioPedido.crearPedido(nuevoPedido);
+		nuevoPedido.setId(idPedido);
+		LocalDate fechahoy = LocalDate.now();
+		nuevoPedido.setFecha(fechahoy);
+		servicioPedido.updatePedido(nuevoPedido);
+		Double precio = nuevoPedido.getPrecio();
+		servicioCuponDescuento.agregarCuponDescuentoUsuarioSemana(precio, fechahoy, user.getId());
+		if (cupon != null) {
+			nuevoPedido.setCuponDescuento(cupon);
+			cupon.setEstado(false);
+			servicioCuponDescuento.actualizarCupon(cupon);
+		}
+
+		model.put("pedido", nuevoPedido);
+		return new ModelAndView("pedidoRealizado", model);
 	}
 
 	// ------------CREACIÓN MOLDE VALIDACIÓN--------------

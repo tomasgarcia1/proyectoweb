@@ -92,8 +92,7 @@
 		<br>
 
 		<section class="container -sm p-2">
-			<h3 class="text-center">¡Las Comidas Más Vistas en base a Tus
-				Gustos!</h3>
+			<h3 class="text-center">¡Las Comidas Más Vistas de Recomida!</h3>
 			<hr class="my-2">
 			<div class="container -sm p-2">
 				<ul class="list-group list-group-flush">
@@ -118,8 +117,7 @@
 				</ul>
 			</div>
 
-			<h3 class="text-center">¡Las Comidas Menos Vistas en base a Tus
-				Gustos!</h3>
+			<h3 class="text-center">¡Las Comidas Menos Vistas de Recomida!</h3>
 			<hr class="my-2">
 			<div class="container -sm p-2">
 				<ul class="list-group list-group-flush">
