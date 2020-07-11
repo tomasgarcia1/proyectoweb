@@ -13,8 +13,8 @@ insert into usuario values
 
 insert into comida values
 
-(1, 100, 0, "Una zanahoria rallada", "Zanahoria rallada", 5.0, 2),
-(2, 900, 0,"Tarta de acelga", "Tarta de acelga", 75.5, 1),
+(1, 100, 7, "Una zanahoria rallada", "Zanahoria rallada", 5.0, 2),
+(2, 900, 6,"Tarta de acelga", "Tarta de acelga", 75.5, 1),
 (3, 600, 0,"Ensalada de choclo y tomate", "Ensalada de choclo y tomate", 35.0, 2),
 (4, 800, 0,"Pollo al horno", "Pollo al horno", 100.0, 1),
 (5, 500, 0, "Tostadas con queso crema", "Tostadas con queso crema", 40.0, 0),
