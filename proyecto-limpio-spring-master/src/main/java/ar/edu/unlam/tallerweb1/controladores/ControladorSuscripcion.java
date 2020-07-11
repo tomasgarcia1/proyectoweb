@@ -35,6 +35,32 @@ public class ControladorSuscripcion {
 	@Inject
 	private ServicioUsuario servicioUsuario;
 	
+	
+	
+	public ServicioSuscripcion getServicioSuscripcion() {
+		return servicioSuscripcion;
+	}
+
+	public void setServicioSuscripcion(ServicioSuscripcion servicioSuscripcion) {
+		this.servicioSuscripcion = servicioSuscripcion;
+	}
+
+	public ServicioMP getServicioMP() {
+		return servicioMP;
+	}
+
+	public void setServicioMP(ServicioMP servicioMP) {
+		this.servicioMP = servicioMP;
+	}
+
+	public ServicioUsuario getServicioUsuario() {
+		return servicioUsuario;
+	}
+
+	public void setServicioUsuario(ServicioUsuario servicioUsuario) {
+		this.servicioUsuario = servicioUsuario;
+	}
+
 	@RequestMapping("/suscripciones")
 	public ModelAndView verSuscripciones() {
 		ModelMap modelo = new ModelMap();

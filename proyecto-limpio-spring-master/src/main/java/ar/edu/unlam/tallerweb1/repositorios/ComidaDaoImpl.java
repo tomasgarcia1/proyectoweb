@@ -18,6 +18,7 @@ import ar.edu.unlam.tallerweb1.modelo.Usuario;
 @Repository
 @Transactional
 public class ComidaDaoImpl implements ComidaDao {
+	
 	@Inject
 	private SessionFactory sesion;
 

@@ -3,6 +3,8 @@ package ar.edu.unlam.tallerweb1.repositorios;
 import java.util.List;
 import java.util.TreeSet;
 
+import org.hibernate.SessionFactory;
+
 import ar.edu.unlam.tallerweb1.modelo.Comida;
 
 public interface ComidaDao {
@@ -20,5 +22,4 @@ public interface ComidaDao {
 	List<Comida> obtenerComidasMasVistas();
 	
 	void updateComida(Comida comida);
-
 }

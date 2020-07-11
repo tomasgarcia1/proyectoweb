@@ -1,11 +1,13 @@
 package ar.edu.unlam.tallerweb1;
 
+import org.hibernate.SessionFactory;
 import org.junit.Test;
 import ar.edu.unlam.tallerweb1.modelo.Comida;
 import ar.edu.unlam.tallerweb1.modelo.Restriccion;
 import ar.edu.unlam.tallerweb1.modelo.TipoHorario;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.ComidaDao;
+import ar.edu.unlam.tallerweb1.repositorios.ComidaDaoImpl;
 import ar.edu.unlam.tallerweb1.repositorios.RestriccionDao;
 import ar.edu.unlam.tallerweb1.repositorios.UsuarioDao;
 import ar.edu.unlam.tallerweb1.servicios.ServicioComidaImpl;
@@ -14,9 +16,14 @@ import static org.mockito.Mockito.*;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import static org.assertj.core.api.Assertions.*;
 
-public class TestServicioComida {
+public class TestComida {
+		
+	@Inject
+	private ComidaDao cD;
     
     @Test
     public void verificarObtencionDeTipoHorarioCorrecto() {
@@ -50,8 +57,31 @@ public class TestServicioComida {
     	
     	for (Comida aux : resultado) {
     		verify(aux.getTipoHorario()).equals(TipoHorario.CENA);
-    		//assertThat(aux.getTipoHorario()).isEqualTo(TipoHorario.CENA);
     	}
     }
 	
+    @Test
+    public void verificarObtenerComidasSegunCaloriasDAO() {
+    	Comida c1 = new Comida();
+    	c1.setCalorias(300.0);
+    	Comida c2 = new Comida();
+    	c2.setCalorias(600.0);
+    	Comida c3 = new Comida();
+    	c3.setCalorias(200.0);
+    	Comida c4 = new Comida();
+    	c4.setCalorias(10.0);
+
+    	this.cD.crearComida(c1);
+    	this.cD.crearComida(c2);
+    	this.cD.crearComida(c3);
+    	this.cD.crearComida(c4);
+    	
+    	List<Comida> lista = this.cD.obtenerComidasSegunCalorias(400.0);
+    	
+    	verify(lista).contains(c1);
+    	verify(lista).contains(c3);
+    	verify(lista.contains(c2)).equals(false);
+    	verify(lista.contains(c4)).equals(false);
+    	
+    }
 }
