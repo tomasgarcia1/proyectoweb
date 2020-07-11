@@ -148,12 +148,8 @@ public class ControladorComida {
 
 		if (user != null) {
 			TreeSet<Comida> comidas = servicioComida.listarComidasUsuarioSinRepetir(user.getId());
-			List<Comida> comidasMasVistas = servicioComida.comidasMasVistasSegunUsuario(user.getId());
-			List<Comida> comidasMenosVistas = servicioComida.comidasMenosVistasSegunUsuario(user.getId());
 
 			modelo.put("comidas", comidas);
-			modelo.put("comidasVistas", comidasMasVistas);
-			modelo.put("comidasMenosVistas", comidasMenosVistas);
 
 			return new ModelAndView("listarElegirComidas", modelo);
 		} else {

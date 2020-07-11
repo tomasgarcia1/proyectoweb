@@ -47,7 +47,7 @@
 		</form>
 	</div>
 
-	<section class="container -sm p-2">
+	<!-- ---<section class="container -sm p-2">
 		<h3 class="text-center">¡Las Comidas Más Vistas en base a Tus Gustos!</h3>
 		<hr class="my-2">
 		<div class="container -sm p-2">
@@ -96,6 +96,8 @@
 			</ul>
 		</div>
 	</section>
+	
+	 -->
 	<!-- Footer -->
 	<%@include file="footer.jsp"%>
 

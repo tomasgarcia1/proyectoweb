@@ -290,7 +290,21 @@ public class ServicioComidaImpl implements ServicioComida {
 		return comidas;
 	}
 
-	// --------------COMIDAS MAS VISTAS SEGUN USUARIO ------------
+	// --------------COMIDAS MENOS VISTAS------------
+	
+	public List<Comida> comidasMenosVistas() {
+		List<Comida> comidasMenosVistas = comidaDao.obtenerComidasMenosVistas();
+		return comidasMenosVistas;
+	}
+
+	// --------------COMIDAS MAS VISTAS------------
+	
+	public List<Comida> comidasMasVistas() {
+		List<Comida> comidasMasVistas = comidaDao.obtenerComidasMasVistas();
+		return comidasMasVistas;
+	}
+	
+	/*	// --------------COMIDAS MAS VISTAS SEGUN USUARIO ------------
 
 	public List<Comida> comidasMasVistasSegunUsuario(Long id) {
 		List<Comida> comidasMasVistas = comidaDao.obtenerComidasMasVistas();
@@ -323,20 +337,7 @@ public class ServicioComidaImpl implements ServicioComida {
 		}
 		return comidas;
 	}
-
-	// --------------COMIDAS MENOS VISTAS------------
-	
-	public List<Comida> comidasMenosVistas() {
-		List<Comida> comidasMenosVistas = comidaDao.obtenerComidasMenosVistas();
-		return comidasMenosVistas;
-	}
-
-	// --------------COMIDAS MAS VISTAS------------
-	
-	public List<Comida> comidasMasVistas() {
-		List<Comida> comidasMasVistas = comidaDao.obtenerComidasMasVistas();
-		return comidasMasVistas;
-	}
+	*/
 
 	// --------------LISTAR COMIDAS USUARIO SIN REPETIR ------------
 

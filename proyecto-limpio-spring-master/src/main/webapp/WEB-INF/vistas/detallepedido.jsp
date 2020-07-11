@@ -49,7 +49,7 @@
 				</c:forEach>
 				<tr>
 
-					<td class="h4 mt-2">Total</td>
+					<td class="h4 mt-2">Total(envío incluido) :</td>
 					<td class="text-danger h4 mt-2">$ ${pedido.precio}</td>
 				</tr>
 			</tbody>
