@@ -67,4 +67,11 @@ public class ComidaDaoImpl implements ComidaDao {
 		sesion.getCurrentSession().update(comida);
 	}
 
+	@Override
+	public List<Comida> obtenerComidasPorRestriccion(Restriccion restriccion) {
+		List<Comida> comidas = sesion.getCurrentSession().createCriteria(Comida.class)
+				.createAlias("restricciones", "rjoin").add(Restrictions.eq("rjoin.id", restriccion.getId())).list();
+		return comidas;
+	}
+
 }

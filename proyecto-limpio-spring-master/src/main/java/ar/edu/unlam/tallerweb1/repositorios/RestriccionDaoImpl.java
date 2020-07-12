@@ -14,7 +14,7 @@ import ar.edu.unlam.tallerweb1.modelo.Comida;
 import ar.edu.unlam.tallerweb1.modelo.Restriccion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
-@Repository 
+@Repository
 @Transactional
 public class RestriccionDaoImpl implements RestriccionDao {
 	@Inject
@@ -37,34 +37,35 @@ public class RestriccionDaoImpl implements RestriccionDao {
 	@Override
 	public Restriccion obtenerRestriccionPorId(Long id) {
 
-
 		return (Restriccion) sesion.getCurrentSession().get(Restriccion.class, id);
-		
+
 	}
 
 	@Override
 	public List<Restriccion> obtenerRestricciones() {
 
 		final Session session = sesion.getCurrentSession();
-		
-		List <Restriccion> r=session.createCriteria(Restriccion.class).list();
-		
+
+		List<Restriccion> r = session.createCriteria(Restriccion.class).list();
+
 		return r;
 	}
-	
+
 	@Override
-	public List<Restriccion> obtenerRestriccionPorComida(Comida comida){
-		return sesion.getCurrentSession().createCriteria(Restriccion.class)
-				.createAlias("comidas", "comidas")
-				.add(Restrictions.eq("comidas.id", comida.getId()))
-				.list();
+	public List<Restriccion> obtenerRestriccionPorComida(Comida comida) {
+		return sesion.getCurrentSession().createCriteria(Restriccion.class).createAlias("comidas", "comidas")
+				.add(Restrictions.eq("comidas.id", comida.getId())).list();
 	}
 
-	public List<Restriccion> listarRestriccionesDeUsuario(Usuario usuario)
-	{
-		return sesion.getCurrentSession().createCriteria(Restriccion.class)
-				.createAlias("usuarios", "usuariojoin")
+	public List<Restriccion> listarRestriccionesDeUsuario(Usuario usuario) {
+		return sesion.getCurrentSession().createCriteria(Restriccion.class).createAlias("usuarios", "usuariojoin")
 				.add(Restrictions.eq("usuariojoin.id", usuario.getId())).list();
+	}
+
+	@Override
+	public Restriccion obtenerRestriccionPorNombre(String nombre) {
+		return (Restriccion) sesion.getCurrentSession().createCriteria(Restriccion.class)
+				.add(Restrictions.eq("nombre", nombre)).uniqueResult();
 	}
 
 }

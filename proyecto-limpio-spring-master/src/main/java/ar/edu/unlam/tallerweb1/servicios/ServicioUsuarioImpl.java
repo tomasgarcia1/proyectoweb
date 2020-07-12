@@ -35,6 +35,7 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 		usuario.setPassword(this.encriptarPassword(usuario.getPassword()));
 		usuario.setCaloriasDiarias(this.calcularCaloriasDiarias(usuario));
 		usuario.setRol(Rol.CLIENTE);
+		usuario.setGastos(0.0);
 		usuario.setRestricciones(restricciones);
 		return usuarioDao.registrarUsuario(usuario);
 	}

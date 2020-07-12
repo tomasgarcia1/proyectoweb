@@ -35,6 +35,18 @@ public class ControladorComida {
 	@Inject
 	private ServicioPedido servicioPedido;
 
+	@RequestMapping("/comidas")
+	public ModelAndView comidasRestriccion(@RequestParam(value = "nombre", required = true) String nombre) {
+
+		ModelMap model = new ModelMap();
+
+		List<Comida> comidas = servicioComida.obtenerComidasDeRestriccion(nombre);
+		
+		model.put("nombre", nombre);
+		model.put("comida", comidas);
+		return new ModelAndView("listarComidasRestriccion", model);
+	}
+
 	// --------ELIMINAR POR ID---------
 
 	@RequestMapping("/eliminarPorId")

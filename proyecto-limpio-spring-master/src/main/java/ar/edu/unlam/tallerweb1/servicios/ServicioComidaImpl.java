@@ -291,53 +291,42 @@ public class ServicioComidaImpl implements ServicioComida {
 	}
 
 	// --------------COMIDAS MENOS VISTAS------------
-	
+
 	public List<Comida> comidasMenosVistas() {
 		List<Comida> comidasMenosVistas = comidaDao.obtenerComidasMenosVistas();
 		return comidasMenosVistas;
 	}
 
 	// --------------COMIDAS MAS VISTAS------------
-	
+
 	public List<Comida> comidasMasVistas() {
 		List<Comida> comidasMasVistas = comidaDao.obtenerComidasMasVistas();
 		return comidasMasVistas;
 	}
-	
-	/*	// --------------COMIDAS MAS VISTAS SEGUN USUARIO ------------
 
-	public List<Comida> comidasMasVistasSegunUsuario(Long id) {
-		List<Comida> comidasMasVistas = comidaDao.obtenerComidasMasVistas();
-		List<Comida> comidasUsuario = listarComidasSegunRestricciones(id);
-		List<Comida> comidas = new LinkedList<Comida>();
-
-		for (Comida c : comidasMasVistas) {
-			for (Comida cUser : comidasUsuario) {
-				if (c.getRestricciones().equals(cUser.getRestricciones())) {
-					comidas.add(c);
-				}
-			}
-		}
-		return comidas;
-	}
-
-	// --------------COMIDAS MENOS VISTAS SEGUN USUARIO ------------
-
-	public List<Comida> comidasMenosVistasSegunUsuario(Long id) {
-		List<Comida> comidasMenosVistas = comidaDao.obtenerComidasMenosVistas();
-		List<Comida> comidasUsuario = listarComidasSegunRestricciones(id);
-		List<Comida> comidas = new LinkedList<Comida>();
-
-		for (Comida c : comidasMenosVistas) {
-			for (Comida cUser : comidasUsuario) {
-				if (c.getRestricciones().equals(cUser.getRestricciones())) {
-					comidas.add(c);
-				}
-			}
-		}
-		return comidas;
-	}
-	*/
+	/*
+	 * // --------------COMIDAS MAS VISTAS SEGUN USUARIO ------------
+	 * 
+	 * public List<Comida> comidasMasVistasSegunUsuario(Long id) { List<Comida>
+	 * comidasMasVistas = comidaDao.obtenerComidasMasVistas(); List<Comida>
+	 * comidasUsuario = listarComidasSegunRestricciones(id); List<Comida> comidas =
+	 * new LinkedList<Comida>();
+	 * 
+	 * for (Comida c : comidasMasVistas) { for (Comida cUser : comidasUsuario) { if
+	 * (c.getRestricciones().equals(cUser.getRestricciones())) { comidas.add(c); } }
+	 * } return comidas; }
+	 * 
+	 * // --------------COMIDAS MENOS VISTAS SEGUN USUARIO ------------
+	 * 
+	 * public List<Comida> comidasMenosVistasSegunUsuario(Long id) { List<Comida>
+	 * comidasMenosVistas = comidaDao.obtenerComidasMenosVistas(); List<Comida>
+	 * comidasUsuario = listarComidasSegunRestricciones(id); List<Comida> comidas =
+	 * new LinkedList<Comida>();
+	 * 
+	 * for (Comida c : comidasMenosVistas) { for (Comida cUser : comidasUsuario) {
+	 * if (c.getRestricciones().equals(cUser.getRestricciones())) { comidas.add(c);
+	 * } } } return comidas; }
+	 */
 
 	// --------------LISTAR COMIDAS USUARIO SIN REPETIR ------------
 
@@ -353,6 +342,13 @@ public class ServicioComidaImpl implements ServicioComida {
 			}
 		}
 		return listacomidas;
+	}
+
+	@Override
+	public List<Comida> obtenerComidasDeRestriccion(String nombre) {
+		Restriccion rest = restriccionDao.obtenerRestriccionPorNombre(nombre);
+		List<Comida> comidas = comidaDao.obtenerComidasPorRestriccion(rest);
+		return comidas;
 	}
 
 }

@@ -48,7 +48,7 @@
 							de nutricionistas van a armar comidas solo para vos! 
 							Con un amplio abanico de ingredientes y especias
 							no vas a extrañar más los "permitidos".</p>
-							<a href="#" class="btn btn-outline-light">Ver comidas</a>
+							<a href="comidas?nombre=variado" class="btn btn-outline-light">Ver comidas</a>
 						</div>
 					</div>
 				</div>
@@ -61,7 +61,7 @@
 							<p class="card-text">En Recomida entendemos el movimiento por la liberación
 							animal, asique incluímos infinidad de comidas y desayunos deliciosos que no
 							tienen nada que envidiarle a la carne!</p>
-							<a href="#" class="btn btn-outline-light">Ver comidas</a>
+							<a href="comidas?nombre=vegetariano" class="btn btn-outline-light">Ver comidas</a>
 						</div>
 					</div>
 				</div>
@@ -74,7 +74,7 @@
 							<p class="card-text">¿Quién dijo que los alimentos sin ingredientes de
 							origen animal eran feos? En Recomida te demostramos que se puede comer 
 							rico, saludable, variado y 100% vegetal, animate!</p>
-							<a href="#" class="btn btn-outline-light">Ver comidas</a>
+							<a href="comidas?nombre=vegano" class="btn btn-outline-light">Ver comidas</a>
 						</div>
 					</div>
 				</div>
