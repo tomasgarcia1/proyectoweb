@@ -55,9 +55,8 @@ public class ControladorPedido {
 	@Inject
 	private ServicioCuponDescuento servicioCuponDescuento;
 
-
 	// ----------SELECCIONAR UBICACION MAPA---------
-	
+
 	@RequestMapping(path = "/elegirPedido")
 	public ModelAndView elegir(HttpServletRequest request) {
 		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
@@ -77,7 +76,7 @@ public class ControladorPedido {
 
 		return new ModelAndView("elegirPedido", model);
 	}
-	
+
 	// ------------POSICION-----------
 
 	@RequestMapping(path = "/posicionId", method = RequestMethod.POST)
@@ -120,9 +119,9 @@ public class ControladorPedido {
 
 		return new ModelAndView("infoViaje", model);
 	}
-	
-	//---------------MOSTRAR DISTANCIA------------
-	
+
+	// ---------------MOSTRAR DISTANCIA------------
+
 	@RequestMapping(path = "/mostrarDistancia", method = RequestMethod.POST)
 	public ModelAndView distanciaDelPedidoDeUnaComida(@ModelAttribute("posicion") Posicion posicion,
 			@RequestParam(value = "id", required = false) Long idPosicion,
@@ -148,7 +147,7 @@ public class ControladorPedido {
 
 		return new ModelAndView("infoViajeComida", model);
 	}
-	
+
 	// ----------MENU SUGERIDO-------
 
 	/*
@@ -221,8 +220,8 @@ public class ControladorPedido {
 		return new ModelAndView("mapa", model);
 	}
 
-	//------SELECCIONAR UBICACION UNICA COMIDA----------
-	
+	// ------SELECCIONAR UBICACION UNICA COMIDA----------
+
 	@RequestMapping(path = "/seleccionarUbicacionUnicaComida", method = RequestMethod.POST)
 	public ModelAndView seleccionarUbicacionUnicaComida(@RequestParam("idComidas") Long idComida,
 			HttpServletRequest request) {
@@ -271,7 +270,7 @@ public class ControladorPedido {
 		Preference p = servicioMP.checkout(user, precioFinalPedido);
 
 		List<CuponDescuento> cupones = servicioCuponDescuento.cuponesUsuarioHabilitados(user.getId());
-		
+
 		model.put("preference", p);
 		model.put("id", idLista);
 		model.put("precio", precioFinalPedido);
@@ -282,8 +281,8 @@ public class ControladorPedido {
 		return new ModelAndView("pedidoPorConfirmar", model);
 	}
 
-	//---------GENERAR COMIDA UNICA COMIDA------------
-	
+	// ---------GENERAR COMIDA UNICA COMIDA------------
+
 	@RequestMapping(path = "/generarpedidoUnicaComida", method = RequestMethod.POST)
 	public ModelAndView vistaPedidoComidaUnica(@ModelAttribute("posicion") Posicion posicion,
 			@RequestParam("idComida") Long idComida, HttpServletRequest request) {
@@ -325,11 +324,13 @@ public class ControladorPedido {
 
 	@RequestMapping(path = "/pagarpedido", method = RequestMethod.GET)
 	public ModelAndView pagarPedido(@RequestParam(value = "id") String id,
-			@RequestParam(value = "payment_status") String estado, @RequestParam(value = "idPosicion") Long idPosicion, HttpServletRequest request) {
+			@RequestParam(value = "payment_status") String estado, @RequestParam(value = "idCupon") Long idCupon,
+			@RequestParam(value = "idPosicion") Long idPosicion, HttpServletRequest request) {
 		ModelMap model = new ModelMap();
 		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
 		Pedido nuevoPedido = new Pedido();
 		Posicion posicionCliente = this.servicioPosicion.obtenerPosicionPorId(idPosicion);
+		CuponDescuento cupon = servicioCuponDescuento.consultarCuponPorId(idCupon);
 
 		nuevoPedido = servicioPedido.generarPedidoPorIdComidas(id, posicionCliente, posicionSucursal);
 		// Estado proveniente de mercado pago
@@ -347,6 +348,11 @@ public class ControladorPedido {
 		servicioPedido.updatePedido(nuevoPedido);
 		Double precio = nuevoPedido.getPrecio();
 		servicioCuponDescuento.agregarCuponDescuentoUsuarioSemana(precio, fechahoy, user.getId());
+		if (cupon != null) {
+			nuevoPedido.setCuponDescuento(cupon);
+			cupon.setEstado(false);
+			servicioCuponDescuento.actualizarCupon(cupon);
+		}
 
 		model.put("pedido", nuevoPedido);
 		return new ModelAndView("pedidoRealizado", model);

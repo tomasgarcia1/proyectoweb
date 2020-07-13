@@ -74,6 +74,7 @@
 			<form action="pagarpedido" method="GET" class="d-inline">
 				<input type="hidden" name="id" value="${id}"> <input
 					type="hidden" name="idPosicion" value="${idPosicion}">
+					<input type="hidden" name="idCupon" value="0">
 				<script
 					src="https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js"
 					data-preference-id="${preference.id}">

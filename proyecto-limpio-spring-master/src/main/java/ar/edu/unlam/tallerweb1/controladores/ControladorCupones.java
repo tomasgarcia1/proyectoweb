@@ -119,7 +119,7 @@ public class ControladorCupones {
 	}
 
 	// ---------PAGAR PEDIDO CON CUPON----------
-
+/*
 	@RequestMapping(path = "/pagarPedidoConCupon", method = RequestMethod.GET)
 	public ModelAndView pagarPedido(@RequestParam(value = "id") String id,
 			@RequestParam(value = "payment_status") String estado, @RequestParam(value = "idPosicion") Long idPosicion,
@@ -155,6 +155,7 @@ public class ControladorCupones {
 		model.put("pedido", nuevoPedido);
 		return new ModelAndView("pedidoRealizado", model);
 	}
+	*/
 
 	// ------------CREACIÓN MOLDE VALIDACIÓN--------------
 

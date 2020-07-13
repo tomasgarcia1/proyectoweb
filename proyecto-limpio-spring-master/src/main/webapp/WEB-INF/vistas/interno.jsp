@@ -16,19 +16,20 @@
 </head>
 <body>
 
-<%@include file="header.jsp" %>
+	<%@include file="header.jsp"%>
 
 	<section id="bienvenido" class="my-1">
 		<div class="container">
 			<div class="jumbotron bg-white">
 				<h1 class="display-4">Bienvenido a Recomida!</h1>
 				<p class="lead">La única aplicación argentina que te recomienda
-					comida según tus gustos, restricciones por salud y calorías diarias que necesite tu cuerpo!</p>
+					comida según tus gustos, restricciones por salud y calorías diarias
+					que necesite tu cuerpo!</p>
 				<hr class="my-4">
-				<a class="btn btn-outline-danger btn-lg" href="elegirPedido" role="button">Realizar pedido</a> 
-
-
-					<a class="btn btn-outline-danger btn-lg" href="suscripciones" role="button">Suscripciones</a>
+				<a class="btn btn-outline-danger btn-lg" href="elegirPedido"
+					role="button">Realizar pedido</a> <a
+					class="btn btn-outline-danger btn-lg" href="suscripciones"
+					role="button">Suscripciones</a>
 			</div>
 		</div>
 	</section>
@@ -44,10 +45,12 @@
 						<img src="img/f1.jpg" class="card-img-top" alt="...">
 						<div class="card-body bg-danger text-light">
 							<h5 class="card-title">Comidas balanceadas</h5>
-							<p class="card-text">Los chefs de Recomida con la asesoría del team
-							de nutricionistas van a armar comidas solo para vos! 
-							Con un amplio abanico de ingredientes y especias
-							no vas a extrañar más los "permitidos".</p>
+							<p class="card-text">Los chefs de Recomida con la asesoría
+								del team de nutricionistas van a armar comidas solo para vos!
+								Con un amplio abanico de ingredientes y especias no vas a
+								extrañar más los "permitidos".</p>
+							<a href="comidas?nombre=variado" class="btn btn-outline-light">Ver
+								comidas</a>
 						</div>
 					</div>
 				</div>
@@ -57,9 +60,12 @@
 						<img src="img/f2.jpg" class="card-img-top" alt="...">
 						<div class="card-body bg-danger text-light">
 							<h5 class="card-title">Comidas vegetarianas</h5>
-							<p class="card-text">En Recomida entendemos el movimiento por la liberación
-							animal, asique incluímos infinidad de comidas y desayunos deliciosos que no
-							tienen nada que envidiarle a la carne!</p>
+							<p class="card-text">En Recomida entendemos el movimiento por
+								la liberación animal, asique incluímos infinidad de comidas y
+								desayunos deliciosos que no tienen nada que envidiarle a la
+								carne!</p>
+							<a href="comidas?nombre=vegetariano"
+								class="btn btn-outline-light">Ver comidas</a>
 						</div>
 					</div>
 				</div>
@@ -69,9 +75,12 @@
 						<img src="img/f3.jpg" class="card-img-top" alt="...">
 						<div class="card-body bg-danger text-light">
 							<h5 class="card-title">Comidas veganas</h5>
-							<p class="card-text">¿Quién dijo que los alimentos sin ingredientes de
-							origen animal eran feos? En Recomida te demostramos que se puede comer 
-							rico, saludable, variado y 100% vegetal, animate!</p>
+							<p class="card-text">¿Quién dijo que los alimentos sin
+								ingredientes de origen animal eran feos? En Recomida te
+								demostramos que se puede comer rico, saludable, variado y 100%
+								vegetal, animate!</p>
+							<a href="comidas?nombre=vegano" class="btn btn-outline-light">Ver
+								comidas</a>
 						</div>
 					</div>
 				</div>
@@ -81,8 +90,8 @@
 	</section>
 
 	<!-- Footer -->
-	<%@include file="footer.jsp" %>
-	
+	<%@include file="footer.jsp"%>
+
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
