@@ -96,8 +96,8 @@
 			</div>
 			<div class="col-md-4">
 				<div class="card text-center">
-					<img src="img/menuSugerido.jpg" class="card-img-top" alt="..."
-						height="90%" width="100%">
+					<img src="img/gusto.jpg" class="card-img-top" alt="..."
+						width="100%">
 					<div class="card-body bg-danger text-light">
 						<h5 class="card-title">Comida a gusto</h5>
 						<p class="card-text">

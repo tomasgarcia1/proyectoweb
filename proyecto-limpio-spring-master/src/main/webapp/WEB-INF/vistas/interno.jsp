@@ -33,7 +33,31 @@
 			</div>
 		</div>
 	</section>
-
+	<div class="container" style="margin-top:-4rem">
+<div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner" style="height:30rem;">
+    <div class="carousel-item active">
+      <img class="d-block w-100" src="img/f1.jpg" alt="First slide">
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="img/f2.jpg" alt="Second slide">
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="img/menuSugerido.jpg" alt="Third slide">
+    </div>
+    <div class="carousel-caption d-none d-md-block">
+    <h5 class="bg-danger">Hacer un <a href="elegirPedido" style="color:lawngreen;">pedido</a> con la comida que más te gusta nunca había sido tan fácil</h5>
+  </div>
+  </div>
+</div>
+</div>		
+					
+	<div class="container mt-3">
+		<div class="alert alert-warning alert-dismissible fade show" role="alert">
+		  <strong>¿No estás suscrito?</strong> No dejes pasar el tiempo y <a href="suscripciones">conocé ya </a>nuestras suscripciones.
+		</div>		
+	</div>	
+					
 	<section id="info" class="my-4">
 		<div class="container">
 			<h3 class="text-center">Elegí las comidas que mas se adapten a
