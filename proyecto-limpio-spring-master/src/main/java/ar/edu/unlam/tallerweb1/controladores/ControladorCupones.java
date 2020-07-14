@@ -48,12 +48,22 @@ public class ControladorCupones {
 
 	@Inject
 	private ServicioCuponDescuento servicioCuponDescuento;
-	
-	public ControladorCupones(ServicioMoldeCupon servicioMoldeCupon, ServicioCuponDescuento servicioCuponDescuento) {
-	 this.servicioMoldeCupon = servicioMoldeCupon;
-	 this.servicioCuponDescuento = servicioCuponDescuento;
+
+	public ServicioMoldeCupon getServicioMoldeCupon() {
+		return servicioMoldeCupon;
 	}
 
+	public void setServicioMoldeCupon(ServicioMoldeCupon servicioMoldeCupon) {
+		this.servicioMoldeCupon = servicioMoldeCupon;
+	}
+
+	public ServicioCuponDescuento getServicioCuponDescuento() {
+		return servicioCuponDescuento;
+	}
+
+	public void setServicioCuponDescuento(ServicioCuponDescuento servicioCuponDescuento) {
+		this.servicioCuponDescuento = servicioCuponDescuento;
+	}
 
 	/*
 	 * // ----------------AGREGAR CUPON------------------
@@ -77,7 +87,6 @@ public class ControladorCupones {
 	 */
 
 	// --------------CUPONES DEL USUARIO------------------
-
 
 	@RequestMapping(path = "/miscupones")
 	public ModelAndView miscupones(HttpServletRequest request) {

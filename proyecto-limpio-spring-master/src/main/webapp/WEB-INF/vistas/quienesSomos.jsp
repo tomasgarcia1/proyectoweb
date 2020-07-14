@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Mis Cupones</title>
+<title>¿Quiénes Somos?</title>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -21,31 +21,32 @@
 
 	<%@include file="header.jsp"%>
 
-	<section class="container -sm p-4">
-		<table class="table">
-			<thead>
-				<tr>
-					<th scope="col">ID</th>
-					<th scope="col">Importe</th>
-					<th scope="col">Estado</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${cupones}" var="cupon">
-					<tr>
-						<th scope="row">${cupon.id}</th>
-						<td class="h5">$ ${cupon.valor}</td>
-						<td><c:if test="${cupon.estado == true}">
-								<h5 class="text-success">HABILITADO</h5>
-							</c:if> <c:if test="${cupon.estado == false}">
-								<h5 class="text-danger">DESHABILITADO</h5>
-							</c:if></td>
-					</tr>
-				</c:forEach>
-		</table>
-	</section>
+	<h3 class="display-4">¿Quiénes Somos?</h3>
 
-<!-- Footer -->
+	<section class="container -sm p-4">
+		<hr>
+		<h2>Recomida!</h2>
+		
+		<p>Somos un equipo dedicado a la salud y a la comida, queriendo
+			ayudar a cada vez más personas a desentenderse del problema de elegir
+			qué comer en cada momento del día.</p>
+
+		<p>Gran parte de la población en la actualidad pone en segundo
+			plano lo sano y nutritivo y lo reemplaza por lo rico y rápido.</p>
+
+		<div class="alert alert-danger" role="alert">
+			<h4 class="alert-heading">¡Contamos con los mejores
+				nutricionistas del país!</h4>
+		</div>
+
+		<h4 class="leader">Objetivo</h4>
+		<p>En Recomida intentamos junto a un grupo de especialistas en
+			nutrición y un team de chefs, que la comida ya no sea un peso, sino
+			que sea lo que te ayude a mejorar tu vida y tu cuerpo en tan solo un
+			click.</p>
+			
+	</section>
+	<!-- Footer -->
 	<%@include file="footer.jsp"%>
 
 	<!-- Placed at the end of the document so the pages load faster -->

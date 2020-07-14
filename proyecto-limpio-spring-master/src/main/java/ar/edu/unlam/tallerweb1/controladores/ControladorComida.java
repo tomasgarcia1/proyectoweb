@@ -35,10 +35,6 @@ public class ControladorComida {
 	@Inject
 	private ServicioPedido servicioPedido;
 
-	public ControladorComida(ServicioComida servicioComida) {
-		this.servicioComida = servicioComida;
-	}
-	
 	@RequestMapping("/comidas")
 	public ModelAndView comidasRestriccion(@RequestParam(value = "nombre", required = true) String nombre) {
 

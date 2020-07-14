@@ -40,7 +40,9 @@ public class TestCupones {
 		ServicioCuponDescuento servicioCuponDescuento = mock(ServicioCuponDescuento.class);
 
 		user.setRol(Rol.ADMINISTRADOR);
-		ControladorCupones cC = new ControladorCupones(servicioMoldeCupon, servicioCuponDescuento);
+		ControladorCupones cC = new ControladorCupones();
+		cC.setServicioCuponDescuento(servicioCuponDescuento);
+		cC.setServicioMoldeCupon(servicioMoldeCupon);
 		List<MoldeCupon> moldes = new LinkedList<>();
 
 		when(request.getSession()).thenReturn(sesion);
@@ -60,7 +62,9 @@ public class TestCupones {
 
 		ServicioCuponDescuento servicioCuponDescuento = mock(ServicioCuponDescuento.class);
 		ServicioMoldeCupon servicioMoldeCupon = mock(ServicioMoldeCupon.class);
-		ControladorCupones cC = new ControladorCupones(servicioMoldeCupon, servicioCuponDescuento);
+		ControladorCupones cC = new ControladorCupones();
+		cC.setServicioCuponDescuento(servicioCuponDescuento);
+		cC.setServicioMoldeCupon(servicioMoldeCupon);
 		List<CuponDescuento> cupones = mock(List.class);
 				
 		when(request.getSession()).thenReturn(sesion);
