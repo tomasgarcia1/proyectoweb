@@ -344,6 +344,8 @@ public class ServicioComidaImpl implements ServicioComida {
 		return listacomidas;
 	}
 
+	//-------------LISTAR COMIDAS SEGUN RESTRICCION-----------------
+	
 	@Override
 	public List<Comida> obtenerComidasDeRestriccion(String nombre) {
 		Restriccion rest = restriccionDao.obtenerRestriccionPorNombre(nombre);

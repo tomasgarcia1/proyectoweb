@@ -48,6 +48,12 @@ public class ControladorCupones {
 
 	@Inject
 	private ServicioCuponDescuento servicioCuponDescuento;
+	
+	public ControladorCupones(ServicioMoldeCupon servicioMoldeCupon, ServicioCuponDescuento servicioCuponDescuento) {
+	 this.servicioMoldeCupon = servicioMoldeCupon;
+	 this.servicioCuponDescuento = servicioCuponDescuento;
+	}
+
 
 	/*
 	 * // ----------------AGREGAR CUPON------------------
@@ -71,6 +77,7 @@ public class ControladorCupones {
 	 */
 
 	// --------------CUPONES DEL USUARIO------------------
+
 
 	@RequestMapping(path = "/miscupones")
 	public ModelAndView miscupones(HttpServletRequest request) {
@@ -198,7 +205,7 @@ public class ControladorCupones {
 
 		if (user != null && user.getRol() == Rol.ADMINISTRADOR) {
 			List<MoldeCupon> moldes = servicioMoldeCupon.listarMoldes();
-			model.put("moldes", moldes);
+			model.put("moldes", moldes); 
 			return new ModelAndView("listarMoldesCupones", model);
 		}
 		return new ModelAndView("redirect:/adminInterno");
