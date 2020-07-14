@@ -38,20 +38,25 @@
 	<c:if test="${not empty posicionesUsuario}">
 	<p>Podes elegir una ubicacion elegida anteriormente aqui...</p>
 		<div id="select-location">
-		  <select name="location" id="location">
+		<div class=row>
+		<div class="col-md-9">
+		  <select class="form-control" name="location" id="location">
 		    <option value="-1">Tus ubicaciones</option>
 		    <c:forEach items="${posicionesUsuario}" var="posicion">
 				<option value="${posicion.latitude} , ${posicion.longitude} , ${posicion.id}" id="pos">${posicion.nombre}</option>
 			</c:forEach>	
 		  </select>
-		  		  
+		</div>
+		<div class="col-md-3">
 		  <button id="nuevaPos" class="btn btn-outline-danger" onClick="activar()">Ingresar posicion nueva</button>
+		</div>		  		  
+		</div>
 		</div>
 	</c:if>
 	
 	
 	
-	<div id="map"></div>
+	<div id="map" class="my-3"></div>
 
 <form:form action="mostrar" method="POST" modelAttribute="posicion" >
 	
