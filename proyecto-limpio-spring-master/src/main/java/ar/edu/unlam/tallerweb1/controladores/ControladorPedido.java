@@ -336,9 +336,6 @@ public class ControladorPedido {
 		}
 
 		nuevoPedido.setUsuario(user);
-		CuponDescuento cuponNuevo=servicioCuponDescuento.agregarCuponDescuentoUsuarioSemana(nuevoPedido.getPrecio(), nuevoPedido.getFecha(), user.getId());
-		if(cuponNuevo!=null)
-			servicioPedido.enviarNotificacionCupon(cuponNuevo, user);
 		if (cupon != null) {
 			nuevoPedido.setCuponDescuento(cupon);
 			cupon.setEstado(false);
@@ -346,6 +343,9 @@ public class ControladorPedido {
 		}
 		Long idPedido = servicioPedido.crearPedido(nuevoPedido);
 		nuevoPedido.setId(idPedido);
+		CuponDescuento cuponNuevo=servicioCuponDescuento.agregarCuponDescuentoUsuarioSemana(nuevoPedido.getPrecio(), nuevoPedido.getFecha(), user.getId());
+		if(cuponNuevo!=null)
+			servicioPedido.enviarNotificacionCupon(cuponNuevo, user);
 		model.put("pedido", nuevoPedido);
 		return new ModelAndView("pedidoRealizado", model);
 	}
