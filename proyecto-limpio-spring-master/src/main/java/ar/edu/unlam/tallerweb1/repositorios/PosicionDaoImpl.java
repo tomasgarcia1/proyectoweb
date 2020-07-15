@@ -26,5 +26,7 @@ public class PosicionDaoImpl implements PosicionDao {
 
 		return (Posicion) sesion.getCurrentSession().get(Posicion.class, id);
 	}
-
+	public void setSesion(SessionFactory sesion) {
+		this.sesion=sesion;
+	}
 }
