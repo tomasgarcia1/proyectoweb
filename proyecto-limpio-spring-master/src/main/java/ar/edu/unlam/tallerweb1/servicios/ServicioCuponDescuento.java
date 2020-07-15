@@ -5,6 +5,7 @@ import java.util.List;
 
 import ar.edu.unlam.tallerweb1.modelo.CuponDescuento;
 import ar.edu.unlam.tallerweb1.modelo.MoldeCupon;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
 public interface ServicioCuponDescuento {
 

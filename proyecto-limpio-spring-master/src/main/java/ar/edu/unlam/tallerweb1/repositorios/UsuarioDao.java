@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
+import org.hibernate.SessionFactory;
+
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
 public interface UsuarioDao {
@@ -14,5 +16,6 @@ public interface UsuarioDao {
 	Usuario consultarEmailYPassDeUsuario(Usuario usuario);
 
 	void editarUsuario(Usuario usuario);
-
+	
+	void setSesion(SessionFactory sesion);
 }

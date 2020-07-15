@@ -104,10 +104,15 @@ public class ServicioPedidoImpl implements ServicioPedido {
 	@Override
 	public Double calcularImporteTotal(List<Comida> comidas, Double precioEnvio) {
 		Double importe = 0.0;
+		boolean flag=false;
 		for (Comida comida : comidas) {
 			importe += comida.getPrecio();
+			flag=true;
 		}
-		return importe + precioEnvio;
+		if(flag) {
+			return importe + precioEnvio;
+		}
+		return importe;
 	}
 	
 	@Override
