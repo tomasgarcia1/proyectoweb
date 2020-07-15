@@ -37,15 +37,9 @@ public class ServicioMoldeCuponImpl implements ServicioMoldeCupon {
 		return moldeCuponDao.consultarMoldeCuponPorId(id);
 	}
 
-
 	@Override
 	public List<MoldeCupon> listarMoldes() {
 		return moldeCuponDao.listarMoldes();
 	}
 	
-	public List<MoldeCupon> listarMoldesHabilitados() {
-		return moldeCuponDao.listarMoldesHabilitados();
-	}
-	
-
 }

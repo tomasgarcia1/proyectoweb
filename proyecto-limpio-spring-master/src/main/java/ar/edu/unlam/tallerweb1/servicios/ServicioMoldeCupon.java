@@ -15,7 +15,5 @@ public interface ServicioMoldeCupon {
 	MoldeCupon consultarMoldeCuponPorId(Long id);
 	
 	List<MoldeCupon> listarMoldes();
-	
-	List<MoldeCupon> listarMoldesHabilitados();
 
 }

@@ -31,7 +31,6 @@ public interface ServicioCuponDescuento {
 	
 	void vencimientoDeCupon(Long id); 
 	
-	void agregarCuponAlUsuario(Long id, Usuario user);
 	// void agregarCuponDescuentoUsuarioGastos(Double precioPedido, Long id);
 	
 	// void agregarCuponDescuentoUsuario2Fechas(Double precioPedido, LocalDate fecha, Long id);

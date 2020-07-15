@@ -29,10 +29,6 @@ public class ServicioCuponDescuentoImpl implements ServicioCuponDescuento {
 
 	@Inject
 	private PedidoDao pedidoDao;
-	
-	@Inject
-	private ServicioMoldeCupon servicioMolde;
-
 
 	@Override
 	public void agregarCupon(CuponDescuento cupon) {
@@ -152,19 +148,6 @@ public class ServicioCuponDescuentoImpl implements ServicioCuponDescuento {
 		}
 	}
 
-	//----------AGREGAR CUPON AL USUARIO POR OBTENER CUPON------------
-	
-	public void agregarCuponAlUsuario(Long id, Usuario user) {
-		MoldeCupon molde = servicioMolde.consultarMoldeCuponPorId(id);
-		CuponDescuento cupon = new CuponDescuento();
-		cupon.setValor(molde.getValor());
-		cupon.setEstado(true);
-		LocalDate fechavencimiento = LocalDate.now().plusDays(2);
-		cupon.setFechavencimiento(fechavencimiento);
-		cupon.setUsuario(user);
-		agregarCupon(cupon);
-	}
-	
 	// ------SELECCION DE UN MOLDE ALEATORIO------
 
 	public MoldeCupon valorMoldeAleatorio() {

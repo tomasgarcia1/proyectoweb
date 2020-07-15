@@ -1,11 +1,9 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,14 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.mercadopago.resources.Preference;
-
 import ar.edu.unlam.tallerweb1.modelo.Comida;
 import ar.edu.unlam.tallerweb1.modelo.CuponDescuento;
-import ar.edu.unlam.tallerweb1.modelo.Estado;
 import ar.edu.unlam.tallerweb1.modelo.MoldeCupon;
-import ar.edu.unlam.tallerweb1.modelo.Pedido;
 import ar.edu.unlam.tallerweb1.modelo.Posicion;
 import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
@@ -63,44 +57,6 @@ public class ControladorCupones {
 
 	public void setServicioCuponDescuento(ServicioCuponDescuento servicioCuponDescuento) {
 		this.servicioCuponDescuento = servicioCuponDescuento;
-	}
-
-	// ----------------AGREGAR CUPON------------------
-
-	@RequestMapping(path = "/agregarCupon", method = RequestMethod.GET)
-	public ModelAndView agregarCupon(@RequestParam(value = "id") Long id, HttpServletRequest request) {
-		ModelMap model = new ModelMap();
-
-		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
-
-		servicioCuponDescuento.agregarCuponAlUsuario(id, user);
-
-		return new ModelAndView("redirect:/interno");
-	}
-
-	// ----------------OBTENER CUPON------------------
-
-	@RequestMapping(path = "/obtenerCupones", method = RequestMethod.GET)
-	public ModelAndView elegirCupon() {
-		ModelMap model = new ModelMap();
-		List<MoldeCupon> cupones = servicioMoldeCupon.listarMoldesHabilitados();
-		model.put("cupones", cupones);
-		return new ModelAndView("obtenerCupones", model);
-	}
-
-	// --------------CUPONES DEL USUARIO------------------
-
-	@RequestMapping(path = "/miscupones")
-	public ModelAndView miscupones(HttpServletRequest request) {
-		ModelMap model = new ModelMap();
-		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
-		if (user != null && user.getRol() == Rol.CLIENTE) {
-			List<CuponDescuento> listaCupones = servicioCuponDescuento.cuponesUsuario(user.getId());
-			model.put("cupones", listaCupones);
-			return new ModelAndView("listarCupones", model);
-		} else {
-			return new ModelAndView("redirect:/home");
-		}
 	}
 
 	// ---------------GENERA PEDIDO CON CUPON--------------
@@ -173,6 +129,21 @@ public class ControladorCupones {
 	 * model); }
 	 */
 
+	// --------------CUPONES DEL USUARIO------------------
+
+		@RequestMapping(path = "/miscupones")
+		public ModelAndView miscupones(HttpServletRequest request) {
+			ModelMap model = new ModelMap();
+			Usuario user = (Usuario) request.getSession().getAttribute("usuario");
+			if (user != null && user.getRol() == Rol.CLIENTE) {
+				List<CuponDescuento> listaCupones = servicioCuponDescuento.cuponesUsuario(user.getId());
+				model.put("cupones", listaCupones);
+				return new ModelAndView("listarCupones", model);
+			} else {
+				return new ModelAndView("redirect:/home");
+			}
+		}
+		
 	// ------------CREACIÓN MOLDE VALIDACIÓN--------------
 
 	@RequestMapping(path = "/crearMoldeCupon", method = RequestMethod.GET)

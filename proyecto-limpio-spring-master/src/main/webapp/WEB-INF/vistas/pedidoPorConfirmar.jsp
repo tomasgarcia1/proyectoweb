@@ -52,18 +52,26 @@
 		<div class="container -sm">
 			<form action="pedidoConCuponComidas" method="POST" id="form">
 				<div class="input-group-prepend" id="select" style="display: none;">
-					<span>Una vez que seleccionó el cupon, de click en elegir!</span> <select
-						class="custom-select" id="select" name="idCupon"
-						required="required">
-						<c:forEach items="${cupones}" var="cupon">
-							<option value="${cupon.id}">${cupon.valor}</option>
-						</c:forEach>
-					</select> <input type="hidden" name="idCupon" value="${cupon.id}"> <input
-						type="hidden" name="id" value="${id}"> <input
-						type="hidden" name="idPosicion" value="${idPosicion}"> <input
-						type="hidden" name="precio" value="${precio}">
-					<button class="btn btn-outline-success">Elegir</button>
+					<c:if test="${empty cupones}">
+						<img src="img/sad.png" class="p-1" style="width: 45px; height: 45px;">
+						<h5>Lo sentimos, usted no posee cupones</h5>
+					</c:if>
+					<c:if test="${!empty cupones}">
+						<span>Una vez que seleccionó el cupon, de click en elegir!</span>
+						<select class="custom-select" id="select" name="idCupon"
+							required="required">
+							<c:forEach items="${cupones}" var="cupon">
+								<option value="${cupon.id}">${cupon.valor}</option>
+							</c:forEach>
+						</select>
+						<input type="hidden" name="idCupon" value="${cupon.id}">
+						<input type="hidden" name="id" value="${id}">
+						<input type="hidden" name="idPosicion" value="${idPosicion}">
+						<input type="hidden" name="precio" value="${precio}">
+						<button class="btn btn-outline-success">Elegir</button>
+					</c:if>
 				</div>
+
 			</form>
 		</div>
 

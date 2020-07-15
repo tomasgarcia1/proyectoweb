@@ -32,9 +32,7 @@
 				<a class="btn btn-outline-danger btn-lg" href="elegirPedido"
 					role="button">Realizar pedido</a> <a
 					class="btn btn-outline-danger btn-lg" href="suscripciones"
-					role="button">Suscripciones</a> <a
-					class="btn btn-outline-danger btn-lg" href="obtenerCupones"
-					role="button">Obtener Cupones</a>
+					role="button">Suscripciones</a>
 			</div>
 		</div>
 	</section>
