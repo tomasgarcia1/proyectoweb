@@ -62,6 +62,7 @@ public class ControladorPedido {
 		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
 		ModelMap model = new ModelMap();
 
+		servicioCuponDescuento.vencimientoDeCupon(user.getId());
 		// validacion de suscripcion
 		if (user.getSuscripcion() != null) {
 			this.servicioSuscripcion.vencerSuscripcion(user.getSuscripcion().getId());

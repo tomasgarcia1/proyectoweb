@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
+import java.time.LocalDate;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,7 +17,9 @@ public class CuponDescuento {
 	private Long id;
 	private Integer valor;
 	private Boolean estado;
+	private LocalDate fechavencimiento;
 
+	
 	@ManyToOne
 	private Usuario usuario;
 
@@ -49,6 +53,14 @@ public class CuponDescuento {
 
 	public void setEstado(Boolean estado) {
 		this.estado = estado;
+	}
+
+	public LocalDate getFechavencimiento() {
+		return fechavencimiento;
+	}
+
+	public void setFechavencimiento(LocalDate fechavencimiento) {
+		this.fechavencimiento = fechavencimiento;
 	}
 
 }

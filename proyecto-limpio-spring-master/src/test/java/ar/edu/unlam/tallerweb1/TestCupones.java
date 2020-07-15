@@ -2,30 +2,18 @@ package ar.edu.unlam.tallerweb1;
 
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
-
 import ar.edu.unlam.tallerweb1.controladores.ControladorCupones;
-import ar.edu.unlam.tallerweb1.modelo.Comida;
 import ar.edu.unlam.tallerweb1.modelo.CuponDescuento;
 import ar.edu.unlam.tallerweb1.modelo.MoldeCupon;
-import ar.edu.unlam.tallerweb1.modelo.Restriccion;
 import ar.edu.unlam.tallerweb1.modelo.Rol;
-import ar.edu.unlam.tallerweb1.modelo.TipoHorario;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
-import ar.edu.unlam.tallerweb1.repositorios.ComidaDao;
-import ar.edu.unlam.tallerweb1.repositorios.RestriccionDao;
-import ar.edu.unlam.tallerweb1.repositorios.UsuarioDao;
-import ar.edu.unlam.tallerweb1.servicios.ServicioComidaImpl;
 import ar.edu.unlam.tallerweb1.servicios.ServicioCuponDescuento;
 import ar.edu.unlam.tallerweb1.servicios.ServicioMoldeCupon;
-
 import static org.mockito.Mockito.*;
-
 import java.util.LinkedList;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import static org.assertj.core.api.Assertions.*;
 
 public class TestCupones {
@@ -66,14 +54,15 @@ public class TestCupones {
 		cC.setServicioCuponDescuento(servicioCuponDescuento);
 		cC.setServicioMoldeCupon(servicioMoldeCupon);
 		List<CuponDescuento> cupones = mock(List.class);
-				
+
 		when(request.getSession()).thenReturn(sesion);
 		when(request.getSession().getAttribute("usuario")).thenReturn(user);
 		when(servicioCuponDescuento.cuponesUsuario(user.getId())).thenReturn(cupones);
-		
+
 		ModelAndView model = cC.miscupones(request);
-		
+
 		assertThat(model.getViewName()).isEqualTo("listarCupones");
 
 	}
+
 }
