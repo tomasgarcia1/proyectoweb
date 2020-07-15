@@ -1,3 +1,4 @@
+use recomida;
 insert into tiposuscripcion values
 (1, "mensual", 75.00),
 (2, "semestral", 65.00),
@@ -62,3 +63,5 @@ insert into pedidos_comidas (fk_pedido, fk_comida) values (1, 1), (2, 6);
 
 insert into usuarios_restricciones values 
 (1, 2), (2, 2);
+
+insert into moldecupon values (1, 1, 50);
