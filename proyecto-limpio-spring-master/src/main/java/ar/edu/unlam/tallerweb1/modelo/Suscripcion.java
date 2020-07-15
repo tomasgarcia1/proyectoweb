@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 public class Suscripcion {
 
@@ -17,8 +19,9 @@ public class Suscripcion {
 	
 	@ManyToOne
 	private TipoSuscripcion tipo;
-	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fechaVencimiento;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fechaInicio;
 	private Boolean estado;
 	

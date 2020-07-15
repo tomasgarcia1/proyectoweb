@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 public class CuponDescuento {
 
@@ -17,6 +19,7 @@ public class CuponDescuento {
 	private Long id;
 	private Integer valor;
 	private Boolean estado;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fechavencimiento;
 
 	
