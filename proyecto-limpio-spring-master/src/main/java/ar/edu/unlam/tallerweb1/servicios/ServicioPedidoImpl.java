@@ -2,18 +2,29 @@ package ar.edu.unlam.tallerweb1.servicios;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Properties;
 import java.util.TreeSet;
 
 import javax.inject.Inject;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 
 import ar.edu.unlam.tallerweb1.modelo.Comida;
+import ar.edu.unlam.tallerweb1.modelo.CuponDescuento;
 import ar.edu.unlam.tallerweb1.modelo.Estado;
 import ar.edu.unlam.tallerweb1.modelo.Pedido;
 import ar.edu.unlam.tallerweb1.modelo.Posicion;
@@ -227,6 +238,7 @@ public class ServicioPedidoImpl implements ServicioPedido {
 		pedido.setComidas(comidas);
 		pedido.setPrecio(this.calcularImporteTotal(comidas, precioEnvio));
 		pedido.setUbicacionDestino(posicion);
+		pedido.setFecha(LocalDate.now());
 		return pedido;
 	}
 
@@ -270,5 +282,60 @@ public class ServicioPedidoImpl implements ServicioPedido {
 	@Override
 	public Posicion listarPosicionesDeUnUsuario(Pedido pedido) {
 		return pedidoDao.listarPosicion(pedido);
+	}
+
+	@Override
+	public Boolean enviarNotificacionCupon(CuponDescuento cuponNuevo, Usuario usuario) {
+		//Emisor
+        String from = "recomida2020@gmail.com";
+        String pass = "Recomida20";
+        String cuerpo = "Felicitaciones, "+usuario.getUsername()+" Recomida te regala un cupon de $"+cuponNuevo.getValor()+
+        		" con validez hasta "+cuponNuevo.getFechavencimiento().toString()+". ¡Disfrutalo!";
+        
+        // Obtiene las propiedades del sistema (no se si es necesario)
+        // Opcion alterna: Properties properties = new Properties();
+        Properties properties = System.getProperties();
+
+        // Configuracion del server
+        // Servidor de Gmail para hostear mensajes
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.port", "465");
+        properties.put("mail.smtp.ssl.enable", "true");
+        properties.put("mail.smtp.auth", "true");
+
+        // Get the Session object.// and pass username and password
+        // Crear un objeto de tipo javax.mail.Session (no es lo mismo que Session de servlet)
+        // Recibe como parametros las propiedades y un autenticador (el de password)
+        Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
+        // El autenticador valida el correo del emisor con la password
+        protected PasswordAuthentication getPasswordAuthentication() {
+        	return new PasswordAuthentication(from, pass);
+            }
+        });
+
+        // Se usa para depurar problemas de SMTP
+        session.setDebug(true);
+        
+        // Es necesario hacer try/catch porque puede tirarte una excepcion del tipo MessagingException
+        try {
+            // Crea un objeto de tipo MimeMessage
+            MimeMessage message = new MimeMessage(session);
+            // Setea el emisor como un objeto tipo InternetAddress
+            message.setFrom(new InternetAddress(from));
+            // Setea el receptor como un objeto tipo InternetAddress, ademas de decirle el tipo de emisor que es (puede ser CC o TO)
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(usuario.getEmail()));
+            // Setea el asunto
+            message.setSubject("Has obtenido un cupon");
+            // Setea el cuerpo del mensaje
+            message.setText(cuerpo);
+            /*message.setContent("aca tiene que ir el mensaje en html", "text/html; charset=utf-8");*/
+            
+            // Envia el mensaje
+            Transport.send(message);
+            return true;
+        } catch (MessagingException mex) {
+            mex.printStackTrace();
+            return false;
+        }
 	}
 }

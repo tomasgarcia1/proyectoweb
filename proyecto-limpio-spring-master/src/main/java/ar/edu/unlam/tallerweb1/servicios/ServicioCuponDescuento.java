@@ -8,7 +8,7 @@ import ar.edu.unlam.tallerweb1.modelo.MoldeCupon;
 
 public interface ServicioCuponDescuento {
 
-	void agregarCupon(CuponDescuento cupon);
+	Long agregarCupon(CuponDescuento cupon);
 
 	void actualizarCupon(CuponDescuento cupon);
 
@@ -26,7 +26,7 @@ public interface ServicioCuponDescuento {
 
 	Double calcularImporteConCupon(Long idCupon, Double precioPedido);
 
-	void agregarCuponDescuentoUsuarioSemana(Double precioPedido, LocalDate fecha, Long id);
+	CuponDescuento agregarCuponDescuentoUsuarioSemana(Double precioPedido, LocalDate fecha, Long id);
 	
 	void vencimientoDeCupon(Long id); 
 	

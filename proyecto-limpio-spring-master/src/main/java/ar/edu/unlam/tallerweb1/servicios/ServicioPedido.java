@@ -6,6 +6,7 @@ import java.util.TreeSet;
 import org.springframework.ui.ModelMap;
 
 import ar.edu.unlam.tallerweb1.modelo.Comida;
+import ar.edu.unlam.tallerweb1.modelo.CuponDescuento;
 import ar.edu.unlam.tallerweb1.modelo.Estado;
 import ar.edu.unlam.tallerweb1.modelo.Pedido;
 import ar.edu.unlam.tallerweb1.modelo.Posicion;
@@ -51,4 +52,6 @@ public interface ServicioPedido {
 	Double calcularImporteTotalComidaUnica(Comida comida, Double precioEnvio);
 
 	void updatePedido(Pedido pedido);
+
+	Boolean enviarNotificacionCupon(CuponDescuento cuponNuevo, Usuario usuario);
 }

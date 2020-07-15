@@ -20,8 +20,8 @@ public class CuponDescuentoDaoImpl implements CuponDescuentoDao {
 	private SessionFactory session;
 
 	@Override
-	public void agregarCupon(CuponDescuento cupon) {
-		session.getCurrentSession().save(cupon);
+	public Long agregarCupon(CuponDescuento cupon) {
+		return (Long) session.getCurrentSession().save(cupon);
 	}
 
 	@Override

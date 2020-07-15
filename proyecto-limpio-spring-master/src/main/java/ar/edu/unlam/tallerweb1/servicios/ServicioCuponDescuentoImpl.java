@@ -31,8 +31,8 @@ public class ServicioCuponDescuentoImpl implements ServicioCuponDescuento {
 	private PedidoDao pedidoDao;
 
 	@Override
-	public void agregarCupon(CuponDescuento cupon) {
-		cuponDescuentoDao.agregarCupon(cupon);
+	public Long agregarCupon(CuponDescuento cupon) {
+		return cuponDescuentoDao.agregarCupon(cupon);
 	}
 
 	@Override
@@ -108,7 +108,7 @@ public class ServicioCuponDescuentoImpl implements ServicioCuponDescuento {
 	// --------AGREGAR CUPON DE DESCUENTO USUARIO CALCULO SEGUN CANT PEDIDOS DE 1
 	// SEMANA----------
 
-	public void agregarCuponDescuentoUsuarioSemana(Double precioPedido, LocalDate fecha, Long id) {
+	public CuponDescuento agregarCuponDescuentoUsuarioSemana(Double precioPedido, LocalDate fecha, Long id) {
 		Usuario user = usuarioDao.obtenerUsuarioPorId(id);
 		LocalDate fechahoy = fecha;
 		LocalDate fechaweekatras = fechahoy.minusWeeks(1);
@@ -125,8 +125,11 @@ public class ServicioCuponDescuentoImpl implements ServicioCuponDescuento {
 			cupon.setEstado(true);
 			LocalDate fechavencimiento = fechahoy.plusDays(5);
 			cupon.setFechavencimiento(fechavencimiento);
-			agregarCupon(cupon);
+			Long idCupon=agregarCupon(cupon);
+			
+			return this.consultarCuponPorId(idCupon);
 		}
+		return null;
 	}
 
 	// ------SELECCION DE UN MOLDE ALEATORIO------

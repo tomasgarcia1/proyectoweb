@@ -7,7 +7,7 @@ import ar.edu.unlam.tallerweb1.modelo.MoldeCupon;
 
 public interface CuponDescuentoDao {
 
-	void agregarCupon(CuponDescuento cupon);
+	Long agregarCupon(CuponDescuento cupon);
 
 	void actualizarCupon(CuponDescuento cupon);
 
