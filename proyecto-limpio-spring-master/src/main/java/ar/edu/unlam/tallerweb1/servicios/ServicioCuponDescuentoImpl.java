@@ -50,25 +50,62 @@ public class ServicioCuponDescuentoImpl implements ServicioCuponDescuento {
 		return cuponDescuentoDao.consultarCuponPorId(id);
 	}
 
-	// --------AGREGAR DESCUENTO USUARIO CALCULO SEGUN GASTOS--------
-
-	public void agregarCuponDescuentoUsuarioGastos(Double precioPedido, Long id) {
-		Usuario user = usuarioDao.obtenerUsuarioPorId(id);
-		Integer cupones = cuponesUsuario(id).size();
-		Double gastos = user.getGastos();
-		Double importeAux = ((gastos + precioPedido) / 500);
-		Double resultado = importeAux - cupones;
-		if (resultado >= 1) {
-			MoldeCupon molde = valorMoldeAleatorio();
-			CuponDescuento cupon = new CuponDescuento();
-			cupon.setValor(molde.getValor());
-			cupon.setUsuario(user);
-			cupon.setEstado(true);
-			agregarCupon(cupon);
-		}
+	public CuponDescuentoDao getCuponDescuentoDao() {
+		return cuponDescuentoDao;
 	}
 
-	// --------AGREGAR DESCUENTO USUARIO CALCULO SEGUN CANT PEDIDOS DE 1
+	public void setCuponDescuentoDao(CuponDescuentoDao cuponDescuentoDao) {
+		this.cuponDescuentoDao = cuponDescuentoDao;
+	}
+
+	public UsuarioDao getUsuarioDao() {
+		return usuarioDao;
+	}
+
+	public void setUsuarioDao(UsuarioDao usuarioDao) {
+		this.usuarioDao = usuarioDao;
+	}
+
+	public PedidoDao getPedidoDao() {
+		return pedidoDao;
+	}
+
+	public void setPedidoDao(PedidoDao pedidoDao) {
+		this.pedidoDao = pedidoDao;
+	}
+	
+	/*
+	 * // --------AGREGAR CUPON DE DESCUENTO USUARIO CALCULO SEGUN GASTOS--------
+	 * 
+	 * public void agregarCuponDescuentoUsuarioGastos(Double precioPedido, LocalDate
+	 * fecha, Long id) { Usuario user = usuarioDao.obtenerUsuarioPorId(id); Integer
+	 * cupones = cuponesUsuario(id).size(); Double gastos = user.getGastos(); Double
+	 * importeAux = ((gastos + precioPedido) / 500); Double resultado = importeAux -
+	 * cupones; if (resultado >= 1) { MoldeCupon molde = valorMoldeAleatorio();
+	 * CuponDescuento cupon = new CuponDescuento();
+	 * cupon.setValor(molde.getValor()); cupon.setUsuario(user);
+	 * cupon.setEstado(true); LocalDate fechavencimiento = fecha.plusDays(5);
+	 * cupon.setFechavencimiento(fechavencimiento); agregarCupon(cupon); } }
+	 *//*
+		 * // ---AGREGAR CUPON DE DESCUENTO USUARIO CALCULO ENTRE DOS DIAS EN BASE A //
+		 * GASTOS-----
+		 * 
+		 * public void agregarCuponDescuentoUsuario2Fechas(Double precioPedido,
+		 * LocalDate fecha, Long id) { Usuario user =
+		 * usuarioDao.obtenerUsuarioPorId(id); LocalDate fechahoy = fecha; LocalDate
+		 * fechaayer = fechahoy.minusDays(1); LocalDate fechaantesayer =
+		 * fechahoy.minusDays(2); Double gastosUser = user.getGastos(); Double
+		 * gastosFinal = gastosUser + precioPedido; user.setGastos(gastosFinal);
+		 * usuarioDao.update(user); List<Pedido> pedidos =
+		 * pedidoDao.listarPedidosEntreFechasDeUnUsuario(user, fechaantesayer,
+		 * fechaayer); Double gastosPedido = 0.0; for (Pedido pedido : pedidos) {
+		 * gastosPedido += pedido.getPrecio(); } if (gastosPedido >= 400.0) { MoldeCupon
+		 * molde = valorMoldeAleatorio(); CuponDescuento cupon = new CuponDescuento();
+		 * cupon.setValor(molde.getValor()); cupon.setUsuario(user);
+		 * cupon.setEstado(true); LocalDate fechavencimiento = fechahoy.plusDays(5);
+		 * cupon.setFechavencimiento(fechavencimiento); agregarCupon(cupon); } }
+		 */
+	// --------AGREGAR CUPON DE DESCUENTO USUARIO CALCULO SEGUN CANT PEDIDOS DE 1
 	// SEMANA----------
 
 	public void agregarCuponDescuentoUsuarioSemana(Double precioPedido, LocalDate fecha, Long id) {
@@ -86,33 +123,8 @@ public class ServicioCuponDescuentoImpl implements ServicioCuponDescuento {
 			cupon.setValor(molde.getValor());
 			cupon.setUsuario(user);
 			cupon.setEstado(true);
-			agregarCupon(cupon);
-		}
-	}
-
-	// --------AGREGAR DESCUENTO USUARIO CALCULO ENTRE DOS DIAS EN BASE A
-	// GASTOS--------
-
-	public void agregarCuponDescuentoUsuario2Fechas(Double precioPedido, LocalDate fecha, Long id) {
-		Usuario user = usuarioDao.obtenerUsuarioPorId(id);
-		LocalDate fechahoy = fecha;
-		LocalDate fechaayer = fechahoy.minusDays(1);
-		LocalDate fechaantesayer = fechahoy.minusDays(2);
-		Double gastosUser = user.getGastos();
-		Double gastosFinal = gastosUser + precioPedido;
-		user.setGastos(gastosFinal);
-		usuarioDao.update(user);
-		List<Pedido> pedidos = pedidoDao.listarPedidosEntreFechasDeUnUsuario(user, fechaantesayer, fechaayer);
-		Double gastosPedido = 0.0;
-		for (Pedido pedido : pedidos) {
-			gastosPedido += pedido.getPrecio();
-		}
-		if (gastosPedido >= 400.0) {
-			MoldeCupon molde = valorMoldeAleatorio();
-			CuponDescuento cupon = new CuponDescuento();
-			cupon.setValor(molde.getValor());
-			cupon.setUsuario(user);
-			cupon.setEstado(true);
+			LocalDate fechavencimiento = fechahoy.plusDays(5);
+			cupon.setFechavencimiento(fechavencimiento);
 			agregarCupon(cupon);
 		}
 	}
@@ -169,6 +181,20 @@ public class ServicioCuponDescuentoImpl implements ServicioCuponDescuento {
 			return resultado;
 		}
 		return resultado;
+	}
+
+	// ---------------VENCIMIENTO DE CUPON-----------------
+
+	@Override
+	public void vencimientoDeCupon(Long id) {
+		List<CuponDescuento> cupones = cuponesUsuarioHabilitados(id);
+		for (CuponDescuento cuponaux : cupones) {
+			LocalDate vencimiento = cuponaux.getFechavencimiento();
+			if (vencimiento.equals(LocalDate.now())) {
+				cuponaux.setEstado(false);
+				cuponDescuentoDao.actualizarCupon(cuponaux);
+			}
+		}
 	}
 
 }

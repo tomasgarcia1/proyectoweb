@@ -21,14 +21,15 @@
 <body>
 	<%@include file="header.jsp"%>
 
-	<h3 class="text-center mt-5">Crear Cupon De Descuento</h3>
+	<h3 class="text-center mt-5">Cupon de Descuento</h3>
 
 	<section class="container -sm p-4">
-	<h4>Usted va a crear un molde de un Cupon de Descuento.</h4>
+	<p class="lead">Usted va a crear un Molde de un Cupon De Descuento</p>
+	<p>El sistema otorgará aleatoriamente un cupon al cliente, en base a las compras que realizó en una semana.</p>
 		<form:form action="agregarMoldeCuponValidacion" method="POST"
 			modelAttribute="molde">
 			<div class="form-group">
-				<label for="molde">Ingrese el valor del Cupon:</label>
+				<label for="molde">Ingrese el valor del Cupon</label>
 				<form:input path="valor" id="valor" type="number"
 					class="form-control" required="required" />
 			</div>

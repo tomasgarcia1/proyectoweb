@@ -57,7 +57,7 @@
 								<h5 class="text-success">${pedido.estado}</h5>
 							</c:if></td>
 
-						<th class="h5 text-secondary">${pedido.fecha}</th>
+						<td class="h5 text-secondary">${pedido.fecha}</td>
 						<c:if test="${usuario.rol == 'ADMINISTRADOR'}">
 							<td>${pedido.usuario.email}</td>
 						</c:if>

@@ -26,10 +26,12 @@ public interface ServicioCuponDescuento {
 
 	Double calcularImporteConCupon(Long idCupon, Double precioPedido);
 
-	void agregarCuponDescuentoUsuarioGastos(Double precioPedido, Long id);
-
 	void agregarCuponDescuentoUsuarioSemana(Double precioPedido, LocalDate fecha, Long id);
-
-	void agregarCuponDescuentoUsuario2Fechas(Double precioPedido, LocalDate fecha, Long id);
+	
+	void vencimientoDeCupon(Long id); 
+	
+	// void agregarCuponDescuentoUsuarioGastos(Double precioPedido, Long id);
+	
+	// void agregarCuponDescuentoUsuario2Fechas(Double precioPedido, LocalDate fecha, Long id);
 
 }

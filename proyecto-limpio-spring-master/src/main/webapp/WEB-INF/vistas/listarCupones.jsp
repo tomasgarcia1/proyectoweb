@@ -22,12 +22,13 @@
 	<%@include file="header.jsp"%>
 
 	<section class="container -sm p-4">
-		<table class="table table-hover">
+		<table class="table">
 			<thead>
 				<tr>
-					<th scope="col">ID</th>
-					<th scope="col">Importe</th>
-					<th scope="col">Estado</th>
+					<th scope="col" class="text-danger">ID</th>
+					<th scope="col" class="text-danger">Importe</th>
+					<th scope="col" class="text-danger">Fecha</th>
+					<th scope="col" class="text-danger">Estado</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -35,6 +36,7 @@
 					<tr>
 						<th scope="row">${cupon.id}</th>
 						<td class="h5">$ ${cupon.valor}</td>
+						<td>${cupon.fechavencimiento}</td>
 						<td><c:if test="${cupon.estado == true}">
 								<h5 class="text-success">HABILITADO</h5>
 							</c:if> <c:if test="${cupon.estado == false}">
@@ -44,6 +46,19 @@
 				</c:forEach>
 		</table>
 	</section>
+
+<!-- Footer -->
+	<%@include file="footer.jsp"%>
+
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script>
+		window.jQuery
+				|| document
+						.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')
+	</script>
+	<script src="js/bootstrap.min.js" type="text/javascript"></script>
 
 </body>
 </html>
