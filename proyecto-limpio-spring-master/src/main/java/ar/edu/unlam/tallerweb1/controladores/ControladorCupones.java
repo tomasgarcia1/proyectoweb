@@ -1,11 +1,9 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,14 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.mercadopago.resources.Preference;
-
 import ar.edu.unlam.tallerweb1.modelo.Comida;
 import ar.edu.unlam.tallerweb1.modelo.CuponDescuento;
-import ar.edu.unlam.tallerweb1.modelo.Estado;
 import ar.edu.unlam.tallerweb1.modelo.MoldeCupon;
-import ar.edu.unlam.tallerweb1.modelo.Pedido;
 import ar.edu.unlam.tallerweb1.modelo.Posicion;
 import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
@@ -49,36 +43,20 @@ public class ControladorCupones {
 	@Inject
 	private ServicioCuponDescuento servicioCuponDescuento;
 
-	/*
-	 * // ----------------AGREGAR CUPON------------------
-	 * 
-	 * @RequestMapping(path = "/agregarCupon", method = RequestMethod.GET) public
-	 * ModelAndView agregarCupon(@RequestParam(value = "id") String id,
-	 * 
-	 * @RequestParam(value = "idPosicion") Long idPosicion, @RequestParam(value =
-	 * "precio") Double precio, HttpServletRequest request) { ModelMap model = new
-	 * ModelMap();
-	 * 
-	 * Usuario user = (Usuario) request.getSession().getAttribute("usuario");
-	 * 
-	 * List<CuponDescuento> cupon =
-	 * servicioCuponDescuento.cuponesUsuarioHabilitados(user.getId());
-	 * 
-	 * model.put("id", id); model.put("cupones", cupon); model.put("precio",
-	 * precio); model.put("idPosicion", idPosicion); return new
-	 * ModelAndView("agregarCupon", model); }
-	 * 
-	 */
+	public ServicioMoldeCupon getServicioMoldeCupon() {
+		return servicioMoldeCupon;
+	}
 
-	// --------------CUPONES DEL USUARIO------------------
+	public void setServicioMoldeCupon(ServicioMoldeCupon servicioMoldeCupon) {
+		this.servicioMoldeCupon = servicioMoldeCupon;
+	}
 
-	@RequestMapping(path = "/miscupones")
-	public ModelAndView miscupones(HttpServletRequest request) {
-		ModelMap model = new ModelMap();
-		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
-		List<CuponDescuento> listaCupones = servicioCuponDescuento.cuponesUsuario(user.getId());
-		model.put("cupones", listaCupones);
-		return new ModelAndView("listarCupones", model);
+	public ServicioCuponDescuento getServicioCuponDescuento() {
+		return servicioCuponDescuento;
+	}
+
+	public void setServicioCuponDescuento(ServicioCuponDescuento servicioCuponDescuento) {
+		this.servicioCuponDescuento = servicioCuponDescuento;
 	}
 
 	// ---------------GENERA PEDIDO CON CUPON--------------
@@ -119,43 +97,53 @@ public class ControladorCupones {
 	}
 
 	// ---------PAGAR PEDIDO CON CUPON----------
+	/*
+	 * @RequestMapping(path = "/pagarPedidoConCupon", method = RequestMethod.GET)
+	 * public ModelAndView pagarPedido(@RequestParam(value = "id") String id,
+	 * 
+	 * @RequestParam(value = "payment_status") String estado, @RequestParam(value =
+	 * "idPosicion") Long idPosicion,
+	 * 
+	 * @RequestParam(value = "idCupon") Long idCupon, HttpServletRequest request) {
+	 * ModelMap model = new ModelMap(); Usuario user = (Usuario)
+	 * request.getSession().getAttribute("usuario"); Pedido nuevoPedido = new
+	 * Pedido(); Posicion posicionCliente =
+	 * this.servicioPosicion.obtenerPosicionPorId(idPosicion); CuponDescuento cupon
+	 * = servicioCuponDescuento.consultarCuponPorId(idCupon);
+	 * 
+	 * nuevoPedido = servicioPedido.generarPedidoPorIdComidas(id, posicionCliente,
+	 * posicionSucursal); // Estado proveniente de mercado pago if
+	 * (estado.equals("approved")) { nuevoPedido.setEstado(Estado.PROCESO); } else {
+	 * nuevoPedido.setEstado(Estado.CANCELADO); }
+	 * 
+	 * nuevoPedido.setUsuario(user); Long idPedido =
+	 * servicioPedido.crearPedido(nuevoPedido); nuevoPedido.setId(idPedido);
+	 * LocalDate fechahoy = LocalDate.now(); nuevoPedido.setFecha(fechahoy);
+	 * servicioPedido.updatePedido(nuevoPedido); Double precio =
+	 * nuevoPedido.getPrecio();
+	 * servicioCuponDescuento.agregarCuponDescuentoUsuarioSemana(precio, fechahoy,
+	 * user.getId()); if (cupon != null) { nuevoPedido.setCuponDescuento(cupon);
+	 * cupon.setEstado(false); servicioCuponDescuento.actualizarCupon(cupon); }
+	 * 
+	 * model.put("pedido", nuevoPedido); return new ModelAndView("pedidoRealizado",
+	 * model); }
+	 */
 
-	@RequestMapping(path = "/pagarPedidoConCupon", method = RequestMethod.GET)
-	public ModelAndView pagarPedido(@RequestParam(value = "id") String id,
-			@RequestParam(value = "payment_status") String estado, @RequestParam(value = "idPosicion") Long idPosicion,
-			@RequestParam(value = "idCupon") Long idCupon, HttpServletRequest request) {
-		ModelMap model = new ModelMap();
-		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
-		Pedido nuevoPedido = new Pedido();
-		Posicion posicionCliente = this.servicioPosicion.obtenerPosicionPorId(idPosicion);
-		CuponDescuento cupon = servicioCuponDescuento.consultarCuponPorId(idCupon);
+	// --------------CUPONES DEL USUARIO------------------
 
-		nuevoPedido = servicioPedido.generarPedidoPorIdComidas(id, posicionCliente, posicionSucursal);
-		// Estado proveniente de mercado pago
-		if (estado.equals("approved")) {
-			nuevoPedido.setEstado(Estado.PROCESO);
-		} else {
-			nuevoPedido.setEstado(Estado.CANCELADO);
+		@RequestMapping(path = "/miscupones")
+		public ModelAndView miscupones(HttpServletRequest request) {
+			ModelMap model = new ModelMap();
+			Usuario user = (Usuario) request.getSession().getAttribute("usuario");
+			if (user != null && user.getRol() == Rol.CLIENTE) {
+				List<CuponDescuento> listaCupones = servicioCuponDescuento.cuponesUsuario(user.getId());
+				model.put("cupones", listaCupones);
+				return new ModelAndView("listarCupones", model);
+			} else {
+				return new ModelAndView("redirect:/home");
+			}
 		}
-
-		nuevoPedido.setUsuario(user);
-		Long idPedido = servicioPedido.crearPedido(nuevoPedido);
-		nuevoPedido.setId(idPedido);
-		LocalDate fechahoy = LocalDate.now();
-		nuevoPedido.setFecha(fechahoy);
-		servicioPedido.updatePedido(nuevoPedido);
-		Double precio = nuevoPedido.getPrecio();
-		servicioCuponDescuento.agregarCuponDescuentoUsuarioSemana(precio, fechahoy, user.getId());
-		if (cupon != null) {
-			nuevoPedido.setCuponDescuento(cupon);
-			cupon.setEstado(false);
-			servicioCuponDescuento.actualizarCupon(cupon);
-		}
-
-		model.put("pedido", nuevoPedido);
-		return new ModelAndView("pedidoRealizado", model);
-	}
-
+		
 	// ------------CREACIÓN MOLDE VALIDACIÓN--------------
 
 	@RequestMapping(path = "/crearMoldeCupon", method = RequestMethod.GET)
@@ -186,6 +174,38 @@ public class ControladorCupones {
 	public ModelAndView eliminarMoldeCupon(@RequestParam(value = "id", required = true) Long id) {
 		servicioMoldeCupon.eliminarMoldeCupon(servicioMoldeCupon.consultarMoldeCuponPorId(id));
 		return new ModelAndView("redirect:/adminInterno");
+	}
+
+	// ---------ACTUALIZAR MOLDE-------
+
+	@RequestMapping(path = "/actualizarMoldeCupon", method = RequestMethod.POST)
+	public ModelAndView actualizarMoldeCupon(Long id, String estado) {
+		MoldeCupon molde = servicioMoldeCupon.consultarMoldeCuponPorId(id);
+		if (estado.equals("HABILITADO")) {
+			molde.setEstado(true);
+			servicioMoldeCupon.actualizarMoldeCupon(molde);
+		}
+		if (estado.equals("DESHABILITADO")) {
+			molde.setEstado(false);
+			servicioMoldeCupon.actualizarMoldeCupon(molde);
+		}
+		return new ModelAndView("redirect:/adminInterno");
+	}
+
+	// ----------MODIFICAR MOLDE------------
+
+	@RequestMapping(path = "/modificarMoldeCupon")
+	public ModelAndView modificarMoldeCupon(@RequestParam(value = "id", required = true) Long id,
+			HttpServletRequest request) {
+		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
+		ModelMap model = new ModelMap();
+
+		if (user != null && user.getRol() == Rol.ADMINISTRADOR) {
+			MoldeCupon molde = servicioMoldeCupon.consultarMoldeCuponPorId(id);
+			model.put("molde", molde);
+			return new ModelAndView("detalleMoldeCupon", model);
+		}
+		return new ModelAndView("redirect:/home");
 	}
 
 	// ---------MOLDES LISTADO-------

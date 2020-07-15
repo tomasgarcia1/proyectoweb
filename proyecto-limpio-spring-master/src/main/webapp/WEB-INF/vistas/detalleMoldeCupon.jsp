@@ -2,11 +2,12 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Mis Cupones</title>
+<title>Detalle Moldes Cupon</title>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -18,36 +19,45 @@
 	crossorigin="anonymous">
 </head>
 <body>
-
 	<%@include file="header.jsp"%>
 
-	<section class="container -sm p-4">
-		<table class="table">
-			<thead>
-				<tr>
-					<th scope="col" class="text-danger">ID</th>
-					<th scope="col" class="text-danger">Importe</th>
-					<th scope="col" class="text-danger">Fecha</th>
-					<th scope="col" class="text-danger">Estado</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${cupones}" var="cupon">
-					<tr>
-						<th scope="row">${cupon.id}</th>
-						<td class="h5">$ ${cupon.valor}</td>
-						<td>${cupon.fechavencimiento}</td>
-						<td><c:if test="${cupon.estado == true}">
-								<h5 class="text-success">HABILITADO</h5>
-							</c:if> <c:if test="${cupon.estado == false}">
-								<h5 class="text-danger">DESHABILITADO</h5>
-							</c:if></td>
-					</tr>
-				</c:forEach>
-		</table>
+	<h1 class="text-center mb-4">Molde Cupon: ${molde.id}</h1>
+
+	<section class="container -sm">
+		<h3 class="blockquote">Información</h3>
+		<hr>
+		<ul>
+			<li>
+				<h5>Valor: $ ${molde.valor}</h5>
+			</li>
+			<li>
+				<h5>Estado:</h5> <c:if test="${molde.estado == true}">
+					<h4 class="text-success">HABILITADO</h4>
+				</c:if> <c:if test="${molde.estado == false}">
+					<h4 class="text-danger">DESHABILITADO</h4>
+				</c:if>
+			</li>
+		</ul>
+
+		<h5 class="blockquote text-center">Modifique el Estado del Cupon</h5>
+		<form action="actualizarMoldeCupon" method="POST">
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<input name="id" type="hidden" value="${molde.id}">
+				</div>
+				<select class="custom-select" id="inputGroupSelect01" name="estado"
+					required="required">
+					<option>HABILITADO</option>
+					<option>DESHABILITADO</option>
+				</select>
+				<button class="btn btn-outline-success">Actualizar</button>
+			</div>
+		</form>
+
+		<a href="moldes" class="btn btn-danger mt-3 mb-3">Atrás</a>
 	</section>
 
-<!-- Footer -->
+	<!-- Footer -->
 	<%@include file="footer.jsp"%>
 
 	<!-- Placed at the end of the document so the pages load faster -->
@@ -59,6 +69,4 @@
 						.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')
 	</script>
 	<script src="js/bootstrap.min.js" type="text/javascript"></script>
-
-</body>
 </html>

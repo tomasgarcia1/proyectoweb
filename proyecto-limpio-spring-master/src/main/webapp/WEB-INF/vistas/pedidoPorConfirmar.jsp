@@ -45,38 +45,46 @@
 			</div>
 		</li> <br> <br>
 
+
 		<button id="boton" onclick="mostrarSelect()"
 			class="btn btn-danger mb-3">Agregar Cupon</button>
 
 		<div class="container -sm">
 			<form action="pedidoConCuponComidas" method="POST" id="form">
-				<c:forEach items="${cupones}" var="cupon">
-					<div class="input-group-prepend" id="select" style="display: none;">
-						<c:if test="${cupones != null}">
-							<span>Una vez que seleccionó el cupon, de click en elegir!</span>
-							<select class="custom-select" id="select" name="idCupon"
-								required="required">
+				<div class="input-group-prepend" id="select" style="display: none;">
+					<c:if test="${empty cupones}">
+						<img src="img/sad.png" class="p-1" style="width: 45px; height: 45px;">
+						<h5>Lo sentimos, usted no posee cupones</h5>
+					</c:if>
+					<c:if test="${!empty cupones}">
+						<span>Una vez que seleccionó el cupon, de click en elegir!</span>
+						<select class="custom-select" id="select" name="idCupon"
+							required="required">
+							<c:forEach items="${cupones}" var="cupon">
 								<option value="${cupon.id}">${cupon.valor}</option>
-							</select>
-							<input type="hidden" name="idCupon" value="${cupon.id}">
-							<input type="hidden" name="id" value="${id}">
-							<input type="hidden" name="idPosicion" value="${idPosicion}">
-							<input type="hidden" name="precio" value="${precio}">
-							<button class="btn btn-outline-success">Elegir</button>
-						</c:if>
-					</div>
-				</c:forEach>
+							</c:forEach>
+						</select>
+						<input type="hidden" name="idCupon" value="${cupon.id}">
+						<input type="hidden" name="id" value="${id}">
+						<input type="hidden" name="idPosicion" value="${idPosicion}">
+						<input type="hidden" name="precio" value="${precio}">
+						<button class="btn btn-outline-success">Elegir</button>
+					</c:if>
+				</div>
+
 			</form>
 		</div>
 
 		<div class="mt-5">
-			
+
 			<form action="pagarpedido" method="GET" class="d-inline">
 				<input type="hidden" name="id" value="${id}"> <input
-					type="hidden" name="idPosicion" value="${idPosicion}">
+					type="hidden" name="idPosicion" value="${idPosicion}"> <input
+					type="hidden" name="idCupon" value="0">
 				<script
 					src="https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js"
 					data-preference-id="${preference.id}">
+					
 				</script>
 			</form>
 			<a href="interno" class="btn btn-danger m-3">Cancelar</a>

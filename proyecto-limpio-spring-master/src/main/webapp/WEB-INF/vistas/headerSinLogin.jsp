@@ -6,7 +6,7 @@
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item"><a class="nav-link" href="login">Login</a></li>
 					<li class="nav-item"><a class="nav-link" href="suscripciones">Suscripciones</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">¿Quienes somos?</a></li>
+					<li class="nav-item"><a class="nav-link" href="quienesSomos">¿Quienes somos?</a></li>
 				</ul>
 			</div>
 		</div>

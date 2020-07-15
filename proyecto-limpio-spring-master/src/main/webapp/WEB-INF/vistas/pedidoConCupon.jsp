@@ -48,7 +48,7 @@
 			</div>
 		</li>
 		<div class="mt-5">
-			<form action="pagarPedidoConCupon" method="GET" class="d-inline">
+			<form action="pagarpedido" method="GET" class="d-inline">
 				<input type="hidden" name="id" value="${id}"> <input
 					type="hidden" name="idPosicion" value="${idPosicion}"><input
 					type="hidden" name="idCupon" value="${cupon.id}">

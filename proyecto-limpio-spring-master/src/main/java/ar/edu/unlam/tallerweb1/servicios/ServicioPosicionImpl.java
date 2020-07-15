@@ -21,6 +21,14 @@ public class ServicioPosicionImpl implements ServicioPosicion {
 	@Inject
 	private ServicioPedido servicioPedido;
 	
+	public ServicioPosicionImpl() {
+		
+	}
+	public ServicioPosicionImpl(ServicioPedido servicioPedido2, PosicionDao posicionDao2) {
+		this.posicionDao=posicionDao2;
+		this.servicioPedido=servicioPedido2;
+	}
+
 	@Override
 	public Long crearPosicion(Posicion posicion) {		
 		return posicionDao.crearPosicion(posicion);
@@ -33,12 +41,13 @@ public class ServicioPosicionImpl implements ServicioPosicion {
 
 	@Override
 	public boolean compararPosiciones(List<Posicion> posiciones, Posicion pos) {
+		boolean flag=true;
 		for (Posicion posicion : posiciones) {
-			if(posicion.getLatitude()==pos.getLatitude() && posicion.getLongitude()==pos.getLongitude()) {
-				return false;
+			if(posicion.getLatitude().equals(pos.getLatitude()) && posicion.getLongitude().equals(pos.getLongitude())) {
+				flag=false;
 			}
 		}		
-		return true;
+		return flag;
 	}
 	@Override
 	public List<Posicion> obtenerPosicionesDeUnUsuario(Usuario user) {

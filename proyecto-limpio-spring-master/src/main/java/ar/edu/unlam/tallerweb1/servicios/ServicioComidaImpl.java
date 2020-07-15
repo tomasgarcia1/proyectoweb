@@ -64,8 +64,6 @@ public class ServicioComidaImpl implements ServicioComida {
 		this.usuarioDao = usuarioDao;
 	}
 
-	// --------------------SUGERIR COMIDAS POR RESTRICCIONES----------------------
-
 	public RestriccionDao getRestriccionDao() {
 		return restriccionDao;
 	}
@@ -73,6 +71,8 @@ public class ServicioComidaImpl implements ServicioComida {
 	public void setRestriccionDao(RestriccionDao restriccionDao) {
 		this.restriccionDao = restriccionDao;
 	}
+	
+	// --------------------SUGERIR COMIDAS POR RESTRICCIONES----------------------
 
 	@Override
 	public Comida sugerirDesayunoPorRestricciones(Long id) {
@@ -344,6 +344,8 @@ public class ServicioComidaImpl implements ServicioComida {
 		return listacomidas;
 	}
 
+	//-------------LISTAR COMIDAS SEGUN RESTRICCION-----------------
+	
 	@Override
 	public List<Comida> obtenerComidasDeRestriccion(String nombre) {
 		Restriccion rest = restriccionDao.obtenerRestriccionPorNombre(nombre);
