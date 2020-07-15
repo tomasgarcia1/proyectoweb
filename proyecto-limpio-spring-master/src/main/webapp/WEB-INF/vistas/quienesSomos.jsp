@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>¿Quiénes Somos?</title>
+<title>Quiénes Somos</title>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -19,32 +19,70 @@
 </head>
 <body>
 
-	<%@include file="header.jsp"%>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+		<div class="container">
 
-	<h3 class="display-4">¿Quiénes Somos?</h3>
-
-	<section class="container -sm p-4">
-		<hr>
-		<h2>Recomida!</h2>
-		
-		<p>Somos un equipo dedicado a la salud y a la comida, queriendo
-			ayudar a cada vez más personas a desentenderse del problema de elegir
-			qué comer en cada momento del día.</p>
-
-		<p>Gran parte de la población en la actualidad pone en segundo
-			plano lo sano y nutritivo y lo reemplaza por lo rico y rápido.</p>
-
-		<div class="alert alert-danger" role="alert">
-			<h4 class="alert-heading">¡Contamos con los mejores
-				nutricionistas del país!</h4>
+			<a class="navbar-brand" href="home">RECOMIDA</a>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item"><a class="nav-link" href="home">Home</a></li>
+					<li class="nav-item"><a class="nav-link" href="suscripciones">Suscripciones</a></li>
+				</ul>
+			</div>
 		</div>
+	</nav>
 
-		<h4 class="leader">Objetivo</h4>
-		<p>En Recomida intentamos junto a un grupo de especialistas en
-			nutrición y un team de chefs, que la comida ya no sea un peso, sino
-			que sea lo que te ayude a mejorar tu vida y tu cuerpo en tan solo un
-			click.</p>
-			
+	<h3 class="display-4 text-center p-3">¿Quiénes Somos?</h3>
+
+	<section class="container -sm mb-5">
+		<hr>
+		<blockquote class="blockquote">
+			<p>Somos un equipo dedicado a la salud y a la comida, queriendo
+				ayudar a cada vez más personas a desentenderse del problema de
+				elegir qué comer en cada momento del día.</p>
+		</blockquote>
+
+		<div class="container" style="margin-top: 6">
+			<div id="carouselExampleSlidesOnly" class="carousel slide"
+				data-ride="carousel">
+				<div class="carousel-inner" style="height: 35rem;">
+					<div class="carousel-item active">
+						<img class="d-block w-100" src="img/comidaSlide.jpeg"
+							alt="First slide">
+					</div>
+					<div class="carousel-item">
+						<img class="d-block w-100" src="img/nutricionistas.jpg"
+							alt="Second slide">
+					</div>
+					<div class="carousel-item">
+						<img class="d-block w-100" src="img/chefs.jpg" alt="Third slide">
+					</div>
+				</div>
+			</div>
+		</div>
+		<br>
+		<h5 class="text-danger">Historia</h5>
+		<hr>
+		<blockquote class="blockquote">
+			<p>Nos hemos dado cuenta que, gran parte de la población en la
+				actualidad pone en segundo plano lo sano y nutritivo y lo reemplaza
+				por lo rico y rápido. Por eso mismo, hace 4 meses decidimos hacer
+				este gran emprendimiento. Para demostrar que mis neuronas ya no
+				pueden redactar esto, si alguien lo sigue se lo agradecería.</p>
+		</blockquote>
+
+		<h5 class="text-danger">Objetivo</h5>
+		<hr>
+		<blockquote class="blockquote">
+			<p class="mb-2">En Recomida intentamos junto a un grupo de
+				especialistas en nutrición y un team de chefs, que la comida ya no
+				sea un peso, sino que sea lo que te ayude a mejorar tu vida y tu
+				cuerpo en tan solo un click.</p>
+		</blockquote>
+
+		<a href="registro" class="btn btn-danger btn-lg btn-block">Quiero
+			ser parte de Recomida!</a>
+
 	</section>
 	<!-- Footer -->
 	<%@include file="footer.jsp"%>

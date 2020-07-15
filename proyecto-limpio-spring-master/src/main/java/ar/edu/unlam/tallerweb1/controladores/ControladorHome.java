@@ -55,4 +55,10 @@ public class ControladorHome {
 			return new ModelAndView("redirect:/home");
 		}
 	}
+	
+	//---------QUIENES SOMOS----------
+	@RequestMapping(path = "/quienesSomos")
+	public ModelAndView quienesSomos() {
+			return new ModelAndView("quienesSomos");
+	}
 }
