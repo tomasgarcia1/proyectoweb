@@ -41,12 +41,14 @@ public interface ServicioPedido {
 	Double convertirPrecio(Double precio);
 
 	TreeSet<Comida> comidasMasPedidas(Long id);
-	
+
 	List<Comida> listarComidasDeUnPedido(Pedido pedido);
-	
+
 	Posicion listarPosicionesDeUnUsuario(Pedido pedido);
 
-	ModelMap generarPreviewPosicion(Posicion posicionSucursal,Posicion posicion);
+	ModelMap generarPreviewPosicion(Posicion posicionSucursal, Posicion posicion);
 
 	Double calcularImporteTotalComidaUnica(Comida comida, Double precioEnvio);
+
+	void updatePedido(Pedido pedido);
 }

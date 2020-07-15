@@ -5,7 +5,7 @@ import java.util.TreeSet;
 
 import ar.edu.unlam.tallerweb1.modelo.Comida;
 import ar.edu.unlam.tallerweb1.modelo.TipoHorario;
-import ar.edu.unlam.tallerweb1.modelo.Usuario;
+
 
 public interface ServicioComida {
 
@@ -33,11 +33,19 @@ public interface ServicioComida {
 
 	List<Comida> listarComidasSegunRestricciones(Long id);
 	
+	List<Comida> obtenerComidasDeRestriccion(String nombre);
+
 	TreeSet<Comida> listarComidasUsuarioSinRepetir(Long id);
 
 	List<Comida> contadorComida(Comida comida);
-
-	TreeSet<Comida> comidasMasVistas();
+/*
+	List<Comida> comidasMasVistasSegunUsuario(Long id);
+	
+	List<Comida> comidasMenosVistasSegunUsuario(Long id); */
+	
+	List<Comida> comidasMasVistas();
+	
+	List<Comida> comidasMenosVistas();
 
 	Comida obtenerComidaPorNombre(String nombre);
 

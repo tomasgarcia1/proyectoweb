@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unlam.tallerweb1.modelo.Comida;
-import ar.edu.unlam.tallerweb1.modelo.OrdenPorContador;
 import ar.edu.unlam.tallerweb1.modelo.Restriccion;
 import ar.edu.unlam.tallerweb1.modelo.TipoHorario;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
@@ -28,10 +27,10 @@ public class ServicioComidaImpl implements ServicioComida {
 
 	@Inject
 	private UsuarioDao usuarioDao;
-	
+
 	@Inject
 	private RestriccionDao restriccionDao;
-	
+
 	@Override
 	public Long crearComida(Comida comida) {
 		comida.setContador(0);
@@ -46,8 +45,7 @@ public class ServicioComidaImpl implements ServicioComida {
 	public void borrar(Comida comida) {
 		comidaDao.borrar(comida);
 	}
-	
-	
+
 	// --------------------GETTERS Y SETTERS PARA LOS TEST----------------------
 
 	public ComidaDao getComidaDao() {
@@ -65,10 +63,8 @@ public class ServicioComidaImpl implements ServicioComida {
 	public void setUsuarioDao(UsuarioDao usuarioDao) {
 		this.usuarioDao = usuarioDao;
 	}
-	
-	
-	// --------------------SUGERIR COMIDAS POR RESTRICCIONES----------------------
 
+	// --------------------SUGERIR COMIDAS POR RESTRICCIONES----------------------
 
 	public RestriccionDao getRestriccionDao() {
 		return restriccionDao;
@@ -282,6 +278,8 @@ public class ServicioComidaImpl implements ServicioComida {
 		comidaDao.updateComida(comida);
 	}
 
+	// --------------CONTADOR COMIDA ------------
+
 	public List<Comida> contadorComida(Comida comida) {
 		List<Comida> comidas = new LinkedList<>();
 		comidas.add(comida);
@@ -292,12 +290,45 @@ public class ServicioComidaImpl implements ServicioComida {
 		return comidas;
 	}
 
-	public TreeSet<Comida> comidasMasVistas() {
-		OrdenPorContador ordenContador = new OrdenPorContador();
-		TreeSet<Comida> comidasMasVistas = new TreeSet<>(ordenContador);
-		comidasMasVistas.addAll(comidaDao.obtenerComidasMasVistas());
+	// --------------COMIDAS MENOS VISTAS------------
+
+	public List<Comida> comidasMenosVistas() {
+		List<Comida> comidasMenosVistas = comidaDao.obtenerComidasMenosVistas();
+		return comidasMenosVistas;
+	}
+
+	// --------------COMIDAS MAS VISTAS------------
+
+	public List<Comida> comidasMasVistas() {
+		List<Comida> comidasMasVistas = comidaDao.obtenerComidasMasVistas();
 		return comidasMasVistas;
 	}
+
+	/*
+	 * // --------------COMIDAS MAS VISTAS SEGUN USUARIO ------------
+	 * 
+	 * public List<Comida> comidasMasVistasSegunUsuario(Long id) { List<Comida>
+	 * comidasMasVistas = comidaDao.obtenerComidasMasVistas(); List<Comida>
+	 * comidasUsuario = listarComidasSegunRestricciones(id); List<Comida> comidas =
+	 * new LinkedList<Comida>();
+	 * 
+	 * for (Comida c : comidasMasVistas) { for (Comida cUser : comidasUsuario) { if
+	 * (c.getRestricciones().equals(cUser.getRestricciones())) { comidas.add(c); } }
+	 * } return comidas; }
+	 * 
+	 * // --------------COMIDAS MENOS VISTAS SEGUN USUARIO ------------
+	 * 
+	 * public List<Comida> comidasMenosVistasSegunUsuario(Long id) { List<Comida>
+	 * comidasMenosVistas = comidaDao.obtenerComidasMenosVistas(); List<Comida>
+	 * comidasUsuario = listarComidasSegunRestricciones(id); List<Comida> comidas =
+	 * new LinkedList<Comida>();
+	 * 
+	 * for (Comida c : comidasMenosVistas) { for (Comida cUser : comidasUsuario) {
+	 * if (c.getRestricciones().equals(cUser.getRestricciones())) { comidas.add(c);
+	 * } } } return comidas; }
+	 */
+
+	// --------------LISTAR COMIDAS USUARIO SIN REPETIR ------------
 
 	@Override
 	public TreeSet<Comida> listarComidasUsuarioSinRepetir(Long id) {
@@ -311,6 +342,13 @@ public class ServicioComidaImpl implements ServicioComida {
 			}
 		}
 		return listacomidas;
+	}
+
+	@Override
+	public List<Comida> obtenerComidasDeRestriccion(String nombre) {
+		Restriccion rest = restriccionDao.obtenerRestriccionPorNombre(nombre);
+		List<Comida> comidas = comidaDao.obtenerComidasPorRestriccion(rest);
+		return comidas;
 	}
 
 }

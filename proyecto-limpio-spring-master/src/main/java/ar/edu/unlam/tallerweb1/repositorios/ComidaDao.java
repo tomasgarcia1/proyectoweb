@@ -1,11 +1,11 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
 import java.util.List;
-import java.util.TreeSet;
 
 import org.hibernate.SessionFactory;
 
 import ar.edu.unlam.tallerweb1.modelo.Comida;
+import ar.edu.unlam.tallerweb1.modelo.Restriccion;
 
 public interface ComidaDao {
 
@@ -19,7 +19,11 @@ public interface ComidaDao {
 
 	List<Comida> obtenerComidas();
 	
+	List<Comida> obtenerComidasPorRestriccion(Restriccion restriccion);
+
 	List<Comida> obtenerComidasMasVistas();
-	
+
+	List<Comida> obtenerComidasMenosVistas();
+
 	void updateComida(Comida comida);
 }

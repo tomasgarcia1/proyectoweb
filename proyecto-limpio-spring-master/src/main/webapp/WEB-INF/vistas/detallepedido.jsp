@@ -49,7 +49,7 @@
 				</c:forEach>
 				<tr>
 
-					<td class="h4 mt-2">Total</td>
+					<td class="h4 mt-2">Total(envío incluido) :</td>
 					<td class="text-danger h4 mt-2">$ ${pedido.precio}</td>
 				</tr>
 			</tbody>
@@ -62,6 +62,11 @@
 		<h3 class="blockquote">Información</h3>
 		<hr>
 		<ul>
+			<li>
+				<h5>Fecha del Pedido:</h5>
+				<h4 class="text-secondary">${pedido.fecha}</h4>
+			</li>
+			<br>
 			<li>
 				<h5>Cliente:</h5>
 				<h4 class="text-danger">${pedido.usuario.email}</h4>

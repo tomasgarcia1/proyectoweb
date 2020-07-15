@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,10 +40,8 @@ public class ComidaDaoImpl implements ComidaDao {
 
 	@Override
 	public List<Comida> obtenerComidasSegunCalorias(Double calorias) {
-		return sesion.getCurrentSession().createCriteria(Comida.class)
-				.add(Restrictions.le("calorias", calorias))
-				.add(Restrictions.gt("calorias", 50.0))
-				.list();
+		return sesion.getCurrentSession().createCriteria(Comida.class).add(Restrictions.le("calorias", calorias))
+				.add(Restrictions.gt("calorias", 50.0)).list();
 	}
 
 	@Override
@@ -52,16 +51,28 @@ public class ComidaDaoImpl implements ComidaDao {
 		return comidas;
 	}
 
-	
-	public List<Comida> obtenerComidasMasVistas(){
-		List<Comida> comidasVistas = sesion.getCurrentSession().createCriteria(Comida.class).add(Restrictions.gt("contador", 5)).list();
+	public List<Comida> obtenerComidasMasVistas() {
+		List<Comida> comidasVistas = sesion.getCurrentSession().createCriteria(Comida.class)
+				.addOrder(Order.desc("contador")).setMaxResults(5).list();
 		return comidasVistas;
 	}
-	
-	
+
+	public List<Comida> obtenerComidasMenosVistas() {
+		List<Comida> comidasVistas = sesion.getCurrentSession().createCriteria(Comida.class)
+				.addOrder(Order.asc("contador")).setMaxResults(5).list();
+		return comidasVistas;
+	}
+
 	@Override
 	public void updateComida(Comida comida) {
 		sesion.getCurrentSession().update(comida);
+	}
+
+	@Override
+	public List<Comida> obtenerComidasPorRestriccion(Restriccion restriccion) {
+		List<Comida> comidas = sesion.getCurrentSession().createCriteria(Comida.class)
+				.createAlias("restricciones", "rjoin").add(Restrictions.eq("rjoin.id", restriccion.getId())).list();
+		return comidas;
 	}
 
 }

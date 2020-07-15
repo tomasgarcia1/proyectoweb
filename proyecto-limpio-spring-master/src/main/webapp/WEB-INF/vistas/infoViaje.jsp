@@ -20,6 +20,7 @@
 
 <body>
 	<div class="container my-5">
+		<h3>Esta es la informacion de su envío</h3>
 		<div class="row">
 			<div class="col-md-4">
 				<div class="card bg-light mb-3" style="max-width: 18rem;">

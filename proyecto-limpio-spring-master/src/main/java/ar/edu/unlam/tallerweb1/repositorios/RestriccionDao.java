@@ -10,13 +10,14 @@ public interface RestriccionDao {
 	Long crearRestriccion(Restriccion restriccion);
 
 	Restriccion obtenerRestriccionPorId(Long id);
+	
+	Restriccion obtenerRestriccionPorNombre(String nombre);
 
 	void borrarRestriccion(Restriccion restriccion);
 	
 	List<Restriccion> obtenerRestricciones();
 	
 	List<Restriccion> obtenerRestriccionPorComida(Comida comida);
-
 	
 	List<Restriccion> listarRestriccionesDeUsuario(Usuario usuario);
 }

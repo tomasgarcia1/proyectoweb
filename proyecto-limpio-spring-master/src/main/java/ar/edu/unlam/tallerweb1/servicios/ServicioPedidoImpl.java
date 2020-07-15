@@ -19,7 +19,6 @@ import ar.edu.unlam.tallerweb1.modelo.Pedido;
 import ar.edu.unlam.tallerweb1.modelo.Posicion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.PedidoDao;
-import ar.edu.unlam.tallerweb1.repositorios.UsuarioDao;
 
 @Service
 @Transactional
@@ -241,6 +240,10 @@ public class ServicioPedidoImpl implements ServicioPedido {
 	@Override
 	public void actualizarPedido(Pedido pedido, Estado estado) {
 		pedido.setEstado(estado);
+		pedidoDao.actualizarPedido(pedido);
+	}
+
+	public void updatePedido(Pedido pedido) {
 		pedidoDao.actualizarPedido(pedido);
 	}
 

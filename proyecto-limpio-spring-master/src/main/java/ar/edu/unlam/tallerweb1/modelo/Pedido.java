@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -19,7 +20,7 @@ public class Pedido {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id; 
-	//private Datetime fecha; 
+	private LocalDate fecha;
 	private Estado estado;
 	private Double precio;
 	//Agregada la relacion 1:N entre Usuario y Pedido
@@ -38,6 +39,21 @@ public class Pedido {
 	private List<Comida> comidas;
 	@OneToOne
 	private Posicion ubicacionDestino;
+	@OneToOne
+	private CuponDescuento cuponDescuento;
+	
+	public LocalDate getFecha() {
+		return fecha;
+	}
+	public void setFecha(LocalDate fecha) {
+		this.fecha = fecha;
+	}
+	public CuponDescuento getCuponDescuento() {
+		return cuponDescuento;
+	}
+	public void setCuponDescuento(CuponDescuento cuponDescuento) {
+		this.cuponDescuento = cuponDescuento;
+	}
 	
 	public Posicion getUbicacionDestino() {
 		return ubicacionDestino;

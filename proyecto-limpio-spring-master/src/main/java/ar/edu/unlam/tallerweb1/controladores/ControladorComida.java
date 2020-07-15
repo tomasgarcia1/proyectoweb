@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unlam.tallerweb1.modelo.Comida;
-import ar.edu.unlam.tallerweb1.modelo.OrdenPorContador;
 import ar.edu.unlam.tallerweb1.modelo.Posicion;
 import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.TipoHorario;
@@ -35,6 +34,18 @@ public class ControladorComida {
 
 	@Inject
 	private ServicioPedido servicioPedido;
+
+	@RequestMapping("/comidas")
+	public ModelAndView comidasRestriccion(@RequestParam(value = "nombre", required = true) String nombre) {
+
+		ModelMap model = new ModelMap();
+
+		List<Comida> comidas = servicioComida.obtenerComidasDeRestriccion(nombre);
+		
+		model.put("nombre", nombre);
+		model.put("comida", comidas);
+		return new ModelAndView("listarComidasRestriccion", model);
+	}
 
 	// --------ELIMINAR POR ID---------
 
@@ -111,7 +122,9 @@ public class ControladorComida {
 
 	}
 
-	@RequestMapping(path = "/mostrarComidasMasVistasyPedidas")
+	// -----------------COMIDAS VISTAS Y PEDIDAS----------------
+
+	@RequestMapping(path = "/mostrarComidasVistasyPedidas")
 	public ModelAndView contadorDeComidas(@RequestParam(value = "id", required = true) Long id,
 			HttpServletRequest request) {
 
@@ -121,10 +134,12 @@ public class ControladorComida {
 
 			Comida comida1 = servicioComida.obtenerPorId(id);
 			List<Comida> comidasContador = servicioComida.contadorComida(comida1);
-			TreeSet<Comida> comidasMasVistas = servicioComida.comidasMasVistas();
+			List<Comida> comidasMasVistas = servicioComida.comidasMasVistas();
+			List<Comida> comidasMenosVistas = servicioComida.comidasMenosVistas();
 			TreeSet<Comida> comidasMasPedidas = servicioPedido.comidasMasPedidas(user.getId());
 
 			modelo.put("comidasVistas", comidasMasVistas);
+			modelo.put("comidasMenosVistas", comidasMenosVistas);
 			modelo.put("comidasPedidas", comidasMasPedidas);
 			modelo.put("comidasContador", comidasContador);
 			modelo.put("comida", comida1);
@@ -135,6 +150,8 @@ public class ControladorComida {
 		}
 
 	}
+
+	// ----------------ELEGIR COMIDAS SEGUN RESTRICCIONES DEL USUARIO---------------
 
 	@RequestMapping(path = "/mostrarComidasEleccion")
 	public ModelAndView mostrarComidasEleccionUsuario(HttpServletRequest request) {
@@ -149,7 +166,6 @@ public class ControladorComida {
 			return new ModelAndView("listarElegirComidas", modelo);
 		} else {
 			return new ModelAndView("redirect:/interno");
-
 		}
 	}
 
