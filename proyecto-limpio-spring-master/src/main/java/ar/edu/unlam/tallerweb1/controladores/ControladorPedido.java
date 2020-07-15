@@ -62,6 +62,7 @@ public class ControladorPedido {
 		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
 		ModelMap model = new ModelMap();
 
+		if (user != null) {
 		servicioCuponDescuento.vencimientoDeCupon(user.getId());
 		// validacion de suscripcion
 		if (user.getSuscripcion() != null) {
@@ -76,6 +77,9 @@ public class ControladorPedido {
 		}
 
 		return new ModelAndView("elegirPedido", model);
+		}else {
+			return new ModelAndView("redirect:/login");
+		}
 	}
 
 	// ------------POSICION-----------

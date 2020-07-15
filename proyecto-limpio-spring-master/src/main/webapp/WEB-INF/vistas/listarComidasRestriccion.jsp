@@ -19,10 +19,15 @@
 </head>
 <body>
 
+	<c:if test="${not empty user}">
 	<%@include file="header.jsp"%>
+	</c:if>
+	
+	<c:if test="${empty user}">
+	<%@include file="headerSinLogin.jsp"%>
+	</c:if>
 
 	<div class="container -sm p-3">
-		<form method="GET" action="mostrarComidasEleccionUsuario">
 		<c:if test="${nombre == 'vegano'}">
 			<h3 class="text-center display-4">Comidas Veganas</h3>
 		</c:if>
@@ -42,6 +47,12 @@
 							<div class="card-body">
 								<h5 class="card-title text-center text-danger">${comidas.nombre}</h5>
 								<div class="align-center">
+									<c:if test="${not empty user}">
+										<form method="GET" action="mostrarComidasVistasyPedidas">
+										<input type="hidden" value="${comidas.id}" name="id">
+										<input type="submit" class="btn btn-danger btn-sm" value="Ver detalle">
+										</form>
+									</c:if>
 								</div>
 							</div>
 						</div>
@@ -49,7 +60,14 @@
 				</c:forEach>
 				<br>
 			</div>
-		</form>
+		<hr/>
+			<c:if test="${not empty user}">
+			<a href="interno" class="btn btn-outline-danger mt-2 btn-lg">Volver al home</a>
+			</c:if>
+			
+			<c:if test="${empty user}">
+			<a href="home" class="btn btn-outline-danger mt-2 btn-lg">Volver al home</a>
+			</c:if>
 	</div>
 
 	<!-- Footer -->

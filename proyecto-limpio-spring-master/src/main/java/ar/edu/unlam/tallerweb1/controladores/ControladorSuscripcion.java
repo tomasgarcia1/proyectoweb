@@ -62,8 +62,12 @@ public class ControladorSuscripcion {
 	}
 
 	@RequestMapping("/suscripciones")
-	public ModelAndView verSuscripciones() {
+	public ModelAndView verSuscripciones(HttpServletRequest request) {
 		ModelMap modelo = new ModelMap();
+		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
+
+		modelo.put("user", user);
+		
 		return new ModelAndView("verSuscripciones", modelo);
 	}
 	

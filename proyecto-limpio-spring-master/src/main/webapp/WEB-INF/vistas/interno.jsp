@@ -25,14 +25,6 @@
 		<div class="container">
 			<div class="jumbotron bg-white">
 				<h1 class="display-4">Bienvenido a Recomida!</h1>
-				<p class="lead">La única aplicación argentina que te recomienda
-					comida según tus gustos, restricciones por salud y calorías diarias
-					que necesite tu cuerpo!</p>
-				<hr class="my-4">
-				<a class="btn btn-outline-danger btn-lg" href="elegirPedido"
-					role="button">Realizar pedido</a> <a
-					class="btn btn-outline-danger btn-lg" href="suscripciones"
-					role="button">Suscripciones</a>
 			</div>
 		</div>
 	</section>
