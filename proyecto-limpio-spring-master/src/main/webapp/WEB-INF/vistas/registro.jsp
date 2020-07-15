@@ -101,6 +101,13 @@ label img {
 		<h3>Registro</h3>
 	</div>
 	<div class="container">
+		<c:if test="${not empty errores}">
+			<c:forEach items="${errores}" var="error">
+				<h5>
+					<span class="text-danger">${error}</span>
+				</h5>
+			</c:forEach>
+		</c:if>
 		<form:form action="registroValidacion" method="POST"
 			modelAttribute="usuario">
 
@@ -179,14 +186,6 @@ label img {
 					aria-pressed="false">Registrarse</button>
 			</div>
 		</form:form>
-		<c:if test="${not empty errores}">
-			<c:forEach items="${errores}" var="error">
-				<h4>
-					<span class="text-danger">${error}</span>
-				</h4>
-				<br>
-			</c:forEach>
-		</c:if>
 	</div>
 
 	<!-- Footer -->

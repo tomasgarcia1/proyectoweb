@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unlam.tallerweb1.modelo.Comida;
-import ar.edu.unlam.tallerweb1.modelo.Posicion;
 import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.TipoHorario;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
@@ -35,6 +34,7 @@ public class ControladorComida {
 	@Inject
 	private ServicioPedido servicioPedido;
 
+	/*---	VER COMIDAS DE UNA RESTRICCION (lo que aparece en el home)	---*/
 	@RequestMapping("/comidas")
 	public ModelAndView comidasRestriccion(@RequestParam(value = "nombre", required = true) String nombre) {
 
@@ -60,34 +60,40 @@ public class ControladorComida {
 	@RequestMapping("/sugerirMenuDelDia")
 	public ModelAndView sugerirMenuDelDia(HttpServletRequest request) {
 		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
-
+		
 		if (user != null) {
-			Long id = user.getId();
-			Double caloriasDiarias = servicioUsuario.obtenerCaloriasPorId(id);
+			Usuario usuario=servicioUsuario.obtenerUsuarioPorId(user.getId());
+			if((usuario.getSuscripcion()!=null) && (usuario.getSuscripcion().getEstado())) {
+				Long id = user.getId();
+				Double caloriasDiarias = servicioUsuario.obtenerCaloriasPorId(id);
 
-			List<Comida> menu1 = servicioPedido.generarMenusSugeridos(user);
-			List<Comida> menu2 = servicioPedido.generarMenusSugeridos(user);
-			List<Comida> menu3 = servicioPedido.generarMenusSugeridos(user);
-			String idComidas1 = servicioPedido.concatenarIdComidas(menu1);
-			String idComidas2 = servicioPedido.concatenarIdComidas(menu2);
-			String idComidas3 = servicioPedido.concatenarIdComidas(menu3);
-			ModelMap model = new ModelMap();
+				List<Comida> menu1 = servicioPedido.generarMenusSugeridos(user);
+				List<Comida> menu2 = servicioPedido.generarMenusSugeridos(user);
+				List<Comida> menu3 = servicioPedido.generarMenusSugeridos(user);
+				String idComidas1 = servicioPedido.concatenarIdComidas(menu1);
+				String idComidas2 = servicioPedido.concatenarIdComidas(menu2);
+				String idComidas3 = servicioPedido.concatenarIdComidas(menu3);
+				ModelMap model = new ModelMap();
 
-			for (Comida com : menu1) {
-				if (com.getId() == 0L) {
-					model.put("error",
-							"No se puede hacer un pedido ya que no se encontraron las 3 comidas que necesita");
+				for (Comida com : menu1) {
+					if (com.getId() == 0L) {
+						model.put("error",
+								"No se puede hacer un pedido ya que no se encontraron las 3 comidas que necesita");
+					}
 				}
+
+				model.put("menu1", menu1);
+				model.put("menu2", menu2);
+				model.put("menu3", menu3);
+				model.put("idcomidas1", idComidas1);
+				model.put("idcomidas2", idComidas2);
+				model.put("idcomidas3", idComidas3);
+
+				return new ModelAndView("sugerirMenuDelDia", model);
 			}
-
-			model.put("menu1", menu1);
-			model.put("menu2", menu2);
-			model.put("menu3", menu3);
-			model.put("idcomidas1", idComidas1);
-			model.put("idcomidas2", idComidas2);
-			model.put("idcomidas3", idComidas3);
-
-			return new ModelAndView("sugerirMenuDelDia", model);
+			else
+				return new ModelAndView("redirect:/elegirPedido");
+			
 
 		} else {
 			return new ModelAndView("redirect:/home");

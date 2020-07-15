@@ -37,26 +37,20 @@ import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
 public class ControladorPedido {
 
 	private ServicioMP servicioMP = new ServicioMP();
-
 	private Posicion posicionSucursal = new Posicion(-34.668680, -58.566209, "recomida");
-
 	@Inject
 	private ServicioPedido servicioPedido;
-
 	@Inject
 	private ServicioPosicion servicioPosicion;
-
 	@Inject
 	private ServicioSuscripcion servicioSuscripcion;
-
 	@Inject
 	private ServicioComida servicioComida;
-
 	@Inject
 	private ServicioCuponDescuento servicioCuponDescuento;
 
-	// ----------SELECCIONAR UBICACION MAPA---------
-
+						/*--------------FLUJO DEL PEDIDO--------------*/
+	/*--------------ELEGIR PEDIDO (menuDelDia, menuRestricciones o comida)--------------*/
 	@RequestMapping(path = "/elegirPedido")
 	public ModelAndView elegir(HttpServletRequest request) {
 		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
@@ -77,79 +71,8 @@ public class ControladorPedido {
 
 		return new ModelAndView("elegirPedido", model);
 	}
-
-	// ------------POSICION-----------
-
-	@RequestMapping(path = "/posicionId", method = RequestMethod.POST)
-	public ModelAndView posicionDeUser(@RequestParam("id") Long idPosicion, HttpServletRequest request,
-			RedirectAttributes atributos) {
-
-		Posicion posicion = this.servicioPosicion.obtenerPosicionPorId(idPosicion);
-
-		this.servicioPosicion.crearPosicion(posicion);
-
-		ModelMap model = this.servicioPedido.generarPreviewPosicion(posicionSucursal, posicion);
-
-		return new ModelAndView("infoViaje", model);
-	}
-
-	// ----------DISTANCIA DEL PEDIDO------
-
-	@RequestMapping(path = "/mostrar", method = RequestMethod.POST)
-	public ModelAndView distanciaDelPedido(@ModelAttribute("posicion") Posicion posicion,
-			@RequestParam(value = "id", required = false) Long idPosicion,
-			@RequestParam(value = "idComidas", required = true) String idComidas, HttpServletRequest request) {
-
-		if (posicion.getLatitude() == 0 && posicion.getLongitude() == 0 && idPosicion == -1 || idComidas == null) {
-			return new ModelAndView("redirect:/elegirPedido");
-		}
-		ModelMap model;
-		if (idPosicion != -1) {
-			// vino posicion vieja
-			Posicion pos = this.servicioPosicion.obtenerPosicionPorId(idPosicion);
-			System.out.println(pos.getNombre());
-			model = this.servicioPedido.generarPreviewPosicion(posicionSucursal, pos);
-
-		} else {
-			// vino posicion nueva
-			this.servicioPosicion.crearPosicion(posicion);
-			model = this.servicioPedido.generarPreviewPosicion(posicionSucursal, posicion);
-		}
-
-		model.put("idComidas", idComidas);
-
-		return new ModelAndView("infoViaje", model);
-	}
-
-	// ---------------MOSTRAR DISTANCIA------------
-
-	@RequestMapping(path = "/mostrarDistancia", method = RequestMethod.POST)
-	public ModelAndView distanciaDelPedidoDeUnaComida(@ModelAttribute("posicion") Posicion posicion,
-			@RequestParam(value = "id", required = false) Long idPosicion,
-			@RequestParam(value = "idComida", required = true) Long idComida, HttpServletRequest request) {
-
-		if (posicion.getLatitude() == 0 && posicion.getLongitude() == 0 && idPosicion == -1 || idComida == null) {
-			return new ModelAndView("redirect:/elegirPedido");
-		}
-		ModelMap model;
-		if (idPosicion != -1) {
-			// vino posicion vieja
-			Posicion pos = this.servicioPosicion.obtenerPosicionPorId(idPosicion);
-			System.out.println(pos.getNombre());
-			model = this.servicioPedido.generarPreviewPosicion(posicionSucursal, pos);
-
-		} else {
-			// vino posicion nueva
-			this.servicioPosicion.crearPosicion(posicion);
-			model = this.servicioPedido.generarPreviewPosicion(posicionSucursal, posicion);
-		}
-
-		model.put("idComida", idComida);
-
-		return new ModelAndView("infoViajeComida", model);
-	}
-
-	// ----------MENU SUGERIDO-------
+	
+	/*--------------VER MENU POR RESTRICCIONES--------------*/
 
 	/*
 	 * Se recibe el usuario activo en la sesion para obtener sus restricciones
@@ -186,7 +109,22 @@ public class ControladorPedido {
 		return new ModelAndView("menuSugerido", model);
 	}
 
-	// --------SELECCIONAR UBICACION-------
+						/*--------------UBICACION--------------*/
+	/*--------------POSICION DEL USUARIO--------------*/
+
+	@RequestMapping(path = "/posicionId", method = RequestMethod.POST)
+	public ModelAndView posicionDeUser(@RequestParam("id") Long idPosicion, HttpServletRequest request,
+			RedirectAttributes atributos) {
+
+		Posicion posicion = this.servicioPosicion.obtenerPosicionPorId(idPosicion);
+
+		this.servicioPosicion.crearPosicion(posicion);
+
+		ModelMap model = this.servicioPedido.generarPreviewPosicion(posicionSucursal, posicion);
+
+		return new ModelAndView("infoViaje", model);
+	}
+	/*--------------SELECCIONAR UBICACION DE PEDIDO (menu)--------------*/
 
 	/*
 	 * Se recibe como parametro un String con la opcion elegida en la vista
@@ -221,7 +159,7 @@ public class ControladorPedido {
 		return new ModelAndView("mapa", model);
 	}
 
-	// ------SELECCIONAR UBICACION UNICA COMIDA----------
+	/*--------------SELECCIONAR UBICACION DEL PEDIDO (comida)--------------*/
 
 	@RequestMapping(path = "/seleccionarUbicacionUnicaComida", method = RequestMethod.POST)
 	public ModelAndView seleccionarUbicacionUnicaComida(@RequestParam("idComidas") Long idComida,
@@ -247,8 +185,64 @@ public class ControladorPedido {
 		model.put("posicionesUsuario", posicionesDelUsuario);
 		return new ModelAndView("mapaComida", model);
 	}
+	/*--------------MOSTRAR DATOS DE ENVIO (menu)--------------*/
 
-	// --------GENERAR PEDIDO-------
+	@RequestMapping(path = "/mostrar", method = RequestMethod.POST)
+	public ModelAndView distanciaDelPedido(@ModelAttribute("posicion") Posicion posicion,
+			@RequestParam(value = "id", required = false) Long idPosicion,
+			@RequestParam(value = "idComidas", required = true) String idComidas, HttpServletRequest request) {
+
+		if (posicion.getLatitude() == 0 && posicion.getLongitude() == 0 && idPosicion == -1 || idComidas == null) {
+			return new ModelAndView("redirect:/elegirPedido");
+		}
+		ModelMap model;
+		if (idPosicion != -1) {
+			// vino posicion vieja
+			Posicion pos = this.servicioPosicion.obtenerPosicionPorId(idPosicion);
+			System.out.println(pos.getNombre());
+			model = this.servicioPedido.generarPreviewPosicion(posicionSucursal, pos);
+
+		} else {
+			// vino posicion nueva
+			this.servicioPosicion.crearPosicion(posicion);
+			model = this.servicioPedido.generarPreviewPosicion(posicionSucursal, posicion);
+		}
+
+		model.put("idComidas", idComidas);
+
+		return new ModelAndView("infoViaje", model);
+	}
+
+	/*--------------MOSTRAR DATOS DE ENVIO (comida)--------------*/
+
+	@RequestMapping(path = "/mostrarDistancia", method = RequestMethod.POST)
+	public ModelAndView distanciaDelPedidoDeUnaComida(@ModelAttribute("posicion") Posicion posicion,
+			@RequestParam(value = "id", required = false) Long idPosicion,
+			@RequestParam(value = "idComida", required = true) Long idComida, HttpServletRequest request) {
+
+		if (posicion.getLatitude() == 0 && posicion.getLongitude() == 0 && idPosicion == -1 || idComida == null) {
+			return new ModelAndView("redirect:/elegirPedido");
+		}
+		ModelMap model;
+		if (idPosicion != -1) {
+			// vino posicion vieja
+			Posicion pos = this.servicioPosicion.obtenerPosicionPorId(idPosicion);
+			System.out.println(pos.getNombre());
+			model = this.servicioPedido.generarPreviewPosicion(posicionSucursal, pos);
+
+		} else {
+			// vino posicion nueva
+			this.servicioPosicion.crearPosicion(posicion);
+			model = this.servicioPedido.generarPreviewPosicion(posicionSucursal, posicion);
+		}
+
+		model.put("idComida", idComida);
+
+		return new ModelAndView("infoViajeComida", model);
+	}
+
+				/*--------------GENERACION Y ABONO DE PEDIDO--------------*/
+	/*--------------GENERAR PEDIDO (menu)--------------*/
 
 	@RequestMapping(path = "/generarpedido", method = RequestMethod.POST)
 	public ModelAndView vistaPedido(@ModelAttribute("posicion") Posicion posicion,
@@ -282,7 +276,7 @@ public class ControladorPedido {
 		return new ModelAndView("pedidoPorConfirmar", model);
 	}
 
-	// ---------GENERAR COMIDA UNICA COMIDA------------
+	/*--------------GENERAR PEDIDO (comida)--------------*/
 
 	@RequestMapping(path = "/generarpedidoUnicaComida", method = RequestMethod.POST)
 	public ModelAndView vistaPedidoComidaUnica(@ModelAttribute("posicion") Posicion posicion,
@@ -315,7 +309,7 @@ public class ControladorPedido {
 		return new ModelAndView("pedidoPorConfirmarComida", model);
 	}
 
-	// -------PAGAR PEDIDO-----
+	/*--------------PAGAR PEDIDO--------------*/
 
 	/*
 	 * Se le envia el pedido creado y seteado anteriormente, y se le otorga el
@@ -358,38 +352,8 @@ public class ControladorPedido {
 		model.put("pedido", nuevoPedido);
 		return new ModelAndView("pedidoRealizado", model);
 	}
-
-	// ----------ACTUALIZAR ESTADO DEL PEDIDO---------
-
-	@RequestMapping(path = "/actualizarestado", method = RequestMethod.POST)
-	public ModelAndView actualizarEstado(String id, String estado, HttpServletRequest request) {
-		Pedido pedido = servicioPedido.buscarPedidoPorId(Long.parseLong(id));
-		Estado estadoPedido = Enum.valueOf(Estado.class, estado);
-		if (pedido != null) {
-			pedido.setEstado(estadoPedido);
-			servicioPedido.actualizarPedido(pedido, estadoPedido);
-		}
-		return new ModelAndView("redirect:/verpedidos");
-	}
-
-	// ----------CANCELAR PEDIDO---------
-
-	/*
-	 * Se recibe por parametro el ID del pedido que queremos cancelar. Si es
-	 * distinto de null, se realiza la accion sobre el pedido existente.
-	 */
-
-	@RequestMapping(path = "/cancelarpedido", method = RequestMethod.GET)
-	public ModelAndView cancelarPedidoPorId(@RequestParam(value = "id", required = true) String id,
-			HttpServletRequest request) {
-		Pedido pedido = servicioPedido.buscarPedidoPorId(Long.parseLong(id));
-
-		if ((pedido != null) && !(pedido.getEstado().equals(Estado.ENVIADO)))
-			servicioPedido.actualizarPedido(pedido, Estado.CANCELADO);
-		return new ModelAndView("redirect:/home");
-	}
-
-	// ----------LISTA DE MIS PEDIDOS-------
+									/*-------	ADMINISTRACION -------*/
+	/*--------------LISTAR PEDIDOS (cliente)--------------*/
 
 	@RequestMapping(path = "/mispedidos")
 	public ModelAndView listarPedidos(HttpServletRequest request) {
@@ -401,7 +365,7 @@ public class ControladorPedido {
 		return new ModelAndView("listapedidos", model);
 	}
 
-	// --------VER PEDIDO ADMINISTRADOR---------
+	/*--------------LISTAR PEDIDOS (administrador)--------------*/
 
 	@RequestMapping(path = "/verpedidos")
 	public ModelAndView listarPedidosAdmin(HttpServletRequest request) {
@@ -416,7 +380,8 @@ public class ControladorPedido {
 			return new ModelAndView("redirect:/mispedidos");
 		}
 	}
-	// ---------DETALLE DE PEDIDO--------
+	
+	/*--------------DETALLE DE UN PEDIDO--------------*/
 
 	@RequestMapping(path = "/detallepedido")
 	public ModelAndView verDetallePedido(@RequestParam(value = "id", required = true) Long id,
@@ -424,15 +389,55 @@ public class ControladorPedido {
 		ModelMap model = new ModelMap();
 		Pedido pedido = servicioPedido.buscarPedidoPorId(id);
 		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
-		List<Estado> estados = Arrays.asList(Estado.values());
-		List<Comida> comidas = servicioPedido.listarComidasDeUnPedido(pedido);
-		model.put("pedido", pedido);
-		model.put("usuario", user);
-		model.put("estados", estados);
-		model.put("comidas", comidas);
-		return new ModelAndView("detallepedido", model);
+		if(((user.getId().equals(pedido.getUsuario().getId())) 
+				|| user.getRol().equals(Rol.ADMINISTRADOR)) && (pedido!=null))
+		{
+			List<Estado> estados = Arrays.asList(Estado.values());
+			List<Comida> comidas = servicioPedido.listarComidasDeUnPedido(pedido);
+			model.put("pedido", pedido);
+			model.put("usuario", user);
+			model.put("estados", estados);
+			model.put("comidas", comidas);
+			return new ModelAndView("detallepedido", model);
+		}
+		return new ModelAndView("redirect:/mispedidos");
+		
 	}
 
+	/*--------------ACTUALIZAR ESTADO DE UN PEDIDO--------------*/
+
+	@RequestMapping(path = "/actualizarestado", method = RequestMethod.POST)
+	public ModelAndView actualizarEstado(String id, String estado, HttpServletRequest request) {
+		Pedido pedido = servicioPedido.buscarPedidoPorId(Long.parseLong(id));
+		Estado estadoPedido = Enum.valueOf(Estado.class, estado);
+		if (pedido != null) {
+			pedido.setEstado(estadoPedido);
+			servicioPedido.actualizarPedido(pedido, estadoPedido);
+		}
+		return new ModelAndView("redirect:/verpedidos");
+	}
+
+	/*--------------CANCELAR PEDIDO--------------*/
+
+	/*
+	 * Se recibe por parametro el ID del pedido que queremos cancelar. Si es
+	 * distinto de null, se realiza la accion sobre el pedido existente.
+	 */
+
+	@RequestMapping(path = "/cancelarpedido", method = RequestMethod.GET)
+	public ModelAndView cancelarPedidoPorId(@RequestParam(value = "id", required = true) String id,
+			HttpServletRequest request) {
+		Pedido pedido = servicioPedido.buscarPedidoPorId(Long.parseLong(id));
+		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
+		
+		if ((pedido != null) && !(pedido.getEstado().equals(Estado.ENVIADO))
+				&& ((user.getId().equals(pedido.getUsuario().getId())) 
+						|| user.getRol().equals(Rol.ADMINISTRADOR)))
+			servicioPedido.actualizarPedido(pedido, Estado.CANCELADO);
+		return new ModelAndView("redirect:/verpedidos");
+	}
+	
+	/*-------	GETTERS Y SETTERS SERVICIOS	 -------*/
 	public ServicioMP getServicioMP() {
 		return servicioMP;
 	}

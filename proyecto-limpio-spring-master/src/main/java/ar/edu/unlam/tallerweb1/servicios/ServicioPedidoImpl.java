@@ -271,8 +271,4 @@ public class ServicioPedidoImpl implements ServicioPedido {
 	public Posicion listarPosicionesDeUnUsuario(Pedido pedido) {
 		return pedidoDao.listarPosicion(pedido);
 	}
-
-
-	
-
 }

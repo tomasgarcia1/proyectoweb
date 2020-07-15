@@ -1,6 +1,5 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -18,9 +17,7 @@ import com.mercadopago.resources.Preference;
 
 import ar.edu.unlam.tallerweb1.modelo.Comida;
 import ar.edu.unlam.tallerweb1.modelo.CuponDescuento;
-import ar.edu.unlam.tallerweb1.modelo.Estado;
 import ar.edu.unlam.tallerweb1.modelo.MoldeCupon;
-import ar.edu.unlam.tallerweb1.modelo.Pedido;
 import ar.edu.unlam.tallerweb1.modelo.Posicion;
 import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;

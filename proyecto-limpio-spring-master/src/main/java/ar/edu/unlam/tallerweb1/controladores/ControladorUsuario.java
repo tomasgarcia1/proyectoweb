@@ -37,15 +37,16 @@ public class ControladorUsuario {
 	private ServicioPedido servicioPedido;
 	@Inject
 	private ServicioPosicion servicioPosicion;
-	
 
-	// -----------REGISTRO----------
 	@Autowired
 	public ControladorUsuario(ServicioUsuario servicioUsuario2, ServicioRestriccion servicioRestriccion2) {
 		this.servicioUsuario = servicioUsuario2;
 		this.servicioRestriccion = servicioRestriccion2;
 	}
-
+	
+	
+	/*--------------REGISTRO--------------*/
+	
 	@RequestMapping("/registro")
 	public ModelAndView registrar() {
 		ModelMap modelo = new ModelMap();
@@ -61,7 +62,7 @@ public class ControladorUsuario {
 		return new ModelAndView("registro", modelo);
 	}
 
-	// --------REGISTRO VALIDACION--------
+	/*--------------VALIDACION DE REGISTRO--------------*/
 
 	@RequestMapping(path = "/registroValidacion", method = RequestMethod.POST)
 	public ModelAndView validarRegistro(@ModelAttribute("usuario") Usuario usuario, String restriccion, RedirectAttributes atributos) {
@@ -78,6 +79,9 @@ public class ControladorUsuario {
 			return new ModelAndView("redirect:/registro"); 
 		} 	        			
 	}
+	
+	/*--------------EDICION DE DATOS DE USUARIO--------------*/
+	
 	@RequestMapping(path = "/editarUsuario")
 	public ModelAndView editarUsuario(HttpServletRequest request) {
 		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
@@ -89,6 +93,9 @@ public class ControladorUsuario {
 		modelo.put("sexos", sexos);
 		return new ModelAndView("editarUsuario", modelo);
 	}
+	
+	/*--------------VALIDAR EDICION DE DATOS DE USUARIO--------------*/
+	
 	@RequestMapping(path="/editarValidacion")
 	public ModelAndView editarValidacion(@ModelAttribute("usuario") Usuario usuario, RedirectAttributes atributos,HttpServletRequest request) {
 		List<String> errores=servicioUsuario.validarUsuarioEditar(usuario);

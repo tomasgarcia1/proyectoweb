@@ -29,6 +29,13 @@
 		<h3>Editar usuario</h3>
 	</div>
 	<div class="container">
+		<c:if test="${not empty errores}">
+			<c:forEach items="${errores}" var="error">
+				<h5>
+					<span class="text-danger">${error}</span>
+				</h5>
+			</c:forEach>
+		</c:if>
 		<form:form action="editarValidacion" method="POST"
 			modelAttribute="usuario">
 
@@ -94,14 +101,6 @@
 					aria-pressed="false">Aceptar</button>
 			</div>
 		</form:form>
-		<c:if test="${not empty errores}">
-			<c:forEach items="${errores}" var="error">
-				<h4>
-					<span class="text-danger">${error}</span>
-				</h4>
-				<br>
-			</c:forEach>
-		</c:if>
 	</div>
 
 	<!-- Footer -->

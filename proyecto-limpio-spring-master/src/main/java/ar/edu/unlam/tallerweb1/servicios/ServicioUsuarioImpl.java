@@ -249,6 +249,8 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 		return fecha;
 	}
 	
+	//----------EDITAR USUARIO----------
+	
 	public void editarUsuario(Usuario usuario) {
 		usuario.setCaloriasDiarias(calcularCaloriasDiarias(usuario));
 		usuario.setPassword(encriptarPassword(usuario.getPassword()));
