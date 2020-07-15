@@ -20,6 +20,15 @@ import ar.edu.unlam.tallerweb1.modelo.Usuario;
 @Transactional
 public class ComidaDaoImpl implements ComidaDao {
 	
+	
+	public SessionFactory getSesion() {
+		return sesion;
+	}
+
+	public void setSesion(SessionFactory sesion) {
+		this.sesion = sesion;
+	}
+
 	@Inject
 	private SessionFactory sesion;
 

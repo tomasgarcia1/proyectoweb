@@ -26,4 +26,6 @@ public interface ComidaDao {
 	List<Comida> obtenerComidasMenosVistas();
 
 	void updateComida(Comida comida);
+
+	void setSesion(SessionFactory sessionFactory);
 }
