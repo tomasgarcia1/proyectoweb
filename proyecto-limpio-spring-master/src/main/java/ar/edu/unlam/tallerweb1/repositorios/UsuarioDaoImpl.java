@@ -63,5 +63,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 	public void editarUsuario(Usuario usuario) {
 		sesion.getCurrentSession().merge(usuario);
 	}
-
+	public void setSesion(SessionFactory sesion) {
+		this.sesion=sesion;
+	}
 }
