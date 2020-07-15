@@ -22,6 +22,7 @@ public class CuponDescuentoDaoImpl implements CuponDescuentoDao {
 	@Override
 	public void agregarCupon(CuponDescuento cupon) {
 		session.getCurrentSession().save(cupon);
+
 	}
 
 	@Override
@@ -57,6 +58,11 @@ public class CuponDescuentoDaoImpl implements CuponDescuentoDao {
 	public List<MoldeCupon> listarMoldeCupon() {
 		List<MoldeCupon> moldeCupon = session.getCurrentSession().createCriteria(MoldeCupon.class).list();
 		return moldeCupon;
+	}
+
+	@Override
+	public void setSesion(SessionFactory sessionFactory) {
+		this.session = sessionFactory;
 	}
 
 }

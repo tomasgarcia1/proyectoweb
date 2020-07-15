@@ -7,7 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 @Entity
 public class CuponDescuento {
@@ -18,8 +17,14 @@ public class CuponDescuento {
 	private Integer valor;
 	private Boolean estado;
 	private LocalDate fechavencimiento;
-
 	
+	public CuponDescuento() {
+
+	}
+
+	public CuponDescuento(int i, int valor2, boolean estado2, int j) {
+	}
+
 	@ManyToOne
 	private Usuario usuario;
 

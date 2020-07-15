@@ -32,7 +32,7 @@ public class ServicioCuponDescuentoImpl implements ServicioCuponDescuento {
 
 	@Override
 	public void agregarCupon(CuponDescuento cupon) {
-		cuponDescuentoDao.agregarCupon(cupon);
+	 cuponDescuentoDao.agregarCupon(cupon);
 	}
 
 	@Override
