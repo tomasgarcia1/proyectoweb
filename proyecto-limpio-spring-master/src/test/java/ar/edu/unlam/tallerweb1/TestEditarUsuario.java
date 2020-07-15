@@ -8,17 +8,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.junit.Test;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ar.edu.unlam.tallerweb1.controladores.ControladorUsuario;
-
+import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
-
+import ar.edu.unlam.tallerweb1.repositorios.UsuarioDao;
+import ar.edu.unlam.tallerweb1.repositorios.UsuarioDaoImpl;
 import ar.edu.unlam.tallerweb1.servicios.ServicioRestriccion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
-public class TestEditarUsuario {
+import ar.edu.unlam.tallerweb1.servicios.ServicioUsuarioImpl;
+import ar.edu.unlam.tallerweb1.SpringTest;
 
+public class TestEditarUsuario extends SpringTest{
+	
+	private UsuarioDao usuarioDao=new UsuarioDaoImpl();
+	private ServicioUsuario us = new ServicioUsuarioImpl();
 	@Test
 	public void testEditarUsuarioCorrecto() {
 		
@@ -64,6 +72,22 @@ public class TestEditarUsuario {
 		
 		assertThat(resultado.getViewName()).isEqualTo("redirect:/editarUsuario");
 
-	}
-	
+	} 
+
+
+
+    @Test
+    @Transactional @Rollback
+    public void editarUsuarioDao(){
+        Usuario usuario = new Usuario();
+        this.usuarioDao.setSesion(session().getSessionFactory());
+        usuario.setEmail("seba@gmail.com");
+        usuario.setPassword("1234");
+        Long id =  this.usuarioDao.registrarUsuario(usuario);
+        usuario.setId(id);
+        usuario.setEmail("tomas@mail.com");
+        this.usuarioDao.editarUsuario(usuario);  
+        assertThat(this.usuarioDao.obtenerUsuarioPorId(id).getEmail()).isEqualTo("tomas@mail.com");
+    }
+   
 }
