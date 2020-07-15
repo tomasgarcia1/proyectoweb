@@ -29,6 +29,10 @@ public class ServicioCuponDescuentoImpl implements ServicioCuponDescuento {
 
 	@Inject
 	private PedidoDao pedidoDao;
+	
+	@Inject
+	private ServicioMoldeCupon servicioMolde;
+
 
 	@Override
 	public void agregarCupon(CuponDescuento cupon) {
@@ -73,38 +77,57 @@ public class ServicioCuponDescuentoImpl implements ServicioCuponDescuento {
 	public void setPedidoDao(PedidoDao pedidoDao) {
 		this.pedidoDao = pedidoDao;
 	}
-	
-	/*
-	 * // --------AGREGAR CUPON DE DESCUENTO USUARIO CALCULO SEGUN GASTOS--------
-	 * 
-	 * public void agregarCuponDescuentoUsuarioGastos(Double precioPedido, LocalDate
-	 * fecha, Long id) { Usuario user = usuarioDao.obtenerUsuarioPorId(id); Integer
-	 * cupones = cuponesUsuario(id).size(); Double gastos = user.getGastos(); Double
-	 * importeAux = ((gastos + precioPedido) / 500); Double resultado = importeAux -
-	 * cupones; if (resultado >= 1) { MoldeCupon molde = valorMoldeAleatorio();
-	 * CuponDescuento cupon = new CuponDescuento();
-	 * cupon.setValor(molde.getValor()); cupon.setUsuario(user);
-	 * cupon.setEstado(true); LocalDate fechavencimiento = fecha.plusDays(5);
-	 * cupon.setFechavencimiento(fechavencimiento); agregarCupon(cupon); } }
-	 *//*
-		 * // ---AGREGAR CUPON DE DESCUENTO USUARIO CALCULO ENTRE DOS DIAS EN BASE A //
-		 * GASTOS-----
-		 * 
-		 * public void agregarCuponDescuentoUsuario2Fechas(Double precioPedido,
-		 * LocalDate fecha, Long id) { Usuario user =
-		 * usuarioDao.obtenerUsuarioPorId(id); LocalDate fechahoy = fecha; LocalDate
-		 * fechaayer = fechahoy.minusDays(1); LocalDate fechaantesayer =
-		 * fechahoy.minusDays(2); Double gastosUser = user.getGastos(); Double
-		 * gastosFinal = gastosUser + precioPedido; user.setGastos(gastosFinal);
-		 * usuarioDao.update(user); List<Pedido> pedidos =
-		 * pedidoDao.listarPedidosEntreFechasDeUnUsuario(user, fechaantesayer,
-		 * fechaayer); Double gastosPedido = 0.0; for (Pedido pedido : pedidos) {
-		 * gastosPedido += pedido.getPrecio(); } if (gastosPedido >= 400.0) { MoldeCupon
-		 * molde = valorMoldeAleatorio(); CuponDescuento cupon = new CuponDescuento();
-		 * cupon.setValor(molde.getValor()); cupon.setUsuario(user);
-		 * cupon.setEstado(true); LocalDate fechavencimiento = fechahoy.plusDays(5);
-		 * cupon.setFechavencimiento(fechavencimiento); agregarCupon(cupon); } }
-		 */
+
+	// --------AGREGAR CUPON DE DESCUENTO USUARIO CALCULO SEGUN GASTOS--------
+/*
+	public void agregarCuponDescuentoUsuarioGastos(Double precioPedido, LocalDate fecha, Long id) {
+		Usuario user = usuarioDao.obtenerUsuarioPorId(id);
+		Integer cupones = cuponesUsuario(id).size();
+		Double gastos = user.getGastos();
+		Double importeAux = ((gastos + precioPedido) / 500);
+		Double resultado = importeAux - cupones;
+		if (resultado >= 1) {
+			MoldeCupon molde = valorMoldeAleatorio();
+			CuponDescuento cupon = new CuponDescuento();
+			cupon.setValor(molde.getValor());
+			cupon.setUsuario(user);
+			cupon.setEstado(true);
+			LocalDate fechavencimiento = fecha.plusDays(5);
+			cupon.setFechavencimiento(fechavencimiento);
+			agregarCupon(cupon);
+		}
+	}
+
+	// ---AGREGAR CUPON DE DESCUENTO USUARIO CALCULO ENTRE DOS DIAS EN BASE A
+	// GASTOS-----
+
+	public void agregarCuponDescuentoUsuario2Fechas(Double precioPedido, LocalDate fecha, Long id) {
+		Usuario user = usuarioDao.obtenerUsuarioPorId(id);
+		LocalDate fechahoy = fecha;
+		LocalDate fechaayer = fechahoy.minusDays(1);
+		LocalDate fechaantesayer = fechahoy.minusDays(2);
+		Double gastosUser = user.getGastos();
+		Double gastosFinal = gastosUser + precioPedido;
+		user.setGastos(gastosFinal);
+		usuarioDao.update(user);
+		List<Pedido> pedidos = pedidoDao.listarPedidosEntreFechasDeUnUsuario(user, fechaantesayer, fechaayer);
+		Double gastosPedido = 0.0;
+		for (Pedido pedido : pedidos) {
+			gastosPedido += pedido.getPrecio();
+		}
+		if (gastosPedido >= 400.0) {
+			MoldeCupon molde = valorMoldeAleatorio();
+			CuponDescuento cupon = new CuponDescuento();
+			cupon.setValor(molde.getValor());
+			cupon.setUsuario(user);
+			cupon.setEstado(true);
+			LocalDate fechavencimiento = fechahoy.plusDays(5);
+			cupon.setFechavencimiento(fechavencimiento);
+			agregarCupon(cupon);
+		}
+	}
+
+	*/
 	// --------AGREGAR CUPON DE DESCUENTO USUARIO CALCULO SEGUN CANT PEDIDOS DE 1
 	// SEMANA----------
 
@@ -129,6 +152,19 @@ public class ServicioCuponDescuentoImpl implements ServicioCuponDescuento {
 		}
 	}
 
+	//----------AGREGAR CUPON AL USUARIO POR OBTENER CUPON------------
+	
+	public void agregarCuponAlUsuario(Long id, Usuario user) {
+		MoldeCupon molde = servicioMolde.consultarMoldeCuponPorId(id);
+		CuponDescuento cupon = new CuponDescuento();
+		cupon.setValor(molde.getValor());
+		cupon.setEstado(true);
+		LocalDate fechavencimiento = LocalDate.now().plusDays(2);
+		cupon.setFechavencimiento(fechavencimiento);
+		cupon.setUsuario(user);
+		agregarCupon(cupon);
+	}
+	
 	// ------SELECCION DE UN MOLDE ALEATORIO------
 
 	public MoldeCupon valorMoldeAleatorio() {

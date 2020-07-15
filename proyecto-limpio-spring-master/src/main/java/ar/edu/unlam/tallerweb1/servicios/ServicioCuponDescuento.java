@@ -5,6 +5,7 @@ import java.util.List;
 
 import ar.edu.unlam.tallerweb1.modelo.CuponDescuento;
 import ar.edu.unlam.tallerweb1.modelo.MoldeCupon;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
 public interface ServicioCuponDescuento {
 
@@ -30,6 +31,7 @@ public interface ServicioCuponDescuento {
 	
 	void vencimientoDeCupon(Long id); 
 	
+	void agregarCuponAlUsuario(Long id, Usuario user);
 	// void agregarCuponDescuentoUsuarioGastos(Double precioPedido, Long id);
 	
 	// void agregarCuponDescuentoUsuario2Fechas(Double precioPedido, LocalDate fecha, Long id);
