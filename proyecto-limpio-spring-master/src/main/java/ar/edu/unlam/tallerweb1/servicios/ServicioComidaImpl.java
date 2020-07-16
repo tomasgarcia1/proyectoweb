@@ -45,6 +45,9 @@ public class ServicioComidaImpl implements ServicioComida {
 		comidaDao.borrar(comida);
 	}
 
+	public void updateComida(Comida comida) {
+		comidaDao.updateComida(comida);
+	}
 	// --------------------GETTERS Y SETTERS PARA LOS TEST----------------------
 
 	public ComidaDao getComidaDao() {
@@ -70,7 +73,7 @@ public class ServicioComidaImpl implements ServicioComida {
 	public void setRestriccionDao(RestriccionDao restriccionDao) {
 		this.restriccionDao = restriccionDao;
 	}
-	
+
 	// --------------------SUGERIR COMIDAS POR RESTRICCIONES----------------------
 
 	@Override
@@ -273,10 +276,6 @@ public class ServicioComidaImpl implements ServicioComida {
 		return comidaDao.obtenerComidas();
 	}
 
-	public void updateComida(Comida comida) {
-		comidaDao.updateComida(comida);
-	}
-
 	// --------------CONTADOR COMIDA ------------
 
 	public List<Comida> contadorComida(Comida comida) {
@@ -303,30 +302,6 @@ public class ServicioComidaImpl implements ServicioComida {
 		return comidasMasVistas;
 	}
 
-	/*
-	 * // --------------COMIDAS MAS VISTAS SEGUN USUARIO ------------
-	 * 
-	 * public List<Comida> comidasMasVistasSegunUsuario(Long id) { List<Comida>
-	 * comidasMasVistas = comidaDao.obtenerComidasMasVistas(); List<Comida>
-	 * comidasUsuario = listarComidasSegunRestricciones(id); List<Comida> comidas =
-	 * new LinkedList<Comida>();
-	 * 
-	 * for (Comida c : comidasMasVistas) { for (Comida cUser : comidasUsuario) { if
-	 * (c.getRestricciones().equals(cUser.getRestricciones())) { comidas.add(c); } }
-	 * } return comidas; }
-	 * 
-	 * // --------------COMIDAS MENOS VISTAS SEGUN USUARIO ------------
-	 * 
-	 * public List<Comida> comidasMenosVistasSegunUsuario(Long id) { List<Comida>
-	 * comidasMenosVistas = comidaDao.obtenerComidasMenosVistas(); List<Comida>
-	 * comidasUsuario = listarComidasSegunRestricciones(id); List<Comida> comidas =
-	 * new LinkedList<Comida>();
-	 * 
-	 * for (Comida c : comidasMenosVistas) { for (Comida cUser : comidasUsuario) {
-	 * if (c.getRestricciones().equals(cUser.getRestricciones())) { comidas.add(c);
-	 * } } } return comidas; }
-	 */
-
 	// --------------LISTAR COMIDAS USUARIO SIN REPETIR ------------
 
 	@Override
@@ -343,8 +318,8 @@ public class ServicioComidaImpl implements ServicioComida {
 		return listacomidas;
 	}
 
-	//-------------LISTAR COMIDAS SEGUN RESTRICCION-----------------
-	
+	// -------------LISTAR COMIDAS SEGUN RESTRICCION-----------------
+
 	@Override
 	public List<Comida> obtenerComidasDeRestriccion(String nombre) {
 		Restriccion rest = restriccionDao.obtenerRestriccionPorNombre(nombre);
