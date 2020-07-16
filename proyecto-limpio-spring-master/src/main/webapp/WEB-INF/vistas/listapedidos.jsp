@@ -35,9 +35,7 @@
 						<th scope="col" class="text-danger">Usuario</th>
 					</c:if>
 					<th scope="col" class="text-danger">Detalle</th>
-					<c:if test="${usuario.rol == 'ADMINISTRADOR'}">
 						<th scope="col" class="text-danger">Cancelar</th>
-					</c:if>
 				</tr>
 			</thead>
 			<tbody>
@@ -63,7 +61,7 @@
 						</c:if>
 						<td><a href="detallepedido?id=${pedido.id}">VER DETALLE</a></td>
 						<c:if
-							test="${pedido.estado != 'CANCELADO' && pedido.estado != 'ENVIADO' && usuario.rol == 'ADMINISTRADOR'}">
+							test="${pedido.estado != 'CANCELADO' && pedido.estado != 'ENVIADO'}">
 							<td><a href="cancelarpedido?id=${pedido.id}">CANCELAR</a></td>
 						</c:if>
 						<c:if

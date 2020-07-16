@@ -79,16 +79,14 @@ if(select!=null){
 			
 		  var id=coords[2];
 		  
-		  
 		  document.getElementsByName("id")[0].value =id;
 		  document.getElementsByName("latitude")[0].value = 0;
 	      document.getElementsByName("longitude")[0].value = 0;
-	      document.getElementsByName("nombre")[0].value = 0;	      
-	    
-	      var x = document.getElementById("location").options.item(id).text;
+	      document.getElementsByName("nombre")[0].value = 0;
+
+	      var x = document.getElementById("location").options[document.getElementById("location").selectedIndex].text;
 	      
-	      results.addLayer(L.marker(coords).addTo(mymap).bindPopup(""+x).openPopup());		
-	      
+	     	results.addLayer(L.marker(coords).addTo(mymap).bindPopup(""+x).openPopup());			
 		  mymap.flyTo(coords, 11);	  
 		  button.disabled=false;
 	  }
