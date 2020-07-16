@@ -182,6 +182,7 @@ label img {
 				</ul>
 			</div>
 			<div class="container p-0 mb-3 mt-3">
+				<a href="home" class="btn btn-outline-danger btn-lg">Ir a Home</a>
 				<button type="submit" class="btn btn-primary btn-lg"
 					aria-pressed="false">Registrarse</button>
 			</div>

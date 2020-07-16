@@ -54,7 +54,7 @@
 					
 				</script>
 			</form>
-			<a href="interno" class="btn btn-danger m-3">Cancelar</a>
+			<button type="button" onclick="history.go(-1)" class="btn btn-outline-danger m-3">Volver</button>
 		</div>
 	</div>
 

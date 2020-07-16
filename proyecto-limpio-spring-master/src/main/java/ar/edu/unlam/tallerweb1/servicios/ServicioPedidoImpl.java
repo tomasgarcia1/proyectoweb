@@ -294,7 +294,7 @@ public class ServicioPedidoImpl implements ServicioPedido {
 		//Emisor
         String from = "recomida2020@gmail.com";
         String pass = "Recomida20";
-        String cuerpo = "Felicitaciones, "+usuario.getUsername()+" Recomida te regala un cupon de $"+cuponNuevo.getValor()+
+        String cuerpo = "Felicitaciones, "+usuario.getUsername()+", Recomida te regala un cupon de $"+cuponNuevo.getValor()+
         		" con validez hasta "+cuponNuevo.getFechavencimiento().toString()+". ¡Disfrutalo!";
         
         // Obtiene las propiedades del sistema (no se si es necesario)

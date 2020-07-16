@@ -106,6 +106,7 @@ label img {
 					</li>
 				</c:forEach>
 			</ul>
+			<button type="button" onclick="history.go(-1)" class="btn btn-outline-danger">Atrás</button>
 			<button class="btn btn-success">Confirmar gustos</button>
 		</form>
 	</div>

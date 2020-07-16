@@ -99,7 +99,8 @@ label img {
 				</li>
 			</c:forEach>
 		</ul>
-		 <a class="btn btn-danger" href="seleccionarRestricciones">Modificar restricciones</a>
+		<a class="btn btn-outline-danger" href="home">Ir a home</a>
+		<a class="btn btn-danger" href="seleccionarRestricciones">Modificar restricciones</a>
 
 	</div>
 

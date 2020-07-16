@@ -79,6 +79,7 @@
 					name="longitude" id="longitude" value="${posicion.longitude}" /> <input
 					type="hidden" name="nombre" id="nombre" value="${posicion.nombre}" />
 					<input type="hidden" name="idComidas" value="${comida.id}" />
+					<button type="button" onclick="history.go(-1)" class="btn btn-outline-danger">Atrás</button>
 					<button type="submit" class="btn btn-danger">Comprar</button>
 				</li>
 			</ul>

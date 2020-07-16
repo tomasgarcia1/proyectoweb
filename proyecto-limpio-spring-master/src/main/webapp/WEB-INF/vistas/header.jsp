@@ -15,14 +15,16 @@
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item active"><a class="nav-link" href="home">Inicio</a>
 					</li>
+					<c:if test="${usuario.rol == 'CLIENTE'}">
 					<li class="nav-item"><a class="nav-link" href="elegirPedido">Realizar pedido</a></li>
 					<li class="nav-item"><a class="nav-link" href="suscripciones">Suscripciones</a></li>
-					
+					</c:if>
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 						role="button" data-toggle="dropdown" aria-haspopup="true"
 						aria-expanded="false">${usuario.username} </a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<c:if test="${usuario.rol == 'CLIENTE'}">
 							<a class="dropdown-item" href="mostrarRestriccionesDeUsuario">Mis
 								restricciones</a>
 							<div class="dropdown-divider"></div>
@@ -33,10 +35,9 @@
 							<a class="dropdown-item" href="miscupones">Mis cupones</a>
 							<div class="dropdown-divider"></div>
 							</c:if>
-
 							<a class="dropdown-item" href="miSuscripcion">Mi suscripción</a>
 							<div class="dropdown-divider"></div>
-
+						</c:if>
 							<a class="dropdown-item" href="editarUsuario">Editar cuenta</a>
 							<div class="dropdown-divider"></div>
 

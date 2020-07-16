@@ -33,6 +33,7 @@
 				<form:input path="valor" id="valor" type="number"
 					class="form-control" required="required" />
 			</div>
+			<a href="home" class="btn btn-outline-danger mb-5">Atrás</a>
 			<button type="submit" class="btn btn-danger mb-5">Crear</button>
 		</form:form>
 

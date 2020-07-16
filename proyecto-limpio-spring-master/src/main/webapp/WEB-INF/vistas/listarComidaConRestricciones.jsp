@@ -32,8 +32,8 @@
 					<li class="list-group-item lead">${restriccion.nombre}</li>
 				</c:forEach>
 			</ul>
-			
-			<a class="btn btn-outline-danger mt-5" href="adminInterno">Confirmar restricciones</a>
+			<button type="button" onclick="history.go(-1)" class="btn btn-outline-danger mt-5">Atrás</button>
+			<a class="btn btn-danger mt-5" href="adminInterno">Confirmar restricciones</a>
 			
 		</div>
 		

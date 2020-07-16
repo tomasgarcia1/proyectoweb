@@ -43,5 +43,10 @@ public class SuscripcionDaoImpl implements SuscripcionDao {
 		sesion.getCurrentSession().delete(susc);
 	}
 
+	@Override
+	public void setSesion(SessionFactory sessionFactory) {
+		this.sesion=sessionFactory;
+	}
+
 	
 }

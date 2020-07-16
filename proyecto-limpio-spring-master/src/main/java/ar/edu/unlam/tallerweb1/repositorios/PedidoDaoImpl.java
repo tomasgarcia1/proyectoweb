@@ -62,4 +62,8 @@ public class PedidoDaoImpl implements PedidoDao {
 		add(Restrictions.and(Restrictions.eq("usuario.id", usuario.getId()), Restrictions.between("fecha", fechaanterior, fechadespues))).list();
 		return pedidos;
 	}
+	@Override
+	public void setSesion(SessionFactory sessionFactory) {
+		this.sesion=sessionFactory;	
+	}
 }

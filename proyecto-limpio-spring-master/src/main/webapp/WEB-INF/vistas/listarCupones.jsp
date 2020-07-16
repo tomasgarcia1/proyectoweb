@@ -45,6 +45,7 @@
 					</tr>
 				</c:forEach>
 		</table>
+		<a href="home" class="btn btn-outline-danger mt-5 btn-lg">Volver a Home</a>
 	</section>
 
 <!-- Footer -->

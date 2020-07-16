@@ -94,8 +94,9 @@
 				</h4>
 				<br>
 			</c:if>
+			<a href="elegirPedido" class="btn btn-outline-danger mt-5 btn-lg">Atrás</a>
 			<c:if test="${empty error}">
-				<input type="submit" class="btn btn-danger mt-5 btn-block" value="Confirmar">
+				<input type="submit" class="btn btn-danger mt-5 btn-lg" value="Confirmar">
 				<br>
 			</c:if>
 

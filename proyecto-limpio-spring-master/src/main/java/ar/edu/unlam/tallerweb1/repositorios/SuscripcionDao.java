@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
+import org.hibernate.SessionFactory;
+
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
 
@@ -14,5 +16,7 @@ public interface SuscripcionDao {
 	void updateSuscripcion(Suscripcion susc);
 
 	void eliminarSuscripcion(Suscripcion susc);
+
+	void setSesion(SessionFactory sessionFactory);
 
 }

@@ -65,7 +65,7 @@
 							<td><a href="cancelarpedido?id=${pedido.id}">CANCELAR</a></td>
 						</c:if>
 						<c:if
-							test="${pedido.estado != 'ACEPTADO' && pedido.estado != 'ENVIO' && pedido.estado != 'PROCESO' && usuario.rol == 'ADMINISTRADOR'}">
+							test="${pedido.estado != 'ACEPTADO' && pedido.estado != 'ENVIO' && pedido.estado != 'PROCESO'}">
 							<td>No se puede cancelar, ya concretó el estado del pedido</td>
 						</c:if>
 					</tr>

@@ -81,7 +81,7 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 	//--------VALIDAR USERNAME--------
 	public Boolean validarUsername(String username)
 	{
-		if(!(username.length()>=3&&username.length()<=12))
+		if(!(username.length()>=3&&username.length()<=25))
 			return false;
 		return true;
 	}

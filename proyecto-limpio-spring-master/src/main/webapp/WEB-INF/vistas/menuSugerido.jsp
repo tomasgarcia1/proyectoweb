@@ -92,8 +92,11 @@
 				value="${posicion.latitude}" /> <input type="hidden"
 				name="longitude" id="longitude" value="${posicion.longitude}" /> <input
 				type="hidden" name="nombre" id="nombre" value="${posicion.nombre}" />
-
-			<button type="submit" class="btn btn-danger btn-block mt-5 ">Confirmar</button>
+				
+					<a href="elegirPedido" class="btn btn-outline-danger mt-5 btn-lg">Atrás</a>
+					<button type="submit" class="btn btn-danger mt-5 btn-lg">Confirmar</button>
+				
+			
 		</form>
 	</section>
 

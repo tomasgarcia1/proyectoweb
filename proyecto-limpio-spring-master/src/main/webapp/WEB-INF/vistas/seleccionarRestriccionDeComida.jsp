@@ -50,7 +50,7 @@
 					<span> ${restriccion.nombre}</span>
 					<br>
 				</c:forEach>
-					
+			<button type="button" onclick="history.go(-1)" class="btn btn-outline-danger mt-4">Atrás</button>
 			<button type="submit" class="btn btn-danger mt-4" id="checkBtn">Agregar Restricción</button>
 
 			

@@ -76,7 +76,7 @@
 		</div>
 
 		<div class="mt-5">
-
+			
 			<form action="pagarpedido" method="GET" class="d-inline">
 				<input type="hidden" name="id" value="${id}"> <input
 					type="hidden" name="idPosicion" value="${idPosicion}"> <input
@@ -87,8 +87,7 @@
 					
 				</script>
 			</form>
-			<a href="interno" class="btn btn-danger m-3">Cancelar</a>
-
+			<button type="button" onclick="history.go(-1)" class="btn btn-outline-danger m-3">Volver</button>
 		</div>
 	</div>
 

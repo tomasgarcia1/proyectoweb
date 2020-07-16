@@ -70,8 +70,9 @@
 	
 	<input type="hidden" name="idComidas" value="${idComidas}">
 
-	<button type="submit" id="boton" class="btn btn-success my-3">Confirmar ubicacion</button>
-	
+		<button type="button" onclick="history.go(-1)" class="btn btn-outline-danger my-3">Atrás</button>
+		<button type="submit" id="boton" class="btn btn-success my-3">Confirmar ubicacion</button>
+
 </form:form>
  
 </div>

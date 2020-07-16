@@ -97,6 +97,8 @@
 
 			
 			<div class="container p-0 mb-3 mt-3">
+				<a href="home" class="btn btn-outline-danger btn-lg"
+					>Volver a Home</a>
 				<button type="submit" class="btn btn-primary btn-lg"
 					aria-pressed="false">Aceptar</button>
 			</div>

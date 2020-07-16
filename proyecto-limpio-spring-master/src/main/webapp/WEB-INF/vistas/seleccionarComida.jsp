@@ -53,7 +53,7 @@
 					</c:forEach>
 				</form:select>
 			</div>
-
+			<button type="button" onclick="history.go(-1)" class="btn btn-outline-danger mt-4">Atrás</button>
 			<button type="submit" class="btn btn-danger mt-4">Aceptar</button>
 
 		</form:form>

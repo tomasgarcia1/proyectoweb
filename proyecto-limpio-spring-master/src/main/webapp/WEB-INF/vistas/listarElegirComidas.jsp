@@ -42,9 +42,10 @@
 						</div>
 					</div>
 				</c:forEach>
-				<br>
 			</div>
-		</form>
+		</form>	
+		<a href="elegirPedido" class="btn btn-danger btn-lg btn-block">Atrás</a>
+		
 	</div>
 
 	<!-- ---<section class="container -sm p-2">
