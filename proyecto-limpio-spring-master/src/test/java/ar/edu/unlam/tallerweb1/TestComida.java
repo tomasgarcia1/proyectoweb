@@ -1,11 +1,13 @@
 package ar.edu.unlam.tallerweb1;
 
+import org.hibernate.SessionFactory;
 import org.junit.Test;
 import ar.edu.unlam.tallerweb1.modelo.Comida;
 import ar.edu.unlam.tallerweb1.modelo.Restriccion;
 import ar.edu.unlam.tallerweb1.modelo.TipoHorario;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.ComidaDao;
+import ar.edu.unlam.tallerweb1.repositorios.ComidaDaoImpl;
 import ar.edu.unlam.tallerweb1.repositorios.RestriccionDao;
 import ar.edu.unlam.tallerweb1.repositorios.UsuarioDao;
 import ar.edu.unlam.tallerweb1.servicios.ServicioComidaImpl;
@@ -14,9 +16,14 @@ import static org.mockito.Mockito.*;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import static org.assertj.core.api.Assertions.*;
 
-public class TestServicioComida {
+public class TestComida {
+		
+	@Inject
+	private ComidaDao cD;
 
 	// ----------TEST OBTENCION DE TIPO HORARIO DE COMIDA-------------
 
@@ -307,5 +314,5 @@ public class TestServicioComida {
 			assertThat(comidaAux.getRestricciones()).containsAll(restricciones);
 		}
 	}
-		
 }
+		
