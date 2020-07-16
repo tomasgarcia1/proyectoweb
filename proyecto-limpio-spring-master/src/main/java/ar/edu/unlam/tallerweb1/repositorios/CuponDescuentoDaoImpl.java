@@ -59,4 +59,9 @@ public class CuponDescuentoDaoImpl implements CuponDescuentoDao {
 		return moldeCupon;
 	}
 
+	@Override
+	public void setSesion(SessionFactory sessionFactory) {
+		this.session = sessionFactory;
+	}
+
 }

@@ -57,6 +57,7 @@ public class TestCupones {
 
 		when(request.getSession()).thenReturn(sesion);
 		when(request.getSession().getAttribute("usuario")).thenReturn(user);
+		when(user.getRol()).thenReturn(Rol.CLIENTE);
 		when(servicioCuponDescuento.cuponesUsuario(user.getId())).thenReturn(cupones);
 
 		ModelAndView model = cC.miscupones(request);

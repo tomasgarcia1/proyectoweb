@@ -36,8 +36,6 @@ public class TestDaoCupon extends SpringTest {
 		assertEquals(cupon, cuponaux);
 	}
 	
-/* tiene que mergear fran :)
- * 
 	@Test
 	@Transactional
 	@Rollback
@@ -47,7 +45,4 @@ public class TestDaoCupon extends SpringTest {
 		Long id = this.cuponDao.agregarCupon(cupon);
 		assertFalse(id.equals(null));
 	}
-	
-	*/
-
 }
