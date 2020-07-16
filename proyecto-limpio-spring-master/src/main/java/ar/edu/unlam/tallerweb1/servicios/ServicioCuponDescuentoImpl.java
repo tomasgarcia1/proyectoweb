@@ -136,7 +136,7 @@ public class ServicioCuponDescuentoImpl implements ServicioCuponDescuento {
 		user.setGastos(gastosFinal);
 		usuarioDao.update(user);
 		List<Pedido> pedidos = pedidoDao.listarPedidosEntreFechasDeUnUsuario(user, fechaweekatras, fechahoy);
-		if (pedidos.size() >= 4) {
+		if (pedidos.size() % 4 == 0) {
 			MoldeCupon molde = valorMoldeAleatorio();
 			CuponDescuento cupon = new CuponDescuento();
 			cupon.setValor(molde.getValor());
