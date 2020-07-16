@@ -26,7 +26,7 @@ import ar.edu.unlam.tallerweb1.SpringTest;
 public class TestEditarUsuario extends SpringTest{
 	
 	private UsuarioDao usuarioDao=new UsuarioDaoImpl();
-	private ServicioUsuario us = new ServicioUsuarioImpl();
+	
 	@Test
 	public void testEditarUsuarioCorrecto() {
 		
