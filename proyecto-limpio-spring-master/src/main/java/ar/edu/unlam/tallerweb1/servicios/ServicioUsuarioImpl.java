@@ -258,5 +258,6 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 		usuario.setRol(usuarioDao.obtenerUsuarioPorId(usuario.getId()).getRol());
 		usuarioDao.editarUsuario(usuario);
 	}
+
 }
 

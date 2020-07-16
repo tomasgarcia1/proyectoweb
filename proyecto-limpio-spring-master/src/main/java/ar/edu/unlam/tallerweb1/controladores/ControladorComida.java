@@ -36,13 +36,16 @@ public class ControladorComida {
 
 	/*---	VER COMIDAS DE UNA RESTRICCION (lo que aparece en el home)	---*/
 	@RequestMapping("/comidas")
-	public ModelAndView comidasRestriccion(@RequestParam(value = "nombre", required = true) String nombre) {
+	public ModelAndView comidasRestriccion(@RequestParam(value = "nombre", required = true) String nombre,
+			HttpServletRequest request) {
 
 		ModelMap model = new ModelMap();
+		Usuario user = (Usuario) request.getSession().getAttribute("usuario");
 
 		List<Comida> comidas = servicioComida.obtenerComidasDeRestriccion(nombre);
 		
 		model.put("nombre", nombre);
+		model.put("user", user);
 		model.put("comida", comidas);
 		return new ModelAndView("listarComidasRestriccion", model);
 	}

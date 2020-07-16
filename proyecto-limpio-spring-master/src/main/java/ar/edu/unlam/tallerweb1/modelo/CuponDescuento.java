@@ -7,7 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -21,8 +20,14 @@ public class CuponDescuento {
 	private Boolean estado;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fechavencimiento;
-
 	
+	public CuponDescuento() {
+
+	}
+
+	public CuponDescuento(int i, int valor2, boolean estado2, int j) {
+	}
+
 	@ManyToOne
 	private Usuario usuario;
 

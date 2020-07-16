@@ -2,6 +2,8 @@ package ar.edu.unlam.tallerweb1.repositorios;
 
 import java.util.List;
 
+import org.hibernate.SessionFactory;
+
 import ar.edu.unlam.tallerweb1.modelo.CuponDescuento;
 import ar.edu.unlam.tallerweb1.modelo.MoldeCupon;
 
@@ -20,5 +22,7 @@ public interface CuponDescuentoDao {
 	List<CuponDescuento> listarCuponesHabilitados();
 	
 	List<MoldeCupon> listarMoldeCupon();
+
+	void setSesion(SessionFactory sessionFactory);
 
 }

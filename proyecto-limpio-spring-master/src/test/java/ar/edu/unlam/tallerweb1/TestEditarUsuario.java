@@ -26,7 +26,7 @@ import ar.edu.unlam.tallerweb1.SpringTest;
 public class TestEditarUsuario extends SpringTest{
 	
 	private UsuarioDao usuarioDao=new UsuarioDaoImpl();
-	private ServicioUsuario us = new ServicioUsuarioImpl();
+	
 	@Test
 	public void testEditarUsuarioCorrecto() {
 		
@@ -90,4 +90,19 @@ public class TestEditarUsuario extends SpringTest{
         assertThat(this.usuarioDao.obtenerUsuarioPorId(id).getEmail()).isEqualTo("tomas@mail.com");
     }
    
+	@Test
+	@Transactional @Rollback
+	public void verificarConsultaEmailYPassUser(){
+	   Usuario user = new Usuario();
+	   user.setEmail("juan@gmail.com");
+	   user.setPassword("123456Ab");
+	
+	   this.usuarioDao.setSesion(session().getSessionFactory());
+	   
+	   this.usuarioDao.registrarUsuario(user);
+	   Usuario result = this.usuarioDao.consultarEmailYPassDeUsuario(user);
+	   
+	   assertThat(result).isEqualTo(user);
+	
+	}
 }

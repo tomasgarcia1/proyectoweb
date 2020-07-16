@@ -2,6 +2,8 @@ package ar.edu.unlam.tallerweb1.repositorios;
 
 import java.util.List;
 
+import org.hibernate.SessionFactory;
+
 import ar.edu.unlam.tallerweb1.modelo.Comida;
 import ar.edu.unlam.tallerweb1.modelo.Restriccion;
 
@@ -25,4 +27,5 @@ public interface ComidaDao {
 
 	void updateComida(Comida comida);
 
+	void setSesion(SessionFactory sessionFactory);
 }
