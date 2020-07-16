@@ -38,10 +38,6 @@ public interface ServicioComida {
 	TreeSet<Comida> listarComidasUsuarioSinRepetir(Long id);
 
 	List<Comida> contadorComida(Comida comida);
-/*
-	List<Comida> comidasMasVistasSegunUsuario(Long id);
-	
-	List<Comida> comidasMenosVistasSegunUsuario(Long id); */
 	
 	List<Comida> comidasMasVistas();
 	
